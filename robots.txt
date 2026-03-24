@@ -1,0 +1,3 @@
+# https://github.com/qbitOS/qbitos-kbatch
+User-agent: *
+Allow: /

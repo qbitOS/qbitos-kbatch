@@ -1,0 +1,31 @@
+name: Bug Report
+description: Error in KBatch docs, reference JSON, or sync instructions
+title: "[Bug]: "
+labels: ["bug"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        For **app** bugs in `web/kbatch.html`, use **[qbitOS/uvspeed](https://github.com/qbitOS/uvspeed/issues)** unless documentation-only.
+
+  - type: dropdown
+    id: area
+    attributes:
+      label: Area
+      options:
+        - docs/KBATCH_ARCHITECTURE.md
+        - docs/kbatch-overview.md
+        - reference/kbatch-surface.json
+        - COMPLIANCE.qmd / NOTICES
+        - Cursor rule (.cursor/rules/kbatch-architecture.mdc)
+        - UPSTREAM.md / README
+        - Other
+    validations:
+      required: true
+
+  - type: textarea
+    id: description
+    attributes:
+      label: Description
+    validations:
+      required: true

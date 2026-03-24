@@ -1,0 +1,21 @@
+<!--
+Copyright (c) 2026 qbitOS / ugrad.ai. All rights reserved.
+SPDX-License-Identifier: Apache-2.0
+Source: https://github.com/qbitOS/qbitos-kbatch
+-->
+
+# qbitos{qbitos-kbatch} Compliance Baseline
+
+## Compliance Root
+
+- Canonical policy: https://github.com/qbitOS/compliance
+
+## Runtime Path
+
+`Prefixes (quantum-prefixes) -> DAC -> Steno -> .qbit -> Iron Line -> preflight`
+
+KBatch sits at **Iron Line L4** (Notepad / Everything lane) and consumes **Gluelam** modules — see [docs/KBATCH_ARCHITECTURE.md](docs/KBATCH_ARCHITECTURE.md).
+
+## Control Envelope
+
+`Capsule graph / contrail / training channels / no forked prefix engines`

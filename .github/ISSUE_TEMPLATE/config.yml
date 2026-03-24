@@ -1,0 +1,14 @@
+blank_issues_enabled: true
+contact_links:
+  - name: Upstream monorepo (uvspeed)
+    url: https://github.com/qbitOS/uvspeed
+    about: Bugs in web/kbatch.html, capsules, or shared modules belong in uvspeed unless this repo’s docs/reference only.
+  - name: KBatch docs (this repo)
+    url: https://github.com/qbitOS/qbitos-kbatch/tree/main/docs
+    about: L4 placement, channels, capsule contracts.
+  - name: Iron Line
+    url: https://github.com/qbitOS/qbitos-iron-line
+    about: L0–L7 pipeline (KBatch = L4).
+  - name: Gluelam
+    url: https://github.com/qbitOS/qbitos-gluelam
+    about: Shared prefix/DAC/steno modules.

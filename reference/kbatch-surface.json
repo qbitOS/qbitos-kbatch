@@ -1,0 +1,31 @@
+{
+  "$schema": "qbitos.kbatch.surface.v1",
+  "name": "KBatch",
+  "upstream_app": "web/kbatch.html",
+  "upstream_repo": "https://github.com/qbitOS/uvspeed",
+  "iron_line": {
+    "layer": "L4",
+    "lane": "Notepad / Everything"
+  },
+  "counts": {
+    "capsules": 121,
+    "categories": 16,
+    "keyboard_layouts": 15
+  },
+  "broadcast_channels": [
+    "hexterm",
+    "quantum-prefixes",
+    "iron-line",
+    "kbatch-training",
+    "kbatch-transcript"
+  ],
+  "gluelam_modules": [
+    "quantum-prefixes.js",
+    "qbit-dac.js",
+    "qbit-steno.js"
+  ],
+  "related_org_repos": [
+    "https://github.com/qbitOS/qbitos-iron-line",
+    "https://github.com/qbitOS/qbitos-gluelam"
+  ]
+}

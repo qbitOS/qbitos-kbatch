@@ -1,0 +1,14 @@
+---
+description: KBatch L4 reference — capsules, channels, Gluelam, Iron Line
+alwaysApply: false
+---
+
+# KBatch (org mirror)
+
+- **Canonical app:** `web/kbatch.html` in [qbitOS/uvspeed](https://github.com/qbitOS/uvspeed).
+- **Layer:** Iron Line **L4** (Notepad / Everything).
+- **Stack:** Gluelam — prefixes → DAC → steno; no forked classifiers.
+- **Channels:** `kbatch-training`, `kbatch-transcript`, plus `hexterm`, `quantum-prefixes`, `iron-line` as wired in app.
+- **This repo:** docs + JSON only — do not duplicate application logic here.
+
+See `docs/KBATCH_ARCHITECTURE.md` and `UPSTREAM.md`.

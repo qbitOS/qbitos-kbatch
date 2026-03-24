@@ -1,0 +1,23 @@
+# qbitOS KBatch — llms.txt
+
+> https://github.com/qbitOS/qbitos-kbatch
+
+## Summary
+
+KBatch (L4) — world keyboard analyzer: **121 capsules**, **16 categories**, **15 layouts**, StenoEngine, contrail, IBM Quantum bridge, plan corpus cross-links. Runs on Gluelam + Iron Line.
+
+## Key files
+
+- docs/KBATCH_ARCHITECTURE.md — full placement + channels
+- docs/kbatch-overview.md — short pointer
+- reference/kbatch-surface.json — JSON surface summary
+- COMPLIANCE.qmd — org baseline
+
+## Upstream code
+
+https://github.com/qbitOS/uvspeed — web/kbatch.html
+
+## Related
+
+https://github.com/qbitOS/qbitos-iron-line — Iron Line
+https://github.com/qbitOS/qbitos-gluelam — Gluelam
