@@ -371,19 +371,43 @@
         var punct = extractPunct(text);
         if (qIsPunctOnly) {
           var want = q.replace(/\s/g, "");
-          var hasAll = true;
-          for (var pi = 0; pi < want.length; pi++) {
-            if (text.indexOf(want[pi]) < 0) hasAll = false;
+          var hitP = false;
+          /* normalize dash family */
+          if (/[-–—]/.test(want) && /[-–—]/.test(text)) {
+            hitP = true;
+            score += 3.5;
+            reasons.push("punct-dash");
           }
-          if (hasAll && want.length) {
-            score += 4;
-            reasons.push("punct-exact");
-            layerHits.punct = { query: want, marks: punct.count };
+          if (/\.\.\.|…/.test(want) && /(\.\.\.|…)/.test(text)) {
+            hitP = true;
+            score += 3.5;
+            reasons.push("punct-ellipsis");
+          }
+          for (var pi = 0; pi < want.length; pi++) {
+            var chp = want[pi];
+            if (/[-–—]/.test(chp)) continue;
+            if (text.indexOf(chp) >= 0) {
+              hitP = true;
+              score += 2.2;
+            }
+          }
+          /* ASCII double-hyphen used as em-dash in transcript */
+          if (want.indexOf("—") >= 0 || want.indexOf("–") >= 0 || want === "-") {
+            if (text.indexOf("--") >= 0) {
+              hitP = true;
+              score += 3;
+              reasons.push("punct--");
+            }
+          }
+          if (hitP) {
+            layerHits.punct = { query: want, marks: punct.count, classes: punct.classes };
           }
         } else if (qPunct.count && punct.count) {
           var sharedP = 0;
           qPunct.marks.forEach(function (pm) {
             if (text.indexOf(pm.ch) >= 0) sharedP++;
+            else if (/[-–—]/.test(pm.ch) && (text.indexOf("--") >= 0 || /[-–—]/.test(text)))
+              sharedP++;
           });
           if (sharedP) {
             score += sharedP * 0.6;
@@ -391,7 +415,6 @@
             reasons.push("punct×" + sharedP);
           }
         } else if (!q && punct.count) {
-          /* empty query + punct layer = surface lines rich in punct */
           score += Math.min(1.5, punct.count * 0.08);
           layerHits.punct = { count: punct.count, classes: punct.classes };
         }
@@ -405,15 +428,22 @@
           cadence: inton.cadence,
           syllables: inton.totalSyllables,
         };
-        if (q.indexOf("?") >= 0 && inton.cadence === "half") {
-          score += 1.5;
-          reasons.push("rise-cadence");
+        if (q.indexOf("?") >= 0) {
+          if (/\?/.test(text) || inton.cadence === "half") {
+            score += 2.2;
+            reasons.push("rise-cadence");
+          }
         }
-        if (q.indexOf("!") >= 0 && /fall|authentic/.test(inton.cadence)) {
-          score += 1.2;
-          reasons.push("fall-cadence");
+        if (q.indexOf("!") >= 0) {
+          if (/!/.test(text) || /fall|authentic/.test(inton.cadence)) {
+            score += 1.8;
+            reasons.push("fall-cadence");
+          }
         }
-        /* soft boost if query words share contour density */
+        /* empty query + intonation: prefer longer cadences */
+        if (!q && inton.totalSyllables >= 8) {
+          score += Math.min(1.2, inton.totalSyllables * 0.03);
+        }
         if (qWords.length && inton.totalSyllables) {
           score += Math.min(0.8, inton.totalSyllables * 0.02);
         }
