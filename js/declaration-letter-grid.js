@@ -14,19 +14,22 @@
 (function (global) {
   "use strict";
 
-  var VER = "declaration-letter-grid-v6-speed-glow";
+  var VER = "declaration-letter-grid-v7-classy";
   var TARGET_RGB = "rgb(10, 132, 255)";
   /** WebGrid default round length (seconds) */
   var ROUND_S = 70;
   var DEFAULT_N = 12;
-  var DEFAULT_HOP_MS = 120; /* MG / human hop pace (sudoku-style report) */
-  var MIN_HOP_MS = 1; /* turbo / agent max */
+  var DEFAULT_HOP_MS = 120; /* human play default — always readable */
+  var MIN_HOP_MS = 1; /* agent / turbo floor */
   var GLYPH_RAIL = 48;
-  /** Contrail layers: word-first → sentence jumps → same-letter recognition */
+  /**
+   * Contrail layers — hairline, edition-native (not neon glow).
+   * Human play first: board glyphs stay legible; trails are quiet guides.
+   */
   var CONTRAIL_MODES = [
-    { id: "word", label: "Word firsts", color: "#30d158", width: 1.55 },
-    { id: "sentence", label: "Sentence jumps", color: "#ff9f0a", width: 2.15 },
-    { id: "same", label: "Same letter", color: "#64d2ff", width: 1.7 },
+    { id: "word", label: "Word firsts", color: "rgba(63,185,80,0.45)", width: 0.55 },
+    { id: "sentence", label: "Sentence", color: "rgba(210,153,34,0.4)", width: 0.7 },
+    { id: "same", label: "Same letter", color: "rgba(88,166,255,0.42)", width: 0.55 },
   ];
   var SPEED_PRESETS = [
     { id: "human", label: "120ms", ms: 120 },
@@ -328,11 +331,11 @@
       finalNtpm: 0,
       lastReport: null,
       agentMode: false,
-      /* contrail layers: word firsts · sentence jumps · same letter */
+      /* human-readable defaults: word trail on, sentence on, same-letter off (opt-in) */
       contrail: {
         word: true,
         sentence: true,
-        same: true,
+        same: false,
       },
       contrailFocusLetter: null, /* override; else target glyph letter */
       contrailPts: { word: [], sentence: [], same: [] },
@@ -454,25 +457,30 @@
     contrailBar.setAttribute("aria-label", "Contrail layers");
     var contrailBtns = {};
     CONTRAIL_MODES.forEach(function (m) {
-      var b = el("button", "dlg-contrail-chip on", m.label);
+      var on = !!state.contrail[m.id];
+      var b = el("button", "dlg-contrail-chip" + (on ? " on" : ""), m.label);
       b.type = "button";
       b.dataset.contrail = m.id;
       b.title =
         m.id === "word"
-          ? "Draw contrails through the first letter of every word on this layer"
+          ? "Quiet hairline through first letter of each word (readable)"
           : m.id === "sentence"
-            ? "Sentence-start jumps (after . ! ?)"
-            : "Connect every cell matching the focus letter (target / xref)";
+            ? "Faint dashed links between sentence starts"
+            : "Opt-in: link cells matching focus letter (can clutter — off by default)";
       b.onclick = function () {
         state.contrail[m.id] = !state.contrail[m.id];
         b.classList.toggle("on", state.contrail[m.id]);
-        paintContrails();
-        paintBoard();
+        scheduleContrails();
+        paintBoard(false);
       };
       contrailBtns[m.id] = b;
       contrailBar.appendChild(b);
     });
-    var contrailMeta = el("span", "dlg-contrail-meta", "contrails · word · sentence · same");
+    var contrailMeta = el(
+      "span",
+      "dlg-contrail-meta",
+      "hairlines · human play · same letter opt-in"
+    );
     contrailBar.appendChild(contrailMeta);
     boardWrap.appendChild(contrailBar);
 
@@ -1348,151 +1356,50 @@
       };
     }
 
-    /** Smooth cubic path through points (Catmull-Rom → cubic Bezier) */
-    function smoothPathD(pts) {
-      if (!pts || pts.length < 2) return "";
-      if (pts.length === 2) {
-        return (
-          "M " +
-          pts[0].x.toFixed(2) +
-          " " +
-          pts[0].y.toFixed(2) +
-          " L " +
-          pts[1].x.toFixed(2) +
-          " " +
-          pts[1].y.toFixed(2)
-        );
-      }
-      var d = "M " + pts[0].x.toFixed(2) + " " + pts[0].y.toFixed(2);
-      for (var i = 0; i < pts.length - 1; i++) {
-        var p0 = pts[i === 0 ? i : i - 1];
-        var p1 = pts[i];
-        var p2 = pts[i + 1];
-        var p3 = pts[i + 2 < pts.length ? i + 2 : i + 1];
-        var c1x = p1.x + (p2.x - p0.x) / 6;
-        var c1y = p1.y + (p2.y - p0.y) / 6;
-        var c2x = p2.x - (p3.x - p1.x) / 6;
-        var c2y = p2.y - (p3.y - p1.y) / 6;
-        d +=
-          " C " +
-          c1x.toFixed(2) +
-          " " +
-          c1y.toFixed(2) +
-          ", " +
-          c2x.toFixed(2) +
-          " " +
-          c2y.toFixed(2) +
-          ", " +
-          p2.x.toFixed(2) +
-          " " +
-          p2.y.toFixed(2);
-      }
-      return d;
-    }
-
-    function ensureContrailDefs() {
-      var defs = pathSvg.querySelector("defs");
-      if (defs) return defs;
-      defs = document.createElementNS("http://www.w3.org/2000/svg", "defs");
-      /* glow filters */
-      [
-        { id: "glow-word", color: "#30d158" },
-        { id: "glow-sentence", color: "#ff9f0a" },
-        { id: "glow-same", color: "#64d2ff" },
-        { id: "glow-finale", color: "#0a84ff" },
-      ].forEach(function (f) {
-        var filter = document.createElementNS("http://www.w3.org/2000/svg", "filter");
-        filter.setAttribute("id", f.id);
-        filter.setAttribute("x", "-40%");
-        filter.setAttribute("y", "-40%");
-        filter.setAttribute("width", "180%");
-        filter.setAttribute("height", "180%");
-        var blur = document.createElementNS("http://www.w3.org/2000/svg", "feGaussianBlur");
-        blur.setAttribute("stdDeviation", state.highSpeed ? "0.8" : "1.35");
-        blur.setAttribute("result", "b");
-        var merge = document.createElementNS("http://www.w3.org/2000/svg", "feMerge");
-        var n1 = document.createElementNS("http://www.w3.org/2000/svg", "feMergeNode");
-        n1.setAttribute("in", "b");
-        var n2 = document.createElementNS("http://www.w3.org/2000/svg", "feMergeNode");
-        n2.setAttribute("in", "SourceGraphic");
-        merge.appendChild(n1);
-        merge.appendChild(n2);
-        filter.appendChild(blur);
-        filter.appendChild(merge);
-        defs.appendChild(filter);
-      });
-      pathSvg.appendChild(defs);
-      return defs;
-    }
-
-    function appendGlowTrail(pts, color, width, cls, filterId, dashed) {
+    /**
+     * Classy hairline trail — edition style (muted strokes, no neon/glow).
+     * Board glyphs stay primary; trails are secondary guides for human play.
+     */
+    function appendHairline(pts, color, width, cls, dashed) {
       if (!pts || pts.length < 2) return null;
-      var d = smoothPathD(pts);
-      /* soft underglow */
-      if (!state.highSpeed) {
-        var under = document.createElementNS("http://www.w3.org/2000/svg", "path");
-        under.setAttribute("d", d);
-        under.setAttribute("fill", "none");
-        under.setAttribute("stroke", color);
-        under.setAttribute("stroke-width", String(width * 2.6));
-        under.setAttribute("stroke-opacity", "0.22");
-        under.setAttribute("stroke-linecap", "round");
-        under.setAttribute("stroke-linejoin", "round");
-        under.setAttribute("class", cls + " dlg-contrail-glow");
-        pathSvg.appendChild(under);
-      }
-      var path = document.createElementNS("http://www.w3.org/2000/svg", "path");
-      path.setAttribute("d", d);
-      path.setAttribute("fill", "none");
-      path.setAttribute("stroke", color);
-      path.setAttribute("stroke-width", String(width));
-      path.setAttribute("stroke-linecap", "round");
-      path.setAttribute("stroke-linejoin", "round");
-      path.setAttribute("class", cls || "dlg-contrail-line");
-      if (filterId && !state.highSpeed) path.setAttribute("filter", "url(#" + filterId + ")");
-      if (dashed) {
-        path.setAttribute("stroke-dasharray", "3.2 2.4");
-        if (!state.highSpeed) path.classList.add("dlg-contrail-dash-anim");
-      }
-      pathSvg.appendChild(path);
-      /* anchor beads + tip */
-      var step = state.highSpeed ? Math.max(1, Math.floor(pts.length / 8)) : 1;
-      for (var i = 0; i < pts.length; i += step) {
-        var p = pts[i];
-        var isEnd = i === 0 || i >= pts.length - 1;
+      var poly = document.createElementNS("http://www.w3.org/2000/svg", "polyline");
+      poly.setAttribute(
+        "points",
+        pts
+          .map(function (p) {
+            return p.x.toFixed(2) + "," + p.y.toFixed(2);
+          })
+          .join(" ")
+      );
+      poly.setAttribute("fill", "none");
+      poly.setAttribute("stroke", color);
+      poly.setAttribute("stroke-width", String(width));
+      poly.setAttribute("stroke-linecap", "round");
+      poly.setAttribute("stroke-linejoin", "round");
+      poly.setAttribute("class", cls || "dlg-contrail-line");
+      if (dashed) poly.setAttribute("stroke-dasharray", "1.8 2.2");
+      pathSvg.appendChild(poly);
+      /* single quiet endpoints only — no bead noise */
+      [pts[0], pts[pts.length - 1]].forEach(function (p, i) {
         var c = document.createElementNS("http://www.w3.org/2000/svg", "circle");
         c.setAttribute("cx", p.x.toFixed(2));
         c.setAttribute("cy", p.y.toFixed(2));
-        c.setAttribute("r", isEnd ? "1.85" : "1.15");
+        c.setAttribute("r", i === 0 ? "0.85" : "0.7");
         c.setAttribute("fill", color);
-        c.setAttribute("class", "dlg-contrail-dot" + (isEnd ? " is-tip" : ""));
-        if (isEnd && !state.highSpeed) c.setAttribute("filter", "url(#" + filterId + ")");
+        c.setAttribute("class", "dlg-contrail-dot");
         pathSvg.appendChild(c);
-      }
-      /* bright tip on last point */
-      if (pts.length && !state.highSpeed) {
-        var tip = pts[pts.length - 1];
-        var halo = document.createElementNS("http://www.w3.org/2000/svg", "circle");
-        halo.setAttribute("cx", tip.x.toFixed(2));
-        halo.setAttribute("cy", tip.y.toFixed(2));
-        halo.setAttribute("r", "3.2");
-        halo.setAttribute("fill", color);
-        halo.setAttribute("fill-opacity", "0.28");
-        halo.setAttribute("class", "dlg-contrail-halo");
-        pathSvg.appendChild(halo);
-      }
-      return path;
+      });
+      return poly;
     }
 
     /**
-     * Draw contrails (smooth glow trails):
-     *  1) word — first letter of every word on this layer
-     *  2) sentence — jumps between sentence-start letters
-     *  3) same — same-letter recognition for focus letter
+     * Contrails (human-readable):
+     *  word — hairline through word-initial glyphs
+     *  sentence — faint dashed sentence-start links
+     *  same — opt-in same-letter links (off by default)
      */
     function paintContrails() {
       while (pathSvg.firstChild) pathSvg.removeChild(pathSvg.firstChild);
-      ensureContrailDefs();
       var N = state.N;
       var indices = contrailIndicesOnBoard();
       var any =
@@ -1504,21 +1411,21 @@
       if (!any && state.mode !== "finale") {
         pathSvg.style.opacity = "0";
         state.contrailPts = { word: [], sentence: [], same: [] };
-        if (contrailMeta && !state.highSpeed) {
+        if (contrailMeta) {
           contrailMeta.textContent =
-            "contrails · focus " +
+            "guides · " +
             focusLetter() +
             " · W" +
             indices.word.length +
             " S" +
             indices.sentence.length +
-            " =" +
-            indices.same.length;
+            (state.contrail.same ? " =on" : " =off");
         }
         return;
       }
-      pathSvg.style.opacity = "1";
-      pathSvg.classList.toggle("is-turbo", state.highSpeed);
+      /* keep trails quiet so board stays readable */
+      pathSvg.style.opacity = "0.72";
+      pathSvg.classList.add("dlg-path-svg--classy");
 
       var ptsWord = indices.word.map(function (i) {
         return idxToSvgPt(i, N);
@@ -1532,13 +1439,13 @@
       state.contrailPts = { word: ptsWord, sentence: ptsSent, same: ptsSame };
 
       if (state.contrail.word) {
-        appendGlowTrail(ptsWord, "#30d158", 1.5, "dlg-contrail-word", "glow-word", false);
+        appendHairline(ptsWord, "rgba(63,185,80,0.4)", 0.55, "dlg-contrail-word", false);
       }
       if (state.contrail.sentence) {
-        appendGlowTrail(ptsSent, "#ff9f0a", 2.1, "dlg-contrail-sentence", "glow-sentence", true);
+        appendHairline(ptsSent, "rgba(210,153,34,0.38)", 0.65, "dlg-contrail-sentence", true);
       }
       if (state.contrail.same) {
-        appendGlowTrail(ptsSame, "#64d2ff", 1.65, "dlg-contrail-same", "glow-same", false);
+        appendHairline(ptsSame, "rgba(88,166,255,0.38)", 0.55, "dlg-contrail-same", false);
       }
 
       if (state.mode === "finale" && state.path.length) {
@@ -1546,24 +1453,22 @@
         for (var i = 0; i <= Math.min(state.pathStep, state.path.length - 1); i++) {
           fpts.push(idxToSvgPt(state.path[i], N));
         }
-        appendGlowTrail(fpts, "#0a84ff", 1.55, "dlg-contrail-finale", "glow-finale", false);
+        appendHairline(fpts, "rgba(10,132,255,0.55)", 0.85, "dlg-contrail-finale", false);
       }
 
       if (contrailMeta) {
         contrailMeta.textContent =
-          "contrails · " +
+          "guides · " +
           focusLetter() +
           " · W" +
           ptsWord.length +
           " · S" +
           ptsSent.length +
-          " · =" +
-          ptsSame.length +
-          (state.highSpeed ? " · turbo" : "");
+          (state.contrail.same ? " · =" + ptsSame.length : "");
       }
 
       var now = Date.now();
-      if (!state.highSpeed || now - state.lastContrailPub > 80) {
+      if (!state.highSpeed || now - state.lastContrailPub > 100) {
         state.lastContrailPub = now;
         publishContrailToMg(ptsWord, ptsSent, ptsSame);
       }
@@ -1667,11 +1572,11 @@
         if (!reuse) cell.textContent = c.display || "·";
         cell.className = "dlg-cell";
         if (c.pad) cell.classList.add("is-pad");
-        if (!state.highSpeed) {
-          if (c.wordStart) cell.classList.add("is-word-start");
-          if (c.sentenceStart) cell.classList.add("is-sentence-start");
-        }
+        /* quiet marks — never wash out glyph readability */
+        if (c.wordStart && state.contrail.word) cell.classList.add("is-word-start");
+        if (c.sentenceStart && state.contrail.sentence) cell.classList.add("is-sentence-start");
         if (
+          state.contrail.same &&
           !c.pad &&
           letter &&
           (c.letterKey || (c.ch && String(c.ch).toUpperCase())) === letter

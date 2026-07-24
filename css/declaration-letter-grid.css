@@ -400,18 +400,25 @@
   position: relative;
   z-index: 1;
 }
+/* Guides sit under cell chrome priority: never fight the blue target */
 .dlg-path-svg {
   position: absolute;
   inset: 0;
   width: 100%;
   height: 100%;
   pointer-events: none;
-  z-index: 2;
+  z-index: 1;
   opacity: 0;
-  transition: opacity 0.2s ease;
+  transition: opacity 0.15s ease;
   overflow: visible;
 }
-/* Contrail layer toggles */
+.dlg-board {
+  z-index: 2;
+}
+.dlg-path-svg--classy {
+  /* hairlines only — edition muted palette */
+}
+/* Contrail layer toggles — quiet chips, match dec-nav language */
 .dlg-contrail-bar {
   display: flex;
   flex-wrap: wrap;
@@ -421,113 +428,102 @@
 }
 .dlg-contrail-chip {
   appearance: none;
-  border: 1px solid rgba(255, 255, 255, 0.14);
-  background: rgba(255, 255, 255, 0.04);
-  color: #a8b3c0;
+  border: 1px solid var(--line, rgba(255, 255, 255, 0.12));
+  background: transparent;
+  color: var(--muted, #8b949e);
   border-radius: 999px;
   padding: 4px 10px;
-  font: 650 0.68rem/1.2 ui-sans-serif, system-ui, sans-serif;
+  font: 600 0.65rem/1.2 ui-sans-serif, system-ui, sans-serif;
+  letter-spacing: 0.02em;
   cursor: pointer;
 }
+.dlg-contrail-chip:hover {
+  border-color: rgba(88, 166, 255, 0.35);
+  color: var(--ink, #e6edf3);
+}
+.dlg-contrail-chip.on {
+  color: var(--ink, #e6edf3);
+  border-color: rgba(88, 166, 255, 0.35);
+  background: rgba(88, 166, 255, 0.08);
+}
 .dlg-contrail-chip.on[data-contrail="word"] {
-  color: #30d158;
-  border-color: rgba(48, 209, 88, 0.45);
-  background: rgba(48, 209, 88, 0.12);
+  border-color: rgba(63, 185, 80, 0.35);
+  background: rgba(63, 185, 80, 0.08);
 }
 .dlg-contrail-chip.on[data-contrail="sentence"] {
-  color: #ff9f0a;
-  border-color: rgba(255, 159, 10, 0.45);
-  background: rgba(255, 159, 10, 0.12);
+  border-color: rgba(210, 153, 34, 0.35);
+  background: rgba(210, 153, 34, 0.07);
 }
 .dlg-contrail-chip.on[data-contrail="same"] {
-  color: #64d2ff;
-  border-color: rgba(100, 210, 255, 0.5);
-  background: rgba(100, 210, 255, 0.12);
+  border-color: rgba(88, 166, 255, 0.4);
+  background: rgba(88, 166, 255, 0.08);
 }
 .dlg-contrail-meta {
-  font: 600 0.65rem/1.2 ui-monospace, Menlo, monospace;
-  color: #8b9bb0;
+  font: 600 0.62rem/1.2 ui-monospace, Menlo, monospace;
+  color: var(--faint, #484f58);
   margin-left: 4px;
 }
-.dlg-cell.is-word-start:not(.is-target) {
-  box-shadow: inset 0 0 0 1px rgba(48, 209, 88, 0.45);
+/* Cell marks: hairline ticks only — never recolor glyph ink */
+.dlg-cell.is-word-start:not(.is-target):not(.is-hit) {
+  box-shadow: inset 0 -1px 0 0 rgba(63, 185, 80, 0.35);
 }
-.dlg-cell.is-sentence-start:not(.is-target) {
-  box-shadow: inset 0 0 0 1.5px rgba(255, 159, 10, 0.55);
+.dlg-cell.is-sentence-start:not(.is-target):not(.is-hit) {
+  box-shadow: inset 0 0 0 1px rgba(210, 153, 34, 0.28);
 }
-.dlg-cell.is-word-start.is-sentence-start:not(.is-target) {
-  box-shadow: inset 0 0 0 1.5px rgba(255, 159, 10, 0.55),
-    0 0 0 1px rgba(48, 209, 88, 0.35);
+.dlg-cell.is-word-start.is-sentence-start:not(.is-target):not(.is-hit) {
+  box-shadow: inset 0 0 0 1px rgba(210, 153, 34, 0.28),
+    inset 0 -1px 0 0 rgba(63, 185, 80, 0.35);
 }
 .dlg-cell.is-same-letter:not(.is-target):not(.is-hit) {
-  background: rgba(100, 210, 255, 0.16);
-  color: #9fdfff;
+  /* no fill wash — tiny top tick only */
+  box-shadow: inset 0 1px 0 0 rgba(88, 166, 255, 0.4);
 }
-.dlg-contrail-word {
+.dlg-cell.is-target {
+  /* target always wins */
+  z-index: 3;
+  position: relative;
+}
+.dlg-contrail-line,
+.dlg-contrail-word,
+.dlg-contrail-sentence,
+.dlg-contrail-same,
+.dlg-contrail-finale {
   stroke-linecap: round;
+  stroke-linejoin: round;
 }
-.dlg-contrail-sentence {
-  stroke-linecap: round;
+.dlg-contrail-dot {
+  opacity: 0.75;
 }
-.dlg-contrail-same {
-  stroke-linecap: round;
-}
-.dlg-contrail-glow {
-  pointer-events: none;
-}
-.dlg-contrail-dot.is-tip {
-  stroke: rgba(255, 255, 255, 0.55);
-  stroke-width: 0.35;
-}
-.dlg-contrail-halo {
-  pointer-events: none;
-}
-.dlg-contrail-dash-anim {
-  animation: dlg-dash-flow 1.1s linear infinite;
-}
-@keyframes dlg-dash-flow {
-  to {
-    stroke-dashoffset: -11;
-  }
-}
-/* Speed presets */
+/* Speed presets — secondary to play controls */
 .dlg-speed-presets {
   display: inline-flex;
   flex-wrap: wrap;
   gap: 3px;
   margin-left: 4px;
   padding-left: 6px;
-  border-left: 1px solid rgba(255, 255, 255, 0.1);
+  border-left: 1px solid var(--line, rgba(255, 255, 255, 0.1));
 }
 .dlg-speed-presets button.dlg-speed {
   padding: 3px 7px;
-  font-size: 0.65rem;
+  font-size: 0.62rem;
   border-radius: 6px;
+  color: var(--muted, #8b949e);
 }
 .dlg-speed-presets button.dlg-speed.on {
-  background: rgba(255, 159, 10, 0.22);
-  border-color: rgba(255, 159, 10, 0.5);
-  color: #ffb340;
+  background: rgba(10, 132, 255, 0.14);
+  border-color: rgba(10, 132, 255, 0.4);
+  color: #58a6ff;
 }
-/* Turbo: reduce expensive paint for high hop rates */
+/* Turbo: agent-only paint shortcuts — target still clear */
 .dlg-board-host.is-turbo .dlg-cell {
   transition: none !important;
-  box-shadow: none !important;
 }
 .dlg-board-host.is-turbo .dlg-cell.is-target {
-  box-shadow: 0 0 0 1px rgba(10, 132, 255, 0.7) !important;
+  box-shadow: 0 0 0 1px rgba(10, 132, 255, 0.75) !important;
 }
 .dlg-board-host.is-turbo .dlg-path-svg {
+  opacity: 0.45 !important;
   transition: none;
-}
-.dlg-path-svg.is-turbo .dlg-contrail-dash-anim {
-  animation: none;
-}
-.dlg-cell.is-target {
-  transition: background 0.08s ease, box-shadow 0.08s ease;
-}
-.dlg-cell.is-hit {
-  transition: background 0.06s ease;
 }
 .dlg-cell {
   display: flex;
