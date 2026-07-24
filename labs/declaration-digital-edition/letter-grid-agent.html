@@ -4,7 +4,7 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Letter-Grid agent play</title>
-  <link rel="stylesheet" href="/css/declaration-letter-grid.css?v=score4" />
+  <link rel="stylesheet" href="/css/declaration-letter-grid.css?v=contrail5" />
   <style>
     body { margin: 0; background: #0c0b0a; color: #e6edf3; font: 14px ui-sans-serif, system-ui; }
     #result { margin: 12px; padding: 12px; border-radius: 10px; background: #141820; white-space: pre-wrap; font: 12px ui-monospace, Menlo, monospace; }
@@ -13,7 +13,7 @@
 <body>
   <div id="dlg-mount"></div>
   <pre id="result">agent starting…</pre>
-  <script src="/js/declaration-letter-grid.js?v=score4"></script>
+  <script src="/js/declaration-letter-grid.js?v=contrail5"></script>
   <script>
     (async function () {
       var result = document.getElementById("result");
@@ -27,9 +27,17 @@
           document.getElementById("dlg-mount"),
           { dataBase: "/data/declaration", N: N, roundS: roundS, hopMs: pace, autoplay: false }
         );
-        result.textContent = "playing " + roundS + "s · " + N + "×" + N + " · hop ~" + pace + "ms…";
+        /* first contrail pass: all three trails on */
+        if (api.setContrail) {
+          api.setContrail("word", true);
+          api.setContrail("sentence", true);
+          api.setContrail("same", true);
+        }
+        result.textContent = "playing " + roundS + "s · " + N + "×" + N + " · hop ~" + pace + "ms · contrails W/S/= …";
         var rep = await api.agentPlay({ paceMs: pace });
-        result.textContent = (rep.markdown || "") + "\n\n---\n\n" + JSON.stringify(rep, null, 2);
+        var csnap = api.contrailSnapshot ? api.contrailSnapshot() : null;
+        if (csnap) rep.contrail = csnap;
+        result.textContent = (rep.markdown || "") + "\n\n## Contrail snapshot\n" + JSON.stringify(csnap, null, 2) + "\n\n---\n\n" + JSON.stringify(rep, null, 2);
         document.title =
           "DONE " +
           Number(rep.peakBps).toFixed(2) +
@@ -43,8 +51,14 @@
         document.documentElement.dataset.hits = String(rep.hits);
         document.documentElement.dataset.live = rep.live || "";
         document.documentElement.dataset.reportTitle = rep.title || "";
+        if (csnap && csnap.counts) {
+          document.documentElement.dataset.contrailWord = String(csnap.counts.word);
+          document.documentElement.dataset.contrailSent = String(csnap.counts.sentence);
+          document.documentElement.dataset.contrailSame = String(csnap.counts.same);
+        }
         console.log("LETTER_GRID_RESULT", JSON.stringify(rep));
         console.log("LETTER_GRID_MD", rep.markdown);
+        console.log("CONTRAIL_SNAP", JSON.stringify(csnap));
       } catch (e) {
         result.textContent = String(e && e.stack ? e.stack : e);
         document.documentElement.dataset.agentDone = "err";

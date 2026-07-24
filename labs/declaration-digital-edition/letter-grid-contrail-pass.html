@@ -1,0 +1,210 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Letter-Grid · first contrail pass</title>
+  <link rel="stylesheet" href="/css/declaration-letter-grid.css?v=contrail5" />
+  <style>
+    body { margin: 0; background: #0c0b0a; color: #e6edf3; font: 14px ui-sans-serif, system-ui; }
+    #result { margin: 12px; padding: 12px; border-radius: 10px; background: #141820; white-space: pre-wrap; font: 12px ui-monospace, Menlo, monospace; max-height: 40vh; overflow: auto; }
+  </style>
+</head>
+<body>
+  <div id="dlg-mount"></div>
+  <pre id="result">contrail pass starting…</pre>
+  <script src="/js/declaration-letter-grid.js?v=contrail5"></script>
+  <script>
+    (async function () {
+      var result = document.getElementById("result");
+      function sleep(ms) {
+        return new Promise(function (r) {
+          setTimeout(r, ms);
+        });
+      }
+      try {
+        var q = new URLSearchParams(location.search);
+        var pace = parseInt(q.get("hop") || q.get("pace") || "120", 10);
+        var roundS = parseInt(q.get("round") || "70", 10);
+        var N = parseInt(q.get("N") || "12", 10);
+        var maxHits = parseInt(q.get("hits") || "80", 10); /* first pass sample */
+        var full = q.get("full") === "1";
+
+        var api = await window.__kbatchDeclarationLetterGrid.mount(
+          document.getElementById("dlg-mount"),
+          { dataBase: "/data/declaration", N: N, roundS: roundS, hopMs: pace, autoplay: false }
+        );
+
+        /* ensure all three contrail layers ON */
+        api.setContrail("word", true);
+        api.setContrail("sentence", true);
+        api.setContrail("same", true);
+
+        var log = [];
+        function snap(tag) {
+          var c = api.contrailSnapshot();
+          var s = api.snapshot();
+          var row = {
+            tag: tag,
+            letter: c.letter,
+            counts: c.counts,
+            masterPos: s.masterPos,
+            layer: s.layer,
+            live: s.live,
+            mg: window.__mgContrail && window.__mgContrail.letterGrid,
+          };
+          log.push(row);
+          return row;
+        }
+
+        result.textContent = "Contrail pass 1 · enable W/S/= · open codex walk…";
+        api.startCodex();
+        await sleep(80);
+        snap("open");
+
+        /* walk first hits so trails populate across early words/sentences */
+        var walked = 0;
+        while (walked < maxHits) {
+          var st = api.state;
+          if (!st || st.phase === "end") break;
+          var idx = st.mode === "finale" ? st.path[st.pathStep] : st.targetIdx;
+          if (idx == null || idx < 0) break;
+          api.clickCell(idx);
+          walked++;
+          if (walked === 1) snap("hit1-word-trail");
+          if (walked === 8) snap("hit8-stair-S1");
+          if (walked === 16) snap("hit16-stair-S3");
+          if (walked === 32) snap("hit32-stair-S7");
+          if (walked % 12 === 0) {
+            /* re-assert layers + focus current letter */
+            api.setContrail("word", true);
+            api.setContrail("sentence", true);
+            api.setContrail("same", true);
+            var g = st.master[st.masterPos];
+            if (g) api.focusLetter(g.letterKey || g.ch);
+            snap("layer-hop-" + walked);
+          }
+          await sleep(pace);
+        }
+
+        var mid = snap("after-" + walked + "-hits");
+
+        /* same-letter recognition pass: focus T and redraw */
+        api.focusLetter("T");
+        await sleep(40);
+        var sameT = snap("same-letter-T");
+
+        api.focusLetter("A");
+        await sleep(40);
+        var sameA = snap("same-letter-A");
+
+        var score = null;
+        if (full) {
+          result.textContent =
+            "Contrail sample done · running full " + roundS + "s agent…\n" + JSON.stringify(log, null, 2);
+          score = await api.agentPlay({ paceMs: pace });
+        }
+
+        var report = {
+          kind: "letter_grid_contrail_pass",
+          ver: api.ver || window.__kbatchDeclarationLetterGrid.ver,
+          at: new Date().toISOString(),
+          N: N,
+          hopMs: pace,
+          walked: walked,
+          snaps: log,
+          mid: mid,
+          sameT: sameT,
+          sameA: sameA,
+          score: score
+            ? {
+                peakBps: score.peakBps,
+                peakNtpm: score.peakNtpm,
+                hits: score.hits,
+                misses: score.misses,
+                title: score.title,
+              }
+            : null,
+          mgContrail: window.__mgContrail && window.__mgContrail.letterGrid,
+          pathLen: (window.__mgContrail && window.__mgContrail.path && window.__mgContrail.path.length) || 0,
+        };
+
+        try {
+          localStorage.setItem(
+            "kbatch.declaration.letterGrid.contrailPass",
+            JSON.stringify(report)
+          );
+        } catch (e) {}
+        try {
+          window.__mgContrailPassLast = report;
+          window.dispatchEvent(
+            new CustomEvent("letter-grid-contrail-pass", { detail: report })
+          );
+        } catch (e2) {}
+
+        var md = [
+          "# Letter-Grid · First contrail pass",
+          "",
+          "**At:** " + report.at,
+          "**N:** " + N + "×" + N + " · hop " + pace + "ms · walked " + walked + " hits",
+          "",
+          "## Contrail layers (all on)",
+          "| Layer | Count at end |",
+          "|-------|-------------:|",
+          "| Word firsts | " + (mid.counts && mid.counts.word) + " |",
+          "| Sentence jumps | " + (mid.counts && mid.counts.sentence) + " |",
+          "| Same letter (" + (mid.letter || "") + ") | " + (mid.counts && mid.counts.same) + " |",
+          "",
+          "## Recognition probes",
+          "- focus **T** → same " + (sameT.counts && sameT.counts.same),
+          "- focus **A** → same " + (sameA.counts && sameA.counts.same),
+          "",
+          "## Snap tags",
+          log
+            .map(function (r) {
+              return (
+                "- **" +
+                r.tag +
+                "** · " +
+                r.letter +
+                " · W" +
+                r.counts.word +
+                " S" +
+                r.counts.sentence +
+                " =" +
+                r.counts.same +
+                " · gi " +
+                r.masterPos
+              );
+            })
+            .join("\n"),
+          "",
+          "## MG",
+          "pathLen=" +
+            report.pathLen +
+            " · __mgContrail.letterGrid · event letter-grid-contrail-pass",
+        ].join("\n");
+
+        result.textContent = md + "\n\n---\n\n" + JSON.stringify(report, null, 2);
+        document.title =
+          "CONTRAIL PASS · W" +
+          (mid.counts && mid.counts.word) +
+          " S" +
+          (mid.counts && mid.counts.sentence) +
+          " =" +
+          (mid.counts && mid.counts.same);
+        document.documentElement.dataset.agentDone = "1";
+        document.documentElement.dataset.contrailWord = String(mid.counts && mid.counts.word);
+        document.documentElement.dataset.contrailSent = String(mid.counts && mid.counts.sentence);
+        document.documentElement.dataset.contrailSame = String(mid.counts && mid.counts.same);
+        document.documentElement.dataset.walked = String(walked);
+        console.log("CONTRAIL_PASS", JSON.stringify(report));
+        console.log("CONTRAIL_MD", md);
+      } catch (e) {
+        result.textContent = String(e && e.stack ? e.stack : e);
+        document.documentElement.dataset.agentDone = "err";
+      }
+    })();
+  </script>
+</body>
+</html>
