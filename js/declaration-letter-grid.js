@@ -14,13 +14,19 @@
 (function (global) {
   "use strict";
 
-  var VER = "declaration-letter-grid-v4-score-report";
+  var VER = "declaration-letter-grid-v5-contrails";
   var TARGET_RGB = "rgb(10, 132, 255)";
   /** WebGrid default round length (seconds) */
   var ROUND_S = 70;
   var DEFAULT_N = 12;
   var DEFAULT_HOP_MS = 120; /* MG / human hop pace (sudoku-style report) */
   var GLYPH_RAIL = 48;
+  /** Contrail layers: word-first → sentence jumps → same-letter recognition */
+  var CONTRAIL_MODES = [
+    { id: "word", label: "Word firsts", color: "rgba(48,209,88,0.9)", width: 1.4 },
+    { id: "sentence", label: "Sentence jumps", color: "rgba(255,159,10,0.92)", width: 2.0 },
+    { id: "same", label: "Same letter", color: "rgba(100,210,255,0.95)", width: 1.6 },
+  ];
   var BEST_KEY = "kbatch.declaration.letterGrid.best";
   var TRIALS_KEY = "kbatch.declaration.letterGrid.trials";
   var LAST_REPORT_KEY = "kbatch.declaration.letterGrid.lastReport";
@@ -145,12 +151,27 @@
   function buildMaster(lines) {
     var master = [];
     var xref = {};
+    var prevWasLetter = false;
+    var sentenceArmed = true; /* first letter of doc is sentence start */
     lines.forEach(function (ln) {
       var text = ln.text || "";
+      /* new line often continues sentence; arm if previous ended with .!? or empty */
       for (var i = 0; i < text.length; i++) {
         var ch = text[i];
-        if (!/[A-Za-z]/.test(ch)) continue;
+        if (/[.!?]/.test(ch)) {
+          sentenceArmed = true;
+          prevWasLetter = false;
+          continue;
+        }
+        if (!/[A-Za-z]/.test(ch)) {
+          if (/\s/.test(ch) || /[,;:—–\-]/.test(ch)) prevWasLetter = false;
+          continue;
+        }
         var gi = master.length;
+        var wordStart = !prevWasLetter;
+        var sentenceStart = sentenceArmed;
+        if (sentenceStart) sentenceArmed = false;
+        prevWasLetter = true;
         var entry = {
           gi: gi,
           lineId: ln.id,
@@ -159,11 +180,26 @@
           display: ch,
           kind: ln.kind || "body",
           parent: ln.parentEngrossed || ln.id,
+          wordStart: wordStart,
+          sentenceStart: sentenceStart,
+          letterKey: ch.toUpperCase(),
         };
         master.push(entry);
-        var key = ch.toUpperCase();
+        var key = entry.letterKey;
         if (!xref[key]) xref[key] = [];
-        xref[key].push({ lineId: ln.id, i: i, ch: ch, gi: gi });
+        xref[key].push({
+          lineId: ln.id,
+          i: i,
+          ch: ch,
+          gi: gi,
+          wordStart: wordStart,
+          sentenceStart: sentenceStart,
+        });
+      }
+      /* soft sentence arm at end of title-like short lines */
+      if ((ln.kind === "title" || ln.kind === "subtitle") && text.length) {
+        sentenceArmed = true;
+        prevWasLetter = false;
       }
     });
     return { master: master, xref: xref };
@@ -284,6 +320,14 @@
       finalNtpm: 0,
       lastReport: null,
       agentMode: false,
+      /* contrail layers: word firsts · sentence jumps · same letter */
+      contrail: {
+        word: true,
+        sentence: true,
+        same: true,
+      },
+      contrailFocusLetter: null, /* override; else target glyph letter */
+      contrailPts: { word: [], sentence: [], same: [] },
     };
 
     root.innerHTML = "";
@@ -369,6 +413,34 @@
     boardTop.appendChild(prompt);
     boardTop.appendChild(controls);
     boardWrap.appendChild(boardTop);
+
+    /* Contrail layer toggles — word firsts → sentence jumps → same letter */
+    var contrailBar = el("div", "dlg-contrail-bar");
+    contrailBar.setAttribute("role", "group");
+    contrailBar.setAttribute("aria-label", "Contrail layers");
+    var contrailBtns = {};
+    CONTRAIL_MODES.forEach(function (m) {
+      var b = el("button", "dlg-contrail-chip on", m.label);
+      b.type = "button";
+      b.dataset.contrail = m.id;
+      b.title =
+        m.id === "word"
+          ? "Draw contrails through the first letter of every word on this layer"
+          : m.id === "sentence"
+            ? "Sentence-start jumps (after . ! ?)"
+            : "Connect every cell matching the focus letter (target / xref)";
+      b.onclick = function () {
+        state.contrail[m.id] = !state.contrail[m.id];
+        b.classList.toggle("on", state.contrail[m.id]);
+        paintContrails();
+        paintBoard();
+      };
+      contrailBtns[m.id] = b;
+      contrailBar.appendChild(b);
+    });
+    var contrailMeta = el("span", "dlg-contrail-meta", "contrails · word · sentence · same");
+    contrailBar.appendChild(contrailMeta);
+    boardWrap.appendChild(contrailBar);
 
     /* End card: WebGrid peak + score table + growth stair (MG-ready report) */
     var endCard = el("div", "dlg-end-card");
@@ -1134,7 +1206,7 @@
       paintBoard();
       paintGlyphRail();
       paintLayerRail();
-      paintPathSvg(false);
+      paintContrails();
       if (state.masterPos < state.master.length) {
         var g = state.master[state.masterPos];
         var viewLayer = Math.floor(state.layerStart / need) + 1;
@@ -1153,6 +1225,7 @@
           " · layer " +
           playLayer +
           peek;
+        state.contrailFocusLetter = g.letterKey || g.ch.toUpperCase();
         paintXref(g.ch.toUpperCase());
         openLine(g.lineId, g.ch.toUpperCase());
       } else {
@@ -1163,13 +1236,238 @@
       refreshScore();
     }
 
+    function focusLetter() {
+      if (state.contrailFocusLetter) return state.contrailFocusLetter;
+      if (state.masterPos < state.master.length) {
+        var g = state.master[state.masterPos];
+        return (g.letterKey || g.ch || "").toUpperCase();
+      }
+      return "A";
+    }
+
+    /**
+     * Collect board indices for contrail layers within current N×N window.
+     * Returns { word:[idx], sentence:[idx], same:[idx] } in reading order.
+     */
+    function contrailIndicesOnBoard() {
+      var N = state.N;
+      var out = { word: [], sentence: [], same: [] };
+      var letter = focusLetter();
+      state.cells.forEach(function (c, idx) {
+        if (c.pad || c.gi < 0) return;
+        if (c.wordStart) out.word.push(idx);
+        if (c.sentenceStart) out.sentence.push(idx);
+        if (
+          letter &&
+          (c.letterKey || (c.ch && c.ch.toUpperCase())) === letter
+        ) {
+          out.same.push(idx);
+        }
+      });
+      return out;
+    }
+
+    function idxToSvgPt(idx, N) {
+      var cx = (idx % N) + 0.5;
+      var cy = Math.floor(idx / N) + 0.5;
+      return {
+        x: (cx / N) * 100,
+        y: (cy / N) * 100,
+        idx: idx,
+        nx: cx / N,
+        ny: cy / N,
+      };
+    }
+
+    function appendPolyline(pts, color, width, cls) {
+      if (!pts || pts.length < 2) return null;
+      var poly = document.createElementNS("http://www.w3.org/2000/svg", "polyline");
+      poly.setAttribute(
+        "points",
+        pts
+          .map(function (p) {
+            return p.x.toFixed(2) + "," + p.y.toFixed(2);
+          })
+          .join(" ")
+      );
+      poly.setAttribute("fill", "none");
+      poly.setAttribute("stroke", color);
+      poly.setAttribute("stroke-width", String(width));
+      poly.setAttribute("stroke-linecap", "round");
+      poly.setAttribute("stroke-linejoin", "round");
+      poly.setAttribute("class", cls || "dlg-contrail-line");
+      pathSvg.appendChild(poly);
+      /* dots at anchors */
+      pts.forEach(function (p, i) {
+        var c = document.createElementNS("http://www.w3.org/2000/svg", "circle");
+        c.setAttribute("cx", p.x.toFixed(2));
+        c.setAttribute("cy", p.y.toFixed(2));
+        c.setAttribute("r", i === 0 || i === pts.length - 1 ? "1.6" : "1.1");
+        c.setAttribute("fill", color);
+        c.setAttribute("class", "dlg-contrail-dot");
+        pathSvg.appendChild(c);
+      });
+      return poly;
+    }
+
+    /**
+     * Draw contrails:
+     *  1) word — first letter of every word on this layer
+     *  2) sentence — jumps between sentence-start letters
+     *  3) same — same-letter recognition for focus letter
+     * Also publishes path points for Memory Glass __mgContrail / draw.
+     */
+    function paintContrails() {
+      while (pathSvg.firstChild) pathSvg.removeChild(pathSvg.firstChild);
+      var N = state.N;
+      var indices = contrailIndicesOnBoard();
+      var any =
+        (state.contrail.word && indices.word.length > 1) ||
+        (state.contrail.sentence && indices.sentence.length > 1) ||
+        (state.contrail.same && indices.same.length > 1) ||
+        (state.mode === "finale" && state.path.length > 1);
+
+      if (!any && state.mode !== "finale") {
+        pathSvg.style.opacity = "0";
+        state.contrailPts = { word: [], sentence: [], same: [] };
+        if (contrailMeta) {
+          contrailMeta.textContent =
+            "contrails · focus " +
+            focusLetter() +
+            " · W" +
+            indices.word.length +
+            " S" +
+            indices.sentence.length +
+            " =" +
+            indices.same.length;
+        }
+        return;
+      }
+      pathSvg.style.opacity = "1";
+
+      var ptsWord = indices.word.map(function (i) {
+        return idxToSvgPt(i, N);
+      });
+      var ptsSent = indices.sentence.map(function (i) {
+        return idxToSvgPt(i, N);
+      });
+      var ptsSame = indices.same.map(function (i) {
+        return idxToSvgPt(i, N);
+      });
+      state.contrailPts = { word: ptsWord, sentence: ptsSent, same: ptsSame };
+
+      if (state.contrail.word) {
+        appendPolyline(ptsWord, "rgba(48,209,88,0.88)", 1.35, "dlg-contrail-word");
+      }
+      if (state.contrail.sentence) {
+        appendPolyline(ptsSent, "rgba(255,159,10,0.92)", 2.05, "dlg-contrail-sentence");
+      }
+      if (state.contrail.same) {
+        appendPolyline(ptsSame, "rgba(100,210,255,0.92)", 1.55, "dlg-contrail-same");
+      }
+
+      /* finale path (blue) still drawn when in finale mode */
+      if (state.mode === "finale" && state.path.length) {
+        var fpts = [];
+        for (var i = 0; i <= Math.min(state.pathStep, state.path.length - 1); i++) {
+          fpts.push(idxToSvgPt(state.path[i], N));
+        }
+        appendPolyline(fpts, "rgba(10,132,255,0.9)", 1.4, "dlg-contrail-finale");
+      }
+
+      if (contrailMeta) {
+        contrailMeta.textContent =
+          "contrails · " +
+          focusLetter() +
+          " · word " +
+          ptsWord.length +
+          " · sent " +
+          ptsSent.length +
+          " · same " +
+          ptsSame.length;
+      }
+
+      publishContrailToMg(ptsWord, ptsSent, ptsSame);
+    }
+
+    function publishContrailToMg(word, sent, same) {
+      var path = [];
+      /* prefer word firsts as primary stroke; sentence as jumps; same as recognition */
+      function pushPts(arr, kind) {
+        (arr || []).forEach(function (p) {
+          path.push({
+            x: p.nx,
+            y: p.ny,
+            nx: p.nx,
+            ny: p.ny,
+            kind: kind,
+            idx: p.idx,
+            letter: focusLetter(),
+          });
+        });
+      }
+      if (state.contrail.word) pushPts(word, "word");
+      if (state.contrail.sentence) pushPts(sent, "sentence");
+      if (state.contrail.same) pushPts(same, "same");
+      try {
+        if (!global.__mgContrail) global.__mgContrail = {};
+        var C = global.__mgContrail;
+        C.path = path;
+        C.stats = C.stats || {};
+        C.stats.lastPhrase =
+          "lg:" +
+          focusLetter() +
+          ":W" +
+          (word || []).length +
+          ":S" +
+          (sent || []).length +
+          ":=" +
+          (same || []).length;
+        C.stats.strokes = (C.stats.strokes || 0) + 1;
+        C.letterGrid = {
+          ver: VER,
+          letter: focusLetter(),
+          word: (word || []).length,
+          sentence: (sent || []).length,
+          same: (same || []).length,
+          N: state.N,
+          layerStart: state.layerStart,
+          masterPos: state.masterPos,
+        };
+        if (typeof C.ingestPath === "function") C.ingestPath(path);
+      } catch (e) {}
+      try {
+        global.dispatchEvent(
+          new CustomEvent("letter-grid-contrail", {
+            detail: {
+              letter: focusLetter(),
+              word: word,
+              sentence: sent,
+              same: same,
+              N: state.N,
+            },
+          })
+        );
+      } catch (e2) {}
+    }
+
     function paintBoard() {
       board.innerHTML = "";
       board.style.gridTemplateColumns = "repeat(" + state.N + ", 1fr)";
+      var letter = focusLetter();
       state.cells.forEach(function (c, idx) {
         var cell = el("button", "dlg-cell", c.display || "·");
         cell.type = "button";
         if (c.pad) cell.classList.add("is-pad");
+        if (c.wordStart) cell.classList.add("is-word-start");
+        if (c.sentenceStart) cell.classList.add("is-sentence-start");
+        if (
+          !c.pad &&
+          letter &&
+          (c.letterKey || (c.ch && String(c.ch).toUpperCase())) === letter
+        ) {
+          cell.classList.add("is-same-letter");
+        }
         if (state.mode === "codex") {
           if (c.gi >= 0 && c.gi < state.masterPos) cell.classList.add("is-hit");
           if (idx === state.targetIdx) cell.classList.add("is-target");
@@ -1180,45 +1478,44 @@
           if (pidx > state.pathStep) cell.classList.add("is-path-future");
         }
         cell.dataset.idx = String(idx);
+        if (c.gi >= 0) cell.dataset.gi = String(c.gi);
+        if (c.letterKey) cell.dataset.letter = c.letterKey;
         cell.onclick = function () {
+          /* click same-letter cell sets focus for recognition trail */
+          if (c.letterKey && !c.pad) {
+            state.contrailFocusLetter = c.letterKey;
+          }
           onCell(idx);
+          paintContrails();
         };
         board.appendChild(cell);
       });
+      paintContrails();
     }
 
     function paintPathSvg(show) {
-      while (pathSvg.firstChild) pathSvg.removeChild(pathSvg.firstChild);
-      if (!show || state.mode !== "finale" || !state.path.length) {
-        pathSvg.style.opacity = "0";
-        return;
-      }
-      pathSvg.style.opacity = "1";
-      var N = state.N;
-      var pts = [];
-      for (var i = 0; i <= Math.min(state.pathStep, state.path.length - 1); i++) {
-        var idx = state.path[i];
-        var cx = (idx % N) + 0.5;
-        var cy = Math.floor(idx / N) + 0.5;
-        pts.push(((cx / N) * 100).toFixed(2) + "," + ((cy / N) * 100).toFixed(2));
-      }
-      if (pts.length < 2) return;
-      var poly = document.createElementNS("http://www.w3.org/2000/svg", "polyline");
-      poly.setAttribute("points", pts.join(" "));
-      poly.setAttribute("fill", "none");
-      poly.setAttribute("stroke", "rgba(10,132,255,0.85)");
-      poly.setAttribute("stroke-width", "1.2");
-      poly.setAttribute("stroke-linecap", "round");
-      poly.setAttribute("stroke-linejoin", "round");
-      pathSvg.appendChild(poly);
+      /* finale-only helper kept for startFinale; contrails own the SVG now */
+      if (show && state.mode === "finale") paintContrails();
+      else if (!show && state.mode !== "finale") paintContrails();
     }
 
     function paintXref(letter) {
+      letter = String(letter || focusLetter()).toUpperCase();
+      state.contrailFocusLetter = letter;
       xrefHost.innerHTML = "";
       var head = el("p");
-      head.innerHTML = "Letter <em style='color:#0a84ff;font-style:normal;font-weight:700'>" + letter + "</em>";
+      head.innerHTML =
+        "Letter <em style='color:#0a84ff;font-style:normal;font-weight:700'>" +
+        letter +
+        "</em> · same-letter trail";
       xrefHost.appendChild(head);
       var arr = state.xref[letter] || [];
+      var wordFirsts = arr.filter(function (e) {
+        return e.wordStart;
+      }).length;
+      var sentFirsts = arr.filter(function (e) {
+        return e.sentenceStart;
+      }).length;
       var byLine = {};
       arr.forEach(function (e) {
         byLine[e.lineId] = (byLine[e.lineId] || 0) + 1;
@@ -1236,6 +1533,9 @@
             "</span>";
           li.onclick = function () {
             openLine(id, letter);
+            state.contrailFocusLetter = letter;
+            paintContrails();
+            paintBoard();
           };
           ul.appendChild(li);
         });
@@ -1243,8 +1543,17 @@
       var tot = el("p");
       tot.style.fontSize = "0.72rem";
       tot.style.opacity = "0.75";
-      tot.textContent = "document total ×" + arr.length + " · master stream " + state.master.length;
+      tot.textContent =
+        "document ×" +
+        arr.length +
+        " · word-first ×" +
+        wordFirsts +
+        " · sentence-first ×" +
+        sentFirsts +
+        " · master " +
+        state.master.length;
       xrefHost.appendChild(tot);
+      paintContrails();
     }
 
     function openLine(lineId, letter) {
@@ -1694,6 +2003,34 @@
           endRound: endRound,
           startFinale: startFinale,
           agentPlay: agentPlay,
+          setContrail: function (layer, on) {
+            if (state.contrail[layer] == null) return state.contrail;
+            state.contrail[layer] = !!on;
+            if (contrailBtns[layer]) {
+              contrailBtns[layer].classList.toggle("on", state.contrail[layer]);
+            }
+            paintContrails();
+            paintBoard();
+            return state.contrail;
+          },
+          focusLetter: function (ch) {
+            if (ch) state.contrailFocusLetter = String(ch).toUpperCase();
+            paintXref(state.contrailFocusLetter);
+            paintBoard();
+            return focusLetter();
+          },
+          contrailSnapshot: function () {
+            return {
+              letter: focusLetter(),
+              layers: Object.assign({}, state.contrail),
+              counts: {
+                word: (state.contrailPts.word || []).length,
+                sentence: (state.contrailPts.sentence || []).length,
+                same: (state.contrailPts.same || []).length,
+              },
+              pts: state.contrailPts,
+            };
+          },
           report: function () {
             return state.lastReport || buildScoreReport(state.phase === "end" ? "snapshot" : "live");
           },
