@@ -398,9 +398,9 @@
   user-select: none;
   touch-action: manipulation;
   position: relative;
-  z-index: 1;
+  z-index: 2; /* above hairline guides */
 }
-/* Guides sit under cell chrome priority: never fight the blue target */
+/* Guides behind glyphs — never fight the blue target */
 .dlg-path-svg {
   position: absolute;
   inset: 0;
@@ -411,12 +411,6 @@
   opacity: 0;
   transition: opacity 0.15s ease;
   overflow: visible;
-}
-.dlg-board {
-  z-index: 2;
-}
-.dlg-path-svg--classy {
-  /* hairlines only — edition muted palette */
 }
 /* Contrail layer toggles — quiet chips, match dec-nav language */
 .dlg-contrail-bar {
