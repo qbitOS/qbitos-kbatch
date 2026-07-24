@@ -61,6 +61,12 @@
           href: "saint-tumble.html",
           tip: "Vals · Human Fly · Boris · two talks → crypto tumble · DAC/Steno/Gutter/Rubik",
         },
+        {
+          id: "steno-space-grid",
+          label: "Steno spaces",
+          href: "steno-space-grid.html",
+          tip: "Letter-grid of all stenoSTRIP spaces · GrokYtalkY glyph · Rubik QR · video qbit",
+        },
       ],
     },
     {
@@ -123,6 +129,7 @@
     if (L === "letter-grid") return "letter-grid";
     if (L === "cage-litmus") return "cage";
     if (L === "saint-tumble") return "saint-tumble";
+    if (L === "steno-space-grid") return "steno-space-grid";
     if (L === "cage-games") return "cage-games";
     if (L === "world") return "world";
     if (L === "paleography-hub") return "paleography";

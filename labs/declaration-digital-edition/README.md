@@ -23,6 +23,7 @@ Machine scorecard: [`/data/declaration/readiness.json`](/data/declaration/readin
 | **`cage-litmus.html`** | **Cage-grade litmus** — RAW+STONE pair · National Treasure fiction labeled · FACT/FICTION/STONE_TRAP verify |
 | **`letter-grid.html`** | **Full-codex Letter-Grid v2** — master glyphs in order · N×N layer passes · finale wandering path · cross-ref → archive gateway · MG tensor loop |
 | **`saint-tumble.html`** | **Saint crypto tumble** — Vals · Human Fly · Boris · two talks → live DAC/Steno/Gutter/Rubik 3×3 mixer · Letter-Grid seed |
+| **`steno-space-grid.html`** | **Steno-space letter-grid** — all whitespace slots from the document · GrokYtalkY bust glyph chat · video qbit frames · Rubik origin-tree QR + solve numbers |
 | **`world.html`** | Multilingual plane · world instruments · through-lines · readiness |
 | `scribe-glyphs.html` | Calligraphy + clean numbered tiles |
 | `paleography-hub.html` | Codicology notes |
