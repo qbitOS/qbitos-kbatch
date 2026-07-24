@@ -689,13 +689,18 @@
       setN(16, btnN16);
     };
 
-    /* Prefer dense research lines if present, else full-transcript */
-    var urls = [base + "/line-sections/index.json", base + "/full-transcript-lines.json"];
-
-    return fetchJson(urls[0])
-      .then(function (idx) {
-        if (idx && idx.lines && idx.lines.length) {
-          /* load each section file for full text — or use index + parallel */
+    /**
+     * Load full document lines for master stream.
+     * Prefer single full-transcript (fast, complete) · fall back to dense L01–L79 sections.
+     */
+    return fetchJson(base + "/full-transcript-lines.json")
+      .then(function (d) {
+        if (d && d.lines && d.lines.length) return d.lines;
+        throw new Error("empty full-transcript");
+      })
+      .catch(function () {
+        return fetchJson(base + "/line-sections/index.json").then(function (idx) {
+          if (!idx || !idx.lines || !idx.lines.length) throw new Error("no dense index");
           var files = idx.lines.map(function (L) {
             return fetchJson("/" + L.file.replace(/^\//, "")).catch(function () {
               return fetchJson(base + "/line-sections/" + L.id + ".json");
@@ -713,12 +718,6 @@
                 };
               });
           });
-        }
-        throw new Error("no dense index");
-      })
-      .catch(function () {
-        return fetchJson(base + "/full-transcript-lines.json").then(function (d) {
-          return d.lines || [];
         });
       })
       .then(function (lines) {
