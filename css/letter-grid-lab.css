@@ -84,11 +84,67 @@
 }
 .lgl-flow-canvas {
   width: 100%;
-  height: 150px;
+  height: 160px;
   display: block;
   border-radius: 8px;
   background: #0d1117;
   border: 1px solid rgba(255, 255, 255, 0.08);
+}
+.lgl-word-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  align-items: center;
+  margin-bottom: 8px;
+}
+.lgl-word-actions button {
+  appearance: none;
+  border: 1px solid rgba(255, 255, 255, 0.14);
+  background: rgba(255, 255, 255, 0.05);
+  color: #e6edf3;
+  border-radius: 6px;
+  padding: 5px 10px;
+  font: 600 0.7rem/1.2 ui-sans-serif, system-ui, sans-serif;
+  cursor: pointer;
+}
+.lgl-word-actions button.primary {
+  background: rgba(10, 132, 255, 0.28);
+  border-color: rgba(10, 132, 255, 0.55);
+}
+.lgl-lang {
+  font-size: 0.72rem;
+  color: #8b9bb0;
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+.lgl-lang input {
+  border: 1px solid rgba(255, 255, 255, 0.14);
+  background: rgba(0, 0, 0, 0.28);
+  color: #e6edf3;
+  border-radius: 4px;
+  padding: 3px 6px;
+  font: 600 0.72rem/1 ui-monospace, Menlo, monospace;
+  width: 3rem;
+}
+.lgl-research-meta {
+  font: 600 0.65rem/1.3 ui-monospace, Menlo, monospace;
+  color: #8b9bb0;
+}
+.lgl-spark {
+  display: block;
+  width: 72px;
+  height: 22px;
+  vertical-align: middle;
+}
+.lgl-pat {
+  max-width: 6rem;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+.lgl-word-table th[data-sort]:hover {
+  color: #58a6ff;
 }
 .lgl-flow-meta {
   margin-top: 6px;

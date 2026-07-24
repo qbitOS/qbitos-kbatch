@@ -3,16 +3,17 @@
  *
  * Tabs:
  *   · Play      — timed / open codex / finale / contrails (declaration-letter-grid)
- *   · Research  — pattern flow · word deep sort · letter/word xref · open-reader layers
+ *   · Research  — sine-wave pattern flow · full word-contrail research run · xref
  *   · Benchmark — multi-run agent · ledger · export · hop/N matrix
  *
- * VER: letter-grid-lab-v1
+ * VER: letter-grid-lab-v2-flow
  */
 (function (global) {
   "use strict";
 
-  var VER = "letter-grid-lab-v1";
+  var VER = "letter-grid-lab-v2-flow";
   var LEDGER_KEY = "kbatch.letterGridLab.ledger";
+  var RESEARCH_KEY = "kbatch.letterGridLab.wordResearch";
   var QWERTY = {
     q: [0, 0], w: [0, 1], e: [0, 2], r: [0, 3], t: [0, 4], y: [0, 5], u: [0, 6], i: [0, 7], o: [0, 8], p: [0, 9],
     a: [1, 0], s: [1, 1], d: [1, 2], f: [1, 3], g: [1, 4], h: [1, 5], j: [1, 6], k: [1, 7], l: [1, 8],
@@ -41,26 +42,105 @@
     } catch (e) {}
   }
 
-  function letterPath(text) {
+
+  var ARROW = { n: "↑", s: "↓", e: "→", w: "←", ne: "↗", nw: "↖", se: "↘", sw: "↙", z: "·" };
+
+  function dirArrow(dr, dc) {
+    if (dr === 0 && dc === 0) return "z";
+    var v = dr < 0 ? "n" : dr > 0 ? "s" : "";
+    var h = dc < 0 ? "w" : dc > 0 ? "e" : "";
+    return v + h || "z";
+  }
+
+  function hopColor(hop) {
+    if (hop < 1.2) return { r: 63, g: 185, b: 80 };
+    if (hop < 2.5) return { r: 88, g: 166, b: 255 };
+    if (hop < 4) return { r: 210, g: 153, b: 34 };
+    return { r: 248, g: 81, b: 73 };
+  }
+
+  function fingerprint(sig, dist, pattern) {
+    var s = sig + "|" + dist.toFixed(2) + "|" + pattern;
+    var h = 2166136261;
+    for (var i = 0; i < s.length; i++) {
+      h ^= s.charCodeAt(i);
+      h = Math.imul(h, 16777619);
+    }
+    return (h >>> 0).toString(16);
+  }
+
+  /** Full keyboard contrail + sine series for pattern-flow */
+  function letterPath(text, opts) {
+    opts = opts || {};
+    var layoutId = opts.layoutId || "qwerty";
+    var langId = opts.langId || "en";
     var letters = String(text || "").toLowerCase().replace(/[^a-z]/g, "");
     var path = [];
     var sig = [];
     var dist = 0;
+    var trails = [];
+    var sine = [];
+    var arrows = [];
     var prev = null;
     for (var i = 0; i < letters.length; i++) {
       var rc = QWERTY[letters[i]];
       if (!rc) continue;
-      path.push({ ch: letters[i], r: rc[0], c: rc[1] });
+      var pt = { ch: letters[i], r: rc[0], c: rc[1], i: path.length };
+      path.push(pt);
       sig.push(rc[0] + "," + rc[1]);
+      sine.push(+(rc[0] - 1 + (rc[1] - 4.5) * 0.12).toFixed(3));
       if (prev) {
-        dist += Math.hypot(rc[0] - prev[0], rc[1] - prev[1]);
+        var hop = Math.hypot(rc[0] - prev.r, rc[1] - prev.c);
+        dist += hop;
+        var dr = rc[0] - prev.r;
+        var dc = rc[1] - prev.c;
+        var d = dirArrow(dr, dc);
+        arrows.push(ARROW[d] || "·");
+        trails.push({
+          from: prev.ch,
+          to: pt.ch,
+          y1: prev.r + (prev.c - 4.5) * 0.08,
+          y2: rc[0] + (rc[1] - 4.5) * 0.08,
+          dist: hop,
+          dr: dr,
+          dc: dc,
+          dir: d,
+          color: hopColor(hop),
+        });
       }
-      prev = rc;
+      prev = pt;
     }
-    return { letters: letters, path: path, sig: sig.join(";"), len: path.length, dist: +dist.toFixed(2) };
+    var pattern = arrows.join("");
+    return {
+      schema: "kbatch-word-contrail-v1",
+      word: String(text || ""),
+      letters: letters,
+      path: path,
+      sig: sig.join(";"),
+      len: path.length,
+      dist: +dist.toFixed(3),
+      meanHop: path.length > 1 ? +(dist / (path.length - 1)).toFixed(3) : 0,
+      trails: trails,
+      sine: sine,
+      arrows: arrows.join(" "),
+      pattern: pattern,
+      layoutId: layoutId,
+      langId: langId,
+      fingerprint: fingerprint(sig.join(";"), dist, pattern),
+    };
   }
 
-  function extractWordsFromLines(lines) {
+  function extractWordsFromLines(lines, opts) {
+    opts = opts || {};
+    var pack = runWordResearch(lines, opts);
+    return pack.words;
+  }
+
+  function runWordResearch(lines, opts) {
+    opts = opts || {};
+    var langId = opts.langId || "en";
+    var layoutId = opts.layoutId || "qwerty";
+    var docId = opts.docId || "declaration";
     var map = {};
     (lines || []).forEach(function (ln) {
       var text = ln.text || "";
@@ -70,145 +150,206 @@
         var w = m[0];
         var key = w.toLowerCase();
         if (!map[key]) {
+          var trail = letterPath(w, { langId: langId, layoutId: layoutId });
           map[key] = {
             word: w,
             key: key,
             count: 0,
             lines: {},
             firsts: w[0].toUpperCase(),
-            path: letterPath(w),
+            path: trail,
+            contrail: trail,
+            langId: langId,
+            layoutId: layoutId,
+            docId: docId,
           };
         }
         map[key].count++;
         map[key].lines[ln.id] = (map[key].lines[ln.id] || 0) + 1;
       }
     });
-    return Object.keys(map).map(function (k) {
-      return map[k];
+    var words = Object.keys(map).map(function (k) {
+      var w = map[k];
+      w.lineCount = Object.keys(w.lines).length;
+      w.deepScore = +(w.count * 2 + w.path.dist + w.path.len * 0.3 + w.lineCount * 0.5).toFixed(3);
+      return w;
     });
+    return {
+      schema: "kbatch-word-research-v1",
+      ver: VER,
+      at: new Date().toISOString(),
+      docId: docId,
+      langId: langId,
+      layoutId: layoutId,
+      wordCount: words.length,
+      words: words,
+      claim:
+        "Per-word keyboard contrails for cross-calibration against language variants of the same document",
+    };
   }
 
-  function sortWords(words, mode) {
+  function sortWords(words, mode, dir) {
+    dir = dir === "asc" ? 1 : -1;
     var arr = words.slice();
-    if (mode === "count") {
-      arr.sort(function (a, b) {
-        return b.count - a.count || a.key.localeCompare(b.key);
-      });
-    } else if (mode === "path") {
-      arr.sort(function (a, b) {
-        return b.path.dist - a.path.dist || b.path.len - a.path.len;
-      });
-    } else if (mode === "len") {
-      arr.sort(function (a, b) {
-        return b.key.length - a.key.length || b.count - a.count;
-      });
-    } else if (mode === "alpha") {
-      arr.sort(function (a, b) {
-        return a.key.localeCompare(b.key);
-      });
-    } else if (mode === "first") {
-      arr.sort(function (a, b) {
-        return a.firsts.localeCompare(b.firsts) || b.count - a.count;
-      });
-    } else {
-      /* deep: composite score */
-      arr.sort(function (a, b) {
-        var sa = a.count * 2 + a.path.dist + a.key.length * 0.3;
-        var sb = b.count * 2 + b.path.dist + b.key.length * 0.3;
-        return sb - sa;
-      });
-    }
+    var cmp = {
+      count: function (a, b) { return a.count - b.count; },
+      path: function (a, b) { return a.path.dist - b.path.dist; },
+      dist: function (a, b) { return a.path.dist - b.path.dist; },
+      len: function (a, b) { return a.key.length - b.key.length; },
+      hops: function (a, b) { return a.path.meanHop - b.path.meanHop; },
+      alpha: function (a, b) { return a.key.localeCompare(b.key); },
+      first: function (a, b) { return a.firsts.localeCompare(b.firsts); },
+      deep: function (a, b) { return a.deepScore - b.deepScore; },
+      pattern: function (a, b) { return (a.path.pattern || "").localeCompare(b.path.pattern || ""); },
+      lines: function (a, b) { return a.lineCount - b.lineCount; },
+    };
+    var fn = cmp[mode] || cmp.deep;
+    arr.sort(function (a, b) {
+      var d = fn(a, b) * dir;
+      return d !== 0 ? d : a.key.localeCompare(b.key);
+    });
     return arr;
   }
 
-  function paintKeyboardFlow(canvas, analysis) {
+  /** Pattern flow = sine-wave keyboard contrail (dictionary renderFlow style) */
+  function paintPatternFlow(canvas, analysis, opts) {
+    opts = opts || {};
     if (!canvas) return;
-    var W = (canvas.width = canvas.clientWidth * (window.devicePixelRatio || 1) || 320);
-    var H = (canvas.height = canvas.clientHeight * (window.devicePixelRatio || 1) || 140);
+    var dpr = typeof window !== "undefined" ? window.devicePixelRatio || 1 : 1;
+    var cssW = canvas.clientWidth || 360;
+    var cssH = canvas.clientHeight || 160;
+    canvas.width = Math.floor(cssW * dpr);
+    canvas.height = Math.floor(cssH * dpr);
     var ctx = canvas.getContext("2d");
     if (!ctx) return;
-    ctx.clearRect(0, 0, W, H);
+    ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+    var w = cssW, h = cssH;
+    ctx.clearRect(0, 0, w, h);
     ctx.fillStyle = "#0d1117";
-    ctx.fillRect(0, 0, W, H);
+    ctx.fillRect(0, 0, w, h);
+    var trails = (analysis && analysis.trails) || [];
     var path = (analysis && analysis.path) || [];
-    var heat = {};
-    path.forEach(function (p) {
-      var k = p.ch;
-      heat[k] = (heat[k] || 0) + 1;
-    });
-    var maxH = 1;
-    Object.keys(heat).forEach(function (k) {
-      if (heat[k] > maxH) maxH = heat[k];
-    });
-    var keyW = (W - 20) / 10;
-    var keyH = (H - 24) / 3.1;
-    var centers = {};
-    for (var r = 0; r < ROWS.length; r++) {
-      var row = ROWS[r];
-      var off = r === 1 ? keyW * 0.35 : r === 2 ? keyW * 0.85 : 0;
-      for (var c = 0; c < row.length; c++) {
-        var ch = row[c];
-        var x = 10 + off + c * keyW;
-        var y = 10 + r * keyH;
-        var t = (heat[ch] || 0) / maxH;
-        ctx.fillStyle =
-          t > 0
-            ? "rgba(10,132,255," + (0.15 + t * 0.7).toFixed(2) + ")"
-            : "#161b22";
-        ctx.strokeStyle = "#30363d";
-        ctx.lineWidth = 1;
-        roundRect(ctx, x, y, keyW - 3, keyH - 4, 4);
-        ctx.fill();
-        ctx.stroke();
-        ctx.fillStyle = t > 0.4 ? "#fff" : "#8b949e";
-        ctx.font = "600 " + Math.max(9, keyW * 0.32) + "px ui-monospace,monospace";
+    var sine = (analysis && analysis.sine) || [];
+    ctx.strokeStyle = "rgba(48,54,61,0.9)";
+    ctx.lineWidth = 1;
+    ctx.beginPath();
+    ctx.moveTo(8, h / 2);
+    ctx.lineTo(w - 8, h / 2);
+    ctx.stroke();
+    if (!trails.length && path.length < 2) {
+      ctx.fillStyle = "#484f58";
+      ctx.font = "12px ui-monospace, monospace";
+      ctx.textAlign = "center";
+      ctx.fillText("Pattern flow — select a word", w / 2, h / 2);
+      ctx.textAlign = "left";
+      return;
+    }
+    var amp = (h / 2 - 18) * 0.85;
+    var n = Math.max(trails.length, 1);
+    var stepX = (w - 24) / n;
+    if (sine.length > 1) {
+      ctx.beginPath();
+      for (var si = 0; si < sine.length; si++) {
+        var sx = 12 + si * ((w - 24) / Math.max(1, sine.length - 1));
+        var sy = h / 2 - sine[si] * amp * 0.55;
+        if (si === 0) ctx.moveTo(sx, sy);
+        else {
+          var px = 12 + (si - 1) * ((w - 24) / Math.max(1, sine.length - 1));
+          var py = h / 2 - sine[si - 1] * amp * 0.55;
+          var cpx = (px + sx) / 2;
+          ctx.bezierCurveTo(cpx, py, cpx, sy, sx, sy);
+        }
+      }
+      ctx.strokeStyle = "rgba(88,166,255,0.35)";
+      ctx.lineWidth = 1.5;
+      ctx.stroke();
+    }
+    for (var i = 0; i < trails.length; i++) {
+      var t = trails[i];
+      var x1 = 12 + i * stepX;
+      var x2 = 12 + (i + 1) * stepX;
+      var y1 = h / 2 - (t.y1 - 1) * amp * 0.5;
+      var y2 = h / 2 - (t.y2 - 1) * amp * 0.5;
+      var c = t.color || { r: 63, g: 185, b: 80 };
+      ctx.strokeStyle = "rgba(" + c.r + "," + c.g + "," + c.b + ",0.88)";
+      ctx.lineWidth = 2;
+      ctx.beginPath();
+      ctx.moveTo(x1, y1);
+      var cpx2 = (x1 + x2) / 2;
+      var bow = Math.min(amp * 0.35, t.dist * 6);
+      ctx.bezierCurveTo(cpx2, y1 - bow * 0.3, cpx2, y2 + bow * 0.3, x2, y2);
+      ctx.stroke();
+      ctx.fillStyle = "rgba(" + c.r + "," + c.g + "," + c.b + ",0.95)";
+      ctx.beginPath();
+      ctx.arc(x2, y2, 2.6, 0, Math.PI * 2);
+      ctx.fill();
+      if (!opts.compact) {
+        ctx.fillStyle = "#8b949e";
+        ctx.font = "9px ui-monospace, monospace";
         ctx.textAlign = "center";
-        ctx.textBaseline = "middle";
-        ctx.fillText(ch.toUpperCase(), x + (keyW - 3) / 2, y + (keyH - 4) / 2);
-        centers[ch] = { cx: x + (keyW - 3) / 2, cy: y + (keyH - 4) / 2 };
+        ctx.fillText((t.to || "").toUpperCase(), x2, Math.min(h - 14, y2 + 12));
       }
     }
-    if (path.length > 1) {
-      ctx.strokeStyle = "rgba(249,115,22,0.9)";
-      ctx.lineWidth = 2;
-      ctx.lineJoin = "round";
+    if (path.length) {
+      var p0 = path[0];
+      var y0 = h / 2 - (p0.r - 1 + (p0.c - 4.5) * 0.08) * amp * 0.5;
+      ctx.fillStyle = "#3fb950";
       ctx.beginPath();
-      for (var i = 0; i < path.length; i++) {
-        var pt = centers[path[i].ch];
-        if (!pt) continue;
-        if (i === 0) ctx.moveTo(pt.cx, pt.cy);
-        else ctx.lineTo(pt.cx, pt.cy);
-      }
-      ctx.stroke();
-      path.forEach(function (p, i) {
-        var pt2 = centers[p.ch];
-        if (!pt2) return;
-        ctx.beginPath();
-        ctx.fillStyle = i === 0 ? "#30d158" : i === path.length - 1 ? "#ff9f0a" : "#ea580c";
-        ctx.arc(pt2.cx, pt2.cy, 3.2, 0, Math.PI * 2);
-        ctx.fill();
-      });
+      ctx.arc(12, y0, 3, 0, Math.PI * 2);
+      ctx.fill();
     }
     ctx.fillStyle = "#8b949e";
-    ctx.font = "10px ui-monospace,monospace";
+    ctx.font = "10px ui-monospace, monospace";
     ctx.textAlign = "left";
-    ctx.fillText(
-      "Pattern flow · dist " +
-        ((analysis && analysis.dist) || 0) +
-        " · keys " +
-        ((analysis && analysis.len) || 0),
-      10,
-      H - 6
-    );
+    var label =
+      "Pattern flow · " +
+      ((analysis && analysis.arrows) || "") +
+      " · dist " +
+      ((analysis && analysis.dist) || 0) +
+      " · " +
+      ((analysis && analysis.layoutId) || "qwerty");
+    ctx.fillText(String(label).slice(0, 72), 10, h - 6);
   }
 
-  function roundRect(ctx, x, y, w, h, r) {
+  function paintKeyboardFlow(canvas, analysis) {
+    paintPatternFlow(canvas, analysis, {});
+  }
+
+  function paintSpark(canvas, analysis) {
+    if (!canvas || !analysis) return;
+    var w = (canvas.width = 72);
+    var h = (canvas.height = 22);
+    var ctx = canvas.getContext("2d");
+    if (!ctx) return;
+    ctx.clearRect(0, 0, w, h);
+    var trails = analysis.trails || [];
+    if (!trails.length) return;
+    var mid = h / 2;
+    var amp = h * 0.35;
+    var step = (w - 4) / Math.max(trails.length, 1);
+    ctx.beginPath();
+    for (var i = 0; i < trails.length; i++) {
+      var t = trails[i];
+      var x1 = 2 + i * step;
+      var x2 = 2 + (i + 1) * step;
+      var y1 = mid - (t.y1 - 1) * amp;
+      var y2 = mid - (t.y2 - 1) * amp;
+      if (i === 0) ctx.moveTo(x1, y1);
+      var cpx = (x1 + x2) / 2;
+      ctx.bezierCurveTo(cpx, y1, cpx, y2, x2, y2);
+    }
+    ctx.strokeStyle = "rgba(88,166,255,0.85)";
+    ctx.lineWidth = 1.2;
+    ctx.stroke();
+  }
+
+  function roundRect(ctx, x, y, ww, hh, r) {
     ctx.beginPath();
     ctx.moveTo(x + r, y);
-    ctx.arcTo(x + w, y, x + w, y + h, r);
-    ctx.arcTo(x + w, y + h, x, y + h, r);
-    ctx.arcTo(x, y + h, x, y, r);
-    ctx.arcTo(x, y, x + w, y, r);
+    ctx.arcTo(x + ww, y, x + ww, y + hh, r);
+    ctx.arcTo(x + ww, y + hh, x, y + hh, r);
+    ctx.arcTo(x, y + hh, x, y, r);
+    ctx.arcTo(x, y, x + ww, y, r);
     ctx.closePath();
   }
 
@@ -273,14 +414,24 @@
     paneResearch.id = "lgl-research";
     paneResearch.innerHTML =
       '<div class="lgl-research-grid">' +
-      '<section class="lgl-card"><h3>Pattern flow</h3>' +
-      '<p class="lgl-hint">Keyboard geometry for focus word / letter path (dictionary flow mode)</p>' +
-      '<canvas class="lgl-flow-canvas" id="lgl-flow" width="360" height="150"></canvas>' +
+      '<section class="lgl-card lgl-card--wide"><h3>Pattern flow</h3>' +
+      '<p class="lgl-hint">Sine-wave keyboard contrail (dictionary pattern-flow) · hop-colored segments · arrow pattern</p>' +
+      '<canvas class="lgl-flow-canvas" id="lgl-flow" width="720" height="160"></canvas>' +
       '<div class="lgl-flow-meta" id="lgl-flow-meta">—</div></section>' +
-      '<section class="lgl-card"><h3>Word deep sort</h3>' +
+      '<section class="lgl-card lgl-card--wide"><h3>Word deep sort · research run</h3>' +
+      '<p class="lgl-hint">Each word has a full contrail · sort columns · export for multilingual calibration</p>' +
       '<div class="lgl-sort-bar" id="lgl-sort-bar"></div>' +
+      '<div class="lgl-word-actions">' +
+      '<button type="button" id="lgl-research-run" class="primary">Run research</button>' +
+      '<button type="button" id="lgl-research-export">Export JSON</button>' +
+      '<label class="lgl-lang">lang <input id="lgl-lang" value="en" size="4" /></label>' +
+      '<span class="lgl-research-meta" id="lgl-research-meta">—</span></div>' +
       '<div class="lgl-word-table-wrap"><table class="lgl-word-table" id="lgl-word-table">' +
-      "<thead><tr><th>Word</th><th>×</th><th>Path</th><th>Dist</th><th>1st</th><th>Lines</th></tr></thead>" +
+      '<thead><tr>' +
+      '<th data-sort="alpha">Word</th><th data-sort="count">×</th><th data-sort="path">Dist</th>' +
+      '<th data-sort="hops">Hop̄</th><th data-sort="len">Keys</th><th data-sort="first">1st</th>' +
+      '<th data-sort="lines">Lines</th><th data-sort="deep">Deep</th><th data-sort="pattern">Pattern</th><th>Flow</th>' +
+      "</tr></thead>" +
       '<tbody id="lgl-word-body"></tbody></table></div></section>' +
       '<section class="lgl-card"><h3>Deep cross-ref</h3>' +
       '<div class="lgl-xref-bar"><label>Letter <input id="lgl-xref-letter" maxlength="1" value="T" /></label>' +
@@ -330,6 +481,8 @@
       gridApi: null,
       words: [],
       sortMode: "deep",
+      sortDir: "desc",
+      researchPack: null,
       ledger: loadLedger(),
     };
 
@@ -356,11 +509,15 @@
 
     /* —— Research —— */
     var sortBar = paneResearch.querySelector("#lgl-sort-bar");
-    ["deep", "count", "path", "len", "first", "alpha"].forEach(function (m) {
+    ["deep", "count", "path", "hops", "len", "first", "alpha", "pattern", "lines"].forEach(function (m) {
       var b = el("button", m === "deep" ? "on" : "", m);
       b.type = "button";
       b.onclick = function () {
-        state.sortMode = m;
+        if (state.sortMode === m) state.sortDir = state.sortDir === "desc" ? "asc" : "desc";
+        else {
+          state.sortMode = m;
+          state.sortDir = m === "alpha" || m === "first" ? "asc" : "desc";
+        }
         sortBar.querySelectorAll("button").forEach(function (x) {
           x.classList.remove("on");
         });
@@ -369,18 +526,137 @@
       };
       sortBar.appendChild(b);
     });
+    /* clickable column headers */
+    paneResearch.querySelectorAll("#lgl-word-table thead th[data-sort]").forEach(function (th) {
+      th.style.cursor = "pointer";
+      th.onclick = function () {
+        var m = th.getAttribute("data-sort");
+        if (state.sortMode === m) state.sortDir = state.sortDir === "desc" ? "asc" : "desc";
+        else {
+          state.sortMode = m;
+          state.sortDir = m === "alpha" || m === "first" ? "asc" : "desc";
+        }
+        sortBar.querySelectorAll("button").forEach(function (x) {
+          x.classList.toggle("on", x.textContent === m);
+        });
+        paintWords();
+      };
+    });
+    paneResearch.querySelector("#lgl-research-run").onclick = function () {
+      runFullResearch();
+    };
+    paneResearch.querySelector("#lgl-research-export").onclick = function () {
+      exportResearch();
+    };
+
+    function runFullResearch() {
+      var api = state.gridApi;
+      if (!api || !api.state) return;
+      var lang = (paneResearch.querySelector("#lgl-lang") || {}).value || "en";
+      state.researchPack = runWordResearch(api.state.lines || [], {
+        langId: lang,
+        layoutId: "qwerty",
+        docId: "declaration",
+      });
+      state.words = state.researchPack.words;
+      try {
+        localStorage.setItem(
+          RESEARCH_KEY,
+          JSON.stringify({
+            at: state.researchPack.at,
+            langId: state.researchPack.langId,
+            wordCount: state.researchPack.wordCount,
+            fingerprints: state.words.slice(0, 200).map(function (w) {
+              return { key: w.key, fp: w.path.fingerprint, dist: w.path.dist, count: w.count };
+            }),
+          })
+        );
+      } catch (e) {}
+      var meta = paneResearch.querySelector("#lgl-research-meta");
+      if (meta) {
+        meta.textContent =
+          state.researchPack.wordCount +
+          " words · lang " +
+          state.researchPack.langId +
+          " · " +
+          state.researchPack.at.slice(0, 19);
+      }
+      paintWords();
+      if (state.words[0]) selectWord(state.words[0]);
+    }
+
+    function exportResearch() {
+      if (!state.researchPack) runFullResearch();
+      var pack = state.researchPack;
+      var slim = {
+        schema: pack.schema,
+        ver: pack.ver,
+        at: pack.at,
+        docId: pack.docId,
+        langId: pack.langId,
+        layoutId: pack.layoutId,
+        wordCount: pack.wordCount,
+        claim: pack.claim,
+        words: pack.words.map(function (w) {
+          return {
+            key: w.key,
+            word: w.word,
+            count: w.count,
+            lineCount: w.lineCount,
+            lines: w.lines,
+            firsts: w.firsts,
+            deepScore: w.deepScore,
+            contrail: {
+              sig: w.path.sig,
+              dist: w.path.dist,
+              meanHop: w.path.meanHop,
+              len: w.path.len,
+              pattern: w.path.pattern,
+              arrows: w.path.arrows,
+              sine: w.path.sine,
+              fingerprint: w.path.fingerprint,
+              trails: w.path.trails,
+            },
+          };
+        }),
+      };
+      var blob = new Blob([JSON.stringify(slim, null, 2)], { type: "application/json" });
+      var a = document.createElement("a");
+      a.href = URL.createObjectURL(blob);
+      a.download = "word-research-" + slim.langId + "-" + slim.docId + ".json";
+      a.click();
+    }
+
+    function selectWord(w) {
+      if (!w) return;
+      paintPatternFlow(paneResearch.querySelector("#lgl-flow"), w.path || w.contrail);
+      var meta = paneResearch.querySelector("#lgl-flow-meta");
+      if (meta) {
+        meta.textContent =
+          "«" +
+          w.word +
+          "» ×" +
+          w.count +
+          " · " +
+          (w.path.arrows || "") +
+          " · dist " +
+          w.path.dist +
+          " · hop̄ " +
+          w.path.meanHop +
+          " · fp " +
+          w.path.fingerprint;
+      }
+      if (state.gridApi && state.gridApi.focusLetter) state.gridApi.focusLetter(w.firsts);
+    }
 
     function refreshResearch() {
       var api = state.gridApi;
       if (!api || !api.state) return;
-      var lines = api.state.lines || [];
-      if (!state.words.length && lines.length) {
-        state.words = extractWordsFromLines(lines);
-      }
-      paintWords();
+      if (!state.words.length) runFullResearch();
+      else paintWords();
       var focus =
         (api.contrailSnapshot && api.contrailSnapshot().letter) ||
-        (api.state.contrailFocusLetter) ||
+        api.state.contrailFocusLetter ||
         "T";
       var inp = paneResearch.querySelector("#lgl-xref-letter");
       if (inp && !inp.dataset.touched) inp.value = focus;
@@ -390,19 +666,10 @@
           ? api.state.master[api.state.masterPos]
           : null;
       var sample = g ? sampleWordAround(api.state, g) : "people";
-      var path = letterPath(sample);
-      paintKeyboardFlow(paneResearch.querySelector("#lgl-flow"), path);
-      var meta = paneResearch.querySelector("#lgl-flow-meta");
-      if (meta) {
-        meta.textContent =
-          "focus word «" +
-          sample +
-          "» · path " +
-          path.sig.slice(0, 48) +
-          (path.sig.length > 48 ? "…" : "") +
-          " · dist " +
-          path.dist;
-      }
+      var hit = state.words.filter(function (w) {
+        return w.key === sample.toLowerCase();
+      })[0];
+      selectWord(hit || { word: sample, count: 1, firsts: sample[0], path: letterPath(sample) });
     }
 
     function sampleWordAround(st, g) {
@@ -430,11 +697,17 @@
     function paintWords() {
       var body = paneResearch.querySelector("#lgl-word-body");
       if (!body) return;
-      var sorted = sortWords(state.words, state.sortMode).slice(0, 80);
+      var sorted = sortWords(state.words, state.sortMode, state.sortDir).slice(0, 120);
       body.innerHTML = "";
       sorted.forEach(function (w) {
         var tr = document.createElement("tr");
-        var lineIds = Object.keys(w.lines).slice(0, 4).join(",");
+        var lineIds = Object.keys(w.lines).slice(0, 3).join(",");
+        var tdSpark = document.createElement("td");
+        var cv = document.createElement("canvas");
+        cv.className = "lgl-spark";
+        cv.width = 72;
+        cv.height = 22;
+        tdSpark.appendChild(cv);
         tr.innerHTML =
           "<td><button type='button' class='lgl-word-btn'>" +
           escapeHtml(w.word) +
@@ -442,28 +715,37 @@
           "<td class='num'>" +
           w.count +
           "</td>" +
-          "<td class='mono'>" +
-          w.path.len +
-          "</td>" +
           "<td class='num'>" +
           w.path.dist +
+          "</td>" +
+          "<td class='num'>" +
+          w.path.meanHop +
+          "</td>" +
+          "<td class='num'>" +
+          w.path.len +
           "</td>" +
           "<td>" +
           escapeHtml(w.firsts) +
           "</td>" +
-          "<td class='mono'>" +
-          escapeHtml(lineIds) +
+          "<td class='num'>" +
+          (w.lineCount || Object.keys(w.lines).length) +
+          "</td>" +
+          "<td class='num'>" +
+          (w.deepScore != null ? w.deepScore : "—") +
+          "</td>" +
+          "<td class='mono lgl-pat' title='" +
+          escapeHtml(w.path.arrows || "") +
+          "'>" +
+          escapeHtml((w.path.pattern || "").slice(0, 12)) +
           "</td>";
+        tr.appendChild(tdSpark);
+        paintSpark(cv, w.path);
         tr.querySelector("button").onclick = function () {
-          paintKeyboardFlow(paneResearch.querySelector("#lgl-flow"), w.path);
-          var meta = paneResearch.querySelector("#lgl-flow-meta");
-          if (meta) {
-            meta.textContent =
-              "word «" + w.word + "» ×" + w.count + " · dist " + w.path.dist + " · " + w.path.sig;
-          }
-          if (state.gridApi && state.gridApi.focusLetter) {
-            state.gridApi.focusLetter(w.firsts);
-          }
+          selectWord(w);
+        };
+        tr.onclick = function (ev) {
+          if (ev.target.tagName === "BUTTON") return;
+          selectWord(w);
         };
         body.appendChild(tr);
       });
@@ -547,7 +829,7 @@
           if (api.openLine) {
             /* letter-grid openLine is openLine internal; use focus via document gateway */
           }
-          paintKeyboardFlow(paneResearch.querySelector("#lgl-flow"), letterPath(h.text || ""));
+          paintPatternFlow(paneResearch.querySelector("#lgl-flow"), letterPath(h.text || ""));
         };
         hitsHost.appendChild(row);
       });
@@ -765,6 +1047,8 @@
             return state.ledger.slice();
           },
           refreshResearch: refreshResearch,
+          runWordResearch: runFullResearch,
+          exportResearch: exportResearch,
         };
         global.__letterGridApi = api;
       } catch (e) {}
@@ -801,6 +1085,8 @@
     mount: mount,
     letterPath: letterPath,
     extractWordsFromLines: extractWordsFromLines,
+    runWordResearch: runWordResearch,
     sortWords: sortWords,
+    paintPatternFlow: paintPatternFlow,
   };
 })(typeof window !== "undefined" ? window : globalThis);
