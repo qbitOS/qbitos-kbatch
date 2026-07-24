@@ -1,0 +1,116 @@
+{
+  "schema": "kbatch-letter-grid-rubik-v1",
+  "ver": "1.0.0",
+  "at": "2026-07-24",
+  "docId": "declaration-of-independence",
+  "purpose": "Bind Declaration Letter-Grid (motor glyph stream) to Shadow Rubik origin-cube atlas + calibration banks for cross-language transfer.",
+  "letterGrid": {
+    "engine": "declaration-letter-grid-v8-pipe",
+    "masterGlyphs": 6235,
+    "layersAt": { "8": 98, "12": 44, "16": 25 },
+    "defaultFocus": "pie-germanic-en",
+    "urls": {
+      "play": "/labs/declaration-digital-edition/letter-grid.html?v=pipe8",
+      "pipe": "/labs/declaration-digital-edition/letter-grid-pipe.html",
+      "master": "/data/declaration/master-glyphs.json",
+      "paleography": "/data/declaration/paleography.json"
+    }
+  },
+  "cubeFaces": [
+    { "id": "U", "name": "Written", "modality": "written", "color": "#58a6ff" },
+    { "id": "D", "name": "Spoken", "modality": "spoken", "color": "#3fb950" },
+    { "id": "F", "name": "Movement", "modality": "movement", "color": "#d29922" },
+    { "id": "B", "name": "Digital", "modality": "digital", "color": "#a371f7" },
+    { "id": "L", "name": "Analog", "modality": "analog", "color": "#f85149" },
+    { "id": "R", "name": "Thought", "modality": "thought", "color": "#79c0ff" }
+  ],
+  "pathways": [
+    {
+      "n": 1,
+      "pathId": "pie-germanic-en",
+      "label": "PIE → Germanic → English",
+      "family": "Germanic",
+      "declarationDefault": true,
+      "note": "Primary bind for engrossed English text + Letter-Grid master stream"
+    },
+    { "n": 2, "pathId": "latin-romance-es", "label": "Latin → Spanish", "family": "Romance" },
+    { "n": 3, "pathId": "latin-romance-fr", "label": "Latin → French → English loans", "family": "Romance" },
+    { "n": 4, "pathId": "latin-romance-it", "label": "Latin → Italian", "family": "Romance" },
+    { "n": 5, "pathId": "latin-de-contact", "label": "Latin / Greek → German → English", "family": "Germanic" },
+    { "n": 6, "pathId": "norse-en", "label": "Old Norse → English", "family": "Germanic" },
+    { "n": 7, "pathId": "greek-learned", "label": "Greek → learned European", "family": "Hellenic" },
+    { "n": 8, "pathId": "arabic-loans", "label": "Arabic → European science words", "family": "Semitic" },
+    { "n": 9, "pathId": "sanskrit-ia", "label": "Sanskrit → Indo-Aryan", "family": "Indo-Aryan" },
+    { "n": 10, "pathId": "sinitic", "label": "Old Chinese → modern Sinitic", "family": "Sinitic" },
+    { "n": 11, "pathId": "algic-anishinaabe", "label": "Algic → Anishinaabemowin / nêhiyawêwin", "family": "Algic" },
+    { "n": 12, "pathId": "iroquoian-tsalagi", "label": "Iroquoian → Tsalagi / Kanienʼkéha", "family": "Iroquoian" },
+    { "n": 13, "pathId": "nadene-dine", "label": "Na-Dené → Diné bizaad", "family": "Na-Dené" }
+  ],
+  "allMap": {
+    "count": 13,
+    "goal": "map every mother tongue to an origin cube · universal atlas for transfer"
+  },
+  "patterns": {
+    "so": {
+      "alphabet": { "S": "consonant (stopped/closed)", "O": "vowel (open)" },
+      "openRatio": "#O / (#S+#O)",
+      "nGrams": ["SO", "OS", "SOO", "OOS", "SSO", "OSS", "SOS", "OSO", "SSOO", "OOSS"]
+    },
+    "boards": { "slots": 30, "layouts": 15 },
+    "worldPath": {
+      "costMatrix": "/data/world-path/cost-matrix.json",
+      "portalSubgraph": "/data/world-path/portal-subgraph.json",
+      "formula": "c(a,b)=1+L+S+F+B−0.5·parent; floor 0.1"
+    }
+  },
+  "calibration": {
+    "probeSet": "/data/calibration/probe-set.json",
+    "jaxFeatureBank": "/data/calibration/jax-feature-bank.json",
+    "jaxFeatureBankMeta": "/data/calibration/jax-feature-bank.meta.json",
+    "phonProbeSet": "/data/calibration/phon-probe-set.json",
+    "articulatoryBank": "/data/calibration/articulatory-bank.json",
+    "declarationProbes": [
+      "decl-head-40",
+      "decl-layer1-12x12",
+      "decl-L01",
+      "decl-body-200",
+      "decl-tail-80"
+    ],
+    "jaxFeatureNames": [
+      "keys",
+      "efficiency",
+      "complexity",
+      "strain",
+      "home_row_pct",
+      "travel_mm",
+      "trails",
+      "calories",
+      "rsi_risk",
+      "bpm"
+    ],
+    "purity": "jax.x[10] = keyboard geometry only; SO/phon live in labels + separate banks"
+  },
+  "compose": {
+    "steps": [
+      "Focus Rubik pathId (default pie-germanic-en for Declaration)",
+      "Play / research Letter-Grid master stream (6235)",
+      "Pull probe bank X for decl-* probes × 15 layouts",
+      "Language jump: lookup c(a,b) on cost-matrix; optional d_SO / d_PHON blend",
+      "Cage litmus for RAW+STONE epistemic claims",
+      "On drift: kbatch_calibrate_check → kbatch_recalibrate"
+    ]
+  },
+  "mcp": {
+    "lettergrid": "kbatch_lettergrid_*",
+    "rubik": "kbatch_lettergrid_rubik",
+    "worldPath": "kbatch_world_path",
+    "matrix": "kbatch_matrix",
+    "jax": "kbatch_export_jax",
+    "calibrate": ["kbatch_calibrate_check", "kbatch_recalibrate"]
+  },
+  "engine": {
+    "rubik": "/js/rubik-language-map.js",
+    "stepping": "/js/language-stepping.js",
+    "letterGrid": "/js/declaration-letter-grid.js"
+  }
+}

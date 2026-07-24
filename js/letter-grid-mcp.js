@@ -188,10 +188,32 @@ export const LETTERGRID_MCP_TOOLS = [
       },
     },
   },
+  {
+    name: "kbatch_lettergrid_rubik",
+    description:
+      "Shadow Rubik bind for Letter-Grid: 13 origin pathways, 6 modality faces, default pie-germanic-en Focus, calibration bank URLs (JAX / cost matrix / SO probes). Static; no live board required.",
+    inputSchema: {
+      type: "object",
+      properties: {
+        pathId: {
+          type: "string",
+          description: "Optional origin pathway id (default declaration pie-germanic-en)",
+        },
+        include: {
+          type: "array",
+          items: {
+            type: "string",
+            enum: ["pathways", "faces", "calibration", "patterns", "compose"],
+          },
+        },
+      },
+    },
+  },
 ];
 
 const MASTER_URL = "/data/declaration/master-glyphs.json";
 const PALEO_URL = "/data/declaration/paleography.json";
+const RUBIK_URL = "/data/declaration/letter-grid-rubik.json";
 const PLAY_URL = "/labs/declaration-digital-edition/letter-grid.html?v=pipe8";
 const PIPE_URL = "/labs/declaration-digital-edition/letter-grid-pipe.html";
 
@@ -202,6 +224,7 @@ function liveApi() {
 
 let _masterCache = null;
 let _paleoCache = null;
+let _rubikCache = null;
 
 export async function loadMasterGlyphs(fetchImpl) {
   if (_masterCache) return _masterCache;
@@ -211,6 +234,16 @@ export async function loadMasterGlyphs(fetchImpl) {
   if (!r.ok) throw new Error("master-glyphs HTTP " + r.status);
   _masterCache = await r.json();
   return _masterCache;
+}
+
+export async function loadLetterGridRubik(fetchImpl) {
+  if (_rubikCache) return _rubikCache;
+  const f = fetchImpl || (typeof fetch !== "undefined" ? fetch : null);
+  if (!f) throw new Error("no fetch for letter-grid-rubik");
+  const r = await f(RUBIK_URL, { cache: "force-cache" });
+  if (!r.ok) throw new Error("letter-grid-rubik HTTP " + r.status);
+  _rubikCache = await r.json();
+  return _rubikCache;
 }
 
 /** NARA-aware paleography capsule (static file preferred) */
@@ -506,10 +539,58 @@ export async function lettergridMcpCall(name, args = {}, opts = {}) {
           pipe: PIPE_URL,
           master: MASTER_URL,
           paleography: PALEO_URL,
+          rubik: RUBIK_URL,
           mcp: "/api/mcp",
+          costMatrix: "/data/world-path/cost-matrix.json",
+          jaxBank: "/data/calibration/jax-feature-bank.json",
         },
         at: new Date().toISOString(),
       };
+    }
+
+    case "kbatch_lettergrid_rubik": {
+      const pack = await loadLetterGridRubik(fetchImpl);
+      const include = args.include || [
+        "pathways",
+        "faces",
+        "calibration",
+        "patterns",
+        "compose",
+      ];
+      const pathId =
+        args.pathId ||
+        pack.letterGrid?.defaultFocus ||
+        "pie-germanic-en";
+      const focus =
+        (pack.pathways || []).find((p) => p.pathId === pathId) ||
+        (pack.pathways || []).find((p) => p.declarationDefault) ||
+        null;
+      const out = {
+        schema: pack.schema || "kbatch-letter-grid-rubik-v1",
+        tool: name,
+        ver: pack.ver,
+        docId: pack.docId,
+        purpose: pack.purpose,
+        letterGrid: pack.letterGrid,
+        focus,
+        pathId: focus?.pathId || pathId,
+        allMap: pack.allMap,
+        mcp: pack.mcp,
+        engine: pack.engine,
+      };
+      if (include.includes("pathways")) out.pathways = pack.pathways;
+      if (include.includes("faces")) out.cubeFaces = pack.cubeFaces;
+      if (include.includes("calibration")) out.calibration = pack.calibration;
+      if (include.includes("patterns")) out.patterns = pack.patterns;
+      if (include.includes("compose")) out.compose = pack.compose;
+      out.urls = {
+        bind: RUBIK_URL,
+        doc: "/docs/SHADOW-RUBIK-LETTER-GRID.md",
+        costMatrix: pack.patterns?.worldPath?.costMatrix,
+        jaxBank: pack.calibration?.jaxFeatureBank,
+        probeSet: pack.calibration?.probeSet,
+      };
+      return out;
     }
 
     case "kbatch_lettergrid_state": {
