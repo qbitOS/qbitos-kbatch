@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Letter-Grid Lab · research run</title>
+  <style>
+    body { margin: 0; background: #0c0b0a; color: #e6edf3; font: 13px ui-monospace, Menlo, monospace; }
+    #out { padding: 16px; white-space: pre-wrap; max-width: 960px; }
+  </style>
+</head>
+<body>
+  <pre id="out">running research…</pre>
+  <script src="/js/letter-grid-lab.js?v=lab2"></script>
+  <script>
+    (async function () {
+      var out = document.getElementById("out");
+      try {
+        var lines = await fetch("/data/declaration/full-transcript-lines.json", {
+          cache: "no-store",
+        }).then(function (r) {
+          return r.json();
+        }).then(function (d) {
+          return d.lines || [];
+        });
+        var L = window.__kbatchLetterGridLab;
+        if (!L || !L.runWordResearch) throw new Error("lab API missing");
+        var pack = L.runWordResearch(lines, {
+          langId: "en",
+          layoutId: "qwerty",
+          docId: "declaration",
+        });
+        var byDist = L.sortWords(pack.words, "path", "desc").slice(0, 8);
+        var byDeep = L.sortWords(pack.words, "deep", "desc").slice(0, 8);
+        var byCount = L.sortWords(pack.words, "count", "desc").slice(0, 8);
+        var people = pack.words.filter(function (w) {
+          return w.key === "people";
+        })[0];
+        var report = {
+          kind: "letter_grid_lab_research_run",
+          ver: L.ver,
+          at: pack.at,
+          docId: pack.docId,
+          langId: pack.langId,
+          layoutId: pack.layoutId,
+          wordCount: pack.wordCount,
+          people: people
+            ? {
+                count: people.count,
+                dist: people.path.dist,
+                meanHop: people.path.meanHop,
+                arrows: people.path.arrows,
+                pattern: people.path.pattern,
+                fingerprint: people.path.fingerprint,
+                sine: people.path.sine,
+                trails: people.path.trails.length,
+              }
+            : null,
+          topDist: byDist.map(function (w) {
+            return { word: w.word, dist: w.path.dist, pattern: w.path.pattern, fp: w.path.fingerprint };
+          }),
+          topDeep: byDeep.map(function (w) {
+            return { word: w.word, deep: w.deepScore, count: w.count, dist: w.path.dist };
+          }),
+          topCount: byCount.map(function (w) {
+            return { word: w.word, count: w.count, dist: w.path.dist };
+          }),
+        };
+        try {
+          localStorage.setItem(
+            "kbatch.letterGridLab.lastResearchRun",
+            JSON.stringify({
+              at: report.at,
+              wordCount: report.wordCount,
+              people: report.people,
+              topDist: report.topDist.slice(0, 5),
+            })
+          );
+        } catch (e) {}
+        try {
+          window.__mgLabResearchLast = report;
+          window.dispatchEvent(
+            new CustomEvent("letter-grid-lab-research-done", { detail: report })
+          );
+        } catch (e2) {}
+
+        var md = [
+          "# Letter-Grid Lab · Research run",
+          "",
+          "**At:** " + report.at,
+          "**Doc:** " + report.docId + " · **lang:** " + report.langId + " · **layout:** " + report.layoutId,
+          "**Words:** " + report.wordCount,
+          "",
+          "## people",
+          report.people
+            ? [
+                "- count ×" + report.people.count,
+                "- dist " + report.people.dist + " · hop̄ " + report.people.meanHop,
+                "- arrows " + report.people.arrows,
+                "- pattern `" + report.people.pattern + "`",
+                "- fingerprint `" + report.people.fingerprint + "`",
+                "- trails " + report.people.trails + " · sine " + JSON.stringify(report.people.sine),
+              ].join("\n")
+            : "_missing_",
+          "",
+          "## Top by Dist",
+          report.topDist
+            .map(function (r, i) {
+              return (i + 1) + ". **" + r.word + "** · " + r.dist + " · `" + r.pattern + "` · fp " + r.fp;
+            })
+            .join("\n"),
+          "",
+          "## Top by Deep",
+          report.topDeep
+            .map(function (r, i) {
+              return (i + 1) + ". **" + r.word + "** · deep " + r.deep + " · ×" + r.count + " · dist " + r.dist;
+            })
+            .join("\n"),
+          "",
+          "## Top by Count",
+          report.topCount
+            .map(function (r, i) {
+              return (i + 1) + ". **" + r.word + "** · ×" + r.count + " · dist " + r.dist;
+            })
+            .join("\n"),
+          "",
+          "## MG",
+          "`__mgLabResearchLast` · event `letter-grid-lab-research-done`",
+        ].join("\n");
+
+        out.textContent = md + "\n\n---\n\n" + JSON.stringify(report, null, 2);
+        document.title = "RESEARCH " + report.wordCount + " words · " + report.langId;
+        document.documentElement.dataset.agentDone = "1";
+        document.documentElement.dataset.wordCount = String(report.wordCount);
+        document.documentElement.dataset.peopleFp = (report.people && report.people.fingerprint) || "";
+        console.log("RESEARCH_RUN", JSON.stringify(report));
+        console.log("RESEARCH_MD", md);
+      } catch (e) {
+        out.textContent = String(e && e.stack ? e.stack : e);
+        document.documentElement.dataset.agentDone = "err";
+      }
+    })();
+  </script>
+</body>
+</html>
