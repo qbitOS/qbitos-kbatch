@@ -128,12 +128,12 @@
   align-items: center;
   justify-content: center;
   border-radius: 4px;
-  background: rgba(255, 255, 255, 0.06);
+  background: rgba(255, 255, 255, 0.08);
   border: 1px solid transparent;
   font-family: ui-monospace, Menlo, monospace;
   font-weight: 650;
   font-size: clamp(0.7rem, 2.2vw, 0.95rem);
-  color: rgba(230, 238, 248, 0.88);
+  color: #f0f4f8;
   cursor: pointer;
 }
 .dlg-cell:hover {
@@ -281,15 +281,52 @@
   overflow: auto;
   white-space: pre-wrap;
 }
+/* Dark-first shell text */
+.dlg-shell,
+.dlg-prompt,
+.dlg-card p,
+.dlg-card li,
+.dlg-doc {
+  color: var(--ink, #e6edf3);
+}
+.dlg-card h3,
+.dlg-metric span {
+  color: var(--muted, #a8b3c0);
+}
+.dlg-controls button,
+.dlg-side button {
+  color: #f0f4f8;
+  background: rgba(255, 255, 255, 0.08);
+}
+
 html[data-theme="light"] .dlg-board-wrap,
 html[data-theme="light"] .dlg-card,
 html[data-theme="light"] .dlg-metric {
-  background: rgba(255, 255, 255, 0.72);
+  background: #fafaf8;
+  border-color: rgba(28, 25, 23, 0.12);
+  color: #1c1917;
+}
+html[data-theme="light"] .dlg-shell,
+html[data-theme="light"] .dlg-prompt,
+html[data-theme="light"] .dlg-card p,
+html[data-theme="light"] .dlg-card li,
+html[data-theme="light"] .dlg-doc {
+  color: #1c1917;
+}
+html[data-theme="light"] .dlg-card h3,
+html[data-theme="light"] .dlg-metric span {
+  color: #57534e;
 }
 html[data-theme="light"] .dlg-cell {
-  background: rgba(20, 40, 70, 0.06);
+  background: rgba(20, 40, 70, 0.08);
   color: #1e3a5f;
 }
 html[data-theme="light"] .dlg-cell.is-target {
   color: #fff;
+}
+html[data-theme="light"] .dlg-controls button,
+html[data-theme="light"] .dlg-side button {
+  color: #1c1917;
+  background: #fff;
+  border-color: rgba(28, 25, 23, 0.18);
 }

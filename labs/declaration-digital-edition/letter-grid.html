@@ -12,21 +12,24 @@
   <link rel="stylesheet" href="/css/app.css" />
   <link rel="stylesheet" href="/css/labs.css" />
   <link rel="stylesheet" href="/css/declaration-edition.css" />
-  <link rel="stylesheet" href="/css/declaration-letter-grid.css" />
+  <link rel="stylesheet" href="/css/declaration-letter-grid.css?v=dark2" />
   <script>
     (function () {
       try {
+        /* Litmus boards default dark — light theme was washing out claim/select text */
         var t = localStorage.getItem("kbatch-dict-theme");
-        if (t !== "light" && t !== "dark")
-          t = matchMedia("(prefers-color-scheme: light)").matches ? "light" : "dark";
-        document.documentElement.setAttribute("data-theme", t);
+        if (t !== "light" && t !== "dark") t = "dark";
+        /* keep explicit user light, but page CSS now has real light contrast too */
+        document.documentElement.setAttribute("data-theme", t || "dark");
+        document.documentElement.style.colorScheme = (t === "light") ? "light" : "dark";
       } catch (e) {
         document.documentElement.setAttribute("data-theme", "dark");
+        document.documentElement.style.colorScheme = "dark";
       }
     })();
   </script>
 </head>
-<body class="labs-page dec-page dlg-page">
+<body class="labs-page dec-page dlg-page dlg-dark-prefer">
   <header class="app-header">
     <div class="header-inner">
       <div class="brand-row">
@@ -48,21 +51,9 @@
     </div>
   </header>
 
-  <nav class="dec-version-nav" aria-label="Edition surfaces">
-    <a href="index.html">Archive workspace</a>
-    <a href="letter-grid.html" class="active-link">Letter-Grid</a>
-    <a href="cage-litmus.html">Cage litmus</a>
-    <a href="world.html">World · multilingual</a>
-    <a href="paleography-hub.html">Paleography</a>
-    <a href="versions.html">All layers</a>
-    <a href="stroke-player.html">Stroke player</a>
-    <a href="keyboard.html">Path metrics</a>
-    <a href="scribe-glyphs.html">Scribe glyphs</a>
-    <a href="/dojo/">DOJO</a>
-    <a href="/research.html">Research</a>
-  </nav>
+  <nav class="dec-version-nav" data-dec-nav data-active="letter-grid" aria-label="Declaration edition toolbox"></nav>
 
-  <main class="labs-main" style="max-width: min(1100px, 100%)">
+<main class="labs-main" style="max-width: min(1100px, 100%)">
     <div id="dlg-mount"></div>
   </main>
 
@@ -95,6 +86,7 @@
         if (m) m.innerHTML = '<p class="arc-err">Letter-Grid failed: ' + String(e && e.message ? e.message : e) + "</p>";
       });
   </script>
+    <script src="/js/declaration-edition-nav.js" defer></script>
   <script src="/js/site-nav.js" defer></script>
 </body>
 </html>

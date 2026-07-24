@@ -1,20 +1,45 @@
-/* Cage-grade litmus · National Treasure fiction lane */
+/* Cage-grade litmus · National Treasure fiction lane
+ * Dark-first for claim/select readability; light has full contrast too. */
+
 .cage-shell {
   max-width: min(1000px, 100%);
   margin: 0 auto;
   padding: 12px 16px 36px;
+  color: var(--ink, #e6edf3);
 }
+
+/* Force readable ink on all nested text (avoids washed inherit) */
+.cage-shell,
+.cage-shell p,
+.cage-shell li,
+.cage-shell h2,
+.cage-shell h3,
+.cage-shell h4,
+.cage-shell label,
+.cage-shell span,
+.cage-shell b,
+.cage-shell figcaption {
+  color: inherit;
+}
+
 .cage-hero h2 {
   margin: 0 0 6px;
   font-size: 1.15rem;
+  color: var(--ink, #e6edf3);
+  font-weight: 700;
 }
 .cage-hero p {
   margin: 0 0 12px;
-  color: var(--muted, #8b9bb0);
+  color: var(--muted, #a8b3c0);
   font-size: 0.9rem;
   line-height: 1.45;
   max-width: 70ch;
 }
+.cage-hero p strong,
+.cage-hero p em {
+  color: var(--ink, #e6edf3);
+}
+
 .cage-pair {
   display: grid;
   grid-template-columns: 1fr 1fr;
@@ -28,18 +53,20 @@
 }
 .cage-pane {
   margin: 0;
-  border: 1px solid rgba(255, 255, 255, 0.1);
+  border: 1px solid rgba(255, 255, 255, 0.14);
   border-radius: 12px;
   overflow: hidden;
-  background: rgba(0, 0, 0, 0.25);
+  background: rgba(0, 0, 0, 0.35);
+  color: #e6edf3;
 }
 .cage-pane figcaption {
   padding: 6px 10px;
   font: 700 0.68rem/1.2 ui-monospace, Menlo, monospace;
   letter-spacing: 0.06em;
   text-transform: uppercase;
-  color: #64d2ff;
-  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+  color: #7dd3fc !important;
+  background: rgba(0, 0, 0, 0.45);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
 }
 .cage-img {
   min-height: 160px;
@@ -58,42 +85,53 @@
 }
 .cage-img-note {
   padding: 6px 10px 8px;
-  font-size: 0.72rem;
-  color: var(--muted, #8b9bb0);
+  font-size: 0.75rem;
+  color: #c4cdd8 !important;
   line-height: 1.35;
+  background: rgba(0, 0, 0, 0.55);
 }
+
 .cage-doctrine {
-  border: 1px solid rgba(255, 159, 10, 0.28);
+  border: 1px solid rgba(255, 159, 10, 0.4);
   border-radius: 12px;
   padding: 10px 12px;
   margin-bottom: 12px;
-  background: rgba(255, 159, 10, 0.06);
+  background: rgba(255, 159, 10, 0.1);
+  color: var(--ink, #e6edf3);
 }
 .cage-doctrine ul {
   margin: 0;
   padding-left: 18px;
-  font-size: 0.82rem;
-  line-height: 1.4;
+  font-size: 0.85rem;
+  line-height: 1.45;
+  color: var(--ink, #e6edf3);
+}
+.cage-doctrine li {
+  color: var(--ink, #e6edf3);
+  margin: 0.2em 0;
 }
 .cage-doctrine li.hook {
-  color: #ff9f0a;
-  font-weight: 600;
+  color: #ffb340 !important;
+  font-weight: 650;
   margin-top: 6px;
 }
+
 .cage-nt {
   margin-top: 10px;
   padding-top: 8px;
-  border-top: 1px dashed rgba(255, 255, 255, 0.12);
+  border-top: 1px dashed rgba(255, 255, 255, 0.16);
+  color: var(--ink, #e6edf3);
 }
 .cage-nt h3 {
   margin: 0 0 6px;
-  font-size: 0.9rem;
+  font-size: 0.95rem;
+  color: var(--ink, #e6edf3) !important;
 }
 .cage-nt .tag.fiction {
   font: 700 0.62rem/1 ui-monospace, Menlo, monospace;
   letter-spacing: 0.06em;
-  color: #ff6b63;
-  border: 1px solid rgba(255, 107, 99, 0.4);
+  color: #ff8a80 !important;
+  border: 1px solid rgba(255, 138, 128, 0.55);
   border-radius: 999px;
   padding: 2px 6px;
   margin-left: 6px;
@@ -114,13 +152,18 @@
   font-size: 0.72rem;
   letter-spacing: 0.05em;
   text-transform: uppercase;
-  color: var(--muted, #8b9bb0);
+  color: #9fb0c3 !important;
 }
 .cage-cols ul {
   margin: 0;
   padding-left: 16px;
-  font-size: 0.78rem;
+  font-size: 0.8rem;
+  color: var(--ink, #e6edf3);
 }
+.cage-cols li {
+  color: var(--ink, #e6edf3);
+}
+
 .cage-board {
   display: flex;
   flex-direction: column;
@@ -128,33 +171,42 @@
   margin-bottom: 12px;
 }
 .cage-q {
-  border: 1px solid rgba(255, 255, 255, 0.1);
+  border: 1px solid rgba(255, 255, 255, 0.14);
   border-radius: 10px;
-  padding: 8px 10px;
-  background: rgba(0, 0, 0, 0.18);
+  padding: 10px 12px;
+  background: rgba(18, 22, 30, 0.92);
+  color: #e6edf3;
 }
 .cage-q-id {
-  font: 700 0.65rem/1.2 ui-monospace, Menlo, monospace;
+  font: 700 0.68rem/1.2 ui-monospace, Menlo, monospace;
   letter-spacing: 0.05em;
-  color: #64d2ff;
-  margin-bottom: 4px;
+  color: #7dd3fc !important;
+  margin-bottom: 6px;
 }
 .cage-q-claim {
-  margin: 0 0 6px;
-  font-size: 0.88rem;
-  line-height: 1.4;
+  margin: 0 0 8px;
+  font-size: 0.92rem;
+  line-height: 1.45;
+  color: #f0f4f8 !important;
+  font-weight: 500;
 }
 .cage-q select {
   width: 100%;
-  max-width: 220px;
+  max-width: 260px;
   appearance: none;
-  background: rgba(255, 255, 255, 0.06);
-  border: 1px solid rgba(255, 255, 255, 0.16);
-  color: inherit;
+  -webkit-appearance: none;
+  background: #0d1117 !important;
+  border: 1px solid rgba(125, 211, 252, 0.35);
+  color: #f0f4f8 !important;
   border-radius: 8px;
-  padding: 6px 8px;
-  font: 600 0.8rem/1.2 system-ui, sans-serif;
+  padding: 8px 10px;
+  font: 600 0.85rem/1.2 system-ui, sans-serif;
 }
+.cage-q select option {
+  background: #0d1117;
+  color: #f0f4f8;
+}
+
 .cage-actions {
   display: flex;
   flex-wrap: wrap;
@@ -163,41 +215,49 @@
 }
 .cage-btn {
   appearance: none;
-  border: 1px solid rgba(255, 255, 255, 0.16);
-  background: rgba(255, 255, 255, 0.05);
-  color: inherit;
+  border: 1px solid rgba(255, 255, 255, 0.22);
+  background: rgba(255, 255, 255, 0.08);
+  color: #f0f4f8 !important;
   border-radius: 8px;
-  padding: 7px 12px;
-  font: 600 0.78rem/1.2 system-ui, sans-serif;
+  padding: 8px 12px;
+  font: 600 0.8rem/1.2 system-ui, sans-serif;
   cursor: pointer;
 }
 .cage-btn.primary {
-  background: rgba(10, 132, 255, 0.22);
-  border-color: rgba(10, 132, 255, 0.5);
+  background: rgba(10, 132, 255, 0.35);
+  border-color: rgba(125, 211, 252, 0.55);
+  color: #fff !important;
 }
 .cage-btn:hover {
-  border-color: rgba(10, 132, 255, 0.45);
+  border-color: rgba(125, 211, 252, 0.65);
+  background: rgba(10, 132, 255, 0.2);
 }
+
 .cage-result {
-  border: 1px solid rgba(255, 255, 255, 0.1);
+  border: 1px solid rgba(255, 255, 255, 0.14);
   border-radius: 12px;
-  padding: 10px 12px;
+  padding: 12px 14px;
   min-height: 48px;
-  background: rgba(0, 0, 0, 0.2);
-  font-size: 0.85rem;
+  background: rgba(12, 16, 22, 0.95);
+  font-size: 0.88rem;
+  color: #e6edf3 !important;
 }
 .cage-grade {
-  font-size: 0.95rem;
+  font-size: 1rem;
   margin-bottom: 6px;
+  font-weight: 700;
 }
 .cage-grade.fail {
-  color: #ff6b63;
+  color: #ff8a80 !important;
 }
 .cage-grade.dojo {
-  color: #64d2ff;
+  color: #7dd3fc !important;
 }
 .cage-grade.cage {
-  color: #30d158;
+  color: #4ade80 !important;
+}
+.cage-result p {
+  color: #c4cdd8 !important;
 }
 .cage-report {
   list-style: none;
@@ -205,26 +265,107 @@
   padding: 0;
 }
 .cage-report li {
-  border-top: 1px dashed rgba(255, 255, 255, 0.08);
-  padding: 6px 0;
-  font-size: 0.78rem;
-  line-height: 1.35;
+  border-top: 1px dashed rgba(255, 255, 255, 0.1);
+  padding: 8px 0;
+  font-size: 0.8rem;
+  line-height: 1.4;
 }
 .cage-report li.ok {
-  color: #a8e6b8;
+  color: #bbf7d0 !important;
 }
 .cage-report li.bad {
-  color: #ffb4ae;
+  color: #fecaca !important;
 }
 .cage-report .why {
-  opacity: 0.85;
+  opacity: 0.92;
+  color: inherit;
 }
 .cage-report code {
   font-family: ui-monospace, Menlo, monospace;
-  color: #64d2ff;
+  color: #7dd3fc !important;
+}
+
+/* Dark page chrome when theme is dark (or default) */
+html[data-theme="dark"] .labs-page.dec-page,
+html:not([data-theme="light"]) .labs-page.dec-page {
+  color: var(--ink, #e6edf3);
+}
+
+/* Light theme: real contrast (if user forces light) */
+html[data-theme="light"] .cage-shell {
+  color: #1c1917;
+}
+html[data-theme="light"] .cage-hero h2,
+html[data-theme="light"] .cage-q-claim,
+html[data-theme="light"] .cage-nt h3,
+html[data-theme="light"] .cage-doctrine li {
+  color: #1c1917 !important;
+}
+html[data-theme="light"] .cage-hero p,
+html[data-theme="light"] .cage-img-note,
+html[data-theme="light"] .cage-cols h4 {
+  color: #44403c !important;
 }
 html[data-theme="light"] .cage-pane,
 html[data-theme="light"] .cage-q,
 html[data-theme="light"] .cage-result {
-  background: rgba(255, 255, 255, 0.75);
+  background: #fafaf8;
+  border-color: rgba(28, 25, 23, 0.14);
+  color: #1c1917;
+}
+html[data-theme="light"] .cage-pane figcaption {
+  background: #f0efeb;
+  color: #0369a1 !important;
+  border-bottom-color: rgba(28, 25, 23, 0.1);
+}
+html[data-theme="light"] .cage-img {
+  background: #e7e5e4;
+}
+html[data-theme="light"] .cage-img-note {
+  background: #f5f5f4;
+}
+html[data-theme="light"] .cage-q-id,
+html[data-theme="light"] .cage-report code {
+  color: #0369a1 !important;
+}
+html[data-theme="light"] .cage-q select {
+  background: #fff !important;
+  color: #1c1917 !important;
+  border-color: rgba(28, 25, 23, 0.22);
+}
+html[data-theme="light"] .cage-q select option {
+  background: #fff;
+  color: #1c1917;
+}
+html[data-theme="light"] .cage-btn {
+  background: #fff;
+  color: #1c1917 !important;
+  border-color: rgba(28, 25, 23, 0.2);
+}
+html[data-theme="light"] .cage-btn.primary {
+  background: #0a84ff;
+  color: #fff !important;
+  border-color: #0a84ff;
+}
+html[data-theme="light"] .cage-report li.ok {
+  color: #166534 !important;
+}
+html[data-theme="light"] .cage-report li.bad {
+  color: #991b1b !important;
+}
+html[data-theme="light"] .cage-grade.fail {
+  color: #b91c1c !important;
+}
+html[data-theme="light"] .cage-grade.dojo {
+  color: #0369a1 !important;
+}
+html[data-theme="light"] .cage-grade.cage {
+  color: #15803d !important;
+}
+html[data-theme="light"] .cage-doctrine {
+  background: rgba(245, 158, 11, 0.12);
+  border-color: rgba(180, 83, 9, 0.35);
+}
+html[data-theme="light"] .cage-doctrine li.hook {
+  color: #b45309 !important;
 }
