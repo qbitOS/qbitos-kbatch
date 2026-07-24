@@ -1,0 +1,47 @@
+{
+  "schema": "kbatch-declaration-paleography-v1",
+  "docId": "declaration-of-independence",
+  "source": {
+    "institution": "National Archives and Records Administration (NARA)",
+    "item": "Engrossed parchment copy",
+    "location": "Rotunda for the Charters of Freedom",
+    "transcript": "https://www.archives.gov/founding-docs/declaration-transcript",
+    "highRes": "https://www.archives.gov/founding-docs/downloads"
+  },
+  "physical": {
+    "scribe": "Timothy Matlack",
+    "dateEngrossed": "primarily 19 July – 2 August 1776",
+    "support": "animal parchment (skin)",
+    "dimensions": "~29.5 × 24 in (trimmed)",
+    "ink": "iron-gall (originally dark, now heavily faded)",
+    "condition": "severe light-induced fading, handling dirt on edges, argon-protected titanium/aluminum encasement"
+  },
+  "layout": {
+    "title": "Monumental centered engrossing hand",
+    "body": "Single continuous column",
+    "signatures": "Six vertical columns by state (Georgia → New Hampshire)",
+    "notable": "John Hancock signature largest and most prominent"
+  },
+  "restorationNotes": [
+    "Digital contrast recovery performed on NARA public-domain scans",
+    "Master glyph stream is letter-only (spaces stripped) for grid scoring",
+    "Always cross-check critical readings against the official NARA transcript"
+  ],
+  "methods": {
+    "imaging": "NARA high-resolution photography + public downloads",
+    "inkAnalysis": "Iron-gall oxidation and light damage documented by NARA conservation",
+    "housing": "Current argon-filled encasement designed for ~100-year stability"
+  },
+  "compact": {
+    "scribe": "Timothy Matlack",
+    "ink": "iron-gall",
+    "support": "parchment",
+    "dimensions": "~29.5 × 24 in",
+    "source": "NARA engrossed copy",
+    "signatureColumns": "Six vertical columns by state (Georgia → New Hampshire)",
+    "notes": [
+      "Letter-grid master stream is orthographic order, not stroke path",
+      "Public-domain transcript is ground truth for text disputes"
+    ]
+  }
+}

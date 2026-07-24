@@ -144,14 +144,40 @@ export const LETTERGRID_MCP_TOOLS = [
   {
     name: "kbatch_lettergrid_export_training",
     description:
-      "Export a clean training pack (glyph sequence + layer boundaries + BPS targets) ready for SFT / JAX / Colossus.",
+      "Emit a clean training pack. jsonl = one record per glyph (gi, ch, lineId, kind, layer, …).",
     inputSchema: {
       type: "object",
       properties: {
         format: {
           type: "string",
           enum: ["json", "jsonl", "jax"],
-          default: "json",
+          default: "jsonl",
+        },
+        include: {
+          type: "array",
+          items: {
+            type: "string",
+            enum: ["gi", "ch", "lineId", "kind", "wordStart", "sentenceStart", "layer"],
+          },
+          description: "Fields to include in each jsonl/atom record",
+        },
+      },
+    },
+  },
+  {
+    name: "kbatch_lettergrid_finale",
+    description:
+      "After all grid layers are cleared, return the finale wandering path, peak BPS, and completion report. Static: returns deterministic spiral path for N.",
+    inputSchema: {
+      type: "object",
+      properties: {
+        includePath: { type: "boolean", default: true },
+        includeScores: { type: "boolean", default: true },
+        N: {
+          type: "integer",
+          enum: [8, 12, 16],
+          default: 12,
+          description: "Board size for static path generation",
         },
       },
     },
@@ -159,6 +185,7 @@ export const LETTERGRID_MCP_TOOLS = [
 ];
 
 const MASTER_URL = "/data/declaration/master-glyphs.json";
+const PALEO_URL = "/data/declaration/paleography.json";
 const PLAY_URL = "/labs/declaration-digital-edition/letter-grid.html?v=pipe8";
 const PIPE_URL = "/labs/declaration-digital-edition/letter-grid-pipe.html";
 
@@ -168,6 +195,7 @@ function liveApi() {
 }
 
 let _masterCache = null;
+let _paleoCache = null;
 
 export async function loadMasterGlyphs(fetchImpl) {
   if (_masterCache) return _masterCache;
@@ -177,6 +205,88 @@ export async function loadMasterGlyphs(fetchImpl) {
   if (!r.ok) throw new Error("master-glyphs HTTP " + r.status);
   _masterCache = await r.json();
   return _masterCache;
+}
+
+/** NARA-aware paleography capsule (static file preferred) */
+export async function loadPaleography(fetchImpl) {
+  if (_paleoCache) return _paleoCache;
+  const f = fetchImpl || (typeof fetch !== "undefined" ? fetch : null);
+  if (f) {
+    try {
+      const r = await f(PALEO_URL, { cache: "force-cache" });
+      if (r.ok) {
+        _paleoCache = await r.json();
+        return _paleoCache;
+      }
+    } catch {
+      /* fall through */
+    }
+  }
+  _paleoCache = {
+    schema: "kbatch-declaration-paleography-v1",
+    docId: "declaration-of-independence",
+    capsule: paleographyFallback(),
+  };
+  return _paleoCache;
+}
+
+/** Deterministic spiral path (matches engine wanderingPathIndices) */
+function wanderingPathIndices(N) {
+  const path = [];
+  const seen = {};
+  let x = Math.floor((N - 1) / 2);
+  let y = Math.floor((N - 1) / 2);
+  const dirs = [
+    [1, 0],
+    [0, 1],
+    [-1, 0],
+    [0, -1],
+  ];
+  let di = 0;
+  let leg = 1;
+  function push(cx, cy) {
+    if (cx < 0 || cy < 0 || cx >= N || cy >= N) return false;
+    const idx = cy * N + cx;
+    if (seen[idx]) return false;
+    seen[idx] = true;
+    path.push(idx);
+    return true;
+  }
+  push(x, y);
+  while (path.length < N * N) {
+    for (let rep = 0; rep < 2; rep++) {
+      for (let s = 0; s < leg; s++) {
+        x += dirs[di][0];
+        y += dirs[di][1];
+        push(x, y);
+        if (path.length >= N * N) return path;
+      }
+      di = (di + 1) % 4;
+    }
+    leg++;
+  }
+  for (let i = 0; i < N * N; i++) if (!seen[i]) path.push(i);
+  return path;
+}
+
+function trainingRecord(g, need, include) {
+  const fields =
+    include && include.length
+      ? include
+      : ["gi", "ch", "lineId", "kind", "wordStart", "sentenceStart", "layer"];
+  const gi = Array.isArray(g) ? g[0] : g.gi;
+  const ch = Array.isArray(g) ? g[1] : g.ch;
+  const lineId = Array.isArray(g) ? g[2] : g.lineId;
+  const kind = Array.isArray(g) ? g[3] : g.kind;
+  const wordStart = Array.isArray(g) ? g[4] || 0 : g.wordStart ? 1 : 0;
+  const sentenceStart = Array.isArray(g) ? g[5] || 0 : g.sentenceStart ? 1 : 0;
+  const layer = Math.floor(gi / need) + 1;
+  const full = { gi, ch, lineId, kind, wordStart, sentenceStart, layer };
+  const out = {};
+  for (const f of fields) {
+    if (full[f] !== undefined) out[f] = full[f];
+  }
+  return out;
 }
 
 function parseGridSize(gs) {
@@ -297,14 +407,47 @@ function buildCrossref(master) {
   return xr;
 }
 
-function paleography() {
+function paleographyFallback() {
   return {
     scribe: "Timothy Matlack",
     ink: "iron-gall",
+    support: "parchment",
     substrate: "parchment",
-    notes:
-      "NARA engrossed transcript · letter-grid master is orthographic letter order, not stroke path.",
+    dimensions: "~29.5 × 24 in",
+    source: "NARA engrossed copy",
+    notes: [
+      "NARA engrossed transcript · orthographic master stream",
+      "Letter-grid master is letter-only (spaces stripped) for scoring",
+    ],
+    signatureColumns: "Six vertical columns by state (Georgia → New Hampshire)",
     rights: "public-domain transcript",
+  };
+}
+
+function paleography() {
+  if (_paleoCache && _paleoCache.capsule) return _paleoCache.capsule;
+  if (_paleoCache && _paleoCache.physical) {
+    return {
+      scribe: _paleoCache.physical.scribe || "Timothy Matlack",
+      ink: _paleoCache.physical.ink || "iron-gall",
+      support: _paleoCache.physical.support || "parchment",
+      substrate: "parchment",
+      dimensions: _paleoCache.physical.dimensions,
+      source: "NARA engrossed copy",
+      notes: _paleoCache.restorationNotes || [],
+      signatureColumns: (_paleoCache.layout && _paleoCache.layout.signatures) || "",
+      rights: "public-domain transcript",
+    };
+  }
+  return paleographyFallback();
+}
+
+async function paleographyFull(fetchImpl) {
+  const doc = await loadPaleography(fetchImpl);
+  return {
+    capsule: paleography(),
+    doc: doc.schema ? doc : null,
+    url: PALEO_URL,
   };
 }
 
@@ -521,8 +664,16 @@ export async function lettergridMcpCall(name, args = {}, opts = {}) {
     case "kbatch_lettergrid_colossus": {
       const depth = args.depth || "full";
       const include = args.include || ["glyphs", "layers", "scores", "crossref", "session", "paleography"];
+      const paleoPack = await paleographyFull(fetchImpl);
       if (api && typeof api.exportColossusDraft === "function") {
-        return { tool: name, ...api.exportColossusDraft({ depth, include }) };
+        const draft = api.exportColossusDraft({ depth, include });
+        return {
+          tool: name,
+          ...draft,
+          paleography: draft.paleography || paleoPack.capsule,
+          paleographyDoc: paleoPack.doc,
+          paleographyUrl: PALEO_URL,
+        };
       }
       if (api && typeof api.exportColossus === "function" && depth !== "light") {
         const pack = api.exportColossus({
@@ -537,7 +688,9 @@ export async function lettergridMcpCall(name, args = {}, opts = {}) {
           layers: pack.layer && pack.layer.total,
           state: api.mcpState ? api.mcpState(["score"]) : pack.score,
           ...pack,
-          paleography: paleography(),
+          paleography: paleoPack.capsule,
+          paleographyDoc: paleoPack.doc,
+          paleographyUrl: PALEO_URL,
         };
       }
       /* static / light */
@@ -552,9 +705,11 @@ export async function lettergridMcpCall(name, args = {}, opts = {}) {
         masterGlyphs: total,
         layers,
         state: staticState(master, N),
-        paleography: paleography(),
+        paleography: paleoPack.capsule,
+        paleographyDoc: paleoPack.doc,
+        paleographyUrl: PALEO_URL,
         session: "static",
-        schema: SCHEMA_VERSION,
+        schema: "kbatch-letter-grid-colossus-v1",
       };
       if (depth !== "light" && include.includes("glyphs")) {
         out.glyphs = (master.glyphs || []).map((g) => (Array.isArray(g) ? g[1] : g.ch));
@@ -577,23 +732,82 @@ export async function lettergridMcpCall(name, args = {}, opts = {}) {
       if (depth === "training") {
         out.training = await lettergridMcpCall(
           "kbatch_lettergrid_export_training",
-          { format: "json" },
+          { format: "jsonl" },
           opts
         );
       }
       return out;
     }
 
+    case "kbatch_lettergrid_finale": {
+      const includePath = args.includePath !== false;
+      const includeScores = args.includeScores !== false;
+      const N = Number(args.N) || 12;
+      if (api && typeof api.exportFinale === "function") {
+        return { tool: name, ...api.exportFinale({ includePath, includeScores }) };
+      }
+      if (api && typeof api.getState === "function") {
+        const s = api.getState();
+        const path =
+          includePath && api.finalePath
+            ? api.finalePath()
+            : includePath
+              ? wanderingPathIndices(s.N || N)
+              : undefined;
+        const ready =
+          s.mode === "finale" ||
+          (s.glyphs && s.glyphs.done >= (s.glyphs.total || 0)) ||
+          s.phase === "end";
+        return {
+          tool: name,
+          schema: "kbatch-letter-grid-finale-v1",
+          ready: !!ready,
+          N: s.N || N,
+          pathLen: path ? path.length : undefined,
+          path: includePath ? path : undefined,
+          pathStep: s.pathStep,
+          complete: s.mode === "finale" && s.finaleDone,
+          peakBps: includeScores ? s.peakBps : undefined,
+          peakNtpm: includeScores ? s.peakNtpm : undefined,
+          score: includeScores ? s : undefined,
+          session: "live",
+          note: ready
+            ? "Finale available or complete"
+            : "Codex still in progress — path is the target spiral for N",
+        };
+      }
+      /* static spiral (no live scores) */
+      const path = includePath ? wanderingPathIndices(N) : undefined;
+      return {
+        tool: name,
+        schema: "kbatch-letter-grid-finale-v1",
+        ready: false,
+        N,
+        pathLen: path ? path.length : N * N,
+        path,
+        complete: false,
+        session: "static",
+        note:
+          "Static spiral path only. Live peak BPS / completion requires letter-grid session after all layers clear.",
+        open: PLAY_URL,
+        pipe: PIPE_URL,
+      };
+    }
+
     case "kbatch_lettergrid_export_training": {
       if (api && typeof api.exportTraining === "function") {
-        return api.exportTraining({ format: args.format || "json" });
+        return api.exportTraining({
+          format: args.format || "jsonl",
+          include: args.include,
+        });
       }
       const master = await loadMasterGlyphs(fetchImpl);
       const N = 12;
       const need = N * N;
       const total = master.total || 0;
       const layers = Math.ceil(total / need) || 1;
-      const format = args.format || "json";
+      const format = args.format || "jsonl";
+      const include = args.include;
       const seq = (master.glyphs || []).map((g) => (Array.isArray(g) ? g[1] : g.ch));
       const boundaries = [];
       for (let L = 1; L <= layers; L++) {
@@ -607,20 +821,17 @@ export async function lettergridMcpCall(name, args = {}, opts = {}) {
         return {
           format: "jsonl",
           tool: name,
-          lines: (master.glyphs || []).map((g) => {
-            const gi = Array.isArray(g) ? g[0] : g.gi;
-            const ch = Array.isArray(g) ? g[1] : g.ch;
-            const lineId = Array.isArray(g) ? g[2] : g.lineId;
-            const kind = Array.isArray(g) ? g[3] : g.kind;
-            return JSON.stringify({
-              gi,
-              ch,
-              lineId,
-              kind,
-              layer: Math.floor(gi / need) + 1,
-            });
-          }),
-          meta: { masterGlyphs: total, layers },
+          lines: (master.glyphs || []).map((g) =>
+            JSON.stringify(trainingRecord(g, need, include))
+          ),
+          meta: {
+            schema: "kbatch-letter-grid-training-v1",
+            masterGlyphs: total,
+            layers,
+            include:
+              include ||
+              ["gi", "ch", "lineId", "kind", "wordStart", "sentenceStart", "layer"],
+          },
         };
       }
       if (format === "jax") {

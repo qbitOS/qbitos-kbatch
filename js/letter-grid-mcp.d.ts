@@ -1,201 +1,173 @@
 /**
- * Declaration Letter-Grid MCP — TypeScript surfaces for Grok / Dojo / Colossus.
- * Tools: kbatch_lettergrid_* (see LETTERGRID_MCP_TOOLS / mcp manifest)
+ * Letter-Grid MCP TypeScript surface (v8-pipe + paleography + finale)
+ * Tools: kbatch_lettergrid_* · page API: letterGrid / __letterGridApi
  */
 
-export type LettergridInclude =
-  | "glyphs"
-  | "layers"
-  | "score"
-  | "crossref"
-  | "session"
-  | "paleography"
-  | "scores";
+declare namespace KBatch {
+  interface LetterGridState {
+    timer: string;
+    bps: number;
+    ntpm: number;
+    grid: "8x8" | "12x12" | "16x16" | string;
+    glyphs: { done: number; total: number };
+    layer: { current: number; total: number };
+    nextGlyph: string | null;
+    masterIndex: number;
+    peakBps: number;
+    mode: "lobby" | "dojo" | "round" | "finale" | "codex" | string;
+    phase?: string;
+    ver?: string;
+    session?: string;
+  }
 
-export type LettergridStepAction = "next" | "play" | "reset" | "skip-layer";
-export type LettergridLayerAction = "get" | "jump" | "clear";
-export type LettergridDepth = "light" | "full" | "training";
-export type LettergridGlyphFormat = "array" | "string" | "atoms";
-export type LettergridTrainFormat = "json" | "jsonl" | "jax";
-export type LettergridGridSize = "8x8" | "12x12" | "16x16";
-export type LettergridSpeedMs = 120 | 60 | 30 | 12;
+  interface MasterGlyph {
+    gi: number;
+    ch: string;
+    lineId: string;
+    kind: "title" | "subtitle" | "body" | "grievance" | "closing" | "signature" | string;
+    wordStart: 0 | 1;
+    sentenceStart: 0 | 1;
+  }
 
-/** Compact master glyph tuple */
-export type MasterGlyphTuple = [
-  gi: number,
-  ch: string,
-  lineId: string,
-  kind: string,
-  wordStart: 0 | 1,
-  sentenceStart: 0 | 1
-];
+  /** Compact tuple as shipped in master-glyphs.json */
+  type MasterGlyphTuple = [
+    gi: number,
+    ch: string,
+    lineId: string,
+    kind: string,
+    wordStart: 0 | 1,
+    sentenceStart: 0 | 1
+  ];
 
-export interface LettergridState {
-  tool?: "kbatch_lettergrid_state";
-  ver?: string;
-  timer: string;
-  bps: number;
-  ntpm: number;
-  grid: string;
-  N?: number;
-  glyphs: { done: number; total: number };
-  layer: { current: number; total: number };
-  nextGlyph: string | null;
-  next?: LettergridNextMeta | null;
-  masterIndex: number;
-  peakBps: number;
-  peakNtpm?: number;
-  mode: string;
-  phase?: string;
-  playing?: boolean;
-  session?: "static" | string;
-  note?: string;
-  urls?: { play?: string; pipe?: string };
+  interface PaleographyCapsule {
+    scribe: string;
+    ink: string;
+    support?: string;
+    substrate?: string;
+    dimensions?: string;
+    source?: string;
+    notes?: string | string[];
+    signatureColumns?: string;
+    rights?: string;
+  }
+
+  interface PaleographyDoc {
+    schema: "kbatch-declaration-paleography-v1" | string;
+    docId: "declaration-of-independence" | string;
+    source?: {
+      institution?: string;
+      item?: string;
+      location?: string;
+      transcript?: string;
+      highRes?: string;
+    };
+    physical?: {
+      scribe?: string;
+      dateEngrossed?: string;
+      support?: string;
+      dimensions?: string;
+      ink?: string;
+      condition?: string;
+    };
+    layout?: Record<string, string>;
+    restorationNotes?: string[];
+    methods?: Record<string, string>;
+    compact?: PaleographyCapsule;
+  }
+
+  interface ColossusPack {
+    schema: "kbatch-letter-grid-colossus-v1" | string;
+    ver?: string;
+    version?: string;
+    docId?: "declaration-of-independence" | string;
+    document?: string;
+    masterGlyphs: number;
+    layers: number;
+    state: LetterGridState;
+    glyphs?: string[] | MasterGlyph[];
+    layerMap?: Record<string, { label: string; range: [number, number]; count?: number }>;
+    gridLayerMap?: Record<
+      string,
+      { layer?: number; range?: [number, number]; start?: number; end?: number; cells?: number }
+    >;
+    paleography?: PaleographyCapsule;
+    paleographyDoc?: PaleographyDoc | null;
+    paleographyUrl?: string;
+    scoreHistory?: unknown[];
+    layerClearLog?: unknown[];
+    layerClears?: unknown[];
+    training?: TrainingPack;
+  }
+
+  interface FinalePack {
+    schema: "kbatch-letter-grid-finale-v1" | string;
+    tool?: "kbatch_lettergrid_finale";
+    ready?: boolean;
+    codexDone?: boolean;
+    finaleActive?: boolean;
+    finaleDone?: boolean;
+    complete?: boolean;
+    N: number;
+    layers?: number;
+    pathLen?: number;
+    pathStep?: number;
+    path?: number[];
+    pathPreview?: number[];
+    peakBps?: number;
+    peakNtpm?: number;
+    hits?: number;
+    misses?: number;
+    note?: string;
+    session?: string;
+  }
+
+  interface TrainingPack {
+    schema?: "kbatch-letter-grid-training-v1" | string;
+    format?: "json" | "jsonl" | "jax";
+    masterGlyphs?: number;
+    layers?: number;
+    sequence?: string[];
+    lines?: string[];
+    vectors?: number[][];
+    include?: string[];
+    meta?: Record<string, unknown>;
+  }
+
+  type LettergridTool =
+    | "kbatch_lettergrid_state"
+    | "kbatch_lettergrid_glyphs"
+    | "kbatch_lettergrid_step"
+    | "kbatch_lettergrid_play_round"
+    | "kbatch_lettergrid_layer"
+    | "kbatch_lettergrid_colossus"
+    | "kbatch_lettergrid_next_glyph"
+    | "kbatch_lettergrid_export_training"
+    | "kbatch_lettergrid_finale";
 }
 
-export interface LettergridNextMeta {
-  mode?: string;
-  gi?: number | null;
-  ch?: string | null;
-  display?: string;
-  lineId?: string;
-  kind?: string;
-  letterKey?: string;
-  wordStart?: boolean;
-  sentenceStart?: boolean;
-  cell?: number;
-  pathStep?: number;
-  pathTotal?: number;
-}
-
-export interface LettergridPaleography {
-  scribe: string;
-  ink: string;
-  substrate?: string;
-  notes?: string;
-  rights?: string;
-}
-
-export interface LettergridColossus {
-  tool?: "kbatch_lettergrid_colossus";
-  document: "declaration-of-independence" | string;
-  version: string;
-  schema?: string;
-  masterGlyphs: number;
-  layers: number;
-  state: LettergridState | Record<string, unknown>;
-  glyphs?: string[];
-  layerMap?: Record<string, { label: string; range: [number, number]; count?: number }>;
-  gridLayerMap?: Record<string, { layer: number; range: [number, number]; cells?: number }>;
-  scoreHistory?: unknown[];
-  crossref?: Record<string, Record<string, number>>;
-  paleography?: LettergridPaleography;
-  session?: string;
-  training?: LettergridTrainingPack;
-  urls?: Record<string, string>;
-}
-
-export interface LettergridTrainingPack {
-  schema?: "kbatch-letter-grid-training-v1" | string;
-  tool?: string;
-  document?: string;
-  N?: number;
-  masterGlyphs: number;
-  layers: number;
-  sequence?: string[];
-  layerBoundaries?: { layer: number; start: number; end: number }[];
-  documentLineMap?: Record<string, unknown>;
-  bps?: { factor: number; note?: string; targets?: Record<string, unknown> };
-  format?: LettergridTrainFormat;
-  lines?: string[];
-  vectors?: number[][];
-  columns?: string[];
-  shape?: [number, number];
-}
-
-export interface LettergridLiveSessionRequired {
-  error: "live_session_required";
-  tool: string;
-  message: string;
-  open?: string;
-  pipe?: string;
-  browser?: string;
-}
-
-/** Args per tool */
-export interface LettergridToolArgs {
-  kbatch_lettergrid_state: { include?: LettergridInclude[] };
-  kbatch_lettergrid_glyphs: {
-    range?: string;
-    format?: LettergridGlyphFormat;
-    includeMeta?: boolean;
-  };
-  kbatch_lettergrid_step: {
-    action?: LettergridStepAction;
-    count?: number;
-    speedMs?: LettergridSpeedMs | number;
-  };
-  kbatch_lettergrid_play_round: {
-    gridSize?: LettergridGridSize | string;
-    speedMs?: LettergridSpeedMs | number;
-    dryRun?: boolean;
-  };
-  kbatch_lettergrid_layer: {
-    layer: number;
-    action?: LettergridLayerAction;
-  };
-  kbatch_lettergrid_colossus: {
-    depth?: LettergridDepth;
-    include?: LettergridInclude[];
-  };
-  kbatch_lettergrid_next_glyph: Record<string, never>;
-  kbatch_lettergrid_export_training: {
-    format?: LettergridTrainFormat;
-  };
-}
-
-export type LettergridToolName = keyof LettergridToolArgs;
-
-/** Browser page API (letterGrid / __letterGridApi) */
+/** Page API */
 export interface LetterGridPageApi {
   ver: string;
   getState(): Record<string, unknown>;
-  mcpState(include?: LettergridInclude[]): LettergridState;
-  nextGlyph(opts?: object): {
-    ok: boolean;
-    glyph?: LettergridNextMeta | null;
-    cell?: number;
-    state?: LettergridState | Record<string, unknown>;
-    reason?: string;
-  };
-  playRound(opts?: {
-    size?: number;
-    N?: number;
-    speed?: number;
-    hopMs?: number;
-    timed?: boolean;
-    dojo?: boolean;
-    maxHits?: number;
-  }): Promise<unknown>;
-  exportColossus(opts?: {
-    includeGlyphs?: boolean;
-    compact?: boolean;
-    hitLimit?: number;
-  }): Record<string, unknown>;
-  exportColossusDraft(opts?: {
-    depth?: LettergridDepth;
-    include?: LettergridInclude[];
-  }): LettergridColossus;
-  setDojoMode(on?: boolean): LettergridState | Record<string, unknown>;
-  masterGlyphs(opts?: { compact?: boolean }): {
-    schema: string;
-    total: number;
-    glyphs: MasterGlyphTuple[] | unknown[];
-  };
-  jumpToLayer(layer: number): Record<string, unknown>;
-  skipLayer(): Record<string, unknown>;
-  exportTraining(opts?: { format?: LettergridTrainFormat }): LettergridTrainingPack;
-  agentPlay(opts?: { paceMs?: number; openCodex?: boolean; maxHits?: number }): Promise<unknown>;
+  mcpState(include?: string[]): KBatch.LetterGridState;
+  nextGlyph(opts?: object): { ok: boolean; glyph?: unknown; state?: unknown };
+  playRound(opts?: object): Promise<unknown>;
+  exportColossus(opts?: object): Record<string, unknown>;
+  exportColossusDraft(opts?: object): KBatch.ColossusPack;
+  exportFinale(opts?: {
+    includePath?: boolean;
+    includeScores?: boolean;
+    start?: boolean;
+  }): KBatch.FinalePack;
+  setDojoMode(on?: boolean): unknown;
+  masterGlyphs(opts?: object): { total: number; glyphs: unknown[] };
+  exportTraining(opts?: {
+    format?: "json" | "jsonl" | "jax";
+    include?: string[];
+  }): KBatch.TrainingPack;
+  paleography(): KBatch.PaleographyDoc | { compact: KBatch.PaleographyCapsule };
+  jumpToLayer(layer: number): unknown;
+  skipLayer(): unknown;
 }
 
 declare global {
@@ -204,12 +176,23 @@ declare global {
     __letterGridApi?: LetterGridPageApi;
     __mgLetterGridApi?: LetterGridPageApi;
     kbatchDict?: {
-      mcp: <T extends LettergridToolName | string>(
-        name: T,
-        args?: T extends LettergridToolName ? LettergridToolArgs[T] : object
-      ) => Promise<unknown> | unknown;
+      mcp(
+        name: KBatch.LettergridTool | string,
+        args?: object
+      ): Promise<unknown> | unknown;
     };
   }
 }
 
 export {};
+
+/*
+ * Usage:
+ *   await kbatchDict.mcp("kbatch_lettergrid_state")
+ *   await kbatchDict.mcp("kbatch_lettergrid_glyphs", { range: "L01" })
+ *   await kbatchDict.mcp("kbatch_lettergrid_colossus", { depth: "light" })
+ *   await kbatchDict.mcp("kbatch_lettergrid_step", { action: "next" })
+ *   await kbatchDict.mcp("kbatch_lettergrid_play_round", { gridSize: "12x12", speedMs: 60, dryRun: true })
+ *   await kbatchDict.mcp("kbatch_lettergrid_export_training", { format: "jsonl" })
+ *   await kbatchDict.mcp("kbatch_lettergrid_finale")
+ */

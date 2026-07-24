@@ -349,6 +349,7 @@
       dojoMode: false, /* no timer · step glyph-by-glyph */
       layerClears: [], /* { layer, at, masterPos, bps, ntpm, hits } */
       pipeLog: [], /* compact agent events for Colossus */
+      paleography: null, /* full capsule from paleography.json when loaded */
     };
 
     root.innerHTML = "";
@@ -2460,13 +2461,53 @@
       return xr;
     }
 
+    /** Compact paleography (sync fallback; full capsule at /data/declaration/paleography.json) */
+    function paleographyCompact() {
+      if (state.paleography && state.paleography.compact) return state.paleography.compact;
+      if (state.paleography && state.paleography.physical) {
+        var p = state.paleography;
+        return {
+          scribe: (p.physical && p.physical.scribe) || "Timothy Matlack",
+          ink: "iron-gall",
+          support: "parchment",
+          dimensions: (p.physical && p.physical.dimensions) || "~29.5 × 24 in",
+          source: "NARA engrossed copy",
+          signatureColumns:
+            (p.layout && p.layout.signatures) ||
+            "Six vertical columns by state (Georgia → New Hampshire)",
+          notes: p.restorationNotes || [],
+        };
+      }
+      return {
+        scribe: "Timothy Matlack",
+        ink: "iron-gall",
+        support: "parchment",
+        dimensions: "~29.5 × 24 in",
+        source: "NARA engrossed copy",
+        signatureColumns: "Six vertical columns by state (Georgia → New Hampshire)",
+        notes: [
+          "Letter-grid master stream is orthographic order, not stroke path",
+          "Public-domain transcript is ground truth for text disputes",
+        ],
+      };
+    }
+
     /**
      * Training pack: glyph sequence + layer boundaries + BPS targets.
-     * format: json | jsonl-rows | jax-vectors
+     * format: json | jsonl | jax · include field list for jsonl rows
      */
     function exportTraining(optsT) {
       optsT = optsT || {};
       var format = optsT.format || "json";
+      var fields = optsT.include || [
+        "gi",
+        "ch",
+        "lineId",
+        "kind",
+        "wordStart",
+        "sentenceStart",
+        "layer",
+      ];
       var need = state.N * state.N;
       var layers = Math.ceil(state.master.length / Math.max(1, need)) || 1;
       var boundaries = [];
@@ -2481,18 +2522,38 @@
         return g.ch;
       });
       var factor = bpsFactor(state.N);
+      function rowFor(g) {
+        var layer = Math.floor(g.gi / need) + 1;
+        var full = {
+          gi: g.gi,
+          ch: g.ch,
+          lineId: g.lineId,
+          kind: g.kind || "body",
+          wordStart: g.wordStart ? 1 : 0,
+          sentenceStart: g.sentenceStart ? 1 : 0,
+          layer: layer,
+        };
+        var out = {};
+        for (var i = 0; i < fields.length; i++) {
+          var k = fields[i];
+          if (full[k] !== undefined) out[k] = full[k];
+        }
+        return out;
+      }
       var pack = {
         schema: "kbatch-letter-grid-training-v1",
         tool: "kbatch_lettergrid_export_training",
         ver: VER,
         at: new Date().toISOString(),
         document: "declaration-of-independence",
+        docId: "declaration-of-independence",
         N: state.N,
         masterGlyphs: state.master.length,
         layers: layers,
         sequence: seq,
         layerBoundaries: boundaries,
         documentLineMap: documentLineMap(),
+        include: fields,
         bps: {
           factor: +factor.toFixed(4),
           note: "BPS = factor * NTPM/60 · factor = log2(N²-1)",
@@ -2509,24 +2570,20 @@
       if (format === "jsonl") {
         return {
           format: "jsonl",
+          tool: "kbatch_lettergrid_export_training",
+          include: fields,
           lines: state.master.map(function (g) {
-            return JSON.stringify({
-              gi: g.gi,
-              ch: g.ch,
-              lineId: g.lineId,
-              kind: g.kind,
-              layer: Math.floor(g.gi / need) + 1,
-            });
+            return JSON.stringify(rowFor(g));
           }),
           meta: {
             schema: pack.schema,
             masterGlyphs: pack.masterGlyphs,
             layers: pack.layers,
+            lineCount: state.master.length,
           },
         };
       }
       if (format === "jax") {
-        /* numeric features: gi, charCode, layer, wordStart, sentenceStart, kindId */
         var kindIds = {
           title: 0,
           subtitle: 1,
@@ -2557,35 +2614,95 @@
       return pack;
     }
 
+    /**
+     * Finale path report (after all master glyphs / grid layers cleared).
+     * Can force-start finale when codex complete.
+     */
+    function exportFinale(optsF) {
+      optsF = optsF || {};
+      var includePath = optsF.includePath !== false;
+      var includeScores = optsF.includeScores !== false;
+      var codexDone = state.masterPos >= state.master.length;
+      if (codexDone && state.mode !== "finale" && optsF.start !== false) {
+        try {
+          startFinale();
+        } catch (eF) {}
+      }
+      var need = state.N * state.N;
+      var layers = Math.ceil(state.master.length / Math.max(1, need)) || 1;
+      var path =
+        state.mode === "finale" && state.path && state.path.length
+          ? state.path.slice()
+          : wanderingPathIndices(state.N);
+      var pack = {
+        schema: "kbatch-letter-grid-finale-v1",
+        tool: "kbatch_lettergrid_finale",
+        ver: VER,
+        at: new Date().toISOString(),
+        docId: "declaration-of-independence",
+        codexDone: codexDone,
+        finaleActive: state.mode === "finale",
+        finaleDone:
+          state.mode === "finale" && state.pathStep >= (state.path.length || path.length),
+        N: state.N,
+        layers: layers,
+        pathLen: path.length,
+        pathStep: state.pathStep || 0,
+        peakBps: +Number(state.peakBps).toFixed(2),
+        peakNtpm: state.peakNtpm,
+        hits: state.hitCount,
+        misses: state.missCount,
+        note: codexDone
+          ? "Codex complete — finale path is N×N wandering indices"
+          : "Codex incomplete (" +
+            state.masterPos +
+            "/" +
+            state.master.length +
+            ") — path preview only; clear layers first",
+      };
+      if (includePath) {
+        pack.path = path;
+        pack.pathPreview = path.slice(0, 24);
+      }
+      if (includeScores) {
+        pack.score = mcpStateShape(["score"]);
+        pack.layerClearLog = state.layerClears.slice();
+        pack.stair = state.stairUnlocks.slice();
+        pack.report = state.lastReport;
+      }
+      try {
+        global.__mgLetterGridFinale = pack;
+        global.dispatchEvent(new CustomEvent("letter-grid-finale-export", { detail: pack }));
+      } catch (e2) {}
+      return pack;
+    }
+
     /** Draft-shaped Colossus snapshot */
     function exportColossusDraft(optsD) {
       optsD = optsD || {};
       var depth = optsD.depth || "full";
-      var include = optsD.include || ["glyphs", "layers", "scores", "crossref", "session"];
+      var include = optsD.include || ["glyphs", "layers", "scores", "crossref", "session", "paleography"];
       var light = depth === "light";
       var training = depth === "training";
       var base = {
-        document: "declaration-of-independence",
-        version: VER,
         schema: "kbatch-letter-grid-colossus-v1",
+        document: "declaration-of-independence",
+        docId: "declaration-of-independence",
+        version: VER,
+        ver: VER,
         masterGlyphs: state.master.length,
         layers: Math.ceil(state.master.length / Math.max(1, state.N * state.N)) || 1,
         state: mcpStateShape(["score"]),
-        paleography: {
-          scribe: "Timothy Matlack",
-          ink: "iron-gall",
-          substrate: "parchment",
-          notes:
-            "NARA engrossed transcript glyphs · letter-grid master stream is orthographic order, not stroke path.",
-          rights: "public-domain transcript",
-        },
+        paleography: paleographyCompact(),
+        paleographyUrl: "/data/declaration/paleography.json",
       };
+      if (state.paleography) base.paleographyFull = state.paleography;
       if (!light && include.indexOf("glyphs") >= 0) {
         base.glyphs = state.master.map(function (g) {
           return g.ch;
         });
       }
-      if (!light && (include.indexOf("layers") >= 0 || true)) {
+      if (!light) {
         base.layerMap = documentLineMap();
         base.gridLayerMap = gridLayerMap();
       }
@@ -2598,6 +2715,7 @@
           }
         })();
         base.layerClears = state.layerClears.slice();
+        base.layerClearLog = state.layerClears.slice();
         base.stair = state.stairUnlocks.slice();
       }
       if (!light && include.indexOf("crossref") >= 0) {
@@ -2609,11 +2727,8 @@
           hits: state.hits.slice(-200),
         };
       }
-      if (include.indexOf("paleography") >= 0 || !light) {
-        /* already attached */
-      }
       if (training) {
-        base.training = exportTraining({ format: "json" });
+        base.training = exportTraining({ format: "jsonl" });
       }
       try {
         global.__mgLetterGridColossus = base;
@@ -2706,6 +2821,13 @@
      * Load full document lines for master stream.
      * Prefer single full-transcript (fast, complete) · fall back to dense L01–L79 sections.
      */
+    /* optional NARA paleography capsule (non-blocking) */
+    fetchJson(base + "/paleography.json")
+      .then(function (p) {
+        if (p && p.schema) state.paleography = p;
+      })
+      .catch(function () {});
+
     return fetchJson(base + "/full-transcript-lines.json")
       .then(function (d) {
         if (d && d.lines && d.lines.length) return d.lines;
@@ -2780,12 +2902,16 @@
           playRound: playRound,
           exportColossus: exportColossus,
           exportColossusDraft: exportColossusDraft,
+          exportFinale: exportFinale,
           setDojoMode: setDojoMode,
           masterGlyphs: masterGlyphs,
           jumpToLayer: jumpToLayer,
           skipLayer: skipLayer,
           mcpState: mcpStateShape,
           exportTraining: exportTraining,
+          paleography: function () {
+            return state.paleography || { compact: paleographyCompact() };
+          },
           documentLineMap: documentLineMap,
           gridLayerMap: gridLayerMap,
           setContrail: function (layer, on) {
