@@ -1,0 +1,182 @@
+{
+  "schema": "kbatch-jax-feature-bank-meta-v1",
+  "generated": "2026-07-24T07:26:28.989Z",
+  "shape": {
+    "probes": 25,
+    "layouts": 15,
+    "features": 10,
+    "cells": 375
+  },
+  "feature_names": [
+    "keys",
+    "efficiency",
+    "complexity",
+    "strain",
+    "home_row_pct",
+    "travel_mm",
+    "trails",
+    "calories",
+    "rsi_risk",
+    "bpm"
+  ],
+  "layouts": [
+    "qwerty",
+    "dvorak",
+    "colemak",
+    "azerty",
+    "qwertz",
+    "jcuken",
+    "korean",
+    "japanese",
+    "arabic",
+    "hindi",
+    "hebrew",
+    "greek",
+    "thai",
+    "turkish_f",
+    "vietnamese"
+  ],
+  "probe_ids": [
+    "decl-head-40",
+    "decl-layer1-12x12",
+    "decl-L01",
+    "decl-body-200",
+    "decl-tail-80",
+    "chart-too-sweet-hozier",
+    "chart-anxiety-doechii",
+    "chart-die-with-a-smile-lady-gaga",
+    "chart-a-bar-song-shaboozey",
+    "chart-uptown-funk-mark-ronson-bruno-mars",
+    "chart-all-too-well-taylor-swift",
+    "chart-blinding-lights-the-weeknd",
+    "chart-as-it-was-harry-styles",
+    "chart-flowers-miley-cyrus",
+    "chart-not-like-us-kendrick-lamar",
+    "so-cv-open",
+    "so-cv-closed",
+    "so-sso",
+    "so-oso",
+    "so-sos",
+    "so-pangram",
+    "so-home",
+    "so-type-once",
+    "so-declaration-phrase",
+    "so-people"
+  ],
+  "normalization": {
+    "method": "zscore",
+    "mu": [
+      19.848,
+      52.879467,
+      43.778133,
+      40.784267,
+      24.132267,
+      1151.620267,
+      17.629333,
+      0.115161,
+      51.614667,
+      479.624
+    ],
+    "sigma": [
+      36.602078,
+      45.499961,
+      44.002403,
+      40.125088,
+      27.729672,
+      2413.172165,
+      36.015946,
+      0.241317,
+      22.143234,
+      66.433554
+    ],
+    "min": [
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      345
+    ],
+    "max": [
+      200,
+      100,
+      100,
+      100,
+      100,
+      15730,
+      199,
+      1.573002,
+      100,
+      545
+    ],
+    "note": "hat_x_i = (x_i - mu_i) / (sigma_i + eps)"
+  },
+  "kernelSample": {
+    "qwerty": {
+      "d_geom": 0,
+      "K": 1
+    },
+    "dvorak": {
+      "d_geom": 2.315,
+      "K": 0.448
+    },
+    "colemak": {
+      "d_geom": 2.924,
+      "K": 0.277
+    },
+    "azerty": {
+      "d_geom": 0.167,
+      "K": 0.996
+    },
+    "qwertz": {
+      "d_geom": 0.627,
+      "K": 0.943
+    },
+    "jcuken": {
+      "d_geom": 4.184,
+      "K": 0.072
+    },
+    "korean": {
+      "d_geom": 4.184,
+      "K": 0.072
+    },
+    "japanese": {
+      "d_geom": 0,
+      "K": 1
+    },
+    "arabic": {
+      "d_geom": 4.184,
+      "K": 0.072
+    },
+    "hindi": {
+      "d_geom": 4.184,
+      "K": 0.072
+    },
+    "hebrew": {
+      "d_geom": 4.184,
+      "K": 0.072
+    },
+    "greek": {
+      "d_geom": 4.184,
+      "K": 0.072
+    },
+    "thai": {
+      "d_geom": 4.184,
+      "K": 0.072
+    },
+    "turkish_f": {
+      "d_geom": 1.362,
+      "K": 0.757
+    },
+    "vietnamese": {
+      "d_geom": 0,
+      "K": 1
+    }
+  },
+  "buildMs": 3880,
+  "bankUrl": "data/calibration/jax-feature-bank.json"
+}

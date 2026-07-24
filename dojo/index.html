@@ -1,0 +1,451 @@
+<!DOCTYPE html>
+<html lang="en" data-history-page="dojo" data-history-open="1">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+  <title>KBatch DOJO — Pattern matrix · Letter atoms · Colossus · History</title>
+  <meta name="description" content="KBatch DOJO: letter atoms on 15 layouts, pattern matrix, live caption pipes, multi-lang corpus, open history scaffold, MCP + JAX." />
+  <meta name="theme-color" content="#0d1117" />
+  <meta name="kbatch-product" content="ugrad.kbatch.dojo" />
+  <link rel="stylesheet" href="../css/app.css" />
+  <link rel="stylesheet" href="../css/dojo.css" />
+  <link rel="stylesheet" href="../css/history-sliderule.css" />
+  <script>
+    (function () {
+      try {
+        var t = localStorage.getItem("kbatch-dict-theme");
+        if (t !== "light" && t !== "dark") {
+          t = window.matchMedia("(prefers-color-scheme: light)").matches ? "light" : "dark";
+        }
+        document.documentElement.setAttribute("data-theme", t);
+      } catch (e) {
+        document.documentElement.setAttribute("data-theme", "dark");
+      }
+    })();
+  </script>
+</head>
+<body class="dojo-body">
+  <header class="app-header dojo-header">
+    <div class="header-inner">
+      <div class="brand-row">
+        <div class="brand">
+          <button type="button" class="theme-toggle" id="theme-toggle" title="Toggle light / dark mode" aria-label="Toggle light and dark mode">
+            <span class="theme-icon theme-icon--sun" aria-hidden="true">☀</span>
+            <span class="theme-icon theme-icon--moon" aria-hidden="true">☾</span>
+          </button>
+          <h1><span>KBatch</span> DOJO</h1>
+          <span class="brand-sub">Full pattern matrix (15) · Full language×alphabet (88) · Letter atoms · Colossus</span>
+        </div>
+        <nav class="site-nav" aria-label="Site"></nav>
+        <div class="export-bar">
+          <button type="button" class="btn" id="btn-export-matrix">Export matrix</button>
+          <button type="button" class="btn" id="btn-export-atom">Export atom</button>
+          <button type="button" class="btn" id="btn-export-snapshot">Export snapshot</button>
+          <button type="button" class="btn btn-primary" id="btn-copy-mcp">Copy MCP tools</button>
+        </div>
+      </div>
+      <div class="meta-row dojo-meta-row">
+        <span class="status-line" id="dojo-status" role="status">Loading DOJO…</span>
+        <span class="status-line" id="dojo-history-status" role="status">History rail…</span>
+      </div>
+    </div>
+  </header>
+
+  <main class="dojo-main">
+    <!-- Agent quick start — map for Grok / Dojo / Colossus -->
+    <section class="dojo-panel dojo-agent-quick" aria-labelledby="dojo-agent-qs-title">
+      <h2 id="dojo-agent-qs-title">Agent quick start</h2>
+      <p class="dojo-muted">
+        Type once → 15 layout shadows · world-path language order · Declaration cadence · chart lookup.
+        Full map: <a href="../for-ai.html">/for-ai</a> ·
+        <a href="../docs/WORLD-PATH-COST-MODEL.md">world-path cost</a> ·
+        <a href="../docs/LETTER-ATOM-AND-LANGUAGE-MATRIX.md">letter atom</a> ·
+        <a href="../docs/DECLARATION-CADENCE-PROJECTION.md">Declaration cadence</a> ·
+        <a href="../docs/CHART-LOOKUP-RETURN-SHAPE.md">chart lookup</a> ·
+        <a href="../docs/WORLD-PATH-COST-MATRIX.md">cost matrix</a> ·
+        <a href="../docs/CALIBRATION-PROBE-SET.md">probe set</a> ·
+        <a href="../docs/JAX-FEATURE-BANK.md">JAX bank</a> ·
+        <a href="../docs/PHONETIC-PATTERN-ANALYSIS.md">phonetic</a>
+      </p>
+      <pre class="dojo-agent-snippet" id="dojo-agent-snippet">// Browser console (DOJO / SPA)
+await kbatchDict.mcp("kbatch_export_jax", { text: "type once", level: "caption", layout: "qwerty" })
+await kbatchDict.mcp("kbatch_phon_pattern", { text: "type once", lang: "en" })
+await kbatchDict.mcp("kbatch_world_path", { from: "en", mode: "ready" })
+await kbatchDict.mcp("kbatch_declaration_cadence", { range: "0-143" })
+// Static calibration stack:
+// const C = await fetch("/data/world-path/cost-matrix.json").then(r => r.json())
+// const bank = await fetch("/data/calibration/jax-feature-bank.json").then(r => r.json())
+// const phon = await fetch("/data/calibration/phon-probe-set.json").then(r => r.json())
+// cTilde = c * (1 + 0.2*dSO + 0.3*dPH) · bank.X · phon.dPhon</pre>
+      <p class="dojo-muted">
+        Labs:
+        <a href="../labs/rosetta">Rosetta</a> ·
+        <a href="../labs/ancestory">AnCEstory</a> ·
+        <a href="../labs/living-books">Living books</a> ·
+        <a href="../labs/declaration-digital-edition/letter-grid.html">Letter-Grid</a> ·
+        <a href="../labs/declaration-digital-edition/letter-grid-lab.html">Grid Lab</a>
+      </p>
+    </section>
+
+    <!-- Universal history scaffold (wired by history-harness) -->
+    <section class="dojo-panel" data-history-scaffold aria-labelledby="dojo-hist-title">
+      <div class="phs-head">
+        <h2 id="dojo-hist-title">History scaffold</h2>
+        <div class="phs-meta">
+          <span data-hs-year>—</span>
+          <span data-hs-era>—</span>
+          <span data-hs-band>—</span>
+        </div>
+      </div>
+      <p class="phs-note">
+        The sticky <strong>History</strong> rail under the menu is the same past→today harness as AnCEstory, Myth·Names, and Declaration.
+        Era chips reframe DOJO geometry in time (writing age · alphabets · QWERTY · chart packs). Density underlay comes from the open history atlas (names · myth · antiquity).
+      </p>
+      <div data-hs-chips aria-label="Era focus"></div>
+      <div data-hs-links></div>
+      <div class="dojo-hist-stats" id="dojo-hist-stats" aria-live="polite">
+        Loading open history atlas stats…
+      </div>
+    </section>
+
+    <!-- Jump to full matrices -->
+    <nav class="dojo-matrix-jump" aria-label="Full matrices on DOJO">
+      <a class="btn btn-primary" href="#pattern-matrix">Pattern matrix · all 15 layouts</a>
+      <a class="btn btn-primary" href="#lang-alpha-matrix">Language × alphabet · all 88</a>
+      <a class="btn" href="#atoms-title">Letter atoms</a>
+      <a class="btn" href="#world-axes">World axes</a>
+    </nav>
+
+    <!-- Stats / scale -->
+    <section class="dojo-stats" aria-label="Corpus and geometry scale">
+      <div class="dojo-stat"><em>Schema</em><b id="stat-schema">—</b></div>
+      <div class="dojo-stat"><em>Spellings (en)</em><b id="stat-spellings">—</b></div>
+      <div class="dojo-stat"><em>Lang packs</em><b id="stat-langs">—</b></div>
+      <div class="dojo-stat"><em>Atom keys</em><b id="stat-letters">26</b></div>
+      <div class="dojo-stat"><em>Layouts</em><b id="stat-layouts">15</b></div>
+      <div class="dojo-stat"><em>Pattern slots</em><b id="stat-slots">—</b></div>
+      <div class="dojo-stat"><em>History nodes</em><b id="stat-history">—</b></div>
+      <div class="dojo-stat"><em>MCP tools</em><b id="stat-mcp">10</b></div>
+    </section>
+
+    <!-- Music Geometry Lab blurb -->
+    <section class="dojo-panel" aria-labelledby="music-geo-title">
+      <header class="dojo-panel-head">
+        <h2 id="music-geo-title">Music Geometry Lab</h2>
+        <p>
+          <strong>1141</strong> chart title-path packs (2015–2026) · shadows · BPM · strain · steno ·
+          <strong>25 metadata capsules</strong> ·
+          <a href="https://github.com/fornevercollective/qbpm" target="_blank" rel="noopener">qbpm</a>
+          (<code>music.clock → tool.kbatch → music.score</code> ·
+          graph <code>graphs/live-charts.json</code>).
+          Switch seeds for <strong>flowClass</strong> contrast (dense / balanced / glide).
+          <a href="../lyrics.html">Lyrics lab →</a>
+          · <a href="../for-ai.html#music-geometry">For AI</a>
+        </p>
+        <p class="dojo-muted" style="margin:8px 0 0;font-size:0.82rem">
+          MCP:
+          <code>await kbatchDict.chartLookup({ query: "too sweet hozier" })</code>
+          ·
+          <code>await kbatchDict.chartLookup({ listCapsules: true })</code>
+          ·
+          <code>await kbatchDict.chartLookup({ flowClass: "dense", limit: 3 })</code>
+        </p>
+        <div id="chart-seed-row" class="dojo-seed-row" role="group" aria-label="Chart geometry flowClass seeds" style="display:flex;flex-wrap:wrap;gap:6px;margin-top:10px"></div>
+      </header>
+    </section>
+
+    <!-- Live pipe -->
+    <section class="dojo-panel dojo-pipe" aria-labelledby="pipe-title">
+      <header class="dojo-panel-head">
+        <h2 id="pipe-title">Live pipe</h2>
+        <p>caption_in → analyze (letter / word / sentence / paragraph / caption / blob) → caption_out · MCP · JAX · chart geometry seed</p>
+      </header>
+      <div class="dojo-pipe-grid">
+        <div class="dojo-pipe-controls">
+          <label>
+            Level
+            <select id="pipe-level">
+              <option value="auto">auto-detect</option>
+              <option value="letter">letter</option>
+              <option value="word">word</option>
+              <option value="sentence">sentence</option>
+              <option value="paragraph">paragraph</option>
+              <option value="caption">caption</option>
+              <option value="blob">blob</option>
+              <option value="document">document</option>
+            </select>
+          </label>
+          <label>
+            Channel
+            <select id="pipe-channel">
+              <option value="caption_in">caption_in</option>
+              <option value="caption_out">caption_out</option>
+              <option value="llm_prompt">llm_prompt</option>
+              <option value="llm_completion">llm_completion</option>
+              <option value="dict_lookup">dict_lookup</option>
+              <option value="mcp_tool">mcp_tool</option>
+              <option value="jax_tensor">jax_tensor</option>
+            </select>
+          </label>
+          <label>
+            Layout
+            <select id="pipe-layout"></select>
+          </label>
+          <button type="button" class="btn btn-primary" id="btn-pipe-run">Run pipe</button>
+        </div>
+        <textarea
+          id="pipe-input"
+          class="dojo-textarea"
+          rows="5"
+          placeholder="Paste caption, sentence, paragraph, or blob…&#10;Demo seed: Too Sweet title-path (chart geometry)."
+          spellcheck="false"
+        ></textarea>
+        <div class="dojo-pipe-out">
+          <div class="dojo-strip" id="pipe-strip">Keys: 0 | Eff: 0% | Cpx: 0% | Trails: 0 | 0mm | 0.000000 cal</div>
+          <div class="dojo-caption-out" id="pipe-caption-out">caption_out —</div>
+          <pre class="dojo-json" id="pipe-json" tabindex="0">{}</pre>
+        </div>
+      </div>
+    </section>
+
+    <div class="dojo-columns">
+      <!-- Letter atoms -->
+      <section class="dojo-panel dojo-panel-atoms" aria-labelledby="atoms-title">
+        <header class="dojo-panel-head">
+          <h2 id="atoms-title">Letter atoms</h2>
+          <p>Every key · placement on all 15 layouts · encodings · pattern slot · neighbors</p>
+        </header>
+        <div class="dojo-toolbar">
+          <label>
+            Alphabet from layout
+            <select id="atom-layout" title="Show atoms for keys on this layout"></select>
+          </label>
+        </div>
+        <div class="letter-atom-grid" id="letter-atom-grid" role="listbox" aria-label="Letter atoms"></div>
+        <div class="letter-atom-detail" id="letter-atom-detail">
+          <p class="dojo-muted">Select a letter — or click a Pattern matrix cell</p>
+        </div>
+      </section>
+
+      <!-- Pattern matrix — ALL slots × ALL 15 layouts -->
+      <section class="dojo-panel dojo-panel-matrix" id="pattern-matrix" aria-labelledby="matrix-title">
+        <header class="dojo-panel-head">
+          <h2 id="matrix-title">Pattern matrix · all layouts</h2>
+          <p>
+            Full physical board: every slot (r,c) × all <strong>15</strong> geometric layouts ·
+            same path identity · home-row tinted ·
+            <span id="matrix-full-count" class="dojo-muted mono">—</span>
+          </p>
+        </header>
+        <div class="dojo-toolbar">
+          <label>
+            Matrix base layout
+            <select id="matrix-base" title="Coordinate frame for slots"></select>
+          </label>
+          <button type="button" class="btn" id="btn-export-matrix-inline" title="Same as header Export matrix">Export JSON</button>
+          <span class="dojo-muted" id="matrix-caption">—</span>
+        </div>
+        <div class="matrix-scroll matrix-scroll-full">
+          <table class="matrix-table matrix-table-full" id="matrix-table">
+            <thead></thead>
+            <tbody></tbody>
+          </table>
+        </div>
+        <p class="dojo-hint">
+          All slots and all layouts on DOJO · click any cell → <strong>letter atom</strong> ·
+          base column highlighted · scroll horizontally for full ring.
+        </p>
+      </section>
+    </div>
+
+    <!-- Master language × alphabet matrix — ALL 88 languages × full alphabets -->
+    <section class="dojo-panel dojo-panel-lang-matrix" id="lang-alpha-matrix" aria-labelledby="lam-title">
+      <header class="dojo-panel-head">
+        <h2 id="lam-title">Master language × alphabet matrix · all</h2>
+        <p>
+          Full catalog atlas: every mother / First Nations / classical / world language ·
+          every traditional grapheme (grid columns 1…max) · script · layout · tier filters
+        </p>
+      </header>
+      <div class="dojo-toolbar">
+        <button type="button" class="btn btn-primary" id="btn-lam-grid" data-lam-mode-btn="grid">Grid (all letters)</button>
+        <button type="button" class="btn" id="btn-lam-list" data-lam-mode-btn="list">List view</button>
+        <button type="button" class="btn" id="btn-export-lang-alpha">Export full matrix JSON</button>
+        <span class="dojo-muted" id="lam-status">Building full atlas…</span>
+      </div>
+      <div id="lang-alpha-matrix-body" class="lang-alpha-matrix-body"></div>
+    </section>
+
+    <!-- Word sample with full placement -->
+    <section class="dojo-panel" aria-labelledby="word-title">
+      <header class="dojo-panel-head">
+        <h2 id="word-title">Word · letter path · full placement</h2>
+        <p>Atom trail · pattern path · per-layout glyph strings · strip · metrics</p>
+      </header>
+      <div class="dojo-word-bar">
+        <input type="text" id="dojo-word" value="quantum" spellcheck="false" aria-label="Word to analyze" />
+        <button type="button" class="btn btn-primary" id="btn-dojo-word">Analyze word</button>
+      </div>
+      <div id="dojo-word-view" class="dojo-word-view"></div>
+    </section>
+
+    <!-- World axes + R3 pipe -->
+    <section class="dojo-panel" id="world-axes" aria-labelledby="axes-title">
+      <header class="dojo-panel-head">
+        <h2 id="axes-title">World axes · R3 scaffold pipe</h2>
+        <p>
+          Five axes dialed through R3 scaffolds · Colossus pipes scores, pathways, collaborators, senses, music rights.
+          Outreach CRM is <strong>human-gated</strong> (no auto-send).
+          <a href="../world-ranking.html">World ranking →</a>
+        </p>
+      </header>
+      <div class="dojo-toolbar">
+        <button type="button" class="btn btn-primary" id="btn-load-axes">Load axes + pathways</button>
+        <button type="button" class="btn" id="btn-export-colossus-full">Export Colossus full</button>
+        <span class="dojo-muted" id="axes-status">—</span>
+      </div>
+      <div id="axes-body" class="axes-body"></div>
+    </section>
+
+    <!-- Fastest world language path -->
+    <section class="dojo-panel" id="world-path" aria-labelledby="wpath-title">
+      <header class="dojo-panel-head">
+        <h2 id="wpath-title">Fastest path · all world languages</h2>
+        <p>
+          Minimize layout + script + family transfer · script portals first · ready packs before placeholders · honor langs opt-in only.
+          MCP: <code>await kbatchDict.worldPath({ from: 'en', mode: 'ready' })</code>
+        </p>
+      </header>
+      <div class="dojo-toolbar dojo-wpath-bar">
+        <label>
+          From
+          <input type="text" id="wpath-from" value="en" size="4" spellcheck="false" aria-label="Origin language id" />
+        </label>
+        <label>
+          Mode
+          <select id="wpath-mode" aria-label="World path mode">
+            <option value="ready">ready packs</option>
+            <option value="portals">script portals</option>
+            <option value="ladder">ladder rungs</option>
+            <option value="full" selected>full catalog</option>
+          </select>
+        </label>
+        <label class="dojo-check">
+          <input type="checkbox" id="wpath-honor" /> include honor
+        </label>
+        <button type="button" class="btn btn-primary" id="btn-wpath-run">Compute path</button>
+        <button type="button" class="btn" id="btn-wpath-export">Export JSON</button>
+        <span class="dojo-muted" id="wpath-status">—</span>
+      </div>
+      <div id="wpath-body" class="wpath-body"></div>
+    </section>
+
+    <!-- Glyph steno live -->
+    <section class="dojo-panel" id="glyph-steno" aria-labelledby="glyph-title">
+      <header class="dojo-panel-head">
+        <h2 id="glyph-title">Glyph → steno live</h2>
+        <p>
+          Pack GY glyph pixels (13/25/37/49) into steno whitespace · mesh broadcast · same rail as blank coins.
+          MCP: <code>await kbatchDict.glyph.encode(text, pixels)</code>
+        </p>
+      </header>
+      <div class="dojo-toolbar dojo-glyph-bar">
+        <label>
+          Size
+          <select id="glyph-n" aria-label="Glyph matrix size">
+            <option value="13" selected>13×13</option>
+            <option value="25">25×25</option>
+            <option value="37">37×37</option>
+            <option value="49">49×49</option>
+          </select>
+        </label>
+        <button type="button" class="btn btn-primary" id="btn-glyph-encode">Encode</button>
+        <button type="button" class="btn" id="btn-glyph-broadcast">Broadcast mesh</button>
+        <button type="button" class="btn" id="btn-glyph-decode">Decode from pipe</button>
+        <span class="dojo-muted" id="glyph-status">—</span>
+      </div>
+      <textarea
+        id="glyph-carrier"
+        class="dojo-textarea"
+        rows="2"
+        spellcheck="false"
+        placeholder="Carrier text for glyph steno…"
+      >kbatch colossus flow</textarea>
+      <div id="glyph-steno-preview" class="glyph-steno-preview" aria-label="Glyph matrix preview"></div>
+      <pre class="dojo-json" id="glyph-json" style="max-height:180px">{}</pre>
+    </section>
+
+    <!-- MCP -->
+    <section class="dojo-panel" aria-labelledby="mcp-title">
+      <header class="dojo-panel-head">
+        <h2 id="mcp-title">MCP tools</h2>
+        <p>Agent / LLM callable surface · <code>window.kbatchDict.mcp(name, args)</code></p>
+      </header>
+      <div class="mcp-list" id="mcp-list"></div>
+    </section>
+
+    <!-- Open history + world docs -->
+    <section class="dojo-panel" aria-labelledby="decl-world-title">
+      <header class="dojo-panel-head">
+        <h2 id="decl-world-title">Open history · world docs · theme matrix</h2>
+        <p>
+          Large open history atlas (names · myth · antiquity) densifies the universal History rail.
+          Declaration edition: engrossed archival codex · multilingual plane · theme matrix · gitgraph lineage.
+          Research past → today; living-guard 1920 is family GED only — not a research wall.
+        </p>
+        <p class="dojo-muted" style="margin:8px 0 0;font-size:0.82rem">
+          <a href="../labs/ancestory">AnCEstory · history atlas</a> ·
+          <a href="../data/ancestory/history-atlas.json">history-atlas.json</a> ·
+          <a href="../data/ancestory/history-density.json">history-density.json</a> ·
+          <a href="../labs/myth-names">Myth · Names</a> ·
+          <a href="../research">Research</a> ·
+          <a href="../labs/declaration-digital-edition/">Archive</a> ·
+          <a href="../labs/declaration-digital-edition/world.html">World · theme matrix</a> ·
+          <a href="../data/declaration/document-lineage.json">document-lineage.json</a>
+        </p>
+        <p class="dojo-muted" style="margin:6px 0 0;font-size:0.8rem">
+          <strong>Dojo rule:</strong> Stone engraving = reading pass · Raw parchment = material symbology
+          (ink relief, grain, signature ductus, fade map). Analysis that only uses Stone will miss marks
+          the engraving flattens — and will not survive a National Treasure audit.
+        </p>
+      </header>
+    </section>
+
+    <!-- API -->
+    <section class="dojo-panel" aria-labelledby="api-title">
+      <header class="dojo-panel-head">
+        <h2 id="api-title">Live API</h2>
+        <p>Browser console · captions · LLM · training · R3 pipe</p>
+      </header>
+      <pre class="dojo-json dojo-api-doc" id="api-doc">window.kbatchDict.analyze(text, { level, layout, caption_in })
+window.kbatchDict.pipe(channel, payload, { layout, level })
+window.kbatchDict.mcp('kbatch_analyze', { text, level, layout })
+window.kbatchDict.letter('q')        // letter atom
+window.kbatchDict.breakdown('quantum')
+window.kbatchDict.matrix()           // pattern matrix (15 layouts)
+window.kbatchDict.languageAlphabetMatrix()  // 88 langs × alphabets
+window.kbatchDict.colossus(['the','quantum'])
+await window.kbatchDict.colossusFull()      // axes + collaborators + senses + music + worldPath
+await window.kbatchDict.worldPath({ from:'en', mode:'ready' })
+await window.kbatchDict.worldAxes()
+await window.kbatchDict.glyph.encode('carrier', null, { n:13 })
+await window.kbatchDict.mcp('kbatch_world_path', { mode:'portals' })</pre>
+    </section>
+  </main>
+
+  <footer class="app-footer">
+    KBatch DOJO · pattern matrix · letter atoms · history scaffold ·
+    <a href="../">Dictionary</a> ·
+    <a href="../research">Research</a> ·
+    <a href="../labs/ancestory">AnCEstory</a> ·
+    <a href="../shadow.html">Shadow Live</a> ·
+    <a href="https://kbatch.ugrad.ai" target="_blank" rel="noopener">kbatch.ugrad.ai</a>
+  </footer>
+
+  <script type="importmap">
+{"imports":{"/js/analyze.js":"/js/analyze.js?v=1.2.0+local+20260724075437","js/analyze.js":"js/analyze.js?v=1.2.0+local+20260724075437","/js/ancestory-lab.js":"/js/ancestory-lab.js?v=1.2.0+local+20260724075437","js/ancestory-lab.js":"js/ancestory-lab.js?v=1.2.0+local+20260724075437","/js/app.js":"/js/app.js?v=1.2.0+local+20260724075437","js/app.js":"js/app.js?v=1.2.0+local+20260724075437","/js/archive-restoration-viewer.js":"/js/archive-restoration-viewer.js?v=1.2.0+local+20260724075437","js/archive-restoration-viewer.js":"js/archive-restoration-viewer.js?v=1.2.0+local+20260724075437","/js/billboard-2026.js":"/js/billboard-2026.js?v=1.2.0+local+20260724075437","js/billboard-2026.js":"js/billboard-2026.js?v=1.2.0+local+20260724075437","/js/blank-bridge.js":"/js/blank-bridge.js?v=1.2.0+local+20260724075437","js/blank-bridge.js":"js/blank-bridge.js?v=1.2.0+local+20260724075437","/js/cache-bust.js":"/js/cache-bust.js?v=1.2.0+local+20260724075437","js/cache-bust.js":"js/cache-bust.js?v=1.2.0+local+20260724075437","/js/cage-litmus-mcp.js":"/js/cage-litmus-mcp.js?v=1.2.0+local+20260724075437","js/cage-litmus-mcp.js":"js/cage-litmus-mcp.js?v=1.2.0+local+20260724075437","/js/capsule-analyzer.js":"/js/capsule-analyzer.js?v=1.2.0+local+20260724075437","js/capsule-analyzer.js":"js/capsule-analyzer.js?v=1.2.0+local+20260724075437","/js/capsules-canon.js":"/js/capsules-canon.js?v=1.2.0+local+20260724075437","js/capsules-canon.js":"js/capsules-canon.js?v=1.2.0+local+20260724075437","/js/collab-lab.js":"/js/collab-lab.js?v=1.2.0+local+20260724075437","js/collab-lab.js":"js/collab-lab.js?v=1.2.0+local+20260724075437","/js/contrails-viz.js":"/js/contrails-viz.js?v=1.2.0+local+20260724075437","js/contrails-viz.js":"js/contrails-viz.js?v=1.2.0+local+20260724075437","/js/corpus-sources.js":"/js/corpus-sources.js?v=1.2.0+local+20260724075437","js/corpus-sources.js":"js/corpus-sources.js?v=1.2.0+local+20260724075437","/js/corpus.js":"/js/corpus.js?v=1.2.0+local+20260724075437","js/corpus.js":"js/corpus.js?v=1.2.0+local+20260724075437","/js/cortical-loop.js":"/js/cortical-loop.js?v=1.2.0+local+20260724075437","js/cortical-loop.js":"js/cortical-loop.js?v=1.2.0+local+20260724075437","/js/declaration-cadence.js":"/js/declaration-cadence.js?v=1.2.0+local+20260724075437","js/declaration-cadence.js":"js/declaration-cadence.js?v=1.2.0+local+20260724075437","/js/declaration-cage-litmus.js":"/js/declaration-cage-litmus.js?v=1.2.0+local+20260724075437","js/declaration-cage-litmus.js":"js/declaration-cage-litmus.js?v=1.2.0+local+20260724075437","/js/declaration-edition-nav.js":"/js/declaration-edition-nav.js?v=1.2.0+local+20260724075437","js/declaration-edition-nav.js":"js/declaration-edition-nav.js?v=1.2.0+local+20260724075437","/js/declaration-letter-grid.js":"/js/declaration-letter-grid.js?v=1.2.0+local+20260724075437","js/declaration-letter-grid.js":"js/declaration-letter-grid.js?v=1.2.0+local+20260724075437","/js/declaration-symbology.js":"/js/declaration-symbology.js?v=1.2.0+local+20260724075437","js/declaration-symbology.js":"js/declaration-symbology.js?v=1.2.0+local+20260724075437","/js/declaration-world.js":"/js/declaration-world.js?v=1.2.0+local+20260724075437","js/declaration-world.js":"js/declaration-world.js?v=1.2.0+local+20260724075437","/js/deep-zoom-viewer.js":"/js/deep-zoom-viewer.js?v=1.2.0+local+20260724075437","js/deep-zoom-viewer.js":"js/deep-zoom-viewer.js?v=1.2.0+local+20260724075437","/js/dojo-app.js":"/js/dojo-app.js?v=1.2.0+local+20260724075437","js/dojo-app.js":"js/dojo-app.js?v=1.2.0+local+20260724075437","/js/education.js":"/js/education.js?v=1.2.0+local+20260724075437","js/education.js":"js/education.js?v=1.2.0+local+20260724075437","/js/encoder.js":"/js/encoder.js?v=1.2.0+local+20260724075437","js/encoder.js":"js/encoder.js?v=1.2.0+local+20260724075437","/js/export.js":"/js/export.js?v=1.2.0+local+20260724075437","js/export.js":"js/export.js?v=1.2.0+local+20260724075437","/js/freya-math.js":"/js/freya-math.js?v=1.2.0+local+20260724075437","js/freya-math.js":"js/freya-math.js?v=1.2.0+local+20260724075437","/js/gluelam-consumer.js":"/js/gluelam-consumer.js?v=1.2.0+local+20260724075437","js/gluelam-consumer.js":"js/gluelam-consumer.js?v=1.2.0+local+20260724075437","/js/glyph-steno.js":"/js/glyph-steno.js?v=1.2.0+local+20260724075437","js/glyph-steno.js":"js/glyph-steno.js?v=1.2.0+local+20260724075437","/js/historical.js":"/js/historical.js?v=1.2.0+local+20260724075437","js/historical.js":"js/historical.js?v=1.2.0+local+20260724075437","/js/history-harness.js":"/js/history-harness.js?v=1.2.0+local+20260724075437","js/history-harness.js":"js/history-harness.js?v=1.2.0+local+20260724075437","/js/history-sliderule.js":"/js/history-sliderule.js?v=1.2.0+local+20260724075437","js/history-sliderule.js":"js/history-sliderule.js?v=1.2.0+local+20260724075437","/js/i18n-desc.js":"/js/i18n-desc.js?v=1.2.0+local+20260724075437","js/i18n-desc.js":"js/i18n-desc.js?v=1.2.0+local+20260724075437","/js/inclusive-identity.js":"/js/inclusive-identity.js?v=1.2.0+local+20260724075437","js/inclusive-identity.js":"js/inclusive-identity.js?v=1.2.0+local+20260724075437","/js/ironline-bus.js":"/js/ironline-bus.js?v=1.2.0+local+20260724075437","js/ironline-bus.js":"js/ironline-bus.js?v=1.2.0+local+20260724075437","/js/keyboard-pattern-lab.js":"/js/keyboard-pattern-lab.js?v=1.2.0+local+20260724075437","js/keyboard-pattern-lab.js":"js/keyboard-pattern-lab.js?v=1.2.0+local+20260724075437","/js/language-alphabet-matrix.js":"/js/language-alphabet-matrix.js?v=1.2.0+local+20260724075437","js/language-alphabet-matrix.js":"js/language-alphabet-matrix.js?v=1.2.0+local+20260724075437","/js/language-catalog.js":"/js/language-catalog.js?v=1.2.0+local+20260724075437","js/language-catalog.js":"js/language-catalog.js?v=1.2.0+local+20260724075437","/js/language-stepping.js":"/js/language-stepping.js?v=1.2.0+local+20260724075437","js/language-stepping.js":"js/language-stepping.js?v=1.2.0+local+20260724075437","/js/layout-ring-lattice.js":"/js/layout-ring-lattice.js?v=1.2.0+local+20260724075437","js/layout-ring-lattice.js":"js/layout-ring-lattice.js?v=1.2.0+local+20260724075437","/js/layouts.js":"/js/layouts.js?v=1.2.0+local+20260724075437","js/layouts.js":"js/layouts.js?v=1.2.0+local+20260724075437","/js/lazy-loader.js":"/js/lazy-loader.js?v=1.2.0+local+20260724075437","js/lazy-loader.js":"js/lazy-loader.js?v=1.2.0+local+20260724075437","/js/learn-app.js":"/js/learn-app.js?v=1.2.0+local+20260724075437","js/learn-app.js":"js/learn-app.js?v=1.2.0+local+20260724075437","/js/letter-atom.js":"/js/letter-atom.js?v=1.2.0+local+20260724075437","js/letter-atom.js":"js/letter-atom.js?v=1.2.0+local+20260724075437","/js/letter-grid-lab.js":"/js/letter-grid-lab.js?v=1.2.0+local+20260724075437","js/letter-grid-lab.js":"js/letter-grid-lab.js?v=1.2.0+local+20260724075437","/js/letter-grid-mcp.js":"/js/letter-grid-mcp.js?v=1.2.0+local+20260724075437","js/letter-grid-mcp.js":"js/letter-grid-mcp.js?v=1.2.0+local+20260724075437","/js/live-dict.js":"/js/live-dict.js?v=1.2.0+local+20260724075437","js/live-dict.js":"js/live-dict.js?v=1.2.0+local+20260724075437","/js/living-book-reader.js":"/js/living-book-reader.js?v=1.2.0+local+20260724075437","js/living-book-reader.js":"js/living-book-reader.js?v=1.2.0+local+20260724075437","/js/living-books.js":"/js/living-books.js?v=1.2.0+local+20260724075437","js/living-books.js":"js/living-books.js?v=1.2.0+local+20260724075437","/js/llm-tool-calibrate.js":"/js/llm-tool-calibrate.js?v=1.2.0+local+20260724075437","js/llm-tool-calibrate.js":"js/llm-tool-calibrate.js?v=1.2.0+local+20260724075437","/js/local-identity.js":"/js/local-identity.js?v=1.2.0+local+20260724075437","js/local-identity.js":"js/local-identity.js?v=1.2.0+local+20260724075437","/js/lyrics-analyze.js":"/js/lyrics-analyze.js?v=1.2.0+local+20260724075437","js/lyrics-analyze.js":"js/lyrics-analyze.js?v=1.2.0+local+20260724075437","/js/lyrics-app.js":"/js/lyrics-app.js?v=1.2.0+local+20260724075437","js/lyrics-app.js":"js/lyrics-app.js?v=1.2.0+local+20260724075437","/js/mesh-bus.js":"/js/mesh-bus.js?v=1.2.0+local+20260724075437","js/mesh-bus.js":"js/mesh-bus.js?v=1.2.0+local+20260724075437","/js/mythology-open.js":"/js/mythology-open.js?v=1.2.0+local+20260724075437","js/mythology-open.js":"js/mythology-open.js?v=1.2.0+local+20260724075437","/js/names-glance.js":"/js/names-glance.js?v=1.2.0+local+20260724075437","js/names-glance.js":"js/names-glance.js?v=1.2.0+local+20260724075437","/js/open-reader-search.js":"/js/open-reader-search.js?v=1.2.0+local+20260724075437","js/open-reader-search.js":"js/open-reader-search.js?v=1.2.0+local+20260724075437","/js/open-senses.js":"/js/open-senses.js?v=1.2.0+local+20260724075437","js/open-senses.js":"js/open-senses.js?v=1.2.0+local+20260724075437","/js/order-analysis.js":"/js/order-analysis.js?v=1.2.0+local+20260724075437","js/order-analysis.js":"js/order-analysis.js?v=1.2.0+local+20260724075437","/js/overview-pipe.js":"/js/overview-pipe.js?v=1.2.0+local+20260724075437","js/overview-pipe.js":"js/overview-pipe.js?v=1.2.0+local+20260724075437","/js/paleography.js":"/js/paleography.js?v=1.2.0+local+20260724075437","js/paleography.js":"js/paleography.js?v=1.2.0+local+20260724075437","/js/path-geometry-panel.js":"/js/path-geometry-panel.js?v=1.2.0+local+20260724075437","js/path-geometry-panel.js":"js/path-geometry-panel.js?v=1.2.0+local+20260724075437","/js/pcap-image-bridge.js":"/js/pcap-image-bridge.js?v=1.2.0+local+20260724075437","js/pcap-image-bridge.js":"js/pcap-image-bridge.js?v=1.2.0+local+20260724075437","/js/persona-suggest.js":"/js/persona-suggest.js?v=1.2.0+local+20260724075437","js/persona-suggest.js":"js/persona-suggest.js?v=1.2.0+local+20260724075437","/js/phonation.js":"/js/phonation.js?v=1.2.0+local+20260724075437","js/phonation.js":"js/phonation.js?v=1.2.0+local+20260724075437","/js/phonetic-pattern.js":"/js/phonetic-pattern.js?v=1.2.0+local+20260724075437","js/phonetic-pattern.js":"js/phonetic-pattern.js?v=1.2.0+local+20260724075437","/js/pipeline.js":"/js/pipeline.js?v=1.2.0+local+20260724075437","js/pipeline.js":"js/pipeline.js?v=1.2.0+local+20260724075437","/js/pos.js":"/js/pos.js?v=1.2.0+local+20260724075437","js/pos.js":"js/pos.js?v=1.2.0+local+20260724075437","/js/probe-generator.js":"/js/probe-generator.js?v=1.2.0+local+20260724075437","js/probe-generator.js":"js/probe-generator.js?v=1.2.0+local+20260724075437","/js/qbpm-music.js":"/js/qbpm-music.js?v=1.2.0+local+20260724075437","js/qbpm-music.js":"js/qbpm-music.js?v=1.2.0+local+20260724075437","/js/quantum-bridge.js":"/js/quantum-bridge.js?v=1.2.0+local+20260724075437","js/quantum-bridge.js":"js/quantum-bridge.js?v=1.2.0+local+20260724075437","/js/quantum-gutter.js":"/js/quantum-gutter.js?v=1.2.0+local+20260724075437","js/quantum-gutter.js":"js/quantum-gutter.js?v=1.2.0+local+20260724075437","/js/registers.js":"/js/registers.js?v=1.2.0+local+20260724075437","js/registers.js":"js/registers.js?v=1.2.0+local+20260724075437","/js/research-app.js":"/js/research-app.js?v=1.2.0+local+20260724075437","js/research-app.js":"js/research-app.js?v=1.2.0+local+20260724075437","/js/research-corpus.js":"/js/research-corpus.js?v=1.2.0+local+20260724075437","js/research-corpus.js":"js/research-corpus.js?v=1.2.0+local+20260724075437","/js/rosetta-alphabets.js":"/js/rosetta-alphabets.js?v=1.2.0+local+20260724075437","js/rosetta-alphabets.js":"js/rosetta-alphabets.js?v=1.2.0+local+20260724075437","/js/rosetta-lab.js":"/js/rosetta-lab.js?v=1.2.0+local+20260724075437","js/rosetta-lab.js":"js/rosetta-lab.js?v=1.2.0+local+20260724075437","/js/rubik-language-map.js":"/js/rubik-language-map.js?v=1.2.0+local+20260724075437","js/rubik-language-map.js":"js/rubik-language-map.js?v=1.2.0+local+20260724075437","/js/saint-crypto-tumble.js":"/js/saint-crypto-tumble.js?v=1.2.0+local+20260724075437","js/saint-crypto-tumble.js":"js/saint-crypto-tumble.js?v=1.2.0+local+20260724075437","/js/schema.js":"/js/schema.js?v=1.2.0+local+20260724075437","js/schema.js":"js/schema.js?v=1.2.0+local+20260724075437","/js/scholar-linguistics.js":"/js/scholar-linguistics.js?v=1.2.0+local+20260724075437","js/scholar-linguistics.js":"js/scholar-linguistics.js?v=1.2.0+local+20260724075437","/js/scribe-forensics.js":"/js/scribe-forensics.js?v=1.2.0+local+20260724075437","js/scribe-forensics.js":"js/scribe-forensics.js?v=1.2.0+local+20260724075437","/js/scribe-live.js":"/js/scribe-live.js?v=1.2.0+local+20260724075437","js/scribe-live.js":"js/scribe-live.js?v=1.2.0+local+20260724075437","/js/shadow-live.js":"/js/shadow-live.js?v=1.2.0+local+20260724075437","js/shadow-live.js":"js/shadow-live.js?v=1.2.0+local+20260724075437","/js/shadow-search.js":"/js/shadow-search.js?v=1.2.0+local+20260724075437","js/shadow-search.js":"js/shadow-search.js?v=1.2.0+local+20260724075437","/js/site-nav.js":"/js/site-nav.js?v=1.2.0+local+20260724075437","js/site-nav.js":"js/site-nav.js?v=1.2.0+local+20260724075437","/js/spatial-hooks.js":"/js/spatial-hooks.js?v=1.2.0+local+20260724075437","js/spatial-hooks.js":"js/spatial-hooks.js?v=1.2.0+local+20260724075437","/js/staff-catalogue.js":"/js/staff-catalogue.js?v=1.2.0+local+20260724075437","js/staff-catalogue.js":"js/staff-catalogue.js?v=1.2.0+local+20260724075437","/js/steno-space-letter-grid.js":"/js/steno-space-letter-grid.js?v=1.2.0+local+20260724075437","js/steno-space-letter-grid.js":"js/steno-space-letter-grid.js?v=1.2.0+local+20260724075437","/js/steno-strip.js":"/js/steno-strip.js?v=1.2.0+local+20260724075437","js/steno-strip.js":"js/steno-strip.js?v=1.2.0+local+20260724075437","/js/terminal-lane.js":"/js/terminal-lane.js?v=1.2.0+local+20260724075437","js/terminal-lane.js":"js/terminal-lane.js?v=1.2.0+local+20260724075437","/js/tool-stack.js":"/js/tool-stack.js?v=1.2.0+local+20260724075437","js/tool-stack.js":"js/tool-stack.js?v=1.2.0+local+20260724075437","/js/typing-practice.js":"/js/typing-practice.js?v=1.2.0+local+20260724075437","js/typing-practice.js":"js/typing-practice.js?v=1.2.0+local+20260724075437","/js/ugrad-live-bus.js":"/js/ugrad-live-bus.js?v=1.2.0+local+20260724075437","js/ugrad-live-bus.js":"js/ugrad-live-bus.js?v=1.2.0+local+20260724075437","/js/ui-i18n.js":"/js/ui-i18n.js?v=1.2.0+local+20260724075437","js/ui-i18n.js":"js/ui-i18n.js?v=1.2.0+local+20260724075437","/js/version.js":"/js/version.js?v=1.2.0+local+20260724075437","js/version.js":"js/version.js?v=1.2.0+local+20260724075437","/js/waveform-letters.js":"/js/waveform-letters.js?v=1.2.0+local+20260724075437","js/waveform-letters.js":"js/waveform-letters.js?v=1.2.0+local+20260724075437","/js/words-seed.js":"/js/words-seed.js?v=1.2.0+local+20260724075437","js/words-seed.js":"js/words-seed.js?v=1.2.0+local+20260724075437","/js/world-path.js":"/js/world-path.js?v=1.2.0+local+20260724075437","js/world-path.js":"js/world-path.js?v=1.2.0+local+20260724075437","/js/writing-systems-catalog.js":"/js/writing-systems-catalog.js?v=1.2.0+local+20260724075437","js/writing-systems-catalog.js":"js/writing-systems-catalog.js?v=1.2.0+local+20260724075437","/js/x-article.js":"/js/x-article.js?v=1.2.0+local+20260724075437","js/x-article.js":"js/x-article.js?v=1.2.0+local+20260724075437"}}
+</script>
+  <script type="module" src="../js/dojo-app.js?v=1.2.0+local+20260724075437"></script>
+  <script src="/js/site-nav.js?v=1.2.0+local+20260724075437" defer></script>
+</body>
+</html>

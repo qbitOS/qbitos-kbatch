@@ -1,0 +1,964 @@
+{
+  "schema": "kbatch-calibration-probe-set-v1",
+  "generated": "2026-07-24T07:21:20.100Z",
+  "purpose": "Feature-bank probes for cross-language calibration: Declaration head, chart title-paths, SO orthographic filters. Pair with data/world-path/cost-matrix.json.",
+  "counts": {
+    "total": 25,
+    "declaration": 5,
+    "chart": 10,
+    "so": 10
+  },
+  "layouts": 15,
+  "layoutRing": [
+    "qwerty",
+    "dvorak",
+    "colemak",
+    "azerty",
+    "qwertz",
+    "jcuken",
+    "korean",
+    "japanese",
+    "arabic",
+    "hindi",
+    "hebrew",
+    "greek",
+    "thai",
+    "turkish_f",
+    "vietnamese"
+  ],
+  "soDistance": {
+    "metric": "1 - Jaccard(SO bigrams)",
+    "note": "d_SO(u,v); blend into transfer prior: c̃ = c · (1 + μ · E[d_SO])",
+    "sample": {
+      "decl-head-40": {
+        "decl-head-40": 0,
+        "so-cv-open": 0.75,
+        "so-cv-closed": 0.75,
+        "so-sso": 0,
+        "so-oso": 0.25,
+        "so-sos": 0.25,
+        "so-pangram": 0,
+        "so-home": 0.5,
+        "so-type-once": 0,
+        "so-declaration-phrase": 0,
+        "so-people": 0
+      },
+      "so-cv-open": {
+        "decl-head-40": 0.75,
+        "so-cv-open": 0,
+        "so-cv-closed": 1,
+        "so-sso": 0.75,
+        "so-oso": 0.667,
+        "so-sos": 1,
+        "so-pangram": 0.75,
+        "so-home": 1,
+        "so-type-once": 0.75,
+        "so-declaration-phrase": 0.75,
+        "so-people": 0.75
+      },
+      "so-cv-closed": {
+        "decl-head-40": 0.75,
+        "so-cv-open": 1,
+        "so-cv-closed": 0,
+        "so-sso": 0.75,
+        "so-oso": 1,
+        "so-sos": 0.667,
+        "so-pangram": 0.75,
+        "so-home": 0.5,
+        "so-type-once": 0.75,
+        "so-declaration-phrase": 0.75,
+        "so-people": 0.75
+      },
+      "so-sso": {
+        "decl-head-40": 0,
+        "so-cv-open": 0.75,
+        "so-cv-closed": 0.75,
+        "so-sso": 0,
+        "so-oso": 0.25,
+        "so-sos": 0.25,
+        "so-pangram": 0,
+        "so-home": 0.5,
+        "so-type-once": 0,
+        "so-declaration-phrase": 0,
+        "so-people": 0
+      },
+      "so-oso": {
+        "decl-head-40": 0.25,
+        "so-cv-open": 0.667,
+        "so-cv-closed": 1,
+        "so-sso": 0.25,
+        "so-oso": 0,
+        "so-sos": 0.5,
+        "so-pangram": 0.25,
+        "so-home": 0.75,
+        "so-type-once": 0.25,
+        "so-declaration-phrase": 0.25,
+        "so-people": 0.25
+      },
+      "so-sos": {
+        "decl-head-40": 0.25,
+        "so-cv-open": 1,
+        "so-cv-closed": 0.667,
+        "so-sso": 0.25,
+        "so-oso": 0.5,
+        "so-sos": 0,
+        "so-pangram": 0.25,
+        "so-home": 0.333,
+        "so-type-once": 0.25,
+        "so-declaration-phrase": 0.25,
+        "so-people": 0.25
+      },
+      "so-pangram": {
+        "decl-head-40": 0,
+        "so-cv-open": 0.75,
+        "so-cv-closed": 0.75,
+        "so-sso": 0,
+        "so-oso": 0.25,
+        "so-sos": 0.25,
+        "so-pangram": 0,
+        "so-home": 0.5,
+        "so-type-once": 0,
+        "so-declaration-phrase": 0,
+        "so-people": 0
+      },
+      "so-home": {
+        "decl-head-40": 0.5,
+        "so-cv-open": 1,
+        "so-cv-closed": 0.5,
+        "so-sso": 0.5,
+        "so-oso": 0.75,
+        "so-sos": 0.333,
+        "so-pangram": 0.5,
+        "so-home": 0,
+        "so-type-once": 0.5,
+        "so-declaration-phrase": 0.5,
+        "so-people": 0.5
+      },
+      "so-type-once": {
+        "decl-head-40": 0,
+        "so-cv-open": 0.75,
+        "so-cv-closed": 0.75,
+        "so-sso": 0,
+        "so-oso": 0.25,
+        "so-sos": 0.25,
+        "so-pangram": 0,
+        "so-home": 0.5,
+        "so-type-once": 0,
+        "so-declaration-phrase": 0,
+        "so-people": 0
+      },
+      "so-declaration-phrase": {
+        "decl-head-40": 0,
+        "so-cv-open": 0.75,
+        "so-cv-closed": 0.75,
+        "so-sso": 0,
+        "so-oso": 0.25,
+        "so-sos": 0.25,
+        "so-pangram": 0,
+        "so-home": 0.5,
+        "so-type-once": 0,
+        "so-declaration-phrase": 0,
+        "so-people": 0
+      },
+      "so-people": {
+        "decl-head-40": 0,
+        "so-cv-open": 0.75,
+        "so-cv-closed": 0.75,
+        "so-sso": 0,
+        "so-oso": 0.25,
+        "so-sos": 0.25,
+        "so-pangram": 0,
+        "so-home": 0.5,
+        "so-type-once": 0,
+        "so-declaration-phrase": 0,
+        "so-people": 0
+      }
+    }
+  },
+  "featureBankHint": {
+    "shape": "X[probes × 15 layouts]",
+    "fill": "For each probe text, run analyze/shadows per layout → strain, efficiency, travelMM, homeRowPct, rsiRisk",
+    "staticCost": "data/world-path/cost-matrix.json matrix[88×88]",
+    "agentPipeline": [
+      "Load cost-matrix.json + portal-subgraph.json",
+      "Load probe-set.json",
+      "On language jump a→b: lookup C[a,b]; if large expand via portal Dijkstra",
+      "Optional SO prefilter on short text before full path_rank",
+      "Bind Shadow Live / Rubik Focus for context",
+      "calibrate_check → recalibrate on drift"
+    ]
+  },
+  "probes": [
+    {
+      "id": "decl-head-40",
+      "kind": "declaration",
+      "text": "INCONGRESSJulyTheunanimousDeclarationoft",
+      "source": "data/declaration/master-glyphs.json",
+      "meta": {
+        "note": "title start INCONGRE…",
+        "masterTotal": 6235,
+        "range": "0-40"
+      },
+      "so": {
+        "so": "OSSOSSSOSSSOSOSSOOSOSOSOOSSOSSOSOSOOSOSS",
+        "compressed": "O S×2 O S×3 O S×3 O S O S×2 O×2 S O S O S O×2 S×2 O S×2 O S O S O×2 S O S×2",
+        "n2": {
+          "OS": 14,
+          "SS": 9,
+          "SO": 13,
+          "OO": 3
+        },
+        "n3": {
+          "OSS": 7,
+          "SSO": 6,
+          "SOS": 10,
+          "SSS": 2,
+          "OSO": 7,
+          "SOO": 3,
+          "OOS": 3
+        },
+        "len": 40,
+        "openFrac": 0.425
+      }
+    },
+    {
+      "id": "decl-layer1-12x12",
+      "kind": "declaration",
+      "text": "INCONGRESSJulyTheunanimousDeclarationofthethirteenunitedStatesofAmericaWhenintheCourseofhumaneventsitbecomesnecessaryforonepeopletodissolvethepo",
+      "source": "data/declaration/master-glyphs.json",
+      "meta": {
+        "note": "first grid layer @12×12",
+        "masterTotal": 6235,
+        "range": "0-144"
+      },
+      "so": {
+        "so": "OSSOSSSOSSSOSOSSOOSOSOSOOSSOSSOSOSOOSOSSSOSSOSSOOSOSOSOSSSOSOSOSOSOSOSOSSOSOSSSOSOOSSOOSSOSOSOSOSSSOSSOSOSOSSOSOSSOSOSOSOSOSOOSSOSOSOSSOSSOSSOSO",
+        "compressed": "O S×2 O S×3 O S×3 O S O S×2 O×2 S O S O S O×2 S×2 O S×2 O S O S O×2 S O S×3 O S×2 O S×2 O×2 S O S O S O S×3 O S O S O S O S O S O S O S×2 O S O S×3 O S O×2 S×2 O×2 S×2 O S O S O S O S×3 O S×2 O S O S O S×2 O S O S×2 O S O S O S O S O S O×2 S×2 O S O S O S×2 O S×2 O S×2 O S O",
+        "n2": {
+          "OS": 54,
+          "SS": 28,
+          "SO": 54,
+          "OO": 7
+        },
+        "n3": {
+          "OSS": 22,
+          "SSO": 22,
+          "SOS": 46,
+          "SSS": 6,
+          "OSO": 32,
+          "SOO": 7,
+          "OOS": 7
+        },
+        "len": 144,
+        "openFrac": 0.4305555555555556
+      }
+    },
+    {
+      "id": "decl-L01",
+      "kind": "declaration",
+      "text": "INCONGRESSJuly",
+      "source": "data/declaration/master-glyphs.json",
+      "meta": {
+        "note": null,
+        "masterTotal": 6235,
+        "range": "line-filter"
+      },
+      "so": {
+        "so": "OSSOSSSOSSSOSO",
+        "compressed": "O S×2 O S×3 O S×3 O S O",
+        "n2": {
+          "OS": 4,
+          "SS": 5,
+          "SO": 4
+        },
+        "n3": {
+          "OSS": 3,
+          "SSO": 3,
+          "SOS": 3,
+          "SSS": 2,
+          "OSO": 1
+        },
+        "len": 14,
+        "openFrac": 0.35714285714285715
+      }
+    },
+    {
+      "id": "decl-body-200",
+      "kind": "declaration",
+      "text": "WhenintheCourseofhumaneventsitbecomesnecessaryforonepeopletodissolvethepoliticalbandswhichhaveconnectedthemwithanotherandtoassumeamongthepowersoftheearththeseparateandequalstationtowhichtheLawsofNatur",
+      "source": "data/declaration/master-glyphs.json",
+      "meta": {
+        "note": "early body (When in…)",
+        "masterTotal": 6235,
+        "range": "71-271"
+      },
+      "so": {
+        "so": "SSOSOSSSOSOOSSOOSSOSOSOSOSSSOSSOSOSOSSOSOSSOSOSOSOSOSOOSSOSOSOSSOSSOSSOSOSOSOSOSSOSSSSSOSSSOSOSOSSOSSOSSSOSSOSSOSOSSOSOSSSOOSSOSOOSOSSSSOSOSOSSOSSSOOOSSSSSOSOSOSOSOOSSOSOOSSSOSOOSSOSSOSSSSOSOSSOSSOSOS",
+        "compressed": "S×2 O S O S×3 O S O×2 S×2 O×2 S×2 O S O S O S O S×3 O S×2 O S O S O S×2 O S O S×2 O S O S O S O S O S O×2 S×2 O S O S O S×2 O S×2 O S×2 O S O S O S O S O S×2 O S×5 O S×3 O S O S O S×2 O S×2 O S×3 O S×2 O S×2 O S O S×2 O S O S×3 O×2 S×2 O S O×2 S O S×4 O S O S O S×2 O S×3 O×3 S×5 O S O S O S O S O×2 S×2 O S O×2 S×3 O S O×2 S×2 O S×2 O S×4 O S O S×2 O S×2 O S O S",
+        "n2": {
+          "SS": 51,
+          "SO": 69,
+          "OS": 69,
+          "OO": 10
+        },
+        "n3": {
+          "SSO": 34,
+          "SOS": 60,
+          "OSO": 35,
+          "OSS": 33,
+          "SSS": 17,
+          "SOO": 9,
+          "OOS": 9,
+          "OOO": 1
+        },
+        "len": 200,
+        "openFrac": 0.395
+      }
+    },
+    {
+      "id": "decl-tail-80",
+      "kind": "declaration",
+      "text": "idencewemutuallypledgetoeachotherourLivesourFortunesandoursacredHonorJohnHancock",
+      "source": "data/declaration/master-glyphs.json",
+      "meta": {
+        "note": "stream tail",
+        "masterTotal": 6235,
+        "range": "6155-6235"
+      },
+      "so": {
+        "so": "OSOSSOSOSOSOOSSOSSOSSOSOOOSSOSSOSOOSSOSOSOOSSOSSOSOSOSSOOSSOSSOSSOSOSSOSSSOSSOSS",
+        "compressed": "O S O S×2 O S O S O S O×2 S×2 O S×2 O S×2 O S O×3 S×2 O S×2 O S O×2 S×2 O S O S O×2 S×2 O S×2 O S O S O S×2 O×2 S×2 O S×2 O S×2 O S O S×2 O S×3 O S×2 O S×2",
+        "n2": {
+          "OS": 28,
+          "SO": 27,
+          "SS": 18,
+          "OO": 6
+        },
+        "n3": {
+          "OSO": 11,
+          "SOS": 22,
+          "OSS": 17,
+          "SSO": 16,
+          "SOO": 5,
+          "OOS": 5,
+          "OOO": 1,
+          "SSS": 1
+        },
+        "len": 80,
+        "openFrac": 0.425
+      }
+    },
+    {
+      "id": "chart-too-sweet-hozier",
+      "kind": "chart-title-path",
+      "text": "Too Sweet\nHozier\nToo Sweet",
+      "source": "data/lyrics/analyses/too-sweet-hozier.json",
+      "meta": {
+        "slug": "too-sweet-hozier",
+        "title": "Too Sweet",
+        "artist": "Hozier",
+        "year": 2024,
+        "peak": 1,
+        "numberOne": true
+      },
+      "so": {
+        "so": "SOOSSOOSSOSOOSSOOSSOOS",
+        "compressed": "S O×2 S×2 O×2 S×2 O S O×2 S×2 O×2 S×2 O×2 S",
+        "n2": {
+          "SO": 6,
+          "OO": 5,
+          "OS": 6,
+          "SS": 4
+        },
+        "n3": {
+          "SOO": 5,
+          "OOS": 5,
+          "OSS": 4,
+          "SSO": 4,
+          "SOS": 1,
+          "OSO": 1
+        },
+        "len": 22,
+        "openFrac": 0.5
+      }
+    },
+    {
+      "id": "chart-anxiety-doechii",
+      "kind": "chart-title-path",
+      "text": "Anxiety\nDoechii\nAnxiety",
+      "source": "data/lyrics/analyses/anxiety-doechii.json",
+      "meta": {
+        "slug": "anxiety-doechii",
+        "title": "Anxiety",
+        "artist": "Doechii",
+        "year": 2025,
+        "peak": 1,
+        "numberOne": true
+      },
+      "so": {
+        "so": "OSSOOSOSOOSSOOOSSOOSO",
+        "compressed": "O S×2 O×2 S O S O×2 S×2 O×3 S×2 O×2 S O",
+        "n2": {
+          "OS": 6,
+          "SS": 3,
+          "SO": 6,
+          "OO": 5
+        },
+        "n3": {
+          "OSS": 3,
+          "SSO": 3,
+          "SOO": 4,
+          "OOS": 4,
+          "OSO": 3,
+          "SOS": 1,
+          "OOO": 1
+        },
+        "len": 21,
+        "openFrac": 0.5714285714285714
+      }
+    },
+    {
+      "id": "chart-die-with-a-smile-lady-gaga",
+      "kind": "chart-title-path",
+      "text": "Die with a Smile\nLady Gaga\nDie with a Smile",
+      "source": "data/lyrics/analyses/die-with-a-smile-lady-gaga.json",
+      "meta": {
+        "slug": "die-with-a-smile-lady-gaga",
+        "title": "Die with a Smile",
+        "artist": "Lady Gaga",
+        "year": 2025,
+        "peak": 1,
+        "numberOne": true
+      },
+      "so": {
+        "so": "SOOSOSSOSSOSOSOSOSOSOSOOSOSSOSSOSO",
+        "compressed": "S O×2 S O S×2 O S×2 O S O S O S O S O S O S O×2 S O S×2 O S×2 O S O",
+        "n2": {
+          "SO": 14,
+          "OO": 2,
+          "OS": 13,
+          "SS": 4
+        },
+        "n3": {
+          "SOO": 2,
+          "OOS": 2,
+          "OSO": 9,
+          "SOS": 11,
+          "OSS": 4,
+          "SSO": 4
+        },
+        "len": 34,
+        "openFrac": 0.47058823529411764
+      }
+    },
+    {
+      "id": "chart-a-bar-song-shaboozey",
+      "kind": "chart-title-path",
+      "text": "A Bar Song\nShaboozey\nA Bar Song",
+      "source": "data/lyrics/analyses/a-bar-song-shaboozey.json",
+      "meta": {
+        "slug": "a-bar-song-shaboozey",
+        "title": "A Bar Song",
+        "artist": "Shaboozey",
+        "year": 2024,
+        "peak": 1,
+        "numberOne": true
+      },
+      "so": {
+        "so": "OSOSSOSSSSOSOOSOOOSOSSOSS",
+        "compressed": "O S O S×2 O S×4 O S O×2 S O×3 S O S×2 O S×2",
+        "n2": {
+          "OS": 8,
+          "SO": 7,
+          "SS": 6,
+          "OO": 3
+        },
+        "n3": {
+          "OSO": 4,
+          "SOS": 5,
+          "OSS": 4,
+          "SSO": 3,
+          "SSS": 2,
+          "SOO": 2,
+          "OOS": 2,
+          "OOO": 1
+        },
+        "len": 25,
+        "openFrac": 0.44
+      }
+    },
+    {
+      "id": "chart-uptown-funk-mark-ronson-bruno-mars",
+      "kind": "chart-title-path",
+      "text": "Uptown Funk\nMark Ronson & Bruno Mars\nUptown Funk",
+      "source": "data/lyrics/analyses/uptown-funk-mark-ronson-bruno-mars.json",
+      "meta": {
+        "slug": "uptown-funk-mark-ronson-bruno-mars",
+        "title": "Uptown Funk",
+        "artist": "Mark Ronson & Bruno Mars",
+        "year": 2015,
+        "peak": 1,
+        "numberOne": true
+      },
+      "so": {
+        "so": "OSSOSSSOSSSOSSSOSSOSSSOSOSOSSOSSOSSSOSS",
+        "compressed": "O S×2 O S×3 O S×3 O S×3 O S×2 O S×3 O S O S O S×2 O S×2 O S×3 O S×2",
+        "n2": {
+          "OS": 12,
+          "SS": 15,
+          "SO": 11
+        },
+        "n3": {
+          "OSS": 10,
+          "SSO": 9,
+          "SOS": 11,
+          "SSS": 5,
+          "OSO": 2
+        },
+        "len": 39,
+        "openFrac": 0.3076923076923077
+      }
+    },
+    {
+      "id": "chart-all-too-well-taylor-swift",
+      "kind": "chart-title-path",
+      "text": "All Too Well\nTaylor Swift\nAll Too Well",
+      "source": "data/lyrics/analyses/all-too-well-taylor-swift.json",
+      "meta": {
+        "slug": "all-too-well-taylor-swift",
+        "title": "All Too Well",
+        "artist": "Taylor Swift",
+        "year": 2021,
+        "peak": 1,
+        "numberOne": true
+      },
+      "so": {
+        "so": "OSSSOOSOSSSOOSOSSSOSSOSSSOOSOSS",
+        "compressed": "O S×3 O×2 S O S×3 O×2 S O S×3 O S×2 O S×3 O×2 S O S×2",
+        "n2": {
+          "OS": 9,
+          "SS": 10,
+          "SO": 8,
+          "OO": 3
+        },
+        "n3": {
+          "OSS": 6,
+          "SSS": 4,
+          "SSO": 5,
+          "SOO": 3,
+          "OOS": 3,
+          "OSO": 3,
+          "SOS": 5
+        },
+        "len": 31,
+        "openFrac": 0.3870967741935484
+      }
+    },
+    {
+      "id": "chart-blinding-lights-the-weeknd",
+      "kind": "chart-title-path",
+      "text": "Blinding Lights\nThe Weeknd\nBlinding Lights",
+      "source": "data/lyrics/analyses/blinding-lights-the-weeknd.json",
+      "meta": {
+        "slug": "blinding-lights-the-weeknd",
+        "title": "Blinding Lights",
+        "artist": "The Weeknd",
+        "year": 2020,
+        "peak": 1,
+        "numberOne": true
+      },
+      "so": {
+        "so": "SSOSSOSSSOSSSSSSOSOOSSSSSOSSOSSSOSSSS",
+        "compressed": "S×2 O S×2 O S×3 O S×6 O S O×2 S×5 O S×2 O S×3 O S×4",
+        "n2": {
+          "SS": 19,
+          "SO": 8,
+          "OS": 8,
+          "OO": 1
+        },
+        "n3": {
+          "SSO": 7,
+          "SOS": 7,
+          "OSS": 7,
+          "SSS": 11,
+          "OSO": 1,
+          "SOO": 1,
+          "OOS": 1
+        },
+        "len": 37,
+        "openFrac": 0.24324324324324326
+      }
+    },
+    {
+      "id": "chart-as-it-was-harry-styles",
+      "kind": "chart-title-path",
+      "text": "As It Was\nHarry Styles\nAs It Was",
+      "source": "data/lyrics/analyses/as-it-was-harry-styles.json",
+      "meta": {
+        "slug": "as-it-was-harry-styles",
+        "title": "As It Was",
+        "artist": "Harry Styles",
+        "year": 2022,
+        "peak": 1,
+        "numberOne": true
+      },
+      "so": {
+        "so": "OSOSSOSSOSSOSSOSOSOSOSSOS",
+        "compressed": "O S O S×2 O S×2 O S×2 O S×2 O S O S O S O S×2 O S",
+        "n2": {
+          "OS": 10,
+          "SO": 9,
+          "SS": 5
+        },
+        "n3": {
+          "OSO": 4,
+          "SOS": 9,
+          "OSS": 5,
+          "SSO": 5
+        },
+        "len": 25,
+        "openFrac": 0.4
+      }
+    },
+    {
+      "id": "chart-flowers-miley-cyrus",
+      "kind": "chart-title-path",
+      "text": "Flowers\nMiley Cyrus\nFlowers",
+      "source": "data/lyrics/analyses/flowers-miley-cyrus.json",
+      "meta": {
+        "slug": "flowers-miley-cyrus",
+        "title": "Flowers",
+        "artist": "Miley Cyrus",
+        "year": 2023,
+        "peak": 2,
+        "numberOne": false
+      },
+      "so": {
+        "so": "SSOSOSSSOSOOSOSOSSSOSOSS",
+        "compressed": "S×2 O S O S×3 O S O×2 S O S O S×3 O S O S×2",
+        "n2": {
+          "SS": 6,
+          "SO": 8,
+          "OS": 8,
+          "OO": 1
+        },
+        "n3": {
+          "SSO": 3,
+          "SOS": 7,
+          "OSO": 5,
+          "OSS": 3,
+          "SSS": 2,
+          "SOO": 1,
+          "OOS": 1
+        },
+        "len": 24,
+        "openFrac": 0.375
+      }
+    },
+    {
+      "id": "chart-not-like-us-kendrick-lamar",
+      "kind": "chart-title-path",
+      "text": "Not Like Us\nKendrick Lamar\nNot Like Us",
+      "source": "data/lyrics/analyses/not-like-us-kendrick-lamar.json",
+      "meta": {
+        "slug": "not-like-us-kendrick-lamar",
+        "title": "Not Like Us",
+        "artist": "Kendrick Lamar",
+        "year": 2024,
+        "peak": 1,
+        "numberOne": true
+      },
+      "so": {
+        "so": "SOSSOSOOSSOSSSOSSSOSOSSOSSOSOOS",
+        "compressed": "S O S×2 O S O×2 S×2 O S×3 O S×3 O S O S×2 O S×2 O S O×2 S",
+        "n2": {
+          "SO": 10,
+          "OS": 10,
+          "SS": 8,
+          "OO": 2
+        },
+        "n3": {
+          "SOS": 8,
+          "OSS": 6,
+          "SSO": 6,
+          "OSO": 3,
+          "SOO": 2,
+          "OOS": 2,
+          "SSS": 2
+        },
+        "len": 31,
+        "openFrac": 0.3870967741935484
+      }
+    },
+    {
+      "id": "so-cv-open",
+      "kind": "so-probe",
+      "text": "aeaieiou",
+      "source": "calibration",
+      "meta": {
+        "note": "open/vowel heavy"
+      },
+      "so": {
+        "so": "OOOOOOOO",
+        "compressed": "O×8",
+        "n2": {
+          "OO": 7
+        },
+        "n3": {
+          "OOO": 6
+        },
+        "len": 8,
+        "openFrac": 1
+      }
+    },
+    {
+      "id": "so-cv-closed",
+      "kind": "so-probe",
+      "text": "strchkpt",
+      "source": "calibration",
+      "meta": {
+        "note": "closed/consonant heavy"
+      },
+      "so": {
+        "so": "SSSSSSSS",
+        "compressed": "S×8",
+        "n2": {
+          "SS": 7
+        },
+        "n3": {
+          "SSS": 6
+        },
+        "len": 8,
+        "openFrac": 0
+      }
+    },
+    {
+      "id": "so-sso",
+      "kind": "so-probe",
+      "text": "street strength",
+      "source": "calibration",
+      "meta": {
+        "note": "SSO clusters"
+      },
+      "so": {
+        "so": "SSSOOSSSSOSSSS",
+        "compressed": "S×3 O×2 S×4 O S×4",
+        "n2": {
+          "SS": 8,
+          "SO": 2,
+          "OO": 1,
+          "OS": 2
+        },
+        "n3": {
+          "SSS": 5,
+          "SSO": 2,
+          "SOO": 1,
+          "OOS": 1,
+          "OSS": 2,
+          "SOS": 1
+        },
+        "len": 14,
+        "openFrac": 0.21428571428571427
+      }
+    },
+    {
+      "id": "so-oso",
+      "kind": "so-probe",
+      "text": "america open area",
+      "source": "calibration",
+      "meta": {
+        "note": "OSO patterns"
+      },
+      "so": {
+        "so": "OSOSOSOOSOSOSOO",
+        "compressed": "O S O S O S O×2 S O S O S O×2",
+        "n2": {
+          "OS": 6,
+          "SO": 6,
+          "OO": 2
+        },
+        "n3": {
+          "OSO": 6,
+          "SOS": 4,
+          "SOO": 2,
+          "OOS": 1
+        },
+        "len": 15,
+        "openFrac": 0.6
+      }
+    },
+    {
+      "id": "so-sos",
+      "kind": "so-probe",
+      "text": "total system",
+      "source": "calibration",
+      "meta": {
+        "note": "SOS patterns"
+      },
+      "so": {
+        "so": "SOSOSSOSSOS",
+        "compressed": "S O S O S×2 O S×2 O S",
+        "n2": {
+          "SO": 4,
+          "OS": 4,
+          "SS": 2
+        },
+        "n3": {
+          "SOS": 4,
+          "OSO": 1,
+          "OSS": 2,
+          "SSO": 2
+        },
+        "len": 11,
+        "openFrac": 0.36363636363636365
+      }
+    },
+    {
+      "id": "so-pangram",
+      "kind": "so-probe",
+      "text": "the quick brown fox jumps over the lazy dog",
+      "source": "calibration",
+      "meta": {
+        "note": "pangram path"
+      },
+      "so": {
+        "so": "SSOSOOSSSSOSSSOSSOSSSOSOSSSOSOSOSOS",
+        "compressed": "S×2 O S O×2 S×4 O S×3 O S×2 O S×3 O S O S×3 O S O S O S O S",
+        "n2": {
+          "SS": 11,
+          "SO": 11,
+          "OS": 11,
+          "OO": 1
+        },
+        "n3": {
+          "SSO": 6,
+          "SOS": 10,
+          "OSO": 5,
+          "SOO": 1,
+          "OOS": 1,
+          "OSS": 5,
+          "SSS": 5
+        },
+        "len": 35,
+        "openFrac": 0.34285714285714286
+      }
+    },
+    {
+      "id": "so-home",
+      "kind": "so-probe",
+      "text": "asdf jkl;",
+      "source": "calibration",
+      "meta": {
+        "note": "home-row only (punctuation stripped in SO)"
+      },
+      "so": {
+        "so": "OSSSSSS",
+        "compressed": "O S×6",
+        "n2": {
+          "OS": 1,
+          "SS": 5
+        },
+        "n3": {
+          "OSS": 1,
+          "SSS": 4
+        },
+        "len": 7,
+        "openFrac": 0.14285714285714285
+      }
+    },
+    {
+      "id": "so-type-once",
+      "kind": "so-probe",
+      "text": "type once understand everywhere",
+      "source": "calibration",
+      "meta": {
+        "note": "site motto path"
+      },
+      "so": {
+        "so": "SOSOOSSOOSSOSSSOSSOSOSOSSOSO",
+        "compressed": "S O S O×2 S×2 O×2 S×2 O S×3 O S×2 O S O S O S×2 O S O",
+        "n2": {
+          "SO": 10,
+          "OS": 9,
+          "OO": 2,
+          "SS": 6
+        },
+        "n3": {
+          "SOS": 7,
+          "OSO": 4,
+          "SOO": 2,
+          "OOS": 2,
+          "OSS": 5,
+          "SSO": 5,
+          "SSS": 1
+        },
+        "len": 28,
+        "openFrac": 0.42857142857142855
+      }
+    },
+    {
+      "id": "so-declaration-phrase",
+      "kind": "so-probe",
+      "text": "life liberty and the pursuit of happiness",
+      "source": "calibration",
+      "meta": {
+        "note": "Declaration phrase"
+      },
+      "so": {
+        "so": "SOSOSOSOSSOOSSSSOSOSSOOSOSSOSSOSOSS",
+        "compressed": "S O S O S O S O S×2 O×2 S×4 O S O S×2 O×2 S O S×2 O S×2 O S O S×2",
+        "n2": {
+          "SO": 12,
+          "OS": 12,
+          "SS": 8,
+          "OO": 2
+        },
+        "n3": {
+          "SOS": 10,
+          "OSO": 6,
+          "OSS": 6,
+          "SSO": 5,
+          "SOO": 2,
+          "OOS": 2,
+          "SSS": 2
+        },
+        "len": 35,
+        "openFrac": 0.4
+      }
+    },
+    {
+      "id": "so-people",
+      "kind": "so-probe",
+      "text": "people",
+      "source": "calibration",
+      "meta": {
+        "note": "high-freq Declaration word"
+      },
+      "so": {
+        "so": "SOOSSO",
+        "compressed": "S O×2 S×2 O",
+        "n2": {
+          "SO": 2,
+          "OO": 1,
+          "OS": 1,
+          "SS": 1
+        },
+        "n3": {
+          "SOO": 1,
+          "OOS": 1,
+          "OSS": 1,
+          "SSO": 1
+        },
+        "len": 6,
+        "openFrac": 0.5
+      }
+    }
+  ],
+  "urls": {
+    "costMatrix": "data/world-path/cost-matrix.json",
+    "portals": "data/world-path/portal-subgraph.json",
+    "declarationCadence": "kbatch_declaration_cadence",
+    "worldPath": "kbatch_world_path",
+    "docs": "docs/CALIBRATION-PROBE-SET.md"
+  }
+}

@@ -1,0 +1,1049 @@
+{
+  "schema": "kbatch-phon-probe-set-v1",
+  "generated": "2026-07-24T07:54:12.146Z",
+  "purpose": "Phonetic CV/phone-class probes + d_PHON for transfer prior. Parallel to SO probes; does not alter JAX geometry bank.",
+  "counts": {
+    "total": 14
+  },
+  "blend": {
+    "muSO": 0.2,
+    "muPhon": 0.3,
+    "cap": 2.5,
+    "form": "c_tilde = c * (1 + muSO*E[d_SO] + muPhon*E[d_PHON])",
+    "sample": {
+      "c_en_ru": 9.3,
+      "dSO_open_closed": 1,
+      "dPHON_open_closed": 1,
+      "cTilde": 13.950000000000001,
+      "note": "Example blend only; real d_SO from probe-set soDistance"
+    }
+  },
+  "dPhon": {
+    "metric": "1 - Jaccard(CV bigrams)",
+    "n": 2,
+    "sample": {
+      "phon-cv-open|phon-cv-closed": 1,
+      "phon-type-once|phon-life-liberty": 0,
+      "phon-stops|phon-nasals": 0
+    },
+    "matrix": {
+      "phon-cv-open": {
+        "phon-cv-open": 0,
+        "phon-cv-closed": 1,
+        "phon-cv-alt": 1,
+        "phon-cv-cluster": 1,
+        "phon-stops": 1,
+        "phon-fricatives": 0.75,
+        "phon-nasals": 1,
+        "phon-liquids": 0.75,
+        "phon-vowel-high": 0.667,
+        "phon-vowel-low": 1,
+        "phon-type-once": 0.75,
+        "phon-life-liberty": 0.75,
+        "phon-people": 0.75,
+        "phon-too-sweet": 1
+      },
+      "phon-cv-closed": {
+        "phon-cv-open": 1,
+        "phon-cv-closed": 0,
+        "phon-cv-alt": 1,
+        "phon-cv-cluster": 0.667,
+        "phon-stops": 0.667,
+        "phon-fricatives": 0.75,
+        "phon-nasals": 0.667,
+        "phon-liquids": 0.75,
+        "phon-vowel-high": 1,
+        "phon-vowel-low": 0.667,
+        "phon-type-once": 0.75,
+        "phon-life-liberty": 0.75,
+        "phon-people": 0.75,
+        "phon-too-sweet": 0.667
+      },
+      "phon-cv-alt": {
+        "phon-cv-open": 1,
+        "phon-cv-closed": 1,
+        "phon-cv-alt": 0,
+        "phon-cv-cluster": 0.333,
+        "phon-stops": 0.333,
+        "phon-fricatives": 0.5,
+        "phon-nasals": 0.333,
+        "phon-liquids": 0.5,
+        "phon-vowel-high": 0.333,
+        "phon-vowel-low": 0.333,
+        "phon-type-once": 0.5,
+        "phon-life-liberty": 0.5,
+        "phon-people": 0.5,
+        "phon-too-sweet": 0.333
+      },
+      "phon-cv-cluster": {
+        "phon-cv-open": 1,
+        "phon-cv-closed": 0.667,
+        "phon-cv-alt": 0.333,
+        "phon-cv-cluster": 0,
+        "phon-stops": 0,
+        "phon-fricatives": 0.25,
+        "phon-nasals": 0,
+        "phon-liquids": 0.25,
+        "phon-vowel-high": 0.5,
+        "phon-vowel-low": 0,
+        "phon-type-once": 0.25,
+        "phon-life-liberty": 0.25,
+        "phon-people": 0.25,
+        "phon-too-sweet": 0
+      },
+      "phon-stops": {
+        "phon-cv-open": 1,
+        "phon-cv-closed": 0.667,
+        "phon-cv-alt": 0.333,
+        "phon-cv-cluster": 0,
+        "phon-stops": 0,
+        "phon-fricatives": 0.25,
+        "phon-nasals": 0,
+        "phon-liquids": 0.25,
+        "phon-vowel-high": 0.5,
+        "phon-vowel-low": 0,
+        "phon-type-once": 0.25,
+        "phon-life-liberty": 0.25,
+        "phon-people": 0.25,
+        "phon-too-sweet": 0
+      },
+      "phon-fricatives": {
+        "phon-cv-open": 0.75,
+        "phon-cv-closed": 0.75,
+        "phon-cv-alt": 0.5,
+        "phon-cv-cluster": 0.25,
+        "phon-stops": 0.25,
+        "phon-fricatives": 0,
+        "phon-nasals": 0.25,
+        "phon-liquids": 0,
+        "phon-vowel-high": 0.25,
+        "phon-vowel-low": 0.25,
+        "phon-type-once": 0,
+        "phon-life-liberty": 0,
+        "phon-people": 0,
+        "phon-too-sweet": 0.25
+      },
+      "phon-nasals": {
+        "phon-cv-open": 1,
+        "phon-cv-closed": 0.667,
+        "phon-cv-alt": 0.333,
+        "phon-cv-cluster": 0,
+        "phon-stops": 0,
+        "phon-fricatives": 0.25,
+        "phon-nasals": 0,
+        "phon-liquids": 0.25,
+        "phon-vowel-high": 0.5,
+        "phon-vowel-low": 0,
+        "phon-type-once": 0.25,
+        "phon-life-liberty": 0.25,
+        "phon-people": 0.25,
+        "phon-too-sweet": 0
+      },
+      "phon-liquids": {
+        "phon-cv-open": 0.75,
+        "phon-cv-closed": 0.75,
+        "phon-cv-alt": 0.5,
+        "phon-cv-cluster": 0.25,
+        "phon-stops": 0.25,
+        "phon-fricatives": 0,
+        "phon-nasals": 0.25,
+        "phon-liquids": 0,
+        "phon-vowel-high": 0.25,
+        "phon-vowel-low": 0.25,
+        "phon-type-once": 0,
+        "phon-life-liberty": 0,
+        "phon-people": 0,
+        "phon-too-sweet": 0.25
+      },
+      "phon-vowel-high": {
+        "phon-cv-open": 0.667,
+        "phon-cv-closed": 1,
+        "phon-cv-alt": 0.333,
+        "phon-cv-cluster": 0.5,
+        "phon-stops": 0.5,
+        "phon-fricatives": 0.25,
+        "phon-nasals": 0.5,
+        "phon-liquids": 0.25,
+        "phon-vowel-high": 0,
+        "phon-vowel-low": 0.5,
+        "phon-type-once": 0.25,
+        "phon-life-liberty": 0.25,
+        "phon-people": 0.25,
+        "phon-too-sweet": 0.5
+      },
+      "phon-vowel-low": {
+        "phon-cv-open": 1,
+        "phon-cv-closed": 0.667,
+        "phon-cv-alt": 0.333,
+        "phon-cv-cluster": 0,
+        "phon-stops": 0,
+        "phon-fricatives": 0.25,
+        "phon-nasals": 0,
+        "phon-liquids": 0.25,
+        "phon-vowel-high": 0.5,
+        "phon-vowel-low": 0,
+        "phon-type-once": 0.25,
+        "phon-life-liberty": 0.25,
+        "phon-people": 0.25,
+        "phon-too-sweet": 0
+      },
+      "phon-type-once": {
+        "phon-cv-open": 0.75,
+        "phon-cv-closed": 0.75,
+        "phon-cv-alt": 0.5,
+        "phon-cv-cluster": 0.25,
+        "phon-stops": 0.25,
+        "phon-fricatives": 0,
+        "phon-nasals": 0.25,
+        "phon-liquids": 0,
+        "phon-vowel-high": 0.25,
+        "phon-vowel-low": 0.25,
+        "phon-type-once": 0,
+        "phon-life-liberty": 0,
+        "phon-people": 0,
+        "phon-too-sweet": 0.25
+      },
+      "phon-life-liberty": {
+        "phon-cv-open": 0.75,
+        "phon-cv-closed": 0.75,
+        "phon-cv-alt": 0.5,
+        "phon-cv-cluster": 0.25,
+        "phon-stops": 0.25,
+        "phon-fricatives": 0,
+        "phon-nasals": 0.25,
+        "phon-liquids": 0,
+        "phon-vowel-high": 0.25,
+        "phon-vowel-low": 0.25,
+        "phon-type-once": 0,
+        "phon-life-liberty": 0,
+        "phon-people": 0,
+        "phon-too-sweet": 0.25
+      },
+      "phon-people": {
+        "phon-cv-open": 0.75,
+        "phon-cv-closed": 0.75,
+        "phon-cv-alt": 0.5,
+        "phon-cv-cluster": 0.25,
+        "phon-stops": 0.25,
+        "phon-fricatives": 0,
+        "phon-nasals": 0.25,
+        "phon-liquids": 0,
+        "phon-vowel-high": 0.25,
+        "phon-vowel-low": 0.25,
+        "phon-type-once": 0,
+        "phon-life-liberty": 0,
+        "phon-people": 0,
+        "phon-too-sweet": 0.25
+      },
+      "phon-too-sweet": {
+        "phon-cv-open": 1,
+        "phon-cv-closed": 0.667,
+        "phon-cv-alt": 0.333,
+        "phon-cv-cluster": 0,
+        "phon-stops": 0,
+        "phon-fricatives": 0.25,
+        "phon-nasals": 0,
+        "phon-liquids": 0.25,
+        "phon-vowel-high": 0.5,
+        "phon-vowel-low": 0,
+        "phon-type-once": 0.25,
+        "phon-life-liberty": 0.25,
+        "phon-people": 0.25,
+        "phon-too-sweet": 0
+      }
+    }
+  },
+  "probes": [
+    {
+      "id": "phon-cv-open",
+      "kind": "phon-probe",
+      "text": "aeaieiou",
+      "intent": "pure vocalic",
+      "dualOf": null,
+      "source": "calibration",
+      "cv": "VVVVV",
+      "phones": "VlVhVhVhVm",
+      "compressed": "V×5",
+      "openRatioPhon": 100,
+      "dominant": "VVV",
+      "artMean": [
+        1,
+        0,
+        1,
+        1,
+        0,
+        1,
+        0,
+        0,
+        0,
+        0.4,
+        0.2,
+        0.4
+      ],
+      "bigrams": {
+        "VV": 4
+      },
+      "topPatterns": [
+        {
+          "pattern": "VV",
+          "count": 4
+        },
+        {
+          "pattern": "VVV",
+          "count": 3
+        }
+      ]
+    },
+    {
+      "id": "phon-cv-closed",
+      "kind": "phon-probe",
+      "text": "strchkpt",
+      "intent": "pure consonantal",
+      "dualOf": null,
+      "source": "calibration",
+      "cv": "CCCCCCC",
+      "phones": "FPLAPPP",
+      "compressed": "C×7",
+      "openRatioPhon": 0,
+      "dominant": "CCC",
+      "artMean": [
+        0,
+        1,
+        0.143,
+        0.286,
+        0,
+        0.143,
+        0.143,
+        0.714,
+        0.143,
+        0,
+        0,
+        0
+      ],
+      "bigrams": {
+        "CC": 6
+      },
+      "topPatterns": [
+        {
+          "pattern": "CC",
+          "count": 6
+        },
+        {
+          "pattern": "CCC",
+          "count": 5
+        }
+      ]
+    },
+    {
+      "id": "phon-cv-alt",
+      "kind": "phon-probe",
+      "text": "patiko seluma",
+      "intent": "alternating CV",
+      "dualOf": null,
+      "source": "calibration",
+      "cv": "CVCVCVCVCVCV",
+      "phones": "PVlPVhPVmFVmLVhNVl",
+      "compressed": "C V C V C V C V C V C V",
+      "openRatioPhon": 50,
+      "dominant": "CVC",
+      "artMean": [
+        0.5,
+        0.5,
+        0.667,
+        0.667,
+        0.083,
+        0.667,
+        0.167,
+        0.25,
+        0.083,
+        0.167,
+        0.167,
+        0.333
+      ],
+      "bigrams": {
+        "CV": 6,
+        "VC": 5
+      },
+      "topPatterns": [
+        {
+          "pattern": "CV",
+          "count": 6
+        },
+        {
+          "pattern": "VC",
+          "count": 5
+        },
+        {
+          "pattern": "CVC",
+          "count": 5
+        },
+        {
+          "pattern": "VCV",
+          "count": 5
+        }
+      ]
+    },
+    {
+      "id": "phon-cv-cluster",
+      "kind": "phon-probe",
+      "text": "strengths scripts",
+      "intent": "heavy clusters",
+      "dualOf": null,
+      "source": "calibration",
+      "cv": "CCCVCCCCCCVCCC",
+      "phones": "FPLVmNFFFPLVhPPF",
+      "compressed": "C×3 V C×6 V C×3",
+      "openRatioPhon": 14.3,
+      "dominant": "CCC",
+      "artMean": [
+        0.143,
+        0.857,
+        0.357,
+        0.643,
+        0.071,
+        0.357,
+        0.071,
+        0.786,
+        0,
+        0.071,
+        0,
+        0
+      ],
+      "bigrams": {
+        "CC": 9,
+        "CV": 2,
+        "VC": 2
+      },
+      "topPatterns": [
+        {
+          "pattern": "CC",
+          "count": 9
+        },
+        {
+          "pattern": "CCC",
+          "count": 6
+        },
+        {
+          "pattern": "CV",
+          "count": 2
+        },
+        {
+          "pattern": "VC",
+          "count": 2
+        },
+        {
+          "pattern": "CCV",
+          "count": 2
+        },
+        {
+          "pattern": "CVC",
+          "count": 2
+        }
+      ]
+    },
+    {
+      "id": "phon-stops",
+      "kind": "phon-probe",
+      "text": "pop tot kick bag dig",
+      "intent": "stop-heavy",
+      "dualOf": null,
+      "source": "calibration",
+      "cv": "CVCCVCCVCCVCCVC",
+      "phones": "PVmPPVmPPVhPPVlPPVhP",
+      "compressed": "C V C×2 V C×2 V C×2 V C×2 V C",
+      "openRatioPhon": 33.3,
+      "dominant": "CVC",
+      "artMean": [
+        0.333,
+        0.667,
+        0.333,
+        0.333,
+        0,
+        0.6,
+        0.2,
+        0.267,
+        0.2,
+        0.133,
+        0.067,
+        0.2
+      ],
+      "bigrams": {
+        "CV": 5,
+        "VC": 5,
+        "CC": 4
+      },
+      "topPatterns": [
+        {
+          "pattern": "CV",
+          "count": 5
+        },
+        {
+          "pattern": "VC",
+          "count": 5
+        },
+        {
+          "pattern": "CVC",
+          "count": 5
+        },
+        {
+          "pattern": "CC",
+          "count": 4
+        },
+        {
+          "pattern": "VCC",
+          "count": 4
+        },
+        {
+          "pattern": "CCV",
+          "count": 4
+        }
+      ]
+    },
+    {
+      "id": "phon-fricatives",
+      "kind": "phon-probe",
+      "text": "safe shoes five this",
+      "intent": "fricative-heavy",
+      "dualOf": null,
+      "source": "calibration",
+      "cv": "CVCVCVVCCVCVCVC",
+      "phones": "FVlFVmFVmVmFFVhFVmFVhF",
+      "compressed": "C V C V C V×2 C×2 V C V C V C",
+      "openRatioPhon": 46.7,
+      "dominant": "CVC",
+      "artMean": [
+        0.467,
+        0.533,
+        0.467,
+        1,
+        0,
+        0.533,
+        0.2,
+        0.333,
+        0,
+        0.133,
+        0.067,
+        0.133
+      ],
+      "bigrams": {
+        "CV": 6,
+        "VC": 6,
+        "VV": 1,
+        "CC": 1
+      },
+      "topPatterns": [
+        {
+          "pattern": "CV",
+          "count": 6
+        },
+        {
+          "pattern": "VC",
+          "count": 6
+        },
+        {
+          "pattern": "CVC",
+          "count": 5
+        },
+        {
+          "pattern": "VCV",
+          "count": 4
+        },
+        {
+          "pattern": "VV",
+          "count": 1
+        },
+        {
+          "pattern": "CC",
+          "count": 1
+        }
+      ]
+    },
+    {
+      "id": "phon-nasals",
+      "kind": "phon-probe",
+      "text": "man moon ring name",
+      "intent": "nasal-heavy",
+      "dualOf": null,
+      "source": "calibration",
+      "cv": "CVCCVCCVCCVCV",
+      "phones": "NVlNNVhNLVhNNVlNVm",
+      "compressed": "C V C×2 V C×2 V C×2 V C V",
+      "openRatioPhon": 38.5,
+      "dominant": "CVC",
+      "artMean": [
+        0.385,
+        0.615,
+        1,
+        0.462,
+        0.538,
+        1,
+        0.231,
+        0.385,
+        0,
+        0.077,
+        0.154,
+        0.231
+      ],
+      "bigrams": {
+        "CV": 5,
+        "VC": 4,
+        "CC": 3
+      },
+      "topPatterns": [
+        {
+          "pattern": "CV",
+          "count": 5
+        },
+        {
+          "pattern": "VC",
+          "count": 4
+        },
+        {
+          "pattern": "CVC",
+          "count": 4
+        },
+        {
+          "pattern": "CC",
+          "count": 3
+        },
+        {
+          "pattern": "VCC",
+          "count": 3
+        },
+        {
+          "pattern": "CCV",
+          "count": 3
+        }
+      ]
+    },
+    {
+      "id": "phon-liquids",
+      "kind": "phon-probe",
+      "text": "lull roar yellow will",
+      "intent": "liquid/glide",
+      "dualOf": null,
+      "source": "calibration",
+      "cv": "CVCCCVCVVCCVCVCC",
+      "phones": "LVhLLLVmLVhVmLLVmLVhLL",
+      "compressed": "C V C×3 V C V×2 C×2 V C V C×2",
+      "openRatioPhon": 37.5,
+      "dominant": "CVC",
+      "artMean": [
+        0.375,
+        0.625,
+        1,
+        1,
+        0,
+        1,
+        0.063,
+        0.563,
+        0,
+        0.188,
+        0,
+        0.188
+      ],
+      "bigrams": {
+        "CV": 5,
+        "VC": 5,
+        "CC": 4,
+        "VV": 1
+      },
+      "topPatterns": [
+        {
+          "pattern": "CV",
+          "count": 5
+        },
+        {
+          "pattern": "VC",
+          "count": 5
+        },
+        {
+          "pattern": "CC",
+          "count": 4
+        },
+        {
+          "pattern": "CVC",
+          "count": 4
+        },
+        {
+          "pattern": "VCC",
+          "count": 3
+        },
+        {
+          "pattern": "CCV",
+          "count": 2
+        }
+      ]
+    },
+    {
+      "id": "phon-vowel-high",
+      "kind": "phon-probe",
+      "text": "see key who boot",
+      "intent": "high vowels",
+      "dualOf": null,
+      "source": "calibration",
+      "cv": "CVCVVCVCVC",
+      "phones": "FVhPVmVhLVmPVhP",
+      "compressed": "C V C V×2 C V C V C",
+      "openRatioPhon": 50,
+      "dominant": "CV",
+      "artMean": [
+        0.5,
+        0.5,
+        0.6,
+        0.7,
+        0,
+        0.7,
+        0.2,
+        0.2,
+        0.1,
+        0.1,
+        0,
+        0.2
+      ],
+      "bigrams": {
+        "CV": 4,
+        "VC": 4,
+        "VV": 1
+      },
+      "topPatterns": [
+        {
+          "pattern": "CV",
+          "count": 4
+        },
+        {
+          "pattern": "VC",
+          "count": 4
+        },
+        {
+          "pattern": "CVC",
+          "count": 3
+        },
+        {
+          "pattern": "VCV",
+          "count": 3
+        },
+        {
+          "pattern": "VV",
+          "count": 1
+        },
+        {
+          "pattern": "CVV",
+          "count": 1
+        }
+      ]
+    },
+    {
+      "id": "phon-vowel-low",
+      "kind": "phon-probe",
+      "text": "cat father hot",
+      "intent": "low vowels",
+      "dualOf": null,
+      "source": "calibration",
+      "cv": "CVCCVCVCCVC",
+      "phones": "PVlPFVlFVmLFVmP",
+      "compressed": "C V C×2 V C V C×2 V C",
+      "openRatioPhon": 36.4,
+      "dominant": "CVC",
+      "artMean": [
+        0.364,
+        0.636,
+        0.455,
+        0.727,
+        0,
+        0.455,
+        0.091,
+        0.455,
+        0,
+        0,
+        0.182,
+        0.273
+      ],
+      "bigrams": {
+        "CV": 4,
+        "VC": 4,
+        "CC": 2
+      },
+      "topPatterns": [
+        {
+          "pattern": "CV",
+          "count": 4
+        },
+        {
+          "pattern": "VC",
+          "count": 4
+        },
+        {
+          "pattern": "CVC",
+          "count": 4
+        },
+        {
+          "pattern": "CC",
+          "count": 2
+        },
+        {
+          "pattern": "VCC",
+          "count": 2
+        },
+        {
+          "pattern": "CCV",
+          "count": 2
+        }
+      ]
+    },
+    {
+      "id": "phon-type-once",
+      "kind": "phon-probe",
+      "text": "type once understand everywhere",
+      "intent": "site motto dual",
+      "dualOf": "so-type-once",
+      "source": "calibration",
+      "cv": "CVCVVCCVVCCVCCCVCCVCVCVCVCV",
+      "phones": "PVhPVmVmNPVmVhNPVmLFPVlNPVmFVmLVhLVmLVm",
+      "compressed": "C V C V×2 C×2 V×2 C×2 V C×3 V C×2 V C V C V C V C V",
+      "openRatioPhon": 44.4,
+      "dominant": "CVC",
+      "artMean": [
+        0.444,
+        0.556,
+        0.704,
+        0.667,
+        0.111,
+        0.815,
+        0.111,
+        0.444,
+        0,
+        0.111,
+        0.037,
+        0.111
+      ],
+      "bigrams": {
+        "CV": 10,
+        "VC": 9,
+        "VV": 2,
+        "CC": 5
+      },
+      "topPatterns": [
+        {
+          "pattern": "CV",
+          "count": 10
+        },
+        {
+          "pattern": "VC",
+          "count": 9
+        },
+        {
+          "pattern": "CVC",
+          "count": 7
+        },
+        {
+          "pattern": "CC",
+          "count": 5
+        },
+        {
+          "pattern": "VCV",
+          "count": 5
+        },
+        {
+          "pattern": "VCC",
+          "count": 4
+        }
+      ]
+    },
+    {
+      "id": "phon-life-liberty",
+      "kind": "phon-probe",
+      "text": "life liberty and the pursuit of happiness",
+      "intent": "Declaration phrase dual",
+      "dualOf": "so-declaration-phrase",
+      "source": "calibration",
+      "cv": "CVCVCVCVCCVVCCCVCVCCVCVCCVCCVCVCC",
+      "phones": "LVhFVmLVhPVmLPVhVlNPFVmPVhLFVhPVmFFVlPPVhNVmFF",
+      "compressed": "C V C V C V C V C×2 V×2 C×3 V C V C×2 V C V C×2 V C×2 V C V C×2",
+      "openRatioPhon": 39.4,
+      "dominant": "CVC",
+      "artMean": [
+        0.394,
+        0.606,
+        0.576,
+        0.727,
+        0.061,
+        0.636,
+        0.182,
+        0.394,
+        0,
+        0.182,
+        0.061,
+        0.152
+      ],
+      "bigrams": {
+        "CV": 12,
+        "VC": 12,
+        "CC": 7,
+        "VV": 1
+      },
+      "topPatterns": [
+        {
+          "pattern": "CV",
+          "count": 12
+        },
+        {
+          "pattern": "VC",
+          "count": 12
+        },
+        {
+          "pattern": "CVC",
+          "count": 11
+        },
+        {
+          "pattern": "CC",
+          "count": 7
+        },
+        {
+          "pattern": "VCV",
+          "count": 6
+        },
+        {
+          "pattern": "VCC",
+          "count": 6
+        }
+      ]
+    },
+    {
+      "id": "phon-people",
+      "kind": "phon-probe",
+      "text": "people",
+      "intent": "high-freq Declaration word",
+      "dualOf": "so-people",
+      "source": "calibration",
+      "cv": "CVVCCV",
+      "phones": "PVmVmPLVm",
+      "compressed": "C V×2 C×2 V",
+      "openRatioPhon": 50,
+      "dominant": "CVV",
+      "artMean": [
+        0.5,
+        0.5,
+        0.667,
+        0.667,
+        0,
+        0.667,
+        0.333,
+        0.167,
+        0,
+        0,
+        0,
+        0.167
+      ],
+      "bigrams": {
+        "CV": 2,
+        "VV": 1,
+        "VC": 1,
+        "CC": 1
+      },
+      "topPatterns": [
+        {
+          "pattern": "CV",
+          "count": 2
+        },
+        {
+          "pattern": "VV",
+          "count": 1
+        },
+        {
+          "pattern": "VC",
+          "count": 1
+        },
+        {
+          "pattern": "CC",
+          "count": 1
+        },
+        {
+          "pattern": "CVV",
+          "count": 1
+        },
+        {
+          "pattern": "VVC",
+          "count": 1
+        }
+      ]
+    },
+    {
+      "id": "phon-too-sweet",
+      "kind": "phon-probe",
+      "text": "Too Sweet\nHozier\nToo Sweet",
+      "intent": "chart title dual",
+      "dualOf": "chart-too-sweet-hozier",
+      "source": "calibration",
+      "cv": "CVCCVCVCVCCVCCVC",
+      "phones": "PVhFLVhFVmFVhLPVhFLVhP",
+      "compressed": "C V C×2 V C V C V C×2 V C×2 V C",
+      "openRatioPhon": 37.5,
+      "dominant": "CV",
+      "artMean": [
+        0.375,
+        0.625,
+        0.563,
+        0.813,
+        0,
+        0.625,
+        0.125,
+        0.5,
+        0,
+        0.063,
+        0,
+        0.188
+      ],
+      "bigrams": {
+        "CV": 6,
+        "VC": 6,
+        "CC": 3
+      },
+      "topPatterns": [
+        {
+          "pattern": "CV",
+          "count": 6
+        },
+        {
+          "pattern": "VC",
+          "count": 6
+        },
+        {
+          "pattern": "CVC",
+          "count": 6
+        },
+        {
+          "pattern": "CC",
+          "count": 3
+        },
+        {
+          "pattern": "VCC",
+          "count": 3
+        },
+        {
+          "pattern": "CCV",
+          "count": 3
+        }
+      ]
+    }
+  ],
+  "phoneClasses": {
+    "P": "stop",
+    "F": "fricative",
+    "A": "affricate",
+    "N": "nasal",
+    "L": "liquid/glide",
+    "Vh": "vowel high",
+    "Vm": "vowel mid",
+    "Vl": "vowel low",
+    "X": "other"
+  },
+  "urls": {
+    "articulatoryBank": "data/calibration/articulatory-bank.json",
+    "jaxBank": "data/calibration/jax-feature-bank.json",
+    "probeSet": "data/calibration/probe-set.json",
+    "costMatrix": "data/world-path/cost-matrix.json",
+    "docs": "docs/PHONETIC-PATTERN-ANALYSIS.md",
+    "mcp": "kbatch_phon_pattern"
+  }
+}

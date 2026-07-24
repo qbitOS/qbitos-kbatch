@@ -1,0 +1,1617 @@
+{
+  "schema": "kbatch-world-path-portal-subgraph-v1",
+  "generated": "2026-07-24T07:21:20.018Z",
+  "scriptPortals": {
+    "Latin": "en",
+    "Cyrillic": "ru",
+    "Arabic": "ar",
+    "Han": "zh",
+    "Hangul": "ko",
+    "Hiragana": "ja",
+    "Katakana": "ja",
+    "Greek": "el",
+    "Hebrew": "he",
+    "Devanagari": "hi",
+    "Thai": "th",
+    "Georgian": "ka",
+    "Armenian": "hy",
+    "Cherokee": "chr",
+    "Bengali": "bn",
+    "Tamil": "ta"
+  },
+  "portals": [
+    {
+      "script": "Latin",
+      "langId": "en",
+      "label": "English",
+      "status": "ready",
+      "layout": "qwerty",
+      "role": "portal"
+    },
+    {
+      "script": "Cyrillic",
+      "langId": "ru",
+      "label": "Russian",
+      "status": "ready",
+      "layout": "jcuken",
+      "role": "portal"
+    },
+    {
+      "script": "Arabic",
+      "langId": "ar",
+      "label": "Arabic",
+      "status": "ready",
+      "layout": "arabic",
+      "role": "portal"
+    },
+    {
+      "script": "Han",
+      "langId": "zh",
+      "label": "Chinese",
+      "status": "ready",
+      "layout": "qwerty",
+      "role": "portal"
+    },
+    {
+      "script": "Hangul",
+      "langId": "ko",
+      "label": "Korean",
+      "status": "ready",
+      "layout": "korean",
+      "role": "portal"
+    },
+    {
+      "script": "Hiragana",
+      "langId": "ja",
+      "label": "Japanese",
+      "status": "ready",
+      "layout": "japanese",
+      "role": "portal"
+    },
+    {
+      "script": "Greek",
+      "langId": "el",
+      "label": "Greek",
+      "status": "ready",
+      "layout": "greek",
+      "role": "portal"
+    },
+    {
+      "script": "Hebrew",
+      "langId": "he",
+      "label": "Hebrew",
+      "status": "ready",
+      "layout": "hebrew",
+      "role": "portal"
+    },
+    {
+      "script": "Devanagari",
+      "langId": "hi",
+      "label": "Hindi",
+      "status": "ready",
+      "layout": "hindi",
+      "role": "portal"
+    },
+    {
+      "script": "Thai",
+      "langId": "th",
+      "label": "Thai",
+      "status": "ready",
+      "layout": "thai",
+      "role": "portal"
+    },
+    {
+      "script": "Georgian",
+      "langId": "ka",
+      "label": "Georgian",
+      "status": "placeholder",
+      "layout": "qwerty",
+      "role": "portal"
+    },
+    {
+      "script": "Armenian",
+      "langId": "hy",
+      "label": "Armenian",
+      "status": "placeholder",
+      "layout": "qwerty",
+      "role": "portal"
+    },
+    {
+      "script": "Cherokee",
+      "langId": "chr",
+      "label": "Cherokee",
+      "status": "honor",
+      "layout": "qwerty",
+      "role": "portal"
+    },
+    {
+      "script": "Bengali",
+      "langId": "bn",
+      "label": "Bengali",
+      "status": "placeholder",
+      "layout": "qwerty",
+      "role": "portal"
+    },
+    {
+      "script": "Tamil",
+      "langId": "ta",
+      "label": "Tamil",
+      "status": "placeholder",
+      "layout": "qwerty",
+      "role": "portal"
+    }
+  ],
+  "edges": [
+    {
+      "from": "en",
+      "to": "ru",
+      "fromScript": "Latin",
+      "toScript": "Cyrillic",
+      "cost": 9.3
+    },
+    {
+      "from": "en",
+      "to": "ar",
+      "fromScript": "Latin",
+      "toScript": "Arabic",
+      "cost": 10.7
+    },
+    {
+      "from": "en",
+      "to": "zh",
+      "fromScript": "Latin",
+      "toScript": "Han",
+      "cost": 7.2
+    },
+    {
+      "from": "en",
+      "to": "ko",
+      "fromScript": "Latin",
+      "toScript": "Hangul",
+      "cost": 10.7
+    },
+    {
+      "from": "en",
+      "to": "ja",
+      "fromScript": "Latin",
+      "toScript": "Hiragana",
+      "cost": 10.7
+    },
+    {
+      "from": "en",
+      "to": "el",
+      "fromScript": "Latin",
+      "toScript": "Greek",
+      "cost": 9.3
+    },
+    {
+      "from": "en",
+      "to": "he",
+      "fromScript": "Latin",
+      "toScript": "Hebrew",
+      "cost": 10.7
+    },
+    {
+      "from": "en",
+      "to": "hi",
+      "fromScript": "Latin",
+      "toScript": "Devanagari",
+      "cost": 9.3
+    },
+    {
+      "from": "en",
+      "to": "th",
+      "fromScript": "Latin",
+      "toScript": "Thai",
+      "cost": 10.7
+    },
+    {
+      "from": "en",
+      "to": "ka",
+      "fromScript": "Latin",
+      "toScript": "Georgian",
+      "cost": 9.7
+    },
+    {
+      "from": "en",
+      "to": "hy",
+      "fromScript": "Latin",
+      "toScript": "Armenian",
+      "cost": 9.7
+    },
+    {
+      "from": "en",
+      "to": "chr",
+      "fromScript": "Latin",
+      "toScript": "Cherokee",
+      "cost": 13.2
+    },
+    {
+      "from": "en",
+      "to": "bn",
+      "fromScript": "Latin",
+      "toScript": "Bengali",
+      "cost": 8.3
+    },
+    {
+      "from": "en",
+      "to": "ta",
+      "fromScript": "Latin",
+      "toScript": "Tamil",
+      "cost": 9.7
+    },
+    {
+      "from": "ru",
+      "to": "en",
+      "fromScript": "Cyrillic",
+      "toScript": "Latin",
+      "cost": 9.3
+    },
+    {
+      "from": "ru",
+      "to": "ar",
+      "fromScript": "Cyrillic",
+      "toScript": "Arabic",
+      "cost": 10.7
+    },
+    {
+      "from": "ru",
+      "to": "zh",
+      "fromScript": "Cyrillic",
+      "toScript": "Han",
+      "cost": 10.7
+    },
+    {
+      "from": "ru",
+      "to": "ko",
+      "fromScript": "Cyrillic",
+      "toScript": "Hangul",
+      "cost": 10.7
+    },
+    {
+      "from": "ru",
+      "to": "ja",
+      "fromScript": "Cyrillic",
+      "toScript": "Hiragana",
+      "cost": 10.7
+    },
+    {
+      "from": "ru",
+      "to": "el",
+      "fromScript": "Cyrillic",
+      "toScript": "Greek",
+      "cost": 9.3
+    },
+    {
+      "from": "ru",
+      "to": "he",
+      "fromScript": "Cyrillic",
+      "toScript": "Hebrew",
+      "cost": 10.7
+    },
+    {
+      "from": "ru",
+      "to": "hi",
+      "fromScript": "Cyrillic",
+      "toScript": "Devanagari",
+      "cost": 9.3
+    },
+    {
+      "from": "ru",
+      "to": "th",
+      "fromScript": "Cyrillic",
+      "toScript": "Thai",
+      "cost": 10.7
+    },
+    {
+      "from": "ru",
+      "to": "ka",
+      "fromScript": "Cyrillic",
+      "toScript": "Georgian",
+      "cost": 13.2
+    },
+    {
+      "from": "ru",
+      "to": "hy",
+      "fromScript": "Cyrillic",
+      "toScript": "Armenian",
+      "cost": 13.2
+    },
+    {
+      "from": "ru",
+      "to": "chr",
+      "fromScript": "Cyrillic",
+      "toScript": "Cherokee",
+      "cost": 16.7
+    },
+    {
+      "from": "ru",
+      "to": "bn",
+      "fromScript": "Cyrillic",
+      "toScript": "Bengali",
+      "cost": 11.8
+    },
+    {
+      "from": "ru",
+      "to": "ta",
+      "fromScript": "Cyrillic",
+      "toScript": "Tamil",
+      "cost": 13.2
+    },
+    {
+      "from": "ar",
+      "to": "en",
+      "fromScript": "Arabic",
+      "toScript": "Latin",
+      "cost": 10.7
+    },
+    {
+      "from": "ar",
+      "to": "ru",
+      "fromScript": "Arabic",
+      "toScript": "Cyrillic",
+      "cost": 10.7
+    },
+    {
+      "from": "ar",
+      "to": "zh",
+      "fromScript": "Arabic",
+      "toScript": "Han",
+      "cost": 10.7
+    },
+    {
+      "from": "ar",
+      "to": "ko",
+      "fromScript": "Arabic",
+      "toScript": "Hangul",
+      "cost": 10.7
+    },
+    {
+      "from": "ar",
+      "to": "ja",
+      "fromScript": "Arabic",
+      "toScript": "Hiragana",
+      "cost": 10.7
+    },
+    {
+      "from": "ar",
+      "to": "el",
+      "fromScript": "Arabic",
+      "toScript": "Greek",
+      "cost": 10.7
+    },
+    {
+      "from": "ar",
+      "to": "he",
+      "fromScript": "Arabic",
+      "toScript": "Hebrew",
+      "cost": 8.5
+    },
+    {
+      "from": "ar",
+      "to": "hi",
+      "fromScript": "Arabic",
+      "toScript": "Devanagari",
+      "cost": 10.7
+    },
+    {
+      "from": "ar",
+      "to": "th",
+      "fromScript": "Arabic",
+      "toScript": "Thai",
+      "cost": 10.7
+    },
+    {
+      "from": "ar",
+      "to": "ka",
+      "fromScript": "Arabic",
+      "toScript": "Georgian",
+      "cost": 13.2
+    },
+    {
+      "from": "ar",
+      "to": "hy",
+      "fromScript": "Arabic",
+      "toScript": "Armenian",
+      "cost": 13.2
+    },
+    {
+      "from": "ar",
+      "to": "chr",
+      "fromScript": "Arabic",
+      "toScript": "Cherokee",
+      "cost": 16.7
+    },
+    {
+      "from": "ar",
+      "to": "bn",
+      "fromScript": "Arabic",
+      "toScript": "Bengali",
+      "cost": 13.2
+    },
+    {
+      "from": "ar",
+      "to": "ta",
+      "fromScript": "Arabic",
+      "toScript": "Tamil",
+      "cost": 13.2
+    },
+    {
+      "from": "zh",
+      "to": "en",
+      "fromScript": "Han",
+      "toScript": "Latin",
+      "cost": 7.2
+    },
+    {
+      "from": "zh",
+      "to": "ru",
+      "fromScript": "Han",
+      "toScript": "Cyrillic",
+      "cost": 10.7
+    },
+    {
+      "from": "zh",
+      "to": "ar",
+      "fromScript": "Han",
+      "toScript": "Arabic",
+      "cost": 10.7
+    },
+    {
+      "from": "zh",
+      "to": "ko",
+      "fromScript": "Han",
+      "toScript": "Hangul",
+      "cost": 8.2
+    },
+    {
+      "from": "zh",
+      "to": "ja",
+      "fromScript": "Han",
+      "toScript": "Hiragana",
+      "cost": 10.7
+    },
+    {
+      "from": "zh",
+      "to": "el",
+      "fromScript": "Han",
+      "toScript": "Greek",
+      "cost": 10.7
+    },
+    {
+      "from": "zh",
+      "to": "he",
+      "fromScript": "Han",
+      "toScript": "Hebrew",
+      "cost": 10.7
+    },
+    {
+      "from": "zh",
+      "to": "hi",
+      "fromScript": "Han",
+      "toScript": "Devanagari",
+      "cost": 10.7
+    },
+    {
+      "from": "zh",
+      "to": "th",
+      "fromScript": "Han",
+      "toScript": "Thai",
+      "cost": 9.3
+    },
+    {
+      "from": "zh",
+      "to": "ka",
+      "fromScript": "Han",
+      "toScript": "Georgian",
+      "cost": 9.7
+    },
+    {
+      "from": "zh",
+      "to": "hy",
+      "fromScript": "Han",
+      "toScript": "Armenian",
+      "cost": 9.7
+    },
+    {
+      "from": "zh",
+      "to": "chr",
+      "fromScript": "Han",
+      "toScript": "Cherokee",
+      "cost": 13.2
+    },
+    {
+      "from": "zh",
+      "to": "bn",
+      "fromScript": "Han",
+      "toScript": "Bengali",
+      "cost": 9.7
+    },
+    {
+      "from": "zh",
+      "to": "ta",
+      "fromScript": "Han",
+      "toScript": "Tamil",
+      "cost": 9.7
+    },
+    {
+      "from": "ko",
+      "to": "en",
+      "fromScript": "Hangul",
+      "toScript": "Latin",
+      "cost": 10.7
+    },
+    {
+      "from": "ko",
+      "to": "ru",
+      "fromScript": "Hangul",
+      "toScript": "Cyrillic",
+      "cost": 10.7
+    },
+    {
+      "from": "ko",
+      "to": "ar",
+      "fromScript": "Hangul",
+      "toScript": "Arabic",
+      "cost": 10.7
+    },
+    {
+      "from": "ko",
+      "to": "zh",
+      "fromScript": "Hangul",
+      "toScript": "Han",
+      "cost": 8.2
+    },
+    {
+      "from": "ko",
+      "to": "ja",
+      "fromScript": "Hangul",
+      "toScript": "Hiragana",
+      "cost": 10.7
+    },
+    {
+      "from": "ko",
+      "to": "el",
+      "fromScript": "Hangul",
+      "toScript": "Greek",
+      "cost": 10.7
+    },
+    {
+      "from": "ko",
+      "to": "he",
+      "fromScript": "Hangul",
+      "toScript": "Hebrew",
+      "cost": 10.7
+    },
+    {
+      "from": "ko",
+      "to": "hi",
+      "fromScript": "Hangul",
+      "toScript": "Devanagari",
+      "cost": 10.7
+    },
+    {
+      "from": "ko",
+      "to": "th",
+      "fromScript": "Hangul",
+      "toScript": "Thai",
+      "cost": 10.7
+    },
+    {
+      "from": "ko",
+      "to": "ka",
+      "fromScript": "Hangul",
+      "toScript": "Georgian",
+      "cost": 13.2
+    },
+    {
+      "from": "ko",
+      "to": "hy",
+      "fromScript": "Hangul",
+      "toScript": "Armenian",
+      "cost": 13.2
+    },
+    {
+      "from": "ko",
+      "to": "chr",
+      "fromScript": "Hangul",
+      "toScript": "Cherokee",
+      "cost": 16.7
+    },
+    {
+      "from": "ko",
+      "to": "bn",
+      "fromScript": "Hangul",
+      "toScript": "Bengali",
+      "cost": 13.2
+    },
+    {
+      "from": "ko",
+      "to": "ta",
+      "fromScript": "Hangul",
+      "toScript": "Tamil",
+      "cost": 13.2
+    },
+    {
+      "from": "ja",
+      "to": "en",
+      "fromScript": "Hiragana",
+      "toScript": "Latin",
+      "cost": 10.7
+    },
+    {
+      "from": "ja",
+      "to": "ru",
+      "fromScript": "Hiragana",
+      "toScript": "Cyrillic",
+      "cost": 10.7
+    },
+    {
+      "from": "ja",
+      "to": "ar",
+      "fromScript": "Hiragana",
+      "toScript": "Arabic",
+      "cost": 10.7
+    },
+    {
+      "from": "ja",
+      "to": "zh",
+      "fromScript": "Hiragana",
+      "toScript": "Han",
+      "cost": 10.7
+    },
+    {
+      "from": "ja",
+      "to": "ko",
+      "fromScript": "Hiragana",
+      "toScript": "Hangul",
+      "cost": 10.7
+    },
+    {
+      "from": "ja",
+      "to": "el",
+      "fromScript": "Hiragana",
+      "toScript": "Greek",
+      "cost": 10.7
+    },
+    {
+      "from": "ja",
+      "to": "he",
+      "fromScript": "Hiragana",
+      "toScript": "Hebrew",
+      "cost": 10.7
+    },
+    {
+      "from": "ja",
+      "to": "hi",
+      "fromScript": "Hiragana",
+      "toScript": "Devanagari",
+      "cost": 10.7
+    },
+    {
+      "from": "ja",
+      "to": "th",
+      "fromScript": "Hiragana",
+      "toScript": "Thai",
+      "cost": 10.7
+    },
+    {
+      "from": "ja",
+      "to": "ka",
+      "fromScript": "Hiragana",
+      "toScript": "Georgian",
+      "cost": 13.2
+    },
+    {
+      "from": "ja",
+      "to": "hy",
+      "fromScript": "Hiragana",
+      "toScript": "Armenian",
+      "cost": 13.2
+    },
+    {
+      "from": "ja",
+      "to": "chr",
+      "fromScript": "Hiragana",
+      "toScript": "Cherokee",
+      "cost": 16.7
+    },
+    {
+      "from": "ja",
+      "to": "bn",
+      "fromScript": "Hiragana",
+      "toScript": "Bengali",
+      "cost": 13.2
+    },
+    {
+      "from": "ja",
+      "to": "ta",
+      "fromScript": "Hiragana",
+      "toScript": "Tamil",
+      "cost": 13.2
+    },
+    {
+      "from": "el",
+      "to": "en",
+      "fromScript": "Greek",
+      "toScript": "Latin",
+      "cost": 9.3
+    },
+    {
+      "from": "el",
+      "to": "ru",
+      "fromScript": "Greek",
+      "toScript": "Cyrillic",
+      "cost": 9.3
+    },
+    {
+      "from": "el",
+      "to": "ar",
+      "fromScript": "Greek",
+      "toScript": "Arabic",
+      "cost": 10.7
+    },
+    {
+      "from": "el",
+      "to": "zh",
+      "fromScript": "Greek",
+      "toScript": "Han",
+      "cost": 10.7
+    },
+    {
+      "from": "el",
+      "to": "ko",
+      "fromScript": "Greek",
+      "toScript": "Hangul",
+      "cost": 10.7
+    },
+    {
+      "from": "el",
+      "to": "ja",
+      "fromScript": "Greek",
+      "toScript": "Hiragana",
+      "cost": 10.7
+    },
+    {
+      "from": "el",
+      "to": "he",
+      "fromScript": "Greek",
+      "toScript": "Hebrew",
+      "cost": 10.7
+    },
+    {
+      "from": "el",
+      "to": "hi",
+      "fromScript": "Greek",
+      "toScript": "Devanagari",
+      "cost": 9.3
+    },
+    {
+      "from": "el",
+      "to": "th",
+      "fromScript": "Greek",
+      "toScript": "Thai",
+      "cost": 10.7
+    },
+    {
+      "from": "el",
+      "to": "ka",
+      "fromScript": "Greek",
+      "toScript": "Georgian",
+      "cost": 13.2
+    },
+    {
+      "from": "el",
+      "to": "hy",
+      "fromScript": "Greek",
+      "toScript": "Armenian",
+      "cost": 13.2
+    },
+    {
+      "from": "el",
+      "to": "chr",
+      "fromScript": "Greek",
+      "toScript": "Cherokee",
+      "cost": 16.7
+    },
+    {
+      "from": "el",
+      "to": "bn",
+      "fromScript": "Greek",
+      "toScript": "Bengali",
+      "cost": 11.8
+    },
+    {
+      "from": "el",
+      "to": "ta",
+      "fromScript": "Greek",
+      "toScript": "Tamil",
+      "cost": 13.2
+    },
+    {
+      "from": "he",
+      "to": "en",
+      "fromScript": "Hebrew",
+      "toScript": "Latin",
+      "cost": 10.7
+    },
+    {
+      "from": "he",
+      "to": "ru",
+      "fromScript": "Hebrew",
+      "toScript": "Cyrillic",
+      "cost": 10.7
+    },
+    {
+      "from": "he",
+      "to": "ar",
+      "fromScript": "Hebrew",
+      "toScript": "Arabic",
+      "cost": 8.5
+    },
+    {
+      "from": "he",
+      "to": "zh",
+      "fromScript": "Hebrew",
+      "toScript": "Han",
+      "cost": 10.7
+    },
+    {
+      "from": "he",
+      "to": "ko",
+      "fromScript": "Hebrew",
+      "toScript": "Hangul",
+      "cost": 10.7
+    },
+    {
+      "from": "he",
+      "to": "ja",
+      "fromScript": "Hebrew",
+      "toScript": "Hiragana",
+      "cost": 10.7
+    },
+    {
+      "from": "he",
+      "to": "el",
+      "fromScript": "Hebrew",
+      "toScript": "Greek",
+      "cost": 10.7
+    },
+    {
+      "from": "he",
+      "to": "hi",
+      "fromScript": "Hebrew",
+      "toScript": "Devanagari",
+      "cost": 10.7
+    },
+    {
+      "from": "he",
+      "to": "th",
+      "fromScript": "Hebrew",
+      "toScript": "Thai",
+      "cost": 10.7
+    },
+    {
+      "from": "he",
+      "to": "ka",
+      "fromScript": "Hebrew",
+      "toScript": "Georgian",
+      "cost": 13.2
+    },
+    {
+      "from": "he",
+      "to": "hy",
+      "fromScript": "Hebrew",
+      "toScript": "Armenian",
+      "cost": 13.2
+    },
+    {
+      "from": "he",
+      "to": "chr",
+      "fromScript": "Hebrew",
+      "toScript": "Cherokee",
+      "cost": 16.7
+    },
+    {
+      "from": "he",
+      "to": "bn",
+      "fromScript": "Hebrew",
+      "toScript": "Bengali",
+      "cost": 13.2
+    },
+    {
+      "from": "he",
+      "to": "ta",
+      "fromScript": "Hebrew",
+      "toScript": "Tamil",
+      "cost": 13.2
+    },
+    {
+      "from": "hi",
+      "to": "en",
+      "fromScript": "Devanagari",
+      "toScript": "Latin",
+      "cost": 9.3
+    },
+    {
+      "from": "hi",
+      "to": "ru",
+      "fromScript": "Devanagari",
+      "toScript": "Cyrillic",
+      "cost": 9.3
+    },
+    {
+      "from": "hi",
+      "to": "ar",
+      "fromScript": "Devanagari",
+      "toScript": "Arabic",
+      "cost": 10.7
+    },
+    {
+      "from": "hi",
+      "to": "zh",
+      "fromScript": "Devanagari",
+      "toScript": "Han",
+      "cost": 10.7
+    },
+    {
+      "from": "hi",
+      "to": "ko",
+      "fromScript": "Devanagari",
+      "toScript": "Hangul",
+      "cost": 10.7
+    },
+    {
+      "from": "hi",
+      "to": "ja",
+      "fromScript": "Devanagari",
+      "toScript": "Hiragana",
+      "cost": 10.7
+    },
+    {
+      "from": "hi",
+      "to": "el",
+      "fromScript": "Devanagari",
+      "toScript": "Greek",
+      "cost": 9.3
+    },
+    {
+      "from": "hi",
+      "to": "he",
+      "fromScript": "Devanagari",
+      "toScript": "Hebrew",
+      "cost": 10.7
+    },
+    {
+      "from": "hi",
+      "to": "th",
+      "fromScript": "Devanagari",
+      "toScript": "Thai",
+      "cost": 10.7
+    },
+    {
+      "from": "hi",
+      "to": "ka",
+      "fromScript": "Devanagari",
+      "toScript": "Georgian",
+      "cost": 13.2
+    },
+    {
+      "from": "hi",
+      "to": "hy",
+      "fromScript": "Devanagari",
+      "toScript": "Armenian",
+      "cost": 13.2
+    },
+    {
+      "from": "hi",
+      "to": "chr",
+      "fromScript": "Devanagari",
+      "toScript": "Cherokee",
+      "cost": 16.7
+    },
+    {
+      "from": "hi",
+      "to": "bn",
+      "fromScript": "Devanagari",
+      "toScript": "Bengali",
+      "cost": 8.5
+    },
+    {
+      "from": "hi",
+      "to": "ta",
+      "fromScript": "Devanagari",
+      "toScript": "Tamil",
+      "cost": 10.7
+    },
+    {
+      "from": "th",
+      "to": "en",
+      "fromScript": "Thai",
+      "toScript": "Latin",
+      "cost": 10.7
+    },
+    {
+      "from": "th",
+      "to": "ru",
+      "fromScript": "Thai",
+      "toScript": "Cyrillic",
+      "cost": 10.7
+    },
+    {
+      "from": "th",
+      "to": "ar",
+      "fromScript": "Thai",
+      "toScript": "Arabic",
+      "cost": 10.7
+    },
+    {
+      "from": "th",
+      "to": "zh",
+      "fromScript": "Thai",
+      "toScript": "Han",
+      "cost": 9.3
+    },
+    {
+      "from": "th",
+      "to": "ko",
+      "fromScript": "Thai",
+      "toScript": "Hangul",
+      "cost": 10.7
+    },
+    {
+      "from": "th",
+      "to": "ja",
+      "fromScript": "Thai",
+      "toScript": "Hiragana",
+      "cost": 10.7
+    },
+    {
+      "from": "th",
+      "to": "el",
+      "fromScript": "Thai",
+      "toScript": "Greek",
+      "cost": 10.7
+    },
+    {
+      "from": "th",
+      "to": "he",
+      "fromScript": "Thai",
+      "toScript": "Hebrew",
+      "cost": 10.7
+    },
+    {
+      "from": "th",
+      "to": "hi",
+      "fromScript": "Thai",
+      "toScript": "Devanagari",
+      "cost": 10.7
+    },
+    {
+      "from": "th",
+      "to": "ka",
+      "fromScript": "Thai",
+      "toScript": "Georgian",
+      "cost": 13.2
+    },
+    {
+      "from": "th",
+      "to": "hy",
+      "fromScript": "Thai",
+      "toScript": "Armenian",
+      "cost": 13.2
+    },
+    {
+      "from": "th",
+      "to": "chr",
+      "fromScript": "Thai",
+      "toScript": "Cherokee",
+      "cost": 16.7
+    },
+    {
+      "from": "th",
+      "to": "bn",
+      "fromScript": "Thai",
+      "toScript": "Bengali",
+      "cost": 13.2
+    },
+    {
+      "from": "th",
+      "to": "ta",
+      "fromScript": "Thai",
+      "toScript": "Tamil",
+      "cost": 13.2
+    },
+    {
+      "from": "ka",
+      "to": "en",
+      "fromScript": "Georgian",
+      "toScript": "Latin",
+      "cost": 7.2
+    },
+    {
+      "from": "ka",
+      "to": "ru",
+      "fromScript": "Georgian",
+      "toScript": "Cyrillic",
+      "cost": 10.7
+    },
+    {
+      "from": "ka",
+      "to": "ar",
+      "fromScript": "Georgian",
+      "toScript": "Arabic",
+      "cost": 10.7
+    },
+    {
+      "from": "ka",
+      "to": "zh",
+      "fromScript": "Georgian",
+      "toScript": "Han",
+      "cost": 7.2
+    },
+    {
+      "from": "ka",
+      "to": "ko",
+      "fromScript": "Georgian",
+      "toScript": "Hangul",
+      "cost": 10.7
+    },
+    {
+      "from": "ka",
+      "to": "ja",
+      "fromScript": "Georgian",
+      "toScript": "Hiragana",
+      "cost": 10.7
+    },
+    {
+      "from": "ka",
+      "to": "el",
+      "fromScript": "Georgian",
+      "toScript": "Greek",
+      "cost": 10.7
+    },
+    {
+      "from": "ka",
+      "to": "he",
+      "fromScript": "Georgian",
+      "toScript": "Hebrew",
+      "cost": 10.7
+    },
+    {
+      "from": "ka",
+      "to": "hi",
+      "fromScript": "Georgian",
+      "toScript": "Devanagari",
+      "cost": 10.7
+    },
+    {
+      "from": "ka",
+      "to": "th",
+      "fromScript": "Georgian",
+      "toScript": "Thai",
+      "cost": 10.7
+    },
+    {
+      "from": "ka",
+      "to": "hy",
+      "fromScript": "Georgian",
+      "toScript": "Armenian",
+      "cost": 9.7
+    },
+    {
+      "from": "ka",
+      "to": "chr",
+      "fromScript": "Georgian",
+      "toScript": "Cherokee",
+      "cost": 13.2
+    },
+    {
+      "from": "ka",
+      "to": "bn",
+      "fromScript": "Georgian",
+      "toScript": "Bengali",
+      "cost": 9.7
+    },
+    {
+      "from": "ka",
+      "to": "ta",
+      "fromScript": "Georgian",
+      "toScript": "Tamil",
+      "cost": 9.7
+    },
+    {
+      "from": "hy",
+      "to": "en",
+      "fromScript": "Armenian",
+      "toScript": "Latin",
+      "cost": 7.2
+    },
+    {
+      "from": "hy",
+      "to": "ru",
+      "fromScript": "Armenian",
+      "toScript": "Cyrillic",
+      "cost": 10.7
+    },
+    {
+      "from": "hy",
+      "to": "ar",
+      "fromScript": "Armenian",
+      "toScript": "Arabic",
+      "cost": 10.7
+    },
+    {
+      "from": "hy",
+      "to": "zh",
+      "fromScript": "Armenian",
+      "toScript": "Han",
+      "cost": 7.2
+    },
+    {
+      "from": "hy",
+      "to": "ko",
+      "fromScript": "Armenian",
+      "toScript": "Hangul",
+      "cost": 10.7
+    },
+    {
+      "from": "hy",
+      "to": "ja",
+      "fromScript": "Armenian",
+      "toScript": "Hiragana",
+      "cost": 10.7
+    },
+    {
+      "from": "hy",
+      "to": "el",
+      "fromScript": "Armenian",
+      "toScript": "Greek",
+      "cost": 10.7
+    },
+    {
+      "from": "hy",
+      "to": "he",
+      "fromScript": "Armenian",
+      "toScript": "Hebrew",
+      "cost": 10.7
+    },
+    {
+      "from": "hy",
+      "to": "hi",
+      "fromScript": "Armenian",
+      "toScript": "Devanagari",
+      "cost": 10.7
+    },
+    {
+      "from": "hy",
+      "to": "th",
+      "fromScript": "Armenian",
+      "toScript": "Thai",
+      "cost": 10.7
+    },
+    {
+      "from": "hy",
+      "to": "ka",
+      "fromScript": "Armenian",
+      "toScript": "Georgian",
+      "cost": 9.7
+    },
+    {
+      "from": "hy",
+      "to": "chr",
+      "fromScript": "Armenian",
+      "toScript": "Cherokee",
+      "cost": 13.2
+    },
+    {
+      "from": "hy",
+      "to": "bn",
+      "fromScript": "Armenian",
+      "toScript": "Bengali",
+      "cost": 9.7
+    },
+    {
+      "from": "hy",
+      "to": "ta",
+      "fromScript": "Armenian",
+      "toScript": "Tamil",
+      "cost": 9.7
+    },
+    {
+      "from": "chr",
+      "to": "en",
+      "fromScript": "Cherokee",
+      "toScript": "Latin",
+      "cost": 7.2
+    },
+    {
+      "from": "chr",
+      "to": "ru",
+      "fromScript": "Cherokee",
+      "toScript": "Cyrillic",
+      "cost": 10.7
+    },
+    {
+      "from": "chr",
+      "to": "ar",
+      "fromScript": "Cherokee",
+      "toScript": "Arabic",
+      "cost": 10.7
+    },
+    {
+      "from": "chr",
+      "to": "zh",
+      "fromScript": "Cherokee",
+      "toScript": "Han",
+      "cost": 7.2
+    },
+    {
+      "from": "chr",
+      "to": "ko",
+      "fromScript": "Cherokee",
+      "toScript": "Hangul",
+      "cost": 10.7
+    },
+    {
+      "from": "chr",
+      "to": "ja",
+      "fromScript": "Cherokee",
+      "toScript": "Hiragana",
+      "cost": 10.7
+    },
+    {
+      "from": "chr",
+      "to": "el",
+      "fromScript": "Cherokee",
+      "toScript": "Greek",
+      "cost": 10.7
+    },
+    {
+      "from": "chr",
+      "to": "he",
+      "fromScript": "Cherokee",
+      "toScript": "Hebrew",
+      "cost": 10.7
+    },
+    {
+      "from": "chr",
+      "to": "hi",
+      "fromScript": "Cherokee",
+      "toScript": "Devanagari",
+      "cost": 10.7
+    },
+    {
+      "from": "chr",
+      "to": "th",
+      "fromScript": "Cherokee",
+      "toScript": "Thai",
+      "cost": 10.7
+    },
+    {
+      "from": "chr",
+      "to": "ka",
+      "fromScript": "Cherokee",
+      "toScript": "Georgian",
+      "cost": 9.7
+    },
+    {
+      "from": "chr",
+      "to": "hy",
+      "fromScript": "Cherokee",
+      "toScript": "Armenian",
+      "cost": 9.7
+    },
+    {
+      "from": "chr",
+      "to": "bn",
+      "fromScript": "Cherokee",
+      "toScript": "Bengali",
+      "cost": 9.7
+    },
+    {
+      "from": "chr",
+      "to": "ta",
+      "fromScript": "Cherokee",
+      "toScript": "Tamil",
+      "cost": 9.7
+    },
+    {
+      "from": "bn",
+      "to": "en",
+      "fromScript": "Bengali",
+      "toScript": "Latin",
+      "cost": 5.8
+    },
+    {
+      "from": "bn",
+      "to": "ru",
+      "fromScript": "Bengali",
+      "toScript": "Cyrillic",
+      "cost": 9.3
+    },
+    {
+      "from": "bn",
+      "to": "ar",
+      "fromScript": "Bengali",
+      "toScript": "Arabic",
+      "cost": 10.7
+    },
+    {
+      "from": "bn",
+      "to": "zh",
+      "fromScript": "Bengali",
+      "toScript": "Han",
+      "cost": 7.2
+    },
+    {
+      "from": "bn",
+      "to": "ko",
+      "fromScript": "Bengali",
+      "toScript": "Hangul",
+      "cost": 10.7
+    },
+    {
+      "from": "bn",
+      "to": "ja",
+      "fromScript": "Bengali",
+      "toScript": "Hiragana",
+      "cost": 10.7
+    },
+    {
+      "from": "bn",
+      "to": "el",
+      "fromScript": "Bengali",
+      "toScript": "Greek",
+      "cost": 9.3
+    },
+    {
+      "from": "bn",
+      "to": "he",
+      "fromScript": "Bengali",
+      "toScript": "Hebrew",
+      "cost": 10.7
+    },
+    {
+      "from": "bn",
+      "to": "hi",
+      "fromScript": "Bengali",
+      "toScript": "Devanagari",
+      "cost": 6
+    },
+    {
+      "from": "bn",
+      "to": "th",
+      "fromScript": "Bengali",
+      "toScript": "Thai",
+      "cost": 10.7
+    },
+    {
+      "from": "bn",
+      "to": "ka",
+      "fromScript": "Bengali",
+      "toScript": "Georgian",
+      "cost": 9.7
+    },
+    {
+      "from": "bn",
+      "to": "hy",
+      "fromScript": "Bengali",
+      "toScript": "Armenian",
+      "cost": 9.7
+    },
+    {
+      "from": "bn",
+      "to": "chr",
+      "fromScript": "Bengali",
+      "toScript": "Cherokee",
+      "cost": 13.2
+    },
+    {
+      "from": "bn",
+      "to": "ta",
+      "fromScript": "Bengali",
+      "toScript": "Tamil",
+      "cost": 7.2
+    },
+    {
+      "from": "ta",
+      "to": "en",
+      "fromScript": "Tamil",
+      "toScript": "Latin",
+      "cost": 7.2
+    },
+    {
+      "from": "ta",
+      "to": "ru",
+      "fromScript": "Tamil",
+      "toScript": "Cyrillic",
+      "cost": 10.7
+    },
+    {
+      "from": "ta",
+      "to": "ar",
+      "fromScript": "Tamil",
+      "toScript": "Arabic",
+      "cost": 10.7
+    },
+    {
+      "from": "ta",
+      "to": "zh",
+      "fromScript": "Tamil",
+      "toScript": "Han",
+      "cost": 7.2
+    },
+    {
+      "from": "ta",
+      "to": "ko",
+      "fromScript": "Tamil",
+      "toScript": "Hangul",
+      "cost": 10.7
+    },
+    {
+      "from": "ta",
+      "to": "ja",
+      "fromScript": "Tamil",
+      "toScript": "Hiragana",
+      "cost": 10.7
+    },
+    {
+      "from": "ta",
+      "to": "el",
+      "fromScript": "Tamil",
+      "toScript": "Greek",
+      "cost": 10.7
+    },
+    {
+      "from": "ta",
+      "to": "he",
+      "fromScript": "Tamil",
+      "toScript": "Hebrew",
+      "cost": 10.7
+    },
+    {
+      "from": "ta",
+      "to": "hi",
+      "fromScript": "Tamil",
+      "toScript": "Devanagari",
+      "cost": 8.2
+    },
+    {
+      "from": "ta",
+      "to": "th",
+      "fromScript": "Tamil",
+      "toScript": "Thai",
+      "cost": 10.7
+    },
+    {
+      "from": "ta",
+      "to": "ka",
+      "fromScript": "Tamil",
+      "toScript": "Georgian",
+      "cost": 9.7
+    },
+    {
+      "from": "ta",
+      "to": "hy",
+      "fromScript": "Tamil",
+      "toScript": "Armenian",
+      "cost": 9.7
+    },
+    {
+      "from": "ta",
+      "to": "chr",
+      "fromScript": "Tamil",
+      "toScript": "Cherokee",
+      "cost": 13.2
+    },
+    {
+      "from": "ta",
+      "to": "bn",
+      "fromScript": "Tamil",
+      "toScript": "Bengali",
+      "cost": 7.2
+    }
+  ],
+  "note": "Script hub languages + pairwise transfer costs. Use before full matrix Dijkstra."
+}
