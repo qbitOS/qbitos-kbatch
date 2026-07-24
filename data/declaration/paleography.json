@@ -1,6 +1,8 @@
 {
   "schema": "kbatch-declaration-paleography-v1",
   "docId": "declaration-of-independence",
+  "ver": "1.0.0",
+  "at": "2026-07-24",
   "source": {
     "institution": "National Archives and Records Administration (NARA)",
     "item": "Engrossed parchment copy",
@@ -32,6 +34,53 @@
     "inkAnalysis": "Iron-gall oxidation and light damage documented by NARA conservation",
     "housing": "Current argon-filled encasement designed for ~100-year stability"
   },
+  "methodsTable": [
+    {
+      "method": "Engrossed copy",
+      "description": "The official signed parchment produced by Timothy Matlack",
+      "digitalEditionUse": "Source of the master glyph stream and all visual restorations"
+    },
+    {
+      "method": "Public-domain imaging",
+      "description": "NARA high-resolution scans + Stone 1823 engraving",
+      "digitalEditionUse": "Base images for faithful / scholarly / inverse / illuminated treatments"
+    },
+    {
+      "method": "Official transcript",
+      "description": "Authoritative text maintained by NARA",
+      "digitalEditionUse": "Ground truth for any OCR / reconstruction disputes"
+    },
+    {
+      "method": "Conservation housing",
+      "description": "Argon-filled titanium/aluminum case, light & humidity control",
+      "digitalEditionUse": "Context for why the original is heavily faded"
+    },
+    {
+      "method": "Light-damage documentation",
+      "description": "NARA conservation reports on iron-gall fading",
+      "digitalEditionUse": "Explains why digital restoration + letter-only stream were required"
+    },
+    {
+      "method": "Multi-spectral potential",
+      "description": "NARA and partners have used advanced imaging",
+      "digitalEditionUse": "Future extension: higher-fidelity glyph recovery"
+    }
+  ],
+  "capsule": {
+    "scribe": "Timothy Matlack",
+    "ink": "iron-gall",
+    "support": "parchment",
+    "substrate": "parchment",
+    "dimensions": "~29.5 × 24 in",
+    "source": "NARA engrossed copy",
+    "notes": [
+      "NARA engrossed transcript · orthographic master stream",
+      "Letter-grid master is letter-only (spaces stripped) for scoring",
+      "Cross-check critical readings against official NARA transcript"
+    ],
+    "signatureColumns": "Six vertical columns by state (Georgia → New Hampshire)",
+    "rights": "public-domain transcript"
+  },
   "compact": {
     "scribe": "Timothy Matlack",
     "ink": "iron-gall",
@@ -43,5 +92,12 @@
       "Letter-grid master stream is orthographic order, not stroke path",
       "Public-domain transcript is ground truth for text disputes"
     ]
+  },
+  "urls": {
+    "transcript": "https://www.archives.gov/founding-docs/declaration-transcript",
+    "downloads": "https://www.archives.gov/founding-docs/downloads",
+    "masterGlyphs": "/data/declaration/master-glyphs.json",
+    "play": "/labs/declaration-digital-edition/letter-grid.html",
+    "pipe": "/labs/declaration-digital-edition/letter-grid-pipe.html"
   }
 }

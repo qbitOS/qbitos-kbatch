@@ -426,6 +426,7 @@ function paleographyFallback() {
 
 function paleography() {
   if (_paleoCache && _paleoCache.capsule) return _paleoCache.capsule;
+  if (_paleoCache && _paleoCache.compact) return _paleoCache.compact;
   if (_paleoCache && _paleoCache.physical) {
     return {
       scribe: _paleoCache.physical.scribe || "Timothy Matlack",

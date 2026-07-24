@@ -1,90 +1,131 @@
-# Draft MCP Tool Shapes · checked against live Letter-Grid v8-pipe
+# Letter-Grid MCP shapes · v8-pipe + paleography + finale
 
 **Status:** implemented (browser MCP + HTTP static) · engine `declaration-letter-grid-v8-pipe`  
-**Registration order (manifest / DOJO):** state → glyphs → step → play_round → layer → **colossus** → next_glyph → export_training
+**Registration order:** state → glyphs → step → play_round → layer → **colossus** → next_glyph → export_training → **finale**
 
 ## Alignment matrix
 
-| Draft tool | Maps to engine | HTTP MCP | Browser MCP | Gaps / notes |
-|------------|----------------|----------|-------------|--------------|
-| `kbatch_lettergrid_state` | `mcpState()` / `getState()` | **Static lobby** (timer 01:10, next=I) | **Live** | Example return shape **matched**. `include` slices work live. |
-| `kbatch_lettergrid_step` | `nextGlyph` / burst / `skipLayer` / reset Dojo | `live_session_required` | **Live** | `action=play` = up to 50 `nextGlyph` (not full 70s agent). `speedMs` enum honored via `setHop`. |
-| `kbatch_lettergrid_play_round` | `playRound({size,speed})` | **dryRun only** | **Live** agent 70s | Default speed draft=60 · engine default hop 120 for humans — both accepted. |
-| `kbatch_lettergrid_glyphs` | `masterGlyphs` + static JSON | **Full** 6235 | Live or static | `range`: `0-99`, `L01`, `title`/`body`/…, `all`. `format`: array \| string \| atoms. |
-| `kbatch_lettergrid_layer` | `jumpToLayer` / `skipLayer` / `gridLayerMap` | **get only** | get \| jump \| clear | Layers are **N×N grid layers (44 @ 12×12)**, not L01 document lines. |
-| `kbatch_lettergrid_colossus` | `exportColossusDraft` | light/full/training static | Live + static | Draft return shape matched (+ `gridLayerMap` + `paleography`). Version field = engine VER (v8-pipe). |
-| `kbatch_lettergrid_next_glyph` | `getState().next` | Static master[0] | Live next | Does **not** advance (use `step` for advance). |
-| `kbatch_lettergrid_export_training` | `exportTraining` | Full static | Live or static | `json` \| `jsonl` \| `jax` vectors. |
+| Tool | Engine | HTTP MCP | Browser MCP | Notes |
+|------|--------|----------|-------------|-------|
+| `kbatch_lettergrid_state` | `mcpState` / `getState` | Static lobby | Live | timer, BPS, layer, nextGlyph |
+| `kbatch_lettergrid_step` | `nextGlyph` / burst / skip / reset | live_session_required | Live | `action`: next \| play \| reset \| skip-layer |
+| `kbatch_lettergrid_play_round` | `playRound` | dryRun | Live 70s | gridSize · speedMs |
+| `kbatch_lettergrid_glyphs` | `masterGlyphs` + static JSON | Full 6235 | Live/static | range: `0-99` \| `L01` \| kind \| `all` |
+| `kbatch_lettergrid_layer` | jump / skip / gridLayerMap | get only | get \| jump \| clear | **Grid** layers 1–44 @12×12 |
+| `kbatch_lettergrid_colossus` | `exportColossusDraft` | light/full/training | Live + static | + paleography capsule + `paleographyDoc` |
+| `kbatch_lettergrid_next_glyph` | peek next | Static master[0] | Live | Does **not** advance |
+| `kbatch_lettergrid_export_training` | `exportTraining` | Full static | Live/static | `json` \| **`jsonl`** \| `jax` · `include` fields |
+| `kbatch_lettergrid_finale` | `exportFinale` | Static spiral path | Live path + scores | After layers clear |
 
-## Naming
+## Two “layer” concepts
 
-| Earlier internal draft | **Their draft (adopted)** |
-|------------------------|---------------------------|
-| `kbatch_letter_grid_*` | **`kbatch_lettergrid_*`** (no extra underscore) |
+1. **Grid layer** 1–44 — N×N chunks of the 6235 master stream (`kbatch_lettergrid_layer`, `gridLayerMap`).
+2. **Document line** L01–L79 — engrossed lines (`layerMap` in Colossus).
 
-## Semantic clarifications (important)
+## Master stream
 
-1. **Two “layer” concepts**
-   - **Grid layer** 1–44: N×N chunks of the 6235 master stream (`kbatch_lettergrid_layer`).
-   - **Document line** L01–L79: engrossed lines (`layerMap` in Colossus = line → glyph range).  
-   Draft example `layerMap.L01 = title` = document lines — implemented as `layerMap`, with `gridLayerMap` for N×N.
+- **Letters only** (no spaces): 6235 glyphs, starts `INCONGRESSJuly…`.
+- Schema: `kbatch-letter-grid-master-v1` · file `/data/declaration/master-glyphs.json`.
 
-2. **Glyphs are letters only**  
-   Master stream has **no spaces** (6235 A–Z). Example `"I","N"," ","C"` in draft is slightly wrong — actual start is `INCONGRESSJuly…` (title letters).
+## Paleography (NARA-aware)
 
-3. **HTTP vs browser**  
-   Pure terminal Grok via `/api/mcp` can pull **glyphs / colossus / training / static state** today.  
-   **step / play / layer jump** need browser DOJO session (`letterGrid` global) until a session bridge exists.
+Static file: **`/data/declaration/paleography.json`** (`kbatch-declaration-paleography-v1`).
 
-4. **Version string**  
-   Draft said `letter-grid-v7-classy`. Live pipe VER is **`declaration-letter-grid-v8-pipe`**.
+`kbatch_lettergrid_colossus` returns:
 
-## Minimal agent usage (as drafted)
+- `paleography` — compact capsule (scribe, ink, support, notes, …)
+- `paleographyDoc` — full NARA doc when file is deployed
+- `paleographyUrl` — `/data/declaration/paleography.json`
+
+Agents can pull paleography without a live session.
+
+## Training JSONL
 
 ```js
-// Browser / DOJO (after SPA or letter-grid load)
-await kbatchDict.mcp("kbatch_lettergrid_state")
-await kbatchDict.mcp("kbatch_lettergrid_step", { action: "next" })
-await kbatchDict.mcp("kbatch_lettergrid_colossus", { depth: "full" })
-await kbatchDict.mcp("kbatch_lettergrid_play_round", {
-  gridSize: "12x12",
-  speedMs: 60,
-})
-// or dry structure without running:
-await kbatchDict.mcp("kbatch_lettergrid_play_round", { dryRun: true })
+await kbatchDict.mcp("kbatch_lettergrid_export_training", {
+  format: "jsonl",
+  include: ["gi", "ch", "lineId", "kind", "wordStart", "sentenceStart", "layer"],
+});
 ```
 
-```bash
-# HTTP static (no live board)
-curl -s https://kbatch.ugrad.ai/api/mcp \
-  -H 'content-type: application/json' \
-  -d '{"tool":"kbatch_lettergrid_glyphs","args":{"range":"L01","format":"string"}}'
+Example lines:
 
-curl -s https://kbatch.ugrad.ai/api/mcp \
-  -H 'content-type: application/json' \
-  -d '{"tool":"kbatch_lettergrid_colossus","args":{"depth":"light"}}'
+```json
+{"gi":0,"ch":"I","lineId":"L01","kind":"title","wordStart":1,"sentenceStart":1,"layer":1}
+{"gi":1,"ch":"N","lineId":"L01","kind":"title","wordStart":0,"sentenceStart":0,"layer":1}
 ```
+
+## Finale
+
+```js
+await kbatchDict.mcp("kbatch_lettergrid_finale", { includePath: true, includeScores: true })
+// or letterGrid.exportFinale()
+```
+
+Static HTTP returns the deterministic spiral path for N (same algorithm as the board). Live scores require a session after codex clear.
+
+## TypeScript
+
+See **`js/letter-grid-mcp.d.ts`** (`KBatch.LetterGridState`, `ColossusPack`, `PaleographyDoc`, `FinaleReport`, …).
+
+## Agent prompt
+
+See **`docs/LETTER-GRID-AGENT-PROMPT.md`**.
+
+## Formal glossary
+
+| Term | Definition |
+|------|------------|
+| **Master glyph** | Single letter from the Declaration stream (spaces removed). 6235 total, `gi` 0…6234. |
+| **Grid layer** | One N×N chunk of the master stream (44 @ 12×12, 98 @ 8×8, 25 @ 16×16). |
+| **Document line (L01–L79)** | Engrossed text lines; orthogonal to grid layers. |
+| **Letter-Grid** | Interactive N×N WebGrid under 70s timer with BPS / NTPM. |
+| **Dojo mode** | Agent stepping (`setDojoMode(true)` / `action:"next"`). |
+| **Colossus pack** | One-shot snapshot `kbatch-letter-grid-colossus-v1`. |
+| **Finale path** | Wandering path + peak report after all grid layers cleared. |
+| **Paleography capsule** | NARA-aware physical object metadata. |
+| **Pipe (v8-pipe)** | Agent API: `getState`, `nextGlyph`, `playRound`, `exportColossus`, `exportFinale`, `masterGlyphs` + MCP tools. |
+
+## NARA methods (digital edition)
+
+| Method | Description | Digital edition use |
+|--------|-------------|---------------------|
+| Engrossed copy | Official signed parchment (Timothy Matlack) | Source of master glyph stream + visual restorations |
+| Public-domain imaging | NARA high-res scans + Stone 1823 | Base images for treatments |
+| Official transcript | NARA authoritative text | Ground truth for OCR / reconstruction |
+| Conservation housing | Argon-filled case | Context for heavy fading |
+| Light-damage documentation | Iron-gall fading reports | Why digital restoration + letter-only stream |
+| Multi-spectral potential | Advanced imaging | Future higher-fidelity glyph recovery |
 
 ## Files
 
 | Path | Role |
 |------|------|
-| `js/letter-grid-mcp.js` | Tool dispatcher (browser) |
+| `js/letter-grid-mcp.js` | Browser tool dispatcher |
+| `js/letter-grid-mcp.d.ts` | TypeScript surfaces |
 | `js/schema.js` | MCP_TOOLS registration |
 | `js/pipeline.js` | `mcpCall` routes |
 | `functions/api/mcp.js` | HTTP tools + static handlers |
 | `mcp/manifest.json` | Tool list + resources |
-| `js/declaration-letter-grid.js` | Engine: mcpState, nextGlyph, jump/skip, export* |
-| `data/declaration/master-glyphs.json` | 6235 compact glyphs |
-| `labs/.../letter-grid-pipe.html` | Headless/dojo harness |
+| `js/declaration-letter-grid.js` | Engine pipe |
+| `data/declaration/master-glyphs.json` | 6235 glyphs |
+| `data/declaration/paleography.json` | NARA paleography capsule |
+| `docs/LETTER-GRID-AGENT-PROMPT.md` | System prompt fragment |
+| `docs/LETTER-GRID-PIPE.md` | Pipe surface |
 
-## Still optional (not blocking 9/10)
+## Minimal agent usage
 
-- [ ] TypeScript interfaces for tool I/O  
-- [ ] Session bridge (HTTP → remote browser / Memory Glass) for step/play  
-- [ ] Compose `kbatch_colossus({ letterGrid: true })` to auto-merge lettergrid snapshot  
-- [ ] Deploy CF so live `/api/mcp` lists the eight tools
+```js
+await kbatchDict.mcp("kbatch_lettergrid_state")
+await kbatchDict.mcp("kbatch_lettergrid_step", { action: "next" })
+await kbatchDict.mcp("kbatch_lettergrid_colossus", { depth: "full" })
+await kbatchDict.mcp("kbatch_lettergrid_export_training", { format: "jsonl" })
+await kbatchDict.mcp("kbatch_lettergrid_finale", { includePath: true })
+await kbatchDict.mcp("kbatch_lettergrid_play_round", { gridSize: "12x12", speedMs: 60, dryRun: true })
+```
 
-## Verdict on the draft
-
-**Adopt as-is** with the clarifications above. Shapes are consistent with existing `kbatch_*` style, Colossus-friendly, and map cleanly onto the v8-pipe engine. No rename needed — implemented under their exact tool names.
+```bash
+curl -s https://kbatch.ugrad.ai/api/mcp \
+  -H 'content-type: application/json' \
+  -d '{"jsonrpc":"2.0","id":1,"method":"tools/call","params":{"name":"kbatch_lettergrid_colossus","arguments":{"depth":"light"}}}'
+```

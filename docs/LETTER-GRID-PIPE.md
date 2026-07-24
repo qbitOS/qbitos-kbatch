@@ -153,7 +153,20 @@ Add alongside `kbatch_colossus` / `kbatch_letter_atom`. HTTP MCP can serve stati
 ```
 kbatch://letter-grid/master
 kbatch://letter-grid/colossus
+kbatch://letter-grid/paleography
+kbatch://letter-grid/finale
 ```
+
+### Paleography + training + finale
+
+| Surface | Path / tool |
+|---------|-------------|
+| NARA capsule | `/data/declaration/paleography.json` |
+| Colossus | `exportColossus` / `kbatch_lettergrid_colossus` (includes `paleography`) |
+| Training JSONL | `exportTraining({ format: "jsonl" })` / `kbatch_lettergrid_export_training` |
+| Finale path | `exportFinale()` / `kbatch_lettergrid_finale` |
+| Types | `js/letter-grid-mcp.d.ts` |
+| Agent prompt | `docs/LETTER-GRID-AGENT-PROMPT.md` |
 
 ---
 
@@ -167,6 +180,8 @@ kbatch://letter-grid/colossus
   "layer": { "current": 1, "total": 44, "cells": 144, "clears": [/* … */] },
   "stair": [/* S0–S7 unlocks */],
   "score": { "bps": 12.3, "ntpm": 100, "next": { "ch": "T", "gi": 32 } },
+  "paleography": { "scribe": "Timothy Matlack", "ink": "iron-gall", "support": "parchment" },
+  "paleographyUrl": "/data/declaration/paleography.json",
   "sequence": [/* recent hits */],
   "pipeLog": [/* nextGlyph + layer-clear events */],
   "report": null
@@ -176,11 +191,12 @@ kbatch://letter-grid/colossus
 ## Wire-up order
 
 1. **Done in browser (v8-pipe):** API + pipe harness + static master JSON  
-2. **HTTP MCP:** proxy `kbatch_letter_grid_master` → `master-glyphs.json`  
+2. **HTTP MCP:** glyphs / colossus / training / finale path / paleography static  
 3. **Browser MCP / Dojo session:** `step` / `play` / `export` against live `letterGrid`  
-4. **Colossus:** ingest `kbatch-letter-grid-colossus-v1` into existing colossus axes
+4. **Colossus:** ingest `kbatch-letter-grid-colossus-v1` into existing colossus axes  
+5. **Types + agent prompt:** `letter-grid-mcp.d.ts` · `LETTER-GRID-AGENT-PROMPT.md`
 
 ---
 
-See also: [LETTER-GRID-MCP-SHAPES.md](./LETTER-GRID-MCP-SHAPES.md) — draft shapes checked + implemented.
+See also: [LETTER-GRID-MCP-SHAPES.md](./LETTER-GRID-MCP-SHAPES.md) · [LETTER-GRID-AGENT-PROMPT.md](./LETTER-GRID-AGENT-PROMPT.md).
 

@@ -2903,6 +2903,12 @@
           exportColossus: exportColossus,
           exportColossusDraft: exportColossusDraft,
           exportFinale: exportFinale,
+          finalePath: function () {
+            if (state.mode === "finale" && state.path && state.path.length) {
+              return state.path.slice();
+            }
+            return wanderingPathIndices(state.N);
+          },
           setDojoMode: setDojoMode,
           masterGlyphs: masterGlyphs,
           jumpToLayer: jumpToLayer,
