@@ -22,6 +22,7 @@ Machine scorecard: [`/data/declaration/readiness.json`](/data/declaration/readin
 | **`cage-games.html`** | **Cage tensor games hub** — Letter-Grid + Cage litmus + dual-surface stair · agent hooks · persona L5 |
 | **`cage-litmus.html`** | **Cage-grade litmus** — RAW+STONE pair · National Treasure fiction labeled · FACT/FICTION/STONE_TRAP verify |
 | **`letter-grid.html`** | **Full-codex Letter-Grid v2** — master glyphs in order · N×N layer passes · finale wandering path · cross-ref → archive gateway · MG tensor loop |
+| **`letter-grid-lab.html`** | **Full lab** — Play (casual timed + contrails) · Research (pattern flow, word deep-sort, deep xref, open-reader) · Benchmark (multi-run agent ledger + export) |
 | **`saint-tumble.html`** | **Saint crypto tumble** — Vals · Human Fly · Boris · two talks → live DAC/Steno/Gutter/Rubik 3×3 mixer · Letter-Grid seed |
 | **`steno-space-grid.html`** | **Steno-space letter-grid** — all whitespace slots from the document · GrokYtalkY bust glyph chat · video qbit frames · Rubik origin-tree QR + solve numbers |
 | **`open-reader.html`** | **Open reader search** — letter paths → words → punctuation → intonation → persona slant (mueee-style) · open hit in reader |

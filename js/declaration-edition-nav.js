@@ -1,6 +1,6 @@
 /**
  * Declaration digital edition toolbox nav.
- * Shared across edition pages — growth stair + craft tools, not a second site menu.
+ * Site-native chrome — same language as .site-nav / .nav-link.
  *
  * Host: <nav class="dec-version-nav" data-dec-nav data-active="workspace"></nav>
  * Or auto-detects active from path.
@@ -8,15 +8,18 @@
 (function () {
   "use strict";
 
-  var VER = "declaration-edition-nav-v2";
+  var VER = "declaration-edition-nav-v4-site";
   var BASE = "/labs/declaration-digital-edition/";
 
-  /** Grouped tools — purpose first, short labels, useful tips */
+  /**
+   * Groups match the rest of the site (muted group labs + chip links):
+   *  RESTORE · CAGE GAMES · RESEARCH · CRAFT
+   */
   var GROUPS = [
     {
       id: "restore",
       label: "Restore",
-      note: "Archival surfaces",
+      note: "Archive workspace · multi-layer codex",
       items: [
         {
           id: "workspace",
@@ -33,15 +36,15 @@
       ],
     },
     {
-      id: "litmus",
+      id: "cage-games",
       label: "Cage games",
-      note: "AI tensor stair",
+      note: "WebGrid-style tensor games · hard-fail litmus",
       items: [
         {
           id: "cage-games",
           label: "Games hub",
           href: "cage-games.html",
-          tip: "All Cage tensor games · Letter-Grid · litmus · dual-surface · agent hooks",
+          tip: "All Cage tensor games · stair · agent hooks · persona L5",
         },
         {
           id: "letter-grid",
@@ -50,54 +53,48 @@
           tip: "Full-codex N×N layers · finale path · WebGrid BPS · __letterGridApi",
         },
         {
+          id: "letter-grid-lab",
+          label: "Grid Lab",
+          href: "letter-grid-lab.html",
+          tip: "Full research + casual play + multi-run benchmark ledger",
+        },
+        {
           id: "cage",
           label: "Cage litmus",
           href: "cage-litmus.html",
           tip: "FACT / FICTION / STONE_TRAP · RAW+STONE · __cageLitmusApi",
-        },
-        {
-          id: "saint-tumble",
-          label: "Saint tumble",
-          href: "saint-tumble.html",
-          tip: "Vals · Human Fly · Boris · two talks → crypto tumble · DAC/Steno/Gutter/Rubik",
-        },
-        {
-          id: "steno-space-grid",
-          label: "Steno spaces",
-          href: "steno-space-grid.html",
-          tip: "Letter-grid of all stenoSTRIP spaces · GrokYtalkY glyph · Rubik QR · video qbit",
         },
       ],
     },
     {
       id: "research",
       label: "Research",
-      note: "World + material",
+      note: "World · paleography · open reader",
       items: [
         {
           id: "open-reader",
           label: "Open reader",
           href: "open-reader.html",
-          tip: "Letter paths · words · punct · intonation · persona slant · mueee-style",
+          tip: "Letter paths · words · punct · intonation · persona slant",
         },
         {
           id: "world",
           label: "World",
           href: "world.html",
-          tip: "Multilingual plane · theme matrix · lineage gitgraph",
+          tip: "Multilingual · theme matrix · lineage gitgraph",
         },
         {
           id: "paleography",
           label: "Paleography",
           href: "paleography-hub.html",
-          tip: "Script · ductus · material science notes",
+          tip: "Script · ductus · material notes",
         },
       ],
     },
     {
       id: "craft",
       label: "Craft",
-      note: "Path geometry",
+      note: "Stroke · path · glyph tools",
       items: [
         {
           id: "strokes",
@@ -132,10 +129,10 @@
     if (fromAttr) return fromAttr;
     var L = leaf();
     if (L === "index" || L === "declaration-digital-edition" || L === "") return "workspace";
-    if (L === "letter-grid") return "letter-grid";
+    if (L === "letter-grid" || L === "letter-grid-agent") return "letter-grid";
     if (L === "cage-litmus") return "cage";
-    if (L === "saint-tumble") return "saint-tumble";
-    if (L === "steno-space-grid") return "steno-space-grid";
+    if (L === "saint-tumble") return "cage-games";
+    if (L === "steno-space-grid") return "cage-games";
     if (L === "cage-games") return "cage-games";
     if (L === "open-reader") return "open-reader";
     if (L === "world") return "world";
@@ -171,6 +168,7 @@
       '<div class="dec-nav-brand">' +
         '<span class="dec-nav-kicker">Declaration edition</span>' +
         '<strong class="dec-nav-title">Toolbox</strong>' +
+        '<span class="dec-nav-stair">Restore · Cage games · Research · Craft</span>' +
         "</div>"
     );
     html.push('<div class="dec-nav-groups" role="list">');
@@ -181,7 +179,7 @@
           group.id +
           '">' +
           '<span class="dec-nav-group-lab" title="' +
-          (group.note || group.label) +
+          String(group.note || group.label).replace(/"/g, "&quot;") +
           '">' +
           group.label +
           "</span>" +
@@ -201,9 +199,9 @@
             (on ? ' aria-current="page"' : "") +
             ' title="' +
             String(it.tip || it.label).replace(/"/g, "&quot;") +
-            '">' +
+            '"><span class="dec-nav-link-txt">' +
             it.label +
-            "</a>"
+            "</span></a>"
         );
       }
       html.push("</div></div>");
@@ -216,12 +214,12 @@
             cur.label +
             "</strong> · " +
             (cur.tip || "")
-          : "Pick a tool · Litmus stair before deep archive craft") +
+          : "Restore workspace · Cage games · Research · Craft") +
         "</p>"
     );
     html.push("</div>");
     host.innerHTML = html.join("");
-    host.classList.add("dec-version-nav--v2");
+    host.classList.add("dec-version-nav--v2", "dec-version-nav--v3", "dec-version-nav--v4");
     host.setAttribute("data-dec-nav-ver", VER);
     host.setAttribute("aria-label", "Declaration edition toolbox");
   }
