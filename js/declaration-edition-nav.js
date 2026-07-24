@@ -130,6 +130,7 @@
     var L = leaf();
     if (L === "index" || L === "declaration-digital-edition" || L === "") return "workspace";
     if (L === "letter-grid" || L === "letter-grid-agent") return "letter-grid";
+    if (L === "letter-grid-lab") return "letter-grid-lab";
     if (L === "cage-litmus") return "cage";
     if (L === "saint-tumble") return "cage-games";
     if (L === "steno-space-grid") return "cage-games";
