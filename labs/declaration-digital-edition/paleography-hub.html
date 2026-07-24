@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="en" data-history-page="declaration" data-history-open="1">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+  <title>Paleography Hub — Declaration of Independence</title>
+  <meta name="theme-color" content="#0f0f0f" />
+  <link rel="stylesheet" href="/css/app.css" />
+  <link rel="stylesheet" href="/css/history-sliderule.css" />
+  <link rel="stylesheet" href="/css/labs.css" />
+  <link rel="stylesheet" href="/css/declaration-edition.css" />
+  <script>
+    (function () {
+      try {
+        var t = localStorage.getItem("kbatch-dict-theme");
+        if (t !== "light" && t !== "dark")
+          t = matchMedia("(prefers-color-scheme: light)").matches ? "light" : "dark";
+        document.documentElement.setAttribute("data-theme", t);
+      } catch (e) {
+        document.documentElement.setAttribute("data-theme", "dark");
+      }
+    })();
+  </script>
+</head>
+<body class="labs-page dec-page">
+  <header class="app-header">
+    <div class="header-inner">
+      <div class="brand-row">
+        <div class="brand">
+          <button type="button" class="theme-toggle" id="theme-toggle" title="Toggle theme" aria-label="Toggle theme">
+            <span class="theme-icon theme-icon--sun" aria-hidden="true">☀</span>
+            <span class="theme-icon theme-icon--moon" aria-hidden="true">☾</span>
+          </button>
+          <h1><span>KBatch</span> Paleography Hub</h1>
+          <span class="brand-sub">archival notes · engrossed parchment · restoration layers</span>
+        </div>
+        <nav class="site-nav" aria-label="Site"></nav>
+      </div>
+    </div>
+  </header>
+
+  <nav class="dec-version-nav">
+    <a href="index.html">Archive workspace</a>
+    <a href="letter-grid.html">Letter-Grid</a>
+    <a href="cage-litmus.html">Cage litmus</a>
+    <a href="versions.html">All layers</a>
+    <a href="keyboard.html">Path metrics</a>
+    <a href="scribe-glyphs.html">Scribe glyphs</a>
+  </nav>
+
+  <main class="labs-main dec-main">
+    <div class="dec-section">
+      <h2>0. Archival restoration workspace</h2>
+      <p>
+        Multi-layer codex flip, deep zoom, research slide, line-level analysis, simultaneous keyboard layouts,
+        etymological predecessor paths, and scribe glyph strips live in the
+        <a href="index.html"><strong>archive workspace</strong></a>.
+        This hub holds durable codicology and paleography notes — scholarly tone, not presentation chrome.
+        Pattern aligned with
+        <a href="https://fornevercollective.github.io/codex-regius-digital/paleography-hub.html#scribe" target="_blank" rel="noopener">Codex Regius paleography hub</a>
+        and KBatch living-books deep-zoom readers.
+      </p>
+    </div>
+    <div class="dec-section">
+      <h2>1. Physical description</h2>
+      <ul>
+        <li><strong>Support:</strong> Animal parchment (skin), roughly rectangular, original dimensions ≈ 29½ × 24 inches.</li>
+        <li><strong>Ink:</strong> Iron-gall ink. Originally near-black; oxidized and faded to warm brown / near-illegible in many areas due to prolonged light exposure, rolling, and handling.</li>
+        <li><strong>Scribe:</strong> Timothy Matlack, clerk of the Continental Congress. Large, formal engrossing hand with flourished title.</li>
+        <li><strong>Date of engrossing:</strong> Primarily 19 July – 2 August 1776 (most signatures added 2 August).</li>
+        <li><strong>Current housing:</strong> Titanium / aluminum / argon-filled encasement in the Rotunda for the Charters of Freedom, National Archives, Washington, D.C.</li>
+      </ul>
+    </div>
+
+    <div class="dec-section">
+      <h2>2. Layout &amp; paleographic features</h2>
+      <ul>
+        <li><strong>Title block:</strong> Centered, monumental capitals + flourished “The unanimous Declaration…”</li>
+        <li><strong>Body:</strong> Single continuous column of text filling nearly the full width of the skin.</li>
+        <li><strong>Signatures:</strong> Six vertical columns arranged geographically by state (Georgia far left → New Hampshire far right). John Hancock’s signature is the largest and most prominent.</li>
+        <li><strong>Evidence of use:</strong> Dirtied edges from handling, slight trimming of original margins, light-induced ink loss across the entire surface.</li>
+      </ul>
+      <div class="dec-img-wrap">
+        <img src="images/lX2iq.jpg" alt="Paleography annotated version" />
+        <div class="caption">Annotated paleography overlay — key features labeled</div>
+      </div>
+    </div>
+
+    <div class="dec-section">
+      <h2>3. Restoration pipeline (Codex-style)</h2>
+      <ol>
+        <li>Source: National Archives public-domain scan of the engrossed parchment.</li>
+        <li>Faithful contrast recovery preserving parchment texture (MN4Q9).</li>
+        <li>Clean scholarly black-on-white (VUmKX) and pure inverse black/white (9lFxo).</li>
+        <li>Artistic illuminated manuscript treatment with gold capitals &amp; borders (2JNeL).</li>
+        <li>Scholarly annotation layer with callouts (lX2iq).</li>
+        <li>Earlier clean scholarly intermediate (5YzpQ).</li>
+      </ol>
+      <p class="docs-kicker" style="margin-top:1rem">
+        Extreme original fading means restored letter forms prioritize legibility. For absolute textual accuracy consult the official NARA transcript.
+      </p>
+    </div>
+
+    <div class="dec-section">
+      <h2>4. Historical context for paleographers</h2>
+      <ul>
+        <li>The engrossed copy is the official signed version, not the printed Dunlap broadside of 4–5 July.</li>
+        <li>Matlack’s hand is a professional 18th-century clerical engrossing style, not a personal “secretary hand.”</li>
+        <li>Iron-gall ink’s acidity helped it “bite” the parchment (aiding longevity of remaining strokes) but also contributed to eventual brittleness and fading under light.</li>
+        <li>Modern imaging (including multispectral work by NARA and partners) continues to recover details invisible to the naked eye.</li>
+      </ul>
+    </div>
+
+    <div class="dec-section">
+      <h2>5. KBatch path geometry (modern keyboard, not Matlack’s hand)</h2>
+      <p>
+        Educational layer only: PD transcript phrases are analyzed as <em>typed</em> Latin orthography on a modern keyboard
+        (geometric pattern, DDR, braille, musical rhythm). This does not claim historical typing practice.
+        <a href="keyboard.html">Open keyboard analysis →</a>
+      </p>
+    </div>
+  </main>
+
+  <footer class="app-footer">
+    Digital Edition · Paleography Hub · NARA public-domain materials · 2026
+  </footer>
+  <script>
+    document.getElementById("theme-toggle")?.addEventListener("click", () => {
+      const cur = document.documentElement.getAttribute("data-theme") || "dark";
+      const next = cur === "light" ? "dark" : "light";
+      document.documentElement.setAttribute("data-theme", next);
+      try { localStorage.setItem("kbatch-dict-theme", next); } catch {}
+    });
+  </script>
+  <script src="/js/site-nav.js" defer></script>
+</body>
+</html>

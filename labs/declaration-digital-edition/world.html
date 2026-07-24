@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en" data-history-page="declaration" data-history-open="1">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+  <title>KBatch · World Documentation · Theme Matrix &amp; Lineage</title>
+  <meta name="description" content="Multilingual Declaration plane, world instruments, theme matrix, gitgraph lineage (Bible branches · founding charters · layered-line substrates), concept divergence research backbone." />
+  <meta name="theme-color" content="#0f0f0f" />
+  <link rel="stylesheet" href="/css/app.css" />
+  <link rel="stylesheet" href="/css/history-sliderule.css" />
+  <link rel="stylesheet" href="/css/labs.css" />
+  <link rel="stylesheet" href="/css/declaration-edition.css" />
+  <script>
+    (function () {
+      try {
+        var t = localStorage.getItem("kbatch-dict-theme");
+        if (t !== "light" && t !== "dark")
+          t = matchMedia("(prefers-color-scheme: light)").matches ? "light" : "dark";
+        document.documentElement.setAttribute("data-theme", t);
+      } catch (e) {
+        document.documentElement.setAttribute("data-theme", "dark");
+      }
+    })();
+  </script>
+</head>
+<body class="labs-page dec-page">
+  <header class="app-header">
+    <div class="header-inner">
+      <div class="brand-row">
+        <div class="brand">
+          <button type="button" class="theme-toggle" id="theme-toggle" title="Toggle theme" aria-label="Toggle theme">
+            <span class="theme-icon theme-icon--sun" aria-hidden="true">☀</span>
+            <span class="theme-icon theme-icon--moon" aria-hidden="true">☾</span>
+          </button>
+          <h1><span>KBatch</span> World Documentation</h1>
+          <span class="brand-sub">theme matrix · lineage gitgraph · concept divergence</span>
+        </div>
+        <nav class="site-nav" aria-label="Site"></nav>
+      </div>
+      <div class="meta-row">
+        <span class="status-line">Political instruments · sacred-text branches · layered-line substrates · open educational</span>
+      </div>
+    </div>
+  </header>
+
+  <nav class="dec-version-nav" aria-label="Edition">
+    <a href="index.html">Archive workspace</a>
+    <a href="letter-grid.html">Letter-Grid</a>
+    <a href="cage-litmus.html">Cage litmus</a>
+    <a href="world.html" class="active-link">World · matrix</a>
+    <a href="paleography-hub.html">Paleography</a>
+    <a href="versions.html">All layers</a>
+    <a href="scribe-glyphs.html">Scribe glyphs</a>
+    <a href="keyboard.html">Path metrics</a>
+  </nav>
+
+  <main class="labs-main dec-main" style="max-width: min(1280px, 100%)">
+    <section class="labs-card">
+      <p class="docs-kicker">Research backbone · not a substitute for national archives or confessional authority</p>
+      <p>
+        The US engrossed Declaration is the archival core.
+        This hub is a <strong>documentation research backbone</strong>:
+        line-aligned translations, a <strong>theme matrix</strong> of major world instruments,
+        and <strong>gitgraph / ancestry-style lineage</strong> for concept overlap and divergence —
+        political charters, religious translation circles (e.g. Tyndale → Matthew Bible / Rogers → Great / Geneva → KJV),
+        and early layered-line substrates (stone carvings, scrolls, engrossed bands).
+      </p>
+      <p class="docs-kicker">
+        Data:
+        <a href="/data/declaration/document-lineage.json">document-lineage.json</a> ·
+        <a href="/data/declaration/world-declarations.json">world-declarations.json</a> ·
+        <a href="/data/declaration/through-lines.json">through-lines.json</a> ·
+        <a href="/labs/ancestory.html">AnCEstory lab</a> ·
+        <a href="/dojo/">DOJO</a> · <a href="/research.html">Research</a>
+      </p>
+    </section>
+    <div id="dw-root"></div>
+  </main>
+
+  <footer class="app-footer">
+    Declaration world plane · KBatch ·
+    <a href="/">Dictionary</a> ·
+    <a href="index.html">Archive</a>
+  </footer>
+
+  <script type="module">
+    import { mountDeclarationWorld } from "/js/declaration-world.js";
+    mountDeclarationWorld(document.getElementById("dw-root"));
+  </script>
+  <script src="/js/site-nav.js" defer></script>
+</body>
+</html>

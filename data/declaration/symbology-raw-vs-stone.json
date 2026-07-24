@@ -1,0 +1,129 @@
+{
+  "schema": "kbatch-declaration-symbology-raw-vs-stone-v1",
+  "generated": "2026-07-23",
+  "claim": "Raw engrossed parchment vs 1823 Stone engraving · material + paleographic symbology that the engraving pass flattens or drops",
+  "epistemic": "Educational paleography · not conspiracy · National Treasure references labeled fiction · verify NARA for critical claims",
+  "doctrine": [
+    "Raw = animal parchment + iron-gall ink as imaged by NARA (Charters of Freedom)",
+    "Stone = 1823 copperplate engraving by William J. Stone — a legibility facsimile, not the object",
+    "Missing symbology on Stone is mostly material: texture, ink relief, fade patterns, signature ductus, surface scars",
+    "Movie lore is optional flavor · never replaces primary source analysis"
+  ],
+  "sources": {
+    "raw": {
+      "id": "nara-parchment",
+      "file": "images/hires/nara-parchment.jpg",
+      "sourceFile": "images/sources/declaration-parchment-nara.jpg",
+      "label": "Raw engrossed parchment (NARA)",
+      "width": 7503,
+      "height": 9140,
+      "credit": "National Archives · public domain",
+      "whatItIs": "Scan of the actual Matlack engrossed sheet on animal parchment"
+    },
+    "stone": {
+      "id": "nara-stone",
+      "file": "images/hires/nara-stone.jpg",
+      "sourceFile": "images/sources/declaration-stone-engraving-nara.jpg",
+      "label": "Stone engraving 1823 (NARA)",
+      "width": 13970,
+      "height": 16535,
+      "credit": "National Archives · public domain · William J. Stone",
+      "whatItIs": "High-res scan of the engraved facsimile plate — sharper type, less material truth"
+    }
+  },
+  "whyCompare": "Stone is excellent for reading and ink-cut geometry, but it is a second-generation mark. Raw holds the three-dimensional iron-gall symbology, damage history, and hand pressure that any serious (or cinematic) analysis needs before you get to Nicolas Cage.",
+  "nationalTreasure": {
+    "label": "National Treasure (2004) · fun lane",
+    "status": "fiction-with-real-props",
+    "fact": [
+      "The engrossed Declaration is a real NARA object (Rotunda, Charters of Freedom).",
+      "Iron-gall ink fades; the original is far less legible than the Stone engraving.",
+      "Historical interest in invisible ink and ciphers in the Revolutionary era is real — the film invents the specific map-on-the-back plot."
+    ],
+    "fiction": [
+      "Treasure map on the reverse of the Declaration as depicted in the film.",
+      "Ottendorf cipher / Silence Dogood trail as a single treasure hunt scripted for the movie.",
+      "Reading the document under lemon juice / heat as the primary scholarly method (do not try this on real artifacts)."
+    ],
+    "analysisHook": "If the Stone pass is all you analyze, you lose the raw surface symbology the movie pretends to chase — and you will not make it to dojo-grade, let alone Cage-grade.",
+    "dojoNote": "Dojo / research should always pair raw + Stone: one for material marks, one for high-contrast reading."
+  },
+  "symbologyClasses": [
+    {
+      "id": "iron-gall-relief",
+      "label": "Iron-gall ink relief & corrosion",
+      "onRaw": "Raised / sunken ink, brown-black gradients, acid bite into parchment",
+      "onStone": "Flattened black line · no corrosion topography",
+      "analysis": "Hand pressure, re-inked strokes, possible later touch-ups",
+      "uvHint": { "region": "body", "note": "Strongest in body lines and signature block" }
+    },
+    {
+      "id": "parchment-grain",
+      "label": "Parchment grain · scars · prep marks",
+      "onRaw": "Hair-side texture, scrapes, natural translucency, historical folds",
+      "onStone": "Uniform plate ground · texture invented or omitted",
+      "analysis": "Object biography · transport · conservation history"
+    },
+    {
+      "id": "title-flourishes",
+      "label": "Title / engrossing flourishes",
+      "onRaw": "Matlack ornamental ductus on title block — swell, hairline, cadence",
+      "onStone": "Regularized engraving strokes · less pen personality",
+      "analysis": "Scribe identity · session unity · monumental vs body hand"
+    },
+    {
+      "id": "long-s-and-orthography",
+      "label": "Long‑s and period orthography",
+      "onRaw": "Period letterforms as written (where still legible)",
+      "onStone": "Often clearer long‑s / period forms because plate was cut when original was darker",
+      "analysis": "Stone can restore reading of faded forms · raw shows which forms are actually lost"
+    },
+    {
+      "id": "signature-block",
+      "label": "Signature block symbology",
+      "onRaw": "Hancock and others — pressure, flourishes, placement, ink density variation",
+      "onStone": "Engraved signatures · ordered and readable · less biometric ductus",
+      "analysis": "Identity theater of the Revolution · raw is the forensic surface"
+    },
+    {
+      "id": "fade-map",
+      "label": "Fade & light-exposure map",
+      "onRaw": "Uneven legibility — display history burned into the sheet",
+      "onStone": "Even black · no fade map",
+      "analysis": "Why Stone was commissioned (1823) · conservation narrative"
+    },
+    {
+      "id": "not-on-declaration",
+      "label": "Not on this sheet (common mix-up)",
+      "onRaw": "No Eye of Providence / pyramid drawing on the engrossed Declaration",
+      "onStone": "Same — not present",
+      "analysis": "Great Seal imagery lives on the reverse of the US one-dollar bill · different object · still a fun research neighbor"
+    }
+  ],
+  "comparisonModes": [
+    {
+      "id": "raw-vs-stone",
+      "label": "Raw parchment ↔ Stone engraving",
+      "panes": ["nara-parchment", "nara-stone", "nara-stone-contrast", "hires-scholarly"],
+      "note": "Default four-layer: material truth · engraving · contrast · clean transcript"
+    },
+    {
+      "id": "stone-read",
+      "label": "Stone reading pass",
+      "panes": ["nara-stone", "nara-stone-contrast", "nara-stone-inverse", "hires-scholarly"],
+      "note": "Max legibility when hunting letterforms for ink-cut geometry"
+    },
+    {
+      "id": "raw-forensic",
+      "label": "Raw forensic pass",
+      "panes": ["nara-parchment", "nara-stone", "nara-stone-inverse", "hires-annotated"],
+      "note": "Material + engraving + inverse + line-id annotated clean"
+    }
+  ],
+  "workflow": {
+    "read": "Stone / contrast for transcript geometry and live dual tiles",
+    "symbology": "Raw parchment for ink relief, grain, signature ductus, fade",
+    "lock": "UV sector lock keeps both on the same line/word/letter",
+    "dojo": "Export comparison notes + geometry pack for multi-document hand"
+  }
+}

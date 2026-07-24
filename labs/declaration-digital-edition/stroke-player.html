@@ -1,0 +1,619 @@
+<!DOCTYPE html>
+<html lang="en" data-history-page="declaration" data-history-open="1">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+  <title>KBatch · Stroke path live draw</title>
+  <meta name="description" content="Live reconstructed pen-stroke path playback for the engrossed Declaration — pen-lift passes, word pacing, blank substrate, ink lift, under-marks." />
+  <meta name="theme-color" content="#0f0f0f" />
+  <link rel="stylesheet" href="/css/app.css" />
+  <link rel="stylesheet" href="/css/history-sliderule.css" />
+  <link rel="stylesheet" href="/css/labs.css" />
+  <link rel="stylesheet" href="/css/declaration-edition.css" />
+  <script>
+    (function () {
+      try {
+        var t = localStorage.getItem("kbatch-dict-theme");
+        if (t !== "light" && t !== "dark")
+          t = matchMedia("(prefers-color-scheme: light)").matches ? "light" : "dark";
+        document.documentElement.setAttribute("data-theme", t);
+      } catch (e) {
+        document.documentElement.setAttribute("data-theme", "dark");
+      }
+    })();
+  </script>
+  <style>
+    .sp-layout { display: grid; gap: 14px; }
+    @media (min-width: 1000px) {
+      .sp-layout { grid-template-columns: 1fr 320px; align-items: start; }
+    }
+    .sp-stage {
+      border: 1px solid var(--line, #30363d);
+      border-radius: 12px;
+      background: #12141a;
+      overflow: hidden;
+    }
+    .sp-canvas-wrap {
+      position: relative;
+      width: 100%;
+      overflow: auto;
+      background:
+        linear-gradient(45deg, #1a1c22 25%, transparent 25%),
+        linear-gradient(-45deg, #1a1c22 25%, transparent 25%),
+        linear-gradient(45deg, transparent 75%, #1a1c22 75%),
+        linear-gradient(-45deg, transparent 75%, #1a1c22 75%);
+      background-size: 16px 16px;
+      background-position: 0 0, 0 8px, 8px -8px, -8px 0;
+    }
+    .sp-canvas-wrap.paper {
+      background: #fcf9f2;
+    }
+    #sp-canvas {
+      display: block;
+      max-width: 100%;
+      height: auto;
+      cursor: crosshair;
+    }
+    .sp-controls {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      align-items: center;
+      padding: 10px 12px;
+      border-top: 1px solid var(--line, #30363d);
+      background: var(--panel, #161b22);
+    }
+    .sp-controls .btn.on {
+      outline: 2px solid color-mix(in srgb, #e3b341 65%, transparent);
+      color: #e3b341;
+    }
+    .sp-meta {
+      font: 600 0.72rem/1.35 ui-monospace, Menlo, monospace;
+      color: var(--muted, #8b949e);
+    }
+    .sp-side h3 { margin: 0 0 6px; font-size: 0.95rem; }
+    .sp-pass-list {
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+      max-height: 220px;
+      overflow: auto;
+    }
+    .sp-pass-btn {
+      text-align: left;
+      font: 600 0.72rem/1.3 ui-monospace, Menlo, monospace;
+      padding: 6px 8px;
+      border-radius: 6px;
+      border: 1px solid var(--line, #30363d);
+      background: transparent;
+      color: var(--ink, #e6edf3);
+      cursor: pointer;
+    }
+    .sp-pass-btn.on, .sp-pass-btn:hover {
+      border-color: #e3b341;
+      background: color-mix(in srgb, #e3b341 12%, transparent);
+    }
+    .sp-plates {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 8px;
+    }
+    .sp-plates figure {
+      margin: 0;
+      border: 1px solid var(--line, #30363d);
+      border-radius: 8px;
+      overflow: hidden;
+      background: #0a0a0a;
+    }
+    .sp-plates img {
+      display: block;
+      width: 100%;
+      height: auto;
+      max-height: 120px;
+      object-fit: contain;
+    }
+    .sp-plates figcaption {
+      font: 600 0.62rem/1.2 ui-monospace, Menlo, monospace;
+      padding: 4px 6px;
+      color: var(--muted, #8b949e);
+    }
+    .sp-word {
+      display: inline-block;
+      margin: 2px 3px;
+      padding: 2px 6px;
+      border-radius: 4px;
+      font: 600 0.78rem/1.3 Georgia, serif;
+      border: 1px solid transparent;
+    }
+    .sp-word.on {
+      border-color: #e3b341;
+      background: color-mix(in srgb, #e3b341 18%, transparent);
+      color: #e3b341;
+    }
+    .sp-scrub {
+      width: min(220px, 40vw);
+    }
+    .sp-speed { width: 90px; }
+  </style>
+</head>
+<body class="labs-page dec-page">
+  <header class="app-header">
+    <div class="header-inner">
+      <div class="brand-row">
+        <div class="brand">
+          <button type="button" class="theme-toggle" id="theme-toggle" title="Toggle theme" aria-label="Toggle theme">
+            <span class="theme-icon theme-icon--sun" aria-hidden="true">☀</span>
+            <span class="theme-icon theme-icon--moon" aria-hidden="true">☾</span>
+          </button>
+          <h1><span>KBatch</span> Stroke path · live draw</h1>
+          <span class="brand-sub">pen-lift passes · word pacing · pattern flow</span>
+        </div>
+        <nav class="site-nav" aria-label="Site"></nav>
+      </div>
+      <div class="meta-row">
+        <span class="status-line" id="sp-status">Loading writing-path index…</span>
+      </div>
+    </div>
+  </header>
+
+  <nav class="dec-version-nav" aria-label="Edition">
+    <a href="index.html">Archive workspace</a>
+    <a href="letter-grid.html">Letter-Grid</a>
+    <a href="cage-litmus.html">Cage litmus</a>
+    <a href="world.html">World · matrix</a>
+    <a href="versions.html">All layers</a>
+    <a href="scribe-glyphs.html">Scribe glyphs</a>
+    <a href="stroke-player.html" class="active-link">Stroke player</a>
+    <a href="paleography-hub.html">Paleography</a>
+  </nav>
+
+  <main class="labs-main dec-main" style="max-width: min(1400px, 100%)">
+    <section class="labs-card">
+      <p class="docs-kicker">Educational stroke reconstruction · not a forensic claim of Matlack’s exact pen lifts</p>
+      <p>
+        <strong>Blank substrate</strong> = under page with writing removed.
+        <strong>Ink lifted</strong> = writing only, transparent PNG.
+        <strong>Under-marks test</strong> = residual structure after primary ink (hypothesis plate).
+        <strong>Stroke passes</strong> = continuous pen-down→lift paths in reading order · live draw with word pacing.
+      </p>
+      <label class="sp-meta">Line
+        <select id="sp-line"></select>
+      </label>
+    </section>
+
+    <div class="sp-layout">
+      <div class="sp-stage labs-card" style="padding:0;overflow:hidden">
+        <div class="sp-canvas-wrap paper" id="sp-wrap">
+          <canvas id="sp-canvas" width="1200" height="200" aria-label="Stroke path canvas"></canvas>
+        </div>
+        <div class="sp-controls">
+          <button type="button" class="btn" id="sp-play">Play</button>
+          <button type="button" class="btn" id="sp-pause">Pause</button>
+          <button type="button" class="btn" id="sp-reset">Reset</button>
+          <label class="sp-meta">Scrub <input type="range" id="sp-scrub" class="sp-scrub" min="0" max="1000" value="0" /></label>
+          <label class="sp-meta">Speed <input type="range" id="sp-speed" class="sp-speed" min="0.25" max="3" step="0.25" value="1" /></label>
+          <button type="button" class="btn on" id="sp-mode-draw" data-mode="draw">Live draw</button>
+          <button type="button" class="btn" id="sp-mode-pass" data-mode="pass">Pass layers</button>
+          <button type="button" class="btn" id="sp-bg-paper" data-bg="paper">Paper</button>
+          <button type="button" class="btn" id="sp-bg-check" data-bg="check">Checker (PNG)</button>
+          <span class="sp-meta" id="sp-progress">0%</span>
+        </div>
+      </div>
+
+      <aside class="labs-card sp-side">
+        <h3>Sentence · word pacing</h3>
+        <p class="sp-meta" id="sp-text">—</p>
+        <div id="sp-words"></div>
+        <h3 style="margin-top:12px">Pen-lift passes</h3>
+        <div class="sp-pass-list" id="sp-passes"></div>
+        <h3 style="margin-top:12px">Line plates</h3>
+        <div class="sp-plates" id="sp-plates"></div>
+        <h3 style="margin-top:12px">Full document</h3>
+        <div class="sp-plates" id="sp-full-plates"></div>
+        <p class="docs-kicker" style="margin-top:10px">
+          Data: <a href="/data/declaration/writing-path-index.json">writing-path-index.json</a> ·
+          <a href="/data/declaration/stroke-paths/">stroke-paths/</a>
+        </p>
+      </aside>
+    </div>
+  </main>
+
+  <footer class="app-footer">
+    Stroke path player · Declaration Digital Edition · educational reconstruction · 2026
+  </footer>
+
+  <script type="module">
+    function esc(s) {
+      return String(s ?? "")
+        .replace(/&/g, "&amp;")
+        .replace(/</g, "&lt;")
+        .replace(/>/g, "&gt;")
+        .replace(/"/g, "&quot;");
+    }
+
+    const status = document.getElementById("sp-status");
+    const lineSel = document.getElementById("sp-line");
+    const canvas = document.getElementById("sp-canvas");
+    const ctx = canvas.getContext("2d");
+    const wrap = document.getElementById("sp-wrap");
+    const scrub = document.getElementById("sp-scrub");
+    const speedEl = document.getElementById("sp-speed");
+    const progressEl = document.getElementById("sp-progress");
+    const wordsEl = document.getElementById("sp-words");
+    const passesEl = document.getElementById("sp-passes");
+    const platesEl = document.getElementById("sp-plates");
+    const fullPlatesEl = document.getElementById("sp-full-plates");
+    const textEl = document.getElementById("sp-text");
+
+    let index = null;
+    let pack = null;
+    let lineMeta = null;
+    let bgImg = null;
+    let inkImg = null;
+    /** @type {'draw'|'pass'} */
+    let mode = "draw";
+    let bgMode = "paper";
+    let playing = false;
+    let t = 0; // 0..1
+    let raf = 0;
+    let lastTs = 0;
+    let focusPass = 0; // 0 = all
+
+    const PASS_COLORS = ["#14100c", "#8b3a2a", "#2a5080", "#8a6a20", "#5a3878", "#2a7050", "#6a3030"];
+
+    function flatStrokes() {
+      const out = [];
+      for (const p of pack?.passes || []) {
+        if (focusPass && p.pass !== focusPass) continue;
+        for (const s of p.strokes || []) {
+          out.push({ ...s, pass: p.pass });
+        }
+      }
+      return out;
+    }
+
+    function totalLength(strokes) {
+      return strokes.reduce((a, s) => a + (s.length || 0) + 0.01, 0) || 1;
+    }
+
+    function loadImage(url) {
+      return new Promise((resolve, reject) => {
+        const im = new Image();
+        im.crossOrigin = "anonymous";
+        im.onload = () => resolve(im);
+        im.onerror = () => reject(new Error(url));
+        im.src = url;
+      });
+    }
+
+    function setupCanvas() {
+      if (!pack) return;
+      const band = pack.band || {};
+      // Band-local coordinates for blank/ink plates + path projection
+      const w = band.w || pack.sourceSize?.w || 1200;
+      const h = band.h || pack.sourceSize?.h || 200;
+      const maxW = Math.min(1200, wrap.clientWidth || 1200);
+      const scale = Math.min(1, maxW / w);
+      canvas.width = Math.max(1, Math.round(w * scale));
+      canvas.height = Math.max(1, Math.round(h * scale));
+      canvas.dataset.scale = String(scale);
+      canvas.dataset.ox = String(band.ox || 0);
+      canvas.dataset.oy = String(band.oy || 0);
+    }
+
+    /** Project absolute calligraphy path → band-local display coords */
+    function toLocal(path) {
+      const ox = Number(canvas.dataset.ox || 0);
+      const oy = Number(canvas.dataset.oy || 0);
+      const scale = Number(canvas.dataset.scale || 1);
+      return (path || []).map(([x, y]) => [(x - ox) * scale, (y - oy) * scale]);
+    }
+
+    function drawFrame() {
+      if (!pack || !ctx) return;
+      const scale = Number(canvas.dataset.scale || 1);
+      const w = canvas.width;
+      const h = canvas.height;
+      ctx.clearRect(0, 0, w, h);
+
+      if (bgMode === "paper") {
+        ctx.fillStyle = "#fcf9f2";
+        ctx.fillRect(0, 0, w, h);
+        if (bgImg) {
+          ctx.globalAlpha = 0.95;
+          ctx.drawImage(bgImg, 0, 0, w, h);
+          ctx.globalAlpha = 1;
+        }
+      } else {
+        ctx.fillStyle = "rgba(18,20,26,0.15)";
+        ctx.fillRect(0, 0, w, h);
+        if (inkImg) {
+          ctx.drawImage(inkImg, 0, 0, w, h);
+        }
+      }
+
+      const strokes = flatStrokes();
+      const tot = totalLength(strokes);
+      let remain = t * tot;
+
+      ctx.lineCap = "round";
+      ctx.lineJoin = "round";
+
+      let activeGlyph = -1;
+      let activeWord = -1;
+
+      for (const s of strokes) {
+        const len = (s.length || 0) + 0.01;
+        const col = PASS_COLORS[((s.pass || 1) - 1) % PASS_COLORS.length];
+        const path = toLocal(s.path || []);
+        if (path.length < 1) {
+          remain -= len;
+          continue;
+        }
+
+        const drawAmt = Math.max(0, Math.min(len, remain));
+        remain -= len;
+        if (drawAmt <= 0 && mode === "draw") continue;
+
+        ctx.strokeStyle = col;
+        ctx.fillStyle = col;
+        ctx.lineWidth = Math.max(1.5, 2.4 * scale);
+
+        if (path.length === 1 || len < 0.5) {
+          const [x, y] = path[0];
+          if (mode === "pass" || drawAmt > 0) {
+            ctx.beginPath();
+            ctx.arc(x, y, 1.5 * scale, 0, Math.PI * 2);
+            ctx.fill();
+          }
+        } else {
+          // walk in absolute length space but draw local points
+          const abs = s.path || [];
+          const target = mode === "pass" ? len : drawAmt;
+          let walked = 0;
+          ctx.beginPath();
+          ctx.moveTo(path[0][0], path[0][1]);
+          for (let i = 1; i < abs.length; i++) {
+            const x0 = abs[i - 1][0];
+            const y0 = abs[i - 1][1];
+            const x1 = abs[i][0];
+            const y1 = abs[i][1];
+            const seg = Math.hypot(x1 - x0, y1 - y0) || 0.001;
+            if (walked + seg <= target) {
+              ctx.lineTo(path[i][0], path[i][1]);
+              walked += seg;
+            } else {
+              const u = (target - walked) / seg;
+              const lx = path[i - 1][0] + (path[i][0] - path[i - 1][0]) * u;
+              const ly = path[i - 1][1] + (path[i][1] - path[i - 1][1]) * u;
+              ctx.lineTo(lx, ly);
+              walked = target;
+              break;
+            }
+          }
+          ctx.stroke();
+        }
+
+        if (mode === "draw" && drawAmt > 0 && drawAmt < len) {
+          activeGlyph = s.glyphIndex;
+        } else if (mode === "draw" && remain <= 0 && activeGlyph < 0) {
+          activeGlyph = s.glyphIndex;
+        }
+      }
+
+      // word highlight from timeline
+      if (pack.words && activeGlyph >= 0) {
+        activeWord = pack.words.findIndex(
+          (w) => activeGlyph >= w.startGlyph && activeGlyph <= w.endGlyph
+        );
+      } else if (pack.words && t > 0) {
+        // estimate from t
+        const gi = Math.min(
+          (pack.glyphCount || 1) - 1,
+          Math.floor(t * (pack.glyphCount || 1))
+        );
+        activeWord = pack.words.findIndex((w) => gi >= w.startGlyph && gi <= w.endGlyph);
+      }
+      wordsEl.querySelectorAll(".sp-word").forEach((el, i) => {
+        el.classList.toggle("on", i === activeWord);
+      });
+
+      progressEl.textContent = `${Math.round(t * 100)}% · pass ${focusPass || "all"} · ${mode}`;
+      scrub.value = String(Math.round(t * 1000));
+    }
+
+    function tick(ts) {
+      if (!playing) return;
+      if (!lastTs) lastTs = ts;
+      const dt = (ts - lastTs) / 1000;
+      lastTs = ts;
+      const spd = Number(speedEl.value) || 1;
+      // ~8s full line at 1x, scaled by stroke complexity
+      t = Math.min(1, t + (dt * spd) / 8);
+      drawFrame();
+      if (t >= 1) {
+        playing = false;
+        status.textContent = "Playback complete · reset or scrub";
+        return;
+      }
+      raf = requestAnimationFrame(tick);
+    }
+
+    async function loadLine(lineId) {
+      playing = false;
+      cancelAnimationFrame(raf);
+      t = 0;
+      focusPass = 0;
+      status.textContent = `Loading ${lineId}…`;
+      lineMeta = (index.lines || []).find((l) => l.lineId === lineId) || null;
+      const url = lineMeta?.strokePathJson
+        ? "/" + lineMeta.strokePathJson.replace(/^\//, "")
+        : `/data/declaration/stroke-paths/${lineId}.json`;
+      pack = await fetch(url, { cache: "no-cache" }).then((r) => {
+        if (!r.ok) throw new Error(url);
+        return r.json();
+      });
+      textEl.textContent = pack.text || "";
+      wordsEl.innerHTML = (pack.words || [])
+        .map((w, i) => `<span class="sp-word" data-i="${i}">${esc(w.text)}</span>`)
+        .join(" ");
+      passesEl.innerHTML =
+        `<button type="button" class="sp-pass-btn on" data-pass="0">All passes · ${esc(
+          pack.passCount
+        )}</button>` +
+        (pack.passes || [])
+          .map(
+            (p) =>
+              `<button type="button" class="sp-pass-btn" data-pass="${p.pass}">Pass ${
+                p.pass
+              } · ${esc(p.chars || "")} · ${p.strokeCount} str</button>`
+          )
+          .join("");
+
+      // plates
+      const plate = (src, cap) =>
+        src
+          ? `<figure><img src="/labs/declaration-digital-edition/${esc(
+              src
+            )}" alt="${esc(cap)}" loading="lazy" /><figcaption>${esc(cap)}</figcaption></figure>`
+          : "";
+      if (lineMeta) {
+        platesEl.innerHTML =
+          plate(lineMeta.blankSubstrate, "Blank substrate") +
+          plate(lineMeta.inkLiftedPreview, "Ink lifted") +
+          plate(lineMeta.underMarksTest, "Under-marks TEST") +
+          plate(lineMeta.strokeOverlay, "Path overlay");
+      } else platesEl.innerHTML = "";
+
+      bgImg = null;
+      inkImg = null;
+      try {
+        if (lineMeta?.blankSubstrate)
+          bgImg = await loadImage("/labs/declaration-digital-edition/" + lineMeta.blankSubstrate);
+      } catch {
+        /* */
+      }
+      try {
+        if (lineMeta?.inkLiftedPng)
+          inkImg = await loadImage("/labs/declaration-digital-edition/" + lineMeta.inkLiftedPng);
+        else if (lineMeta?.inkLiftedPreview)
+          inkImg = await loadImage("/labs/declaration-digital-edition/" + lineMeta.inkLiftedPreview);
+      } catch {
+        /* */
+      }
+
+      setupCanvas();
+      drawFrame();
+      status.textContent = `${lineId} · ${pack.strokeCount} strokes · ${pack.passCount} pen-lift passes · ${pack.method}`;
+    }
+
+    document.getElementById("sp-play")?.addEventListener("click", () => {
+      if (t >= 1) t = 0;
+      playing = true;
+      lastTs = 0;
+      raf = requestAnimationFrame(tick);
+    });
+    document.getElementById("sp-pause")?.addEventListener("click", () => {
+      playing = false;
+      cancelAnimationFrame(raf);
+    });
+    document.getElementById("sp-reset")?.addEventListener("click", () => {
+      playing = false;
+      cancelAnimationFrame(raf);
+      t = 0;
+      drawFrame();
+    });
+    scrub?.addEventListener("input", () => {
+      playing = false;
+      t = Number(scrub.value) / 1000;
+      drawFrame();
+    });
+    document.getElementById("sp-mode-draw")?.addEventListener("click", (ev) => {
+      mode = "draw";
+      document.getElementById("sp-mode-draw").classList.add("on");
+      document.getElementById("sp-mode-pass").classList.remove("on");
+      drawFrame();
+    });
+    document.getElementById("sp-mode-pass")?.addEventListener("click", () => {
+      mode = "pass";
+      t = 1;
+      document.getElementById("sp-mode-pass").classList.add("on");
+      document.getElementById("sp-mode-draw").classList.remove("on");
+      drawFrame();
+    });
+    document.getElementById("sp-bg-paper")?.addEventListener("click", () => {
+      bgMode = "paper";
+      wrap.classList.add("paper");
+      drawFrame();
+    });
+    document.getElementById("sp-bg-check")?.addEventListener("click", () => {
+      bgMode = "check";
+      wrap.classList.remove("paper");
+      drawFrame();
+    });
+    passesEl?.addEventListener("click", (ev) => {
+      const b = ev.target.closest("[data-pass]");
+      if (!b) return;
+      focusPass = Number(b.getAttribute("data-pass")) || 0;
+      passesEl.querySelectorAll(".sp-pass-btn").forEach((el) => el.classList.remove("on"));
+      b.classList.add("on");
+      drawFrame();
+    });
+    lineSel?.addEventListener("change", () => loadLine(lineSel.value));
+    document.getElementById("theme-toggle")?.addEventListener("click", () => {
+      const cur = document.documentElement.getAttribute("data-theme") || "dark";
+      const next = cur === "light" ? "dark" : "light";
+      document.documentElement.setAttribute("data-theme", next);
+      try {
+        localStorage.setItem("kbatch-dict-theme", next);
+      } catch {
+        /* */
+      }
+    });
+    window.addEventListener("resize", () => {
+      setupCanvas();
+      drawFrame();
+    });
+
+    (async () => {
+      try {
+        index = await fetch("/data/declaration/writing-path-index.json", { cache: "no-cache" }).then(
+          (r) => r.json()
+        );
+        const lines = index.lines || [];
+        lineSel.innerHTML = lines
+          .map((l) => `<option value="${esc(l.lineId)}">${esc(l.lineId)} · ${esc((l.text || "").slice(0, 40))}</option>`)
+          .join("");
+        // full plates
+        const plates = index.full?.plates || [];
+        fullPlatesEl.innerHTML = plates
+          .map((p) => {
+            return (
+              (p.blankSubstrate
+                ? `<figure><img src="/labs/declaration-digital-edition/${esc(
+                    p.blankSubstrate
+                  )}" alt="blank" loading="lazy" /><figcaption>${esc(p.kind)} blank</figcaption></figure>`
+                : "") +
+              (p.inkLiftedPreview
+                ? `<figure><img src="/labs/declaration-digital-edition/${esc(
+                    p.inkLiftedPreview
+                  )}" alt="ink" loading="lazy" /><figcaption>${esc(p.kind)} ink lift</figcaption></figure>`
+                : "") +
+              (p.underMarksTest
+                ? `<figure><img src="/labs/declaration-digital-edition/${esc(
+                    p.underMarksTest
+                  )}" alt="under" loading="lazy" /><figcaption>${esc(p.kind)} under-marks</figcaption></figure>`
+                : "")
+            );
+          })
+          .join("");
+        if (lines.length) await loadLine(lines[0].lineId);
+        else status.textContent = "No stroke paths yet · run build-writing-path-layers.py --lines";
+      } catch (e) {
+        status.textContent = "Failed to load writing-path index · " + e.message;
+      }
+    })();
+  </script>
+  <script src="/js/site-nav.js" defer></script>
+</body>
+</html>

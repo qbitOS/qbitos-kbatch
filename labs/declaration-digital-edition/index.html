@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en" data-history-page="declaration" data-history-open="1">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+  <title>KBatch · Declaration of Independence — Archival Restoration</title>
+  <meta name="description" content="Archival multi-layer restoration of the engrossed Declaration · side-by-side codex flip · deep zoom · research slide · line analysis · multilayout keyboard · scribe glyphs · open PD." />
+  <meta name="theme-color" content="#0c0b0a" />
+  <link rel="stylesheet" href="/css/app.css" />
+  <link rel="stylesheet" href="/css/labs.css" />
+  <link rel="stylesheet" href="/css/history-sliderule.css" />
+  <link rel="stylesheet" href="/css/archive-restoration.css" />
+  <link rel="stylesheet" href="/css/declaration-edition.css" />
+  <script>
+    (function () {
+      try {
+        var t = localStorage.getItem("kbatch-dict-theme");
+        if (t !== "light" && t !== "dark")
+          t = matchMedia("(prefers-color-scheme: light)").matches ? "light" : "dark";
+        document.documentElement.setAttribute("data-theme", t);
+      } catch (e) {
+        document.documentElement.setAttribute("data-theme", "dark");
+      }
+    })();
+  </script>
+</head>
+<body class="labs-page dec-page arc-body">
+  <header class="app-header">
+    <div class="header-inner">
+      <div class="brand-row">
+        <div class="brand">
+          <button type="button" class="theme-toggle" id="theme-toggle" title="Toggle theme" aria-label="Toggle theme">
+            <span class="theme-icon theme-icon--sun" aria-hidden="true">☀</span>
+            <span class="theme-icon theme-icon--moon" aria-hidden="true">☾</span>
+          </button>
+          <h1><span>KBatch</span> Archival restoration</h1>
+          <span class="brand-sub">Declaration · codex layers · path · world layouts</span>
+        </div>
+        <nav class="site-nav" aria-label="Site"></nav>
+      </div>
+      <div class="meta-row">
+        <span class="status-line">Public domain · NARA base · multi-layer flip · research past→today</span>
+      </div>
+    </div>
+  </header>
+
+  <nav class="dec-version-nav" aria-label="Edition surfaces">
+    <a href="index.html" class="active-link">Archive workspace</a>
+    <a href="letter-grid.html">Letter-Grid</a>
+    <a href="cage-litmus.html">Cage litmus</a>
+    <a href="world.html">World · multilingual</a>
+    <a href="paleography-hub.html">Paleography</a>
+    <a href="versions.html">All layers</a>
+    <a href="stroke-player.html">Stroke player</a>
+    <a href="keyboard.html">Path metrics</a>
+    <a href="scribe-glyphs.html">Scribe glyphs</a>
+    <a href="/labs/living-books.html">Living books</a>
+    <a href="/labs/rosetta.html">Rosetta</a>
+    <a href="/dojo/">DOJO</a>
+    <a href="/research.html">Research</a>
+    <a href="/museum.html">Museum</a>
+  </nav>
+
+  <main class="labs-main" style="max-width: min(1600px, 100%)">
+    <div id="arc-mount"></div>
+  </main>
+
+  <footer class="app-footer">
+    Archival restoration · lift past media to present speed ·
+    <a href="https://www.archives.gov/founding-docs/declaration-transcript" target="_blank" rel="noopener">NARA transcript</a> ·
+    <a href="/data/declaration/archive-manifest.json">manifest</a> ·
+    qbit-codec / Memory Glass ready ·
+    <a href="/">Dictionary ↗</a>
+  </footer>
+
+  <script type="module">
+    import { mountArchiveRestoration } from "/js/archive-restoration-viewer.js";
+
+    document.getElementById("theme-toggle")?.addEventListener("click", () => {
+      const cur = document.documentElement.getAttribute("data-theme") || "dark";
+      const next = cur === "light" ? "dark" : "light";
+      document.documentElement.setAttribute("data-theme", next);
+      try {
+        localStorage.setItem("kbatch-dict-theme", next);
+      } catch {
+        /* */
+      }
+    });
+
+    const mount = document.getElementById("arc-mount");
+    mountArchiveRestoration(mount, {
+      manifestUrl: "/data/declaration/archive-manifest.json",
+    }).catch((e) => {
+      if (mount) {
+        mount.innerHTML = `<p class="arc-err">Failed to mount archive: ${String(e?.message || e)}</p>`;
+      }
+    });
+  </script>
+  <script src="/js/site-nav.js" defer></script>
+</body>
+</html>

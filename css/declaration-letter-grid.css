@@ -1,0 +1,295 @@
+/* Declaration Letter-Grid · WebGrid-style litmus (square chunk) */
+.dlg-page .dlg-shell {
+  max-width: min(1100px, 100%);
+  margin: 0 auto;
+  padding: 12px 16px 40px;
+}
+.dlg-hero {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px 16px;
+  align-items: flex-start;
+  justify-content: space-between;
+  margin-bottom: 12px;
+}
+.dlg-hero h2 {
+  margin: 0 0 4px;
+  font-size: 1.15rem;
+  letter-spacing: -0.02em;
+}
+.dlg-hero p {
+  margin: 0;
+  max-width: 52ch;
+  font-size: 0.88rem;
+  color: var(--muted, #8b9bb0);
+  line-height: 1.4;
+}
+.dlg-scoreboard {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(72px, 1fr));
+  gap: 6px;
+  min-width: min(280px, 100%);
+}
+.dlg-metric {
+  border: 1px solid var(--line, rgba(255, 255, 255, 0.1));
+  border-radius: 10px;
+  padding: 6px 8px;
+  background: rgba(0, 0, 0, 0.18);
+  text-align: center;
+}
+.dlg-metric b {
+  display: block;
+  font-size: 1.05rem;
+  font-variant-numeric: tabular-nums;
+  color: var(--accent, #0a84ff);
+}
+.dlg-metric span {
+  font-size: 0.65rem;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--muted, #8b9bb0);
+}
+.dlg-layout {
+  display: grid;
+  grid-template-columns: minmax(0, 1.15fr) minmax(240px, 0.85fr);
+  gap: 14px;
+  align-items: start;
+}
+@media (max-width: 820px) {
+  .dlg-layout {
+    grid-template-columns: 1fr;
+  }
+  .dlg-scoreboard {
+    grid-template-columns: repeat(2, 1fr);
+    width: 100%;
+  }
+}
+.dlg-board-wrap {
+  border: 1px solid var(--line, rgba(255, 255, 255, 0.1));
+  border-radius: 14px;
+  padding: 12px;
+  background: rgba(12, 14, 18, 0.55);
+}
+.dlg-board-top {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 10px;
+}
+.dlg-prompt {
+  font-family: ui-monospace, Menlo, monospace;
+  font-size: 0.85rem;
+}
+.dlg-prompt em {
+  font-style: normal;
+  color: #0a84ff;
+  font-weight: 700;
+  font-size: 1.15rem;
+  margin: 0 2px;
+}
+.dlg-controls {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+}
+.dlg-controls button,
+.dlg-side button {
+  appearance: none;
+  border: 1px solid var(--line, rgba(255, 255, 255, 0.14));
+  background: rgba(255, 255, 255, 0.05);
+  color: inherit;
+  border-radius: 8px;
+  padding: 5px 9px;
+  font: 600 0.72rem/1.2 ui-sans-serif, system-ui, sans-serif;
+  letter-spacing: 0.03em;
+  cursor: pointer;
+}
+.dlg-controls button:hover,
+.dlg-side button:hover {
+  border-color: rgba(10, 132, 255, 0.45);
+}
+.dlg-controls button.on {
+  background: rgba(10, 132, 255, 0.18);
+  border-color: rgba(10, 132, 255, 0.5);
+}
+.dlg-board {
+  display: grid;
+  gap: 3px;
+  width: min(100%, 520px);
+  margin: 0 auto;
+  aspect-ratio: 1;
+  user-select: none;
+  touch-action: manipulation;
+}
+.dlg-cell {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 4px;
+  background: rgba(255, 255, 255, 0.06);
+  border: 1px solid transparent;
+  font-family: ui-monospace, Menlo, monospace;
+  font-weight: 650;
+  font-size: clamp(0.7rem, 2.2vw, 0.95rem);
+  color: rgba(230, 238, 248, 0.88);
+  cursor: pointer;
+}
+.dlg-cell:hover {
+  border-color: rgba(255, 255, 255, 0.18);
+}
+.dlg-cell.is-target {
+  background: rgb(10, 132, 255);
+  color: #fff;
+  box-shadow: 0 0 0 1px rgba(10, 132, 255, 0.5), 0 4px 14px rgba(10, 132, 255, 0.35);
+}
+.dlg-cell.is-hit {
+  background: rgba(48, 209, 88, 0.22);
+  color: #30d158;
+}
+.dlg-cell.is-miss {
+  background: rgba(255, 69, 58, 0.2);
+  color: #ff6b63;
+}
+.dlg-cell.is-pad {
+  opacity: 0.28;
+  cursor: default;
+}
+.dlg-cell.is-space {
+  opacity: 0.45;
+  font-size: 0.65em;
+}
+.dlg-stair {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 4px;
+  margin-top: 10px;
+}
+.dlg-stair button {
+  appearance: none;
+  border: 1px solid var(--line, rgba(255, 255, 255, 0.12));
+  background: transparent;
+  color: var(--muted, #8b9bb0);
+  border-radius: 999px;
+  padding: 3px 8px;
+  font: 600 0.65rem/1 ui-monospace, Menlo, monospace;
+  cursor: pointer;
+}
+.dlg-stair button.unlocked {
+  color: #30d158;
+  border-color: rgba(48, 209, 88, 0.35);
+}
+.dlg-stair button.active {
+  color: #fff;
+  background: rgba(10, 132, 255, 0.28);
+  border-color: rgba(10, 132, 255, 0.5);
+}
+.dlg-stair button:disabled {
+  opacity: 0.35;
+  cursor: not-allowed;
+}
+.dlg-side {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+.dlg-card {
+  border: 1px solid var(--line, rgba(255, 255, 255, 0.1));
+  border-radius: 12px;
+  padding: 10px 12px;
+  background: rgba(0, 0, 0, 0.16);
+}
+.dlg-card h3 {
+  margin: 0 0 6px;
+  font-size: 0.78rem;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  color: var(--muted, #8b9bb0);
+}
+.dlg-card p,
+.dlg-card li {
+  margin: 0;
+  font-size: 0.82rem;
+  line-height: 1.4;
+}
+.dlg-xref-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  max-height: 220px;
+  overflow: auto;
+}
+.dlg-xref-list li {
+  border-top: 1px dashed rgba(255, 255, 255, 0.08);
+  padding: 6px 0;
+  cursor: pointer;
+}
+.dlg-xref-list li:first-child {
+  border-top: 0;
+}
+.dlg-xref-list li:hover {
+  color: #64d2ff;
+}
+.dlg-xref-list .lid {
+  font-family: ui-monospace, Menlo, monospace;
+  font-weight: 700;
+  color: #0a84ff;
+  margin-right: 6px;
+}
+.dlg-xref-list .cnt {
+  float: right;
+  opacity: 0.7;
+  font-variant-numeric: tabular-nums;
+}
+.dlg-doc {
+  font-family: ui-serif, Georgia, "Times New Roman", serif;
+  font-size: 0.92rem;
+  line-height: 1.45;
+  max-height: 180px;
+  overflow: auto;
+  white-space: pre-wrap;
+}
+.dlg-doc mark {
+  background: rgba(10, 132, 255, 0.28);
+  color: inherit;
+  border-radius: 2px;
+  padding: 0 1px;
+}
+.dlg-gateway {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  margin-top: 8px;
+}
+.dlg-gateway a {
+  font-size: 0.72rem;
+  text-decoration: none;
+  color: #64d2ff;
+  border: 1px solid rgba(100, 210, 255, 0.28);
+  border-radius: 8px;
+  padding: 4px 8px;
+}
+.dlg-gateway a:hover {
+  background: rgba(10, 132, 255, 0.12);
+}
+.dlg-log {
+  font-family: ui-monospace, Menlo, monospace;
+  font-size: 0.68rem;
+  color: var(--muted, #8b9bb0);
+  max-height: 100px;
+  overflow: auto;
+  white-space: pre-wrap;
+}
+html[data-theme="light"] .dlg-board-wrap,
+html[data-theme="light"] .dlg-card,
+html[data-theme="light"] .dlg-metric {
+  background: rgba(255, 255, 255, 0.72);
+}
+html[data-theme="light"] .dlg-cell {
+  background: rgba(20, 40, 70, 0.06);
+  color: #1e3a5f;
+}
+html[data-theme="light"] .dlg-cell.is-target {
+  color: #fff;
+}

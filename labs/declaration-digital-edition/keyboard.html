@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+<html lang="en" data-history-page="declaration" data-history-open="1">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+  <title>KBatch · Declaration — Keyboard Analysis</title>
+  <meta name="description" content="Full keyboard analysis of Declaration passages: geometric pattern, musical rhythm, pattern flow, DDR dance, braille." />
+  <meta name="theme-color" content="#0f0f0f" />
+  <link rel="stylesheet" href="/css/app.css" />
+  <link rel="stylesheet" href="/css/history-sliderule.css" />
+  <link rel="stylesheet" href="/css/labs.css" />
+  <link rel="stylesheet" href="/css/declaration-edition.css" />
+  <script>
+    (function () {
+      try {
+        var t = localStorage.getItem("kbatch-dict-theme");
+        if (t !== "light" && t !== "dark")
+          t = matchMedia("(prefers-color-scheme: light)").matches ? "light" : "dark";
+        document.documentElement.setAttribute("data-theme", t);
+      } catch (e) {
+        document.documentElement.setAttribute("data-theme", "dark");
+      }
+    })();
+  </script>
+</head>
+<body class="labs-page dec-page">
+  <header class="app-header">
+    <div class="header-inner">
+      <div class="brand-row">
+        <div class="brand">
+          <button type="button" class="theme-toggle" id="theme-toggle" title="Toggle theme" aria-label="Toggle theme">
+            <span class="theme-icon theme-icon--sun" aria-hidden="true">☀</span>
+            <span class="theme-icon theme-icon--moon" aria-hidden="true">☾</span>
+          </button>
+          <h1><span>KBatch</span> Declaration · Keyboard</h1>
+          <span class="brand-sub">geometry · rhythm · DDR · braille · flow</span>
+        </div>
+        <nav class="site-nav" aria-label="Site"></nav>
+      </div>
+    </div>
+  </header>
+
+  <nav class="dec-version-nav">
+    <a href="letter-grid.html">Letter-Grid</a>
+    <a href="cage-litmus.html">Cage litmus</a>
+    <a href="index.html">← Main Viewer</a>
+    <a href="paleography-hub.html">Paleography Hub</a>
+    <a href="versions.html">All Versions</a>
+    <a href="scribe-glyphs.html">Scribe Glyphs</a>
+    <a href="/data/declaration/keyboard-analysis.json">JSON</a>
+  </nav>
+
+  <main class="labs-main dec-main">
+    <section class="labs-card">
+      <p class="docs-kicker">Open NARA transcript passages · QWERTY path geometry · not a historical keyboard claim</p>
+      <p>
+        Each passage is run through KBatch <code>encodeAll</code> + path geometry:
+        <strong>geometric pattern</strong>, <strong>pattern flow</strong>, <strong>musical rhythm</strong>,
+        <strong>DDR arrows</strong>, <strong>dance moves</strong>, and <strong>braille</strong>.
+      </p>
+    </section>
+
+    <div class="anc-toolbar labs-card">
+      <label>Passage
+        <select id="kb-pass">
+          <option value="selfEvident">Self-evident truths</option>
+          <option value="preamble">Preamble (Course of human events)</option>
+          <option value="independence">Free and Independent States</option>
+          <option value="title">Title line</option>
+          <option value="hancock">John Hancock</option>
+          <option value="fullOpen">Opening block (longer)</option>
+        </select>
+      </label>
+      <button type="button" class="btn" id="kb-live">Re-analyze live</button>
+    </div>
+
+    <section class="labs-card" id="kb-out">Loading…</section>
+  </main>
+
+  <footer class="app-footer">
+    Declaration keyboard analysis · PD text ·
+    <a href="index.html">Viewer</a> ·
+    <a href="/">Dictionary ↗</a>
+  </footer>
+
+  <script type="module">
+    import { encodeAll } from "/js/encoder.js";
+    import { pathGeometryFor, pathPanelHtml } from "/js/path-geometry-panel.js";
+
+    function esc(s) {
+      return String(s ?? "")
+        .replace(/&/g, "&amp;")
+        .replace(/</g, "&lt;")
+        .replace(/>/g, "&gt;");
+    }
+
+    let doc = null;
+    try {
+      doc = await (await fetch("/data/declaration/keyboard-analysis.json", { cache: "no-cache" })).json();
+    } catch {
+      /* */
+    }
+
+    async function paint(key, live) {
+      const out = document.getElementById("kb-out");
+      let p = doc?.passages?.[key];
+      let path = doc?.pathGeometry?.[key];
+      const text = p?.text || "";
+      if (live || !p) {
+        const t =
+          p?.text ||
+          {
+            selfEvident:
+              "We hold these truths to be self-evident, that all men are created equal, that they are endowed by their Creator with certain unalienable Rights, that among these are Life, Liberty and the pursuit of Happiness.",
+            hancock: "John Hancock",
+            title: "IN CONGRESS, July 4, 1776.",
+            independence:
+              "That these United Colonies are, and of Right ought to be Free and Independent States",
+            preamble:
+              "When in the Course of human events, it becomes necessary for one people to dissolve the political bands which have connected them with another.",
+            fullOpen: text,
+          }[key] || text;
+        const e = encodeAll(t);
+        path = await pathGeometryFor(t);
+        p = {
+          label: key,
+          text: t,
+          letterCount: (t.match(/[a-zA-Z]/g) || []).length,
+          braille: e.braille,
+          geometricPattern: e.keyFlow?.pattern,
+          patternFlow: e.keyFlow?.combo,
+          arrows: e.keyFlow?.arrows,
+          ddr: e.keyFlow?.ddr,
+          danceMoves: e.danceNotation,
+          musicalNotes: e.musicalNotes,
+          rhythm: e.rhythm,
+          metrics: e.metrics,
+        };
+      }
+
+      const m = p.metrics || {};
+      const rh = p.rhythm || {};
+      out.innerHTML = `
+        <h2>${esc(p.label || key)}</h2>
+        <blockquote class="dec-quote">${esc(p.text)}</blockquote>
+        <div class="dec-kb-grid">
+          <div><span class="k">Letters</span><span class="v">${esc(p.letterCount)}</span></div>
+          <div><span class="k">Efficiency</span><span class="v">${esc(m.efficiency)}</span></div>
+          <div><span class="k">Strain</span><span class="v">${esc(m.strain)}</span></div>
+          <div><span class="k">Complexity</span><span class="v">${esc(m.complexity)}</span></div>
+          <div><span class="k">Travel mm</span><span class="v">${esc(m.travelMM)}</span></div>
+          <div><span class="k">Home row %</span><span class="v">${esc(m.homeRowPct)}</span></div>
+          <div><span class="k">Hand balance</span><span class="v">${esc(m.handBalance)}</span></div>
+          <div><span class="k">Time sig · BPM</span><span class="v">${esc(rh.timeSig)} · ${esc(rh.bpm)}</span></div>
+        </div>
+        <h3>Geometric pattern (compressed flow)</h3>
+        <pre class="dec-pre">${esc(p.geometricPattern)}</pre>
+        <h3>Pattern flow (direction codes)</h3>
+        <pre class="dec-pre">${esc((p.patternFlow || "").slice(0, 600))}${(p.patternFlow || "").length > 600 ? "…" : ""}</pre>
+        <h3>Arrows</h3>
+        <pre class="dec-pre dec-arrows">${esc(p.arrows)}</pre>
+        <h3>DDR (dance pad)</h3>
+        <pre class="dec-pre dec-ddr">${esc(p.ddr)}</pre>
+        <h3>Dance moves</h3>
+        <pre class="dec-pre">${esc((p.danceMoves || "").slice(0, 500))}${(p.danceMoves || "").length > 500 ? "…" : ""}</pre>
+        <h3>Musical rhythm (beats)</h3>
+        <pre class="dec-pre">${esc((rh.beats || rh.beatsPreview || "").slice(0, 200))}</pre>
+        <p class="docs-kicker">avg ${esc(rh.avgMs)} ms/key · ${esc(rh.timeSig)} · ${esc(rh.bpm)} bpm</p>
+        <h3>Musical notes (key→pitch map sample)</h3>
+        <pre class="dec-pre">${esc(String(p.musicalNotes || "").split(" ").slice(0, 60).join(" "))}…</pre>
+        <h3>Braille</h3>
+        <pre class="dec-pre braille">${esc(p.braille)}</pre>
+        <div id="path-panel-host"></div>
+      `;
+      const host = document.getElementById("path-panel-host");
+      if (host && path) {
+        host.innerHTML = pathPanelHtml(path) || "";
+      }
+    }
+
+    document.getElementById("kb-pass")?.addEventListener("change", (e) => paint(e.target.value, false));
+    document.getElementById("kb-live")?.addEventListener("click", () => {
+      const key = document.getElementById("kb-pass")?.value || "selfEvident";
+      paint(key, true);
+    });
+    document.getElementById("theme-toggle")?.addEventListener("click", () => {
+      const cur = document.documentElement.getAttribute("data-theme") || "dark";
+      const next = cur === "light" ? "dark" : "light";
+      document.documentElement.setAttribute("data-theme", next);
+      try {
+        localStorage.setItem("kbatch-dict-theme", next);
+      } catch {
+        /* */
+      }
+    });
+
+    paint("selfEvident", false);
+  </script>
+  <script src="/js/site-nav.js" defer></script>
+</body>
+</html>

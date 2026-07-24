@@ -1,0 +1,467 @@
+<!DOCTYPE html>
+<html lang="en" data-history-page="declaration" data-history-open="1">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+  <title>KBatch · Declaration · All Version Plates</title>
+  <meta name="description" content="Real archival version plates of the engrossed Declaration — NARA parchment, Stone engraving, contrast, inverse, clean ink, penmanship cone — not text-only treatments." />
+  <meta name="theme-color" content="#0f0f0f" />
+  <link rel="stylesheet" href="/css/app.css" />
+  <link rel="stylesheet" href="/css/history-sliderule.css" />
+  <link rel="stylesheet" href="/css/labs.css" />
+  <link rel="stylesheet" href="/css/declaration-edition.css" />
+  <script>
+    (function () {
+      try {
+        var t = localStorage.getItem("kbatch-dict-theme");
+        if (t !== "light" && t !== "dark")
+          t = matchMedia("(prefers-color-scheme: light)").matches ? "light" : "dark";
+        document.documentElement.setAttribute("data-theme", t);
+      } catch (e) {
+        document.documentElement.setAttribute("data-theme", "dark");
+      }
+    })();
+  </script>
+</head>
+<body class="labs-page dec-page">
+  <header class="app-header">
+    <div class="header-inner">
+      <div class="brand-row">
+        <div class="brand">
+          <button type="button" class="theme-toggle" id="theme-toggle" title="Toggle theme" aria-label="Toggle theme">
+            <span class="theme-icon theme-icon--sun" aria-hidden="true">☀</span>
+            <span class="theme-icon theme-icon--moon" aria-hidden="true">☾</span>
+          </button>
+          <h1><span>KBatch</span> Declaration · Versions</h1>
+          <span class="brand-sub">real plates · NARA material · Stone · derivatives · duals</span>
+        </div>
+        <nav class="site-nav" aria-label="Site"></nav>
+      </div>
+      <div class="meta-row">
+        <span class="status-line" id="ver-status">Loading archival version catalog…</span>
+      </div>
+    </div>
+  </header>
+
+  <nav class="dec-version-nav" aria-label="Edition">
+    <a href="index.html">Archive workspace</a>
+    <a href="letter-grid.html">Letter-Grid</a>
+    <a href="cage-litmus.html">Cage litmus</a>
+    <a href="world.html">World · matrix</a>
+    <a href="paleography-hub.html">Paleography</a>
+    <a href="versions.html" class="active-link">All layers</a>
+    <a href="stroke-player.html">Stroke player</a>
+    <a href="scribe-glyphs.html">Scribe glyphs</a>
+    <a href="keyboard.html">Path metrics</a>
+  </nav>
+
+  <main class="labs-main dec-main" style="max-width: min(1400px, 100%)">
+    <section class="labs-card">
+      <p class="docs-kicker">Full-document plates · not just type treatments</p>
+      <p>
+        These are <strong>real visual versions</strong> of the engrossed Declaration:
+        NARA parchment (material), Stone engraving 1823 (calligraphy), contrast / inverse study plates,
+        clean-ink hand duals, penmanship layering cone — plus clearly labeled artistic comparatives.
+        Browser cards use safe previews; full files open in a new tab (Stone masters are ~37–40&nbsp;MB).
+      </p>
+      <div class="ver-toolbar" role="toolbar" aria-label="Version filters">
+        <button type="button" class="btn ver-filt on" data-group="all">All</button>
+        <button type="button" class="btn ver-filt" data-group="archival">Archival NARA</button>
+        <button type="button" class="btn ver-filt" data-group="study">Study derivatives</button>
+        <button type="button" class="btn ver-filt" data-group="line">Line duals</button>
+        <button type="button" class="btn ver-filt" data-group="penmanship">Penmanship</button>
+        <button type="button" class="btn ver-filt" data-group="artistic">Artistic / type</button>
+      </div>
+    </section>
+
+    <div id="ver-root" class="ver-root">
+      <p class="docs-kicker">Building version catalog from archive-manifest…</p>
+    </div>
+
+    <dialog class="ver-lightbox" id="ver-lightbox" aria-label="Version plate preview">
+      <form method="dialog" class="ver-lb-bar">
+        <strong id="ver-lb-title">Plate</strong>
+        <span class="ver-lb-actions">
+          <a class="btn" id="ver-lb-full" href="#" target="_blank" rel="noopener">Open full plate</a>
+          <a class="btn" id="ver-lb-archive" href="index.html">Archive workspace</a>
+          <button type="submit" class="btn">Close</button>
+        </span>
+      </form>
+      <div class="ver-lb-frame">
+        <img id="ver-lb-img" alt="" />
+      </div>
+      <p class="docs-kicker" id="ver-lb-note"></p>
+    </dialog>
+  </main>
+
+  <footer class="app-footer">
+    Declaration Digital Edition · multi-version archival plates · public domain NARA base · 2026 ·
+    <a href="/data/declaration/archive-manifest.json">manifest</a>
+  </footer>
+
+  <script type="module">
+    function esc(s) {
+      return String(s ?? "")
+        .replace(/&/g, "&amp;")
+        .replace(/</g, "&lt;")
+        .replace(/>/g, "&gt;")
+        .replace(/"/g, "&quot;");
+    }
+
+    /** Preview map: layer/file id → versions-preview thumb */
+    const PREVIEW = {
+      "nara-parchment": "images/versions-preview/nara-parchment.jpg",
+      "nara-stone": "images/versions-preview/nara-stone.jpg",
+      "nara-stone-contrast": "images/versions-preview/nara-stone-contrast.jpg",
+      "nara-stone-inverse": "images/versions-preview/nara-stone-inverse.jpg",
+      "hires-scholarly": "images/versions-preview/hires-scholarly.jpg",
+      "hires-annotated": "images/versions-preview/hires-annotated.jpg",
+      VUmKX: "images/versions-preview/VUmKX.jpg",
+      "9lFxo": "images/versions-preview/9lFxo.jpg",
+      MN4Q9: "images/versions-preview/MN4Q9.jpg",
+      lX2iq: "images/versions-preview/lX2iq.jpg",
+      "2JNeL": "images/versions-preview/2JNeL.jpg",
+      "5YzpQ": "images/versions-preview/5YzpQ.jpg",
+    };
+
+    function groupFor(layer) {
+      const id = layer.id || "";
+      const role = layer.role || "";
+      if (id.startsWith("nara-")) return "archival";
+      if (id.startsWith("hires-") || role === "legibility" || role === "access") {
+        if (id === "nara-stone-contrast" || id === "nara-stone-inverse") return "archival";
+        if (["VUmKX", "5YzpQ", "9lFxo", "MN4Q9"].includes(id)) return "artistic";
+        return "study";
+      }
+      if (role === "comparative" || id === "2JNeL") return "artistic";
+      if (role === "analysis" || id === "lX2iq") return "study";
+      if (role === "material" && id.startsWith("nara")) return "archival";
+      if (role === "material") return "artistic";
+      if (role === "calligraphy") return "archival";
+      return "study";
+    }
+
+    const EXTRA = [
+      {
+        id: "stone-blank-substrate",
+        label: "STONE · blank substrate · writing removed",
+        file: "images/writing-path/full/stone-blank-substrate.jpg",
+        preview: "images/writing-path/full/stone-blank-substrate.jpg",
+        group: "archival",
+        role: "substrate",
+        note: "Under page restored without writing · paper fill of ink regions",
+        credit: "KBatch derivative · NARA Stone",
+      },
+      {
+        id: "stone-ink-lifted",
+        label: "STONE · ink lifted · transparent PNG",
+        file: "images/writing-path/full/stone-ink-lifted.png",
+        preview: "images/writing-path/full/stone-ink-lifted-preview.jpg",
+        group: "archival",
+        role: "ink-lift",
+        note: "Writing only · see-through background · full PNG alpha",
+        credit: "KBatch derivative",
+      },
+      {
+        id: "stone-under-marks",
+        label: "STONE · under-marks TEST",
+        file: "images/writing-path/full/stone-under-marks-test.jpg",
+        preview: "images/writing-path/full/stone-under-marks-test.jpg",
+        group: "study",
+        role: "under-marks",
+        note: "Residual after primary ink · hypothesis plate · not forensic claim",
+        credit: "KBatch test plate",
+      },
+      {
+        id: "parchment-blank-substrate",
+        label: "RAW parchment · blank substrate",
+        file: "images/writing-path/full/parchment-blank-substrate.jpg",
+        preview: "images/writing-path/full/parchment-blank-substrate.jpg",
+        group: "archival",
+        role: "substrate",
+        note: "Material under page · writing removed",
+        credit: "KBatch · NARA parchment",
+      },
+      {
+        id: "parchment-ink-lifted",
+        label: "RAW parchment · ink lifted PNG",
+        file: "images/writing-path/full/parchment-ink-lifted.png",
+        preview: "images/writing-path/full/parchment-ink-lifted-preview.jpg",
+        group: "archival",
+        role: "ink-lift",
+        note: "Material ink lift · transparent background",
+        credit: "KBatch derivative",
+      },
+      {
+        id: "l01-stroke-overlay",
+        label: "L01 · reconstructed stroke path overlay",
+        file: "images/writing-path/lines/l01/l01-stroke-overlay.jpg",
+        preview: "images/writing-path/lines/l01/l01-stroke-overlay.jpg",
+        group: "penmanship",
+        role: "stroke-path",
+        note: "Pen-lift path reconstruction · live draw on stroke-player.html",
+        credit: "KBatch educational",
+      },
+      {
+        id: "l01-raw-full",
+        label: "L01 · RAW parchment · full line height",
+        file: "images/compare/raw/l01-raw-full.jpg",
+        preview: "images/versions-preview/l01-raw-full.jpg",
+        group: "line",
+        role: "material",
+        note: "NARA engrossed parchment crop · entire band · not tip-clipped",
+        credit: "National Archives",
+      },
+      {
+        id: "l01-stone-full",
+        label: "L01 · STONE engraving · full line height",
+        file: "images/compare/l01-calligraphy-full.jpg",
+        preview: "images/versions-preview/l01-stone-full.jpg",
+        group: "line",
+        role: "calligraphy",
+        note: "1823 Stone engraving · full sentence band",
+        credit: "National Archives",
+      },
+      {
+        id: "l01-clean-ink",
+        label: "L01 · clean ink · engrosser hand preserved",
+        file: "images/compare/l01-clean-row.jpg",
+        preview: "images/versions-preview/l01-clean-ink.jpg",
+        group: "line",
+        role: "clean-ink",
+        note: "Ink-isolated engrosser letterforms · not modern type",
+        credit: "KBatch derivative · NARA Stone base",
+      },
+      {
+        id: "l01-dual",
+        label: "L01 · dual · calligraphy + clean ink",
+        file: "images/compare/l01-dual.jpg",
+        preview: "images/versions-preview/l01-dual.jpg",
+        group: "line",
+        role: "dual",
+        note: "Stacked archival dual · same hand both rows",
+        credit: "KBatch",
+      },
+      {
+        id: "l01-raw-inv",
+        label: "L01 · RAW inverted · dark-field",
+        file: "images/compare/layers/l01/raw-inverted.jpg",
+        preview: "images/versions-preview/l01-raw-inv.jpg",
+        group: "penmanship",
+        role: "access",
+        note: "Dark-field invert · hairlines / page extras as light",
+        credit: "KBatch derivative",
+      },
+      {
+        id: "l01-cone",
+        label: "L01 · penmanship layering cone · passes 1→4",
+        file: "images/compare/layers/l01/raw-layering-cone.jpg",
+        preview: "images/versions-preview/l01-cone.jpg",
+        group: "penmanship",
+        role: "analysis",
+        note: "Stroke density cone · core downstrokes → hairlines / flourishes",
+        credit: "KBatch derivative",
+      },
+      {
+        id: "l01-clean-glyphs",
+        label: "L01 · clean ink numbered glyphs",
+        file: "images/compare/l01-clean-glyphs.jpg",
+        preview: "images/compare/l01-clean-glyphs.jpg",
+        group: "line",
+        role: "clean-ink",
+        note: "Index-locked tiles · engrosser forms preserved",
+        credit: "KBatch",
+      },
+      {
+        id: "l01-stone-glyphs",
+        label: "L01 · Stone numbered glyphs",
+        file: "images/compare/l01-calligraphy-glyphs.jpg",
+        preview: "images/compare/l01-calligraphy-glyphs.jpg",
+        group: "line",
+        role: "calligraphy",
+        note: "Ink-aligned numbered cuts from Stone geometry",
+        credit: "KBatch · NARA Stone",
+      },
+    ];
+
+    const GROUP_META = {
+      archival: {
+        title: "Archival NARA · full document",
+        blurb: "Primary public-domain plates · material parchment + Stone engraving masters",
+      },
+      study: {
+        title: "Study derivatives · full document",
+        blurb: "Contrast, inverse, scholarly, annotated — analysis plates derived from or aligned to NARA",
+      },
+      line: {
+        title: "Line duals · engrosser hand (L01 sample)",
+        blurb: "RAW vs STONE vs clean ink · full line height · not tip-clipped · all L01–L35 on scribe-glyphs",
+      },
+      penmanship: {
+        title: "Penmanship · invert + layering cone",
+        blurb: "Dark-field and stroke-pass cone · pass 1 core → pass 4 hairlines / page extras",
+      },
+      artistic: {
+        title: "Artistic / type comparatives",
+        blurb: "Earlier stylized or type treatments · not facsimile claims · kept for contrast with real plates",
+      },
+    };
+
+    const root = document.getElementById("ver-root");
+    const status = document.getElementById("ver-status");
+    const lb = document.getElementById("ver-lightbox");
+    const lbImg = document.getElementById("ver-lb-img");
+    const lbTitle = document.getElementById("ver-lb-title");
+    const lbNote = document.getElementById("ver-lb-note");
+    const lbFull = document.getElementById("ver-lb-full");
+    const lbArc = document.getElementById("ver-lb-archive");
+
+    function cardHtml(v) {
+      const prev = v.preview || PREVIEW[v.id] || v.file;
+      const full = v.file;
+      const dims =
+        v.width && v.height ? `${v.width}×${v.height}` : v.previewW ? `${v.previewW}×${v.previewH} preview` : "";
+      const heavy = (v.width || 0) > 8000 || (full || "").includes("nara-stone");
+      return `<article class="ver-card" data-group="${esc(v.group)}" data-id="${esc(v.id)}">
+        <button type="button" class="ver-thumb" data-open="${esc(v.id)}" title="Preview ${esc(v.label)}">
+          <img src="${esc(prev)}" alt="${esc(v.label)}" loading="lazy" decoding="async" />
+          <span class="ver-badge">${esc(v.group)}</span>
+          ${heavy ? `<span class="ver-heavy">full ~MB</span>` : ""}
+        </button>
+        <div class="ver-info">
+          <h3>${esc(v.label)}</h3>
+          <p class="ver-meta">${esc(v.role || "")}${dims ? " · " + esc(dims) : ""}${
+        v.credit ? " · " + esc(v.credit) : ""
+      }</p>
+          <p class="ver-note">${esc(v.note || "")}</p>
+          <div class="ver-actions">
+            <button type="button" class="btn" data-open="${esc(v.id)}">Preview</button>
+            <a class="btn" href="${esc(full)}" target="_blank" rel="noopener">Full plate</a>
+            <a class="btn" href="index.html#layer=${esc(v.id)}">Archive</a>
+          </div>
+        </div>
+      </article>`;
+    }
+
+    function render(catalog) {
+      const order = ["archival", "study", "line", "penmanship", "artistic"];
+      const byG = {};
+      for (const v of catalog) {
+        (byG[v.group] ||= []).push(v);
+      }
+      root.innerHTML = order
+        .filter((g) => byG[g]?.length)
+        .map((g) => {
+          const meta = GROUP_META[g] || { title: g, blurb: "" };
+          return `<section class="ver-section labs-card" data-section="${esc(g)}">
+            <h2>${esc(meta.title)}</h2>
+            <p class="docs-kicker">${esc(meta.blurb)} · ${byG[g].length} plates</p>
+            <div class="ver-grid">${byG[g].map(cardHtml).join("")}</div>
+          </section>`;
+        })
+        .join("");
+
+      const map = Object.fromEntries(catalog.map((v) => [v.id, v]));
+      root.querySelectorAll("[data-open]").forEach((btn) => {
+        btn.addEventListener("click", () => {
+          const id = btn.getAttribute("data-open");
+          const v = map[id];
+          if (!v || !lb) return;
+          lbTitle.textContent = v.label;
+          lbNote.textContent = `${v.note || ""} · ${v.file}${
+            v.width ? ` · master ${v.width}×${v.height}` : ""
+          }`;
+          lbImg.src = v.preview || PREVIEW[v.id] || v.file;
+          lbImg.alt = v.label;
+          lbFull.href = v.file;
+          lbArc.href = `index.html#layer=${encodeURIComponent(v.id)}`;
+          if (typeof lb.showModal === "function") lb.showModal();
+          else lb.setAttribute("open", "");
+        });
+      });
+    }
+
+    function applyFilter(group) {
+      document.querySelectorAll(".ver-filt").forEach((b) => {
+        b.classList.toggle("on", b.getAttribute("data-group") === group);
+      });
+      document.querySelectorAll(".ver-section").forEach((sec) => {
+        const g = sec.getAttribute("data-section");
+        sec.hidden = group !== "all" && g !== group;
+      });
+    }
+
+    document.querySelector(".ver-toolbar")?.addEventListener("click", (ev) => {
+      const b = ev.target.closest("[data-group]");
+      if (!b) return;
+      applyFilter(b.getAttribute("data-group") || "all");
+    });
+
+    document.getElementById("theme-toggle")?.addEventListener("click", () => {
+      const cur = document.documentElement.getAttribute("data-theme") || "dark";
+      const next = cur === "light" ? "dark" : "light";
+      document.documentElement.setAttribute("data-theme", next);
+      try {
+        localStorage.setItem("kbatch-dict-theme", next);
+      } catch {
+        /* */
+      }
+    });
+
+    (async () => {
+      try {
+        const man = await fetch("/data/declaration/archive-manifest.json", { cache: "no-cache" }).then((r) =>
+          r.json()
+        );
+        const layers = (man.layers || []).map((L) => ({
+          id: L.id,
+          label: L.label || L.id,
+          // Full plate = master when web display is used in workspace
+          file: L.fullFile || L.file,
+          preview: PREVIEW[L.id] || L.preview || L.file,
+          group: groupFor(L),
+          role: L.role,
+          note: L.note || "",
+          credit: L.credit || "",
+          width: L.width,
+          height: L.height,
+          calligraphy: !!L.calligraphy,
+          webDisplay: !!L.webDisplay,
+        }));
+
+        // Prefer archival first; de-dupe extras
+        const ids = new Set(layers.map((l) => l.id));
+        const catalog = [...layers];
+        for (const e of EXTRA) {
+          if (!ids.has(e.id)) catalog.push(e);
+        }
+
+        // Sort within: archival nara order fixed
+        const rank = (v) => {
+          const order = [
+            "nara-parchment",
+            "nara-stone",
+            "nara-stone-contrast",
+            "nara-stone-inverse",
+            "hires-scholarly",
+            "hires-annotated",
+          ];
+          const i = order.indexOf(v.id);
+          return i >= 0 ? i : 100;
+        };
+        catalog.sort((a, b) => {
+          if (a.group !== b.group) return 0;
+          return rank(a) - rank(b) || String(a.label).localeCompare(String(b.label));
+        });
+
+        render(catalog);
+        status.textContent = `${catalog.length} version plates · NARA masters + derivatives + line duals · PD base`;
+      } catch (e) {
+        root.innerHTML = `<p class="dw-err">Could not load archive-manifest · ${esc(e.message)}</p>`;
+        status.textContent = "Version catalog failed";
+      }
+    })();
+  </script>
+  <script src="/js/site-nav.js" defer></script>
+</body>
+</html>

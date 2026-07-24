@@ -1,0 +1,230 @@
+/* Cage-grade litmus · National Treasure fiction lane */
+.cage-shell {
+  max-width: min(1000px, 100%);
+  margin: 0 auto;
+  padding: 12px 16px 36px;
+}
+.cage-hero h2 {
+  margin: 0 0 6px;
+  font-size: 1.15rem;
+}
+.cage-hero p {
+  margin: 0 0 12px;
+  color: var(--muted, #8b9bb0);
+  font-size: 0.9rem;
+  line-height: 1.45;
+  max-width: 70ch;
+}
+.cage-pair {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 10px;
+  margin-bottom: 12px;
+}
+@media (max-width: 720px) {
+  .cage-pair {
+    grid-template-columns: 1fr;
+  }
+}
+.cage-pane {
+  margin: 0;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 12px;
+  overflow: hidden;
+  background: rgba(0, 0, 0, 0.25);
+}
+.cage-pane figcaption {
+  padding: 6px 10px;
+  font: 700 0.68rem/1.2 ui-monospace, Menlo, monospace;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: #64d2ff;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+}
+.cage-img {
+  min-height: 160px;
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  justify-content: center;
+  background: #0a0a0a;
+}
+.cage-img img {
+  width: 100%;
+  height: auto;
+  max-height: 280px;
+  object-fit: contain;
+  display: block;
+}
+.cage-img-note {
+  padding: 6px 10px 8px;
+  font-size: 0.72rem;
+  color: var(--muted, #8b9bb0);
+  line-height: 1.35;
+}
+.cage-doctrine {
+  border: 1px solid rgba(255, 159, 10, 0.28);
+  border-radius: 12px;
+  padding: 10px 12px;
+  margin-bottom: 12px;
+  background: rgba(255, 159, 10, 0.06);
+}
+.cage-doctrine ul {
+  margin: 0;
+  padding-left: 18px;
+  font-size: 0.82rem;
+  line-height: 1.4;
+}
+.cage-doctrine li.hook {
+  color: #ff9f0a;
+  font-weight: 600;
+  margin-top: 6px;
+}
+.cage-nt {
+  margin-top: 10px;
+  padding-top: 8px;
+  border-top: 1px dashed rgba(255, 255, 255, 0.12);
+}
+.cage-nt h3 {
+  margin: 0 0 6px;
+  font-size: 0.9rem;
+}
+.cage-nt .tag.fiction {
+  font: 700 0.62rem/1 ui-monospace, Menlo, monospace;
+  letter-spacing: 0.06em;
+  color: #ff6b63;
+  border: 1px solid rgba(255, 107, 99, 0.4);
+  border-radius: 999px;
+  padding: 2px 6px;
+  margin-left: 6px;
+  vertical-align: middle;
+}
+.cage-cols {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 10px;
+}
+@media (max-width: 640px) {
+  .cage-cols {
+    grid-template-columns: 1fr;
+  }
+}
+.cage-cols h4 {
+  margin: 0 0 4px;
+  font-size: 0.72rem;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  color: var(--muted, #8b9bb0);
+}
+.cage-cols ul {
+  margin: 0;
+  padding-left: 16px;
+  font-size: 0.78rem;
+}
+.cage-board {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  margin-bottom: 12px;
+}
+.cage-q {
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 10px;
+  padding: 8px 10px;
+  background: rgba(0, 0, 0, 0.18);
+}
+.cage-q-id {
+  font: 700 0.65rem/1.2 ui-monospace, Menlo, monospace;
+  letter-spacing: 0.05em;
+  color: #64d2ff;
+  margin-bottom: 4px;
+}
+.cage-q-claim {
+  margin: 0 0 6px;
+  font-size: 0.88rem;
+  line-height: 1.4;
+}
+.cage-q select {
+  width: 100%;
+  max-width: 220px;
+  appearance: none;
+  background: rgba(255, 255, 255, 0.06);
+  border: 1px solid rgba(255, 255, 255, 0.16);
+  color: inherit;
+  border-radius: 8px;
+  padding: 6px 8px;
+  font: 600 0.8rem/1.2 system-ui, sans-serif;
+}
+.cage-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-bottom: 12px;
+}
+.cage-btn {
+  appearance: none;
+  border: 1px solid rgba(255, 255, 255, 0.16);
+  background: rgba(255, 255, 255, 0.05);
+  color: inherit;
+  border-radius: 8px;
+  padding: 7px 12px;
+  font: 600 0.78rem/1.2 system-ui, sans-serif;
+  cursor: pointer;
+}
+.cage-btn.primary {
+  background: rgba(10, 132, 255, 0.22);
+  border-color: rgba(10, 132, 255, 0.5);
+}
+.cage-btn:hover {
+  border-color: rgba(10, 132, 255, 0.45);
+}
+.cage-result {
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 12px;
+  padding: 10px 12px;
+  min-height: 48px;
+  background: rgba(0, 0, 0, 0.2);
+  font-size: 0.85rem;
+}
+.cage-grade {
+  font-size: 0.95rem;
+  margin-bottom: 6px;
+}
+.cage-grade.fail {
+  color: #ff6b63;
+}
+.cage-grade.dojo {
+  color: #64d2ff;
+}
+.cage-grade.cage {
+  color: #30d158;
+}
+.cage-report {
+  list-style: none;
+  margin: 8px 0 0;
+  padding: 0;
+}
+.cage-report li {
+  border-top: 1px dashed rgba(255, 255, 255, 0.08);
+  padding: 6px 0;
+  font-size: 0.78rem;
+  line-height: 1.35;
+}
+.cage-report li.ok {
+  color: #a8e6b8;
+}
+.cage-report li.bad {
+  color: #ffb4ae;
+}
+.cage-report .why {
+  opacity: 0.85;
+}
+.cage-report code {
+  font-family: ui-monospace, Menlo, monospace;
+  color: #64d2ff;
+}
+html[data-theme="light"] .cage-pane,
+html[data-theme="light"] .cage-q,
+html[data-theme="light"] .cage-result {
+  background: rgba(255, 255, 255, 0.75);
+}

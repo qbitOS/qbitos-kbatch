@@ -1,0 +1,974 @@
+{
+  "schema": "kbatch-declaration-transcript-lines-v2",
+  "source": "NARA public-domain Declaration transcript (normalized paragraphs)",
+  "url": "https://www.archives.gov/founding-docs/declaration-transcript",
+  "rights": "public-domain",
+  "generated": "2026-07-24T03:48:08.371Z",
+  "lineCount": 79,
+  "parentEngrossedCount": 35,
+  "charCount": 7582,
+  "letterCount": 6235,
+  "wordCount": 1259,
+  "method": "dense-research-lines-from-engrossed-bands",
+  "claim": "Dense L01–Ln research lines derived from NARA engrossed transcript bands. Each line has a full line-sections research pack. parentEngrossed preserves plate band identity.",
+  "lines": [
+    {
+      "id": "L01",
+      "kind": "title",
+      "text": "IN CONGRESS, July 4, 1776.",
+      "parentEngrossed": "L01",
+      "researchUnit": 1,
+      "researchOf": 1
+    },
+    {
+      "id": "L02",
+      "kind": "subtitle",
+      "text": "The unanimous Declaration of the thirteen united States of America,",
+      "parentEngrossed": "L02",
+      "researchUnit": 1,
+      "researchOf": 1
+    },
+    {
+      "id": "L03",
+      "kind": "body",
+      "text": "When in the Course of human events, it becomes necessary for one people to dissolve the political bands which",
+      "parentEngrossed": "L03",
+      "researchUnit": 1,
+      "researchOf": 4
+    },
+    {
+      "id": "L04",
+      "kind": "body",
+      "text": "have connected them with another, and to assume among the powers of the earth, the separate and equal station",
+      "parentEngrossed": "L03",
+      "researchUnit": 2,
+      "researchOf": 4
+    },
+    {
+      "id": "L05",
+      "kind": "body",
+      "text": "to which the Laws of Nature and of Nature's God entitle them, a decent respect to the opinions of mankind",
+      "parentEngrossed": "L03",
+      "researchUnit": 3,
+      "researchOf": 4
+    },
+    {
+      "id": "L06",
+      "kind": "body",
+      "text": "requires that they should declare the causes which impel them to the separation.",
+      "parentEngrossed": "L03",
+      "researchUnit": 4,
+      "researchOf": 4
+    },
+    {
+      "id": "L07",
+      "kind": "body",
+      "text": "--That to secure these rights, Governments are instituted among Men, deriving their just powers from the",
+      "parentEngrossed": "L04",
+      "researchUnit": 1,
+      "researchOf": 11
+    },
+    {
+      "id": "L08",
+      "kind": "body",
+      "text": "consent of the governed, --That whenever any Form of Government becomes destructive of these ends, it is the",
+      "parentEngrossed": "L04",
+      "researchUnit": 2,
+      "researchOf": 11
+    },
+    {
+      "id": "L09",
+      "kind": "body",
+      "text": "Right of the People to alter or to abolish it, and to institute new Government, laying its foundation on such",
+      "parentEngrossed": "L04",
+      "researchUnit": 3,
+      "researchOf": 11
+    },
+    {
+      "id": "L10",
+      "kind": "body",
+      "text": "principles and organizing its powers in such form, as to them shall seem most likely to effect their Safety and Happiness.",
+      "parentEngrossed": "L04",
+      "researchUnit": 4,
+      "researchOf": 11
+    },
+    {
+      "id": "L11",
+      "kind": "body",
+      "text": "Prudence, indeed, will dictate that Governments long established should not be changed for light and transient causes;",
+      "parentEngrossed": "L04",
+      "researchUnit": 5,
+      "researchOf": 11
+    },
+    {
+      "id": "L12",
+      "kind": "body",
+      "text": "and accordingly all experience hath shewn, that mankind are more disposed to suffer, while evils are",
+      "parentEngrossed": "L04",
+      "researchUnit": 6,
+      "researchOf": 11
+    },
+    {
+      "id": "L13",
+      "kind": "body",
+      "text": "sufferable, than to right themselves by abolishing the forms to which they are accustomed.",
+      "parentEngrossed": "L04",
+      "researchUnit": 7,
+      "researchOf": 11
+    },
+    {
+      "id": "L14",
+      "kind": "body",
+      "text": "--Such has been the patient sufferance of these Colonies; and such is now the necessity which constrains them to alter their former Systems of Government.",
+      "parentEngrossed": "L04",
+      "researchUnit": 8,
+      "researchOf": 11
+    },
+    {
+      "id": "L15",
+      "kind": "body",
+      "text": "The history of the present King of Great Britain is a history of repeated injuries and usurpations, all having",
+      "parentEngrossed": "L04",
+      "researchUnit": 9,
+      "researchOf": 11
+    },
+    {
+      "id": "L16",
+      "kind": "body",
+      "text": "in direct object the establishment of an absolute Tyranny over these States.",
+      "parentEngrossed": "L04",
+      "researchUnit": 10,
+      "researchOf": 11
+    },
+    {
+      "id": "L17",
+      "kind": "body",
+      "text": "To prove this, let Facts be submitted to a candid world.",
+      "parentEngrossed": "L04",
+      "researchUnit": 11,
+      "researchOf": 11
+    },
+    {
+      "id": "L18",
+      "kind": "grievance",
+      "text": "He has refused his Assent to Laws, the most wholesome and necessary for the public good.",
+      "parentEngrossed": "L05",
+      "researchUnit": 1,
+      "researchOf": 1
+    },
+    {
+      "id": "L19",
+      "kind": "grievance",
+      "text": "He has forbidden his Governors to pass Laws of immediate and pressing importance, unless suspended in their operation till his Assent should be obtained;",
+      "parentEngrossed": "L06",
+      "researchUnit": 1,
+      "researchOf": 2
+    },
+    {
+      "id": "L20",
+      "kind": "grievance",
+      "text": "and when so suspended, he has utterly neglected to attend to them.",
+      "parentEngrossed": "L06",
+      "researchUnit": 2,
+      "researchOf": 2
+    },
+    {
+      "id": "L21",
+      "kind": "grievance",
+      "text": "He has refused to pass other Laws for the accommodation of large districts of people, unless those people",
+      "parentEngrossed": "L07",
+      "researchUnit": 1,
+      "researchOf": 2
+    },
+    {
+      "id": "L22",
+      "kind": "grievance",
+      "text": "would relinquish the right of Representation in the Legislature, a right inestimable to them and formidable to tyrants only.",
+      "parentEngrossed": "L07",
+      "researchUnit": 2,
+      "researchOf": 2
+    },
+    {
+      "id": "L23",
+      "kind": "grievance",
+      "text": "He has called together legislative bodies at places unusual, uncomfortable, and distant from the depository of",
+      "parentEngrossed": "L08",
+      "researchUnit": 1,
+      "researchOf": 2
+    },
+    {
+      "id": "L24",
+      "kind": "grievance",
+      "text": "their public Records, for the sole purpose of fatiguing them into compliance with his measures.",
+      "parentEngrossed": "L08",
+      "researchUnit": 2,
+      "researchOf": 2
+    },
+    {
+      "id": "L25",
+      "kind": "grievance",
+      "text": "He has dissolved Representative Houses repeatedly, for opposing with manly firmness his invasions on the rights of the people.",
+      "parentEngrossed": "L09",
+      "researchUnit": 1,
+      "researchOf": 1
+    },
+    {
+      "id": "L26",
+      "kind": "grievance",
+      "text": "He has refused for a long time, after such dissolutions, to cause others to be elected;",
+      "parentEngrossed": "L10",
+      "researchUnit": 1,
+      "researchOf": 3
+    },
+    {
+      "id": "L27",
+      "kind": "grievance",
+      "text": "whereby the Legislative powers, incapable of Annihilation, have returned to the People at large for their exercise;",
+      "parentEngrossed": "L10",
+      "researchUnit": 2,
+      "researchOf": 3
+    },
+    {
+      "id": "L28",
+      "kind": "grievance",
+      "text": "the State remaining in the mean time exposed to all the dangers of invasion from without, and convulsions within.",
+      "parentEngrossed": "L10",
+      "researchUnit": 3,
+      "researchOf": 3
+    },
+    {
+      "id": "L29",
+      "kind": "grievance",
+      "text": "He has endeavoured to prevent the population of these States;",
+      "parentEngrossed": "L11",
+      "researchUnit": 1,
+      "researchOf": 3
+    },
+    {
+      "id": "L30",
+      "kind": "grievance",
+      "text": "for that purpose obstructing the Laws for Naturalization of Foreigners;",
+      "parentEngrossed": "L11",
+      "researchUnit": 2,
+      "researchOf": 3
+    },
+    {
+      "id": "L31",
+      "kind": "grievance",
+      "text": "refusing to pass others to encourage their migrations hither, and raising the conditions of new Appropriations of Lands.",
+      "parentEngrossed": "L11",
+      "researchUnit": 3,
+      "researchOf": 3
+    },
+    {
+      "id": "L32",
+      "kind": "grievance",
+      "text": "He has obstructed the Administration of Justice, by refusing his Assent to Laws for establishing Judiciary powers.",
+      "parentEngrossed": "L12",
+      "researchUnit": 1,
+      "researchOf": 1
+    },
+    {
+      "id": "L33",
+      "kind": "grievance",
+      "text": "He has made Judges dependent on his Will alone, for the tenure of their offices, and the amount and payment of their salaries.",
+      "parentEngrossed": "L13",
+      "researchUnit": 1,
+      "researchOf": 1
+    },
+    {
+      "id": "L34",
+      "kind": "grievance",
+      "text": "He has erected a multitude of New Offices, and sent hither swarms of Officers to harrass our people, and eat out their substance.",
+      "parentEngrossed": "L14",
+      "researchUnit": 1,
+      "researchOf": 1
+    },
+    {
+      "id": "L35",
+      "kind": "grievance",
+      "text": "He has kept among us, in times of peace, Standing Armies without the Consent of our legislatures.",
+      "parentEngrossed": "L15",
+      "researchUnit": 1,
+      "researchOf": 1
+    },
+    {
+      "id": "L36",
+      "kind": "grievance",
+      "text": "He has affected to render the Military independent of and superior to the Civil power.",
+      "parentEngrossed": "L16",
+      "researchUnit": 1,
+      "researchOf": 1
+    },
+    {
+      "id": "L37",
+      "kind": "grievance",
+      "text": "He has combined with others to subject us to a jurisdiction foreign to our constitution, and unacknowledged by our laws;",
+      "parentEngrossed": "L17",
+      "researchUnit": 1,
+      "researchOf": 2
+    },
+    {
+      "id": "L38",
+      "kind": "grievance",
+      "text": "giving his Assent to their Acts of pretended Legislation:",
+      "parentEngrossed": "L17",
+      "researchUnit": 2,
+      "researchOf": 2
+    },
+    {
+      "id": "L39",
+      "kind": "grievance",
+      "text": "For Quartering large bodies of armed troops among us:",
+      "parentEngrossed": "L18",
+      "researchUnit": 1,
+      "researchOf": 1
+    },
+    {
+      "id": "L40",
+      "kind": "grievance",
+      "text": "For protecting them, by a mock Trial, from punishment for any Murders which they should commit on the Inhabitants of these States:",
+      "parentEngrossed": "L19",
+      "researchUnit": 1,
+      "researchOf": 1
+    },
+    {
+      "id": "L41",
+      "kind": "grievance",
+      "text": "For cutting off our Trade with all parts of the world:",
+      "parentEngrossed": "L20",
+      "researchUnit": 1,
+      "researchOf": 1
+    },
+    {
+      "id": "L42",
+      "kind": "grievance",
+      "text": "For imposing Taxes on us without our Consent:",
+      "parentEngrossed": "L21",
+      "researchUnit": 1,
+      "researchOf": 1
+    },
+    {
+      "id": "L43",
+      "kind": "grievance",
+      "text": "For depriving us in many cases, of the benefits of Trial by Jury:",
+      "parentEngrossed": "L22",
+      "researchUnit": 1,
+      "researchOf": 1
+    },
+    {
+      "id": "L44",
+      "kind": "grievance",
+      "text": "For transporting us beyond Seas to be tried for pretended offences:",
+      "parentEngrossed": "L23",
+      "researchUnit": 1,
+      "researchOf": 1
+    },
+    {
+      "id": "L45",
+      "kind": "grievance",
+      "text": "For abolishing the free System of English Laws in a neighbouring Province, establishing therein an Arbitrary",
+      "parentEngrossed": "L24",
+      "researchUnit": 1,
+      "researchOf": 3
+    },
+    {
+      "id": "L46",
+      "kind": "grievance",
+      "text": "government, and enlarging its Boundaries so as to render it at once an example and fit instrument for",
+      "parentEngrossed": "L24",
+      "researchUnit": 2,
+      "researchOf": 3
+    },
+    {
+      "id": "L47",
+      "kind": "grievance",
+      "text": "introducing the same absolute rule into these Colonies:",
+      "parentEngrossed": "L24",
+      "researchUnit": 3,
+      "researchOf": 3
+    },
+    {
+      "id": "L48",
+      "kind": "grievance",
+      "text": "For taking away our Charters, abolishing our most valuable Laws, and altering fundamentally the Forms of our Governments:",
+      "parentEngrossed": "L25",
+      "researchUnit": 1,
+      "researchOf": 1
+    },
+    {
+      "id": "L49",
+      "kind": "grievance",
+      "text": "For suspending our own Legislatures, and declaring themselves invested with power to legislate for us in all cases whatsoever.",
+      "parentEngrossed": "L26",
+      "researchUnit": 1,
+      "researchOf": 1
+    },
+    {
+      "id": "L50",
+      "kind": "grievance",
+      "text": "He has abdicated Government here, by declaring us out of his Protection and waging War against us.",
+      "parentEngrossed": "L27",
+      "researchUnit": 1,
+      "researchOf": 1
+    },
+    {
+      "id": "L51",
+      "kind": "grievance",
+      "text": "He has plundered our seas, ravaged our Coasts, burnt our towns, and destroyed the lives of our people.",
+      "parentEngrossed": "L28",
+      "researchUnit": 1,
+      "researchOf": 1
+    },
+    {
+      "id": "L52",
+      "kind": "grievance",
+      "text": "He is at this time transporting large Armies of foreign Mercenaries to compleat the works of death, desolation",
+      "parentEngrossed": "L29",
+      "researchUnit": 1,
+      "researchOf": 3
+    },
+    {
+      "id": "L53",
+      "kind": "grievance",
+      "text": "and tyranny, already begun with circumstances of Cruelty & perfidy scarcely paralleled in the most barbarous",
+      "parentEngrossed": "L29",
+      "researchUnit": 2,
+      "researchOf": 3
+    },
+    {
+      "id": "L54",
+      "kind": "grievance",
+      "text": "ages, and totally unworthy the Head of a civilized nation.",
+      "parentEngrossed": "L29",
+      "researchUnit": 3,
+      "researchOf": 3
+    },
+    {
+      "id": "L55",
+      "kind": "grievance",
+      "text": "He has constrained our fellow Citizens taken Captive on the high Seas to bear Arms against their Country, to",
+      "parentEngrossed": "L30",
+      "researchUnit": 1,
+      "researchOf": 2
+    },
+    {
+      "id": "L56",
+      "kind": "grievance",
+      "text": "become the executioners of their friends and Brethren, or to fall themselves by their Hands.",
+      "parentEngrossed": "L30",
+      "researchUnit": 2,
+      "researchOf": 2
+    },
+    {
+      "id": "L57",
+      "kind": "grievance",
+      "text": "He has excited domestic insurrections amongst us, and has endeavoured to bring on the inhabitants of our",
+      "parentEngrossed": "L31",
+      "researchUnit": 1,
+      "researchOf": 3
+    },
+    {
+      "id": "L58",
+      "kind": "grievance",
+      "text": "frontiers, the merciless Indian Savages, whose known rule of warfare, is an undistinguished destruction of all",
+      "parentEngrossed": "L31",
+      "researchUnit": 2,
+      "researchOf": 3
+    },
+    {
+      "id": "L59",
+      "kind": "grievance",
+      "text": "ages, sexes and conditions.",
+      "parentEngrossed": "L31",
+      "researchUnit": 3,
+      "researchOf": 3
+    },
+    {
+      "id": "L60",
+      "kind": "body",
+      "text": "In every stage of these Oppressions We have Petitioned for Redress in the most humble terms: Our repeated Petitions have been answered only by repeated injury.",
+      "parentEngrossed": "L32",
+      "researchUnit": 1,
+      "researchOf": 2
+    },
+    {
+      "id": "L61",
+      "kind": "body",
+      "text": "A Prince, whose character is thus marked by every act which may define a Tyrant, is unfit to be the ruler of a free people.",
+      "parentEngrossed": "L32",
+      "researchUnit": 2,
+      "researchOf": 2
+    },
+    {
+      "id": "L62",
+      "kind": "body",
+      "text": "Nor have We been wanting in attentions to our Brittish brethren.",
+      "parentEngrossed": "L33",
+      "researchUnit": 1,
+      "researchOf": 7
+    },
+    {
+      "id": "L63",
+      "kind": "body",
+      "text": "We have warned them from time to time of attempts by their legislature to extend an unwarrantable jurisdiction over us.",
+      "parentEngrossed": "L33",
+      "researchUnit": 2,
+      "researchOf": 7
+    },
+    {
+      "id": "L64",
+      "kind": "body",
+      "text": "We have reminded them of the circumstances of our emigration and settlement here.",
+      "parentEngrossed": "L33",
+      "researchUnit": 3,
+      "researchOf": 7
+    },
+    {
+      "id": "L65",
+      "kind": "body",
+      "text": "We have appealed to their native justice and magnanimity, and we have conjured them by the ties of our common",
+      "parentEngrossed": "L33",
+      "researchUnit": 4,
+      "researchOf": 7
+    },
+    {
+      "id": "L66",
+      "kind": "body",
+      "text": "kindred to disavow these usurpations, which, would inevitably interrupt our connections and correspondence.",
+      "parentEngrossed": "L33",
+      "researchUnit": 5,
+      "researchOf": 7
+    },
+    {
+      "id": "L67",
+      "kind": "body",
+      "text": "They too have been deaf to the voice of justice and of consanguinity.",
+      "parentEngrossed": "L33",
+      "researchUnit": 6,
+      "researchOf": 7
+    },
+    {
+      "id": "L68",
+      "kind": "body",
+      "text": "We must, therefore, acquiesce in the necessity, which denounces our Separation, and hold them, as we hold the rest of mankind, Enemies in War, in Peace Friends.",
+      "parentEngrossed": "L33",
+      "researchUnit": 7,
+      "researchOf": 7
+    },
+    {
+      "id": "L69",
+      "kind": "closing",
+      "text": "We, therefore, the Representatives of the united States of America, in General Congress, Assembled, appealing",
+      "parentEngrossed": "L34",
+      "researchUnit": 1,
+      "researchOf": 10
+    },
+    {
+      "id": "L70",
+      "kind": "closing",
+      "text": "to the Supreme Judge of the world for the rectitude of our intentions, do, in the Name, and by Authority of",
+      "parentEngrossed": "L34",
+      "researchUnit": 2,
+      "researchOf": 10
+    },
+    {
+      "id": "L71",
+      "kind": "closing",
+      "text": "the good People of these Colonies, solemnly publish and declare, That these United Colonies are, and of Right",
+      "parentEngrossed": "L34",
+      "researchUnit": 3,
+      "researchOf": 10
+    },
+    {
+      "id": "L72",
+      "kind": "closing",
+      "text": "ought to be Free and Independent States;",
+      "parentEngrossed": "L34",
+      "researchUnit": 4,
+      "researchOf": 10
+    },
+    {
+      "id": "L73",
+      "kind": "closing",
+      "text": "that they are Absolved from all Allegiance to the British Crown, and that all political connection between",
+      "parentEngrossed": "L34",
+      "researchUnit": 5,
+      "researchOf": 10
+    },
+    {
+      "id": "L74",
+      "kind": "closing",
+      "text": "them and the State of Great Britain, is and ought to be totally dissolved;",
+      "parentEngrossed": "L34",
+      "researchUnit": 6,
+      "researchOf": 10
+    },
+    {
+      "id": "L75",
+      "kind": "closing",
+      "text": "and that as Free and Independent States, they have full Power to levy War, conclude Peace, contract Alliances,",
+      "parentEngrossed": "L34",
+      "researchUnit": 7,
+      "researchOf": 10
+    },
+    {
+      "id": "L76",
+      "kind": "closing",
+      "text": "establish Commerce, and to do all other Acts and Things which Independent States may of right do.",
+      "parentEngrossed": "L34",
+      "researchUnit": 8,
+      "researchOf": 10
+    },
+    {
+      "id": "L77",
+      "kind": "closing",
+      "text": "And for the support of this Declaration, with a firm reliance on the protection of divine Providence, we",
+      "parentEngrossed": "L34",
+      "researchUnit": 9,
+      "researchOf": 10
+    },
+    {
+      "id": "L78",
+      "kind": "closing",
+      "text": "mutually pledge to each other our Lives, our Fortunes and our sacred Honor.",
+      "parentEngrossed": "L34",
+      "researchUnit": 10,
+      "researchOf": 10
+    },
+    {
+      "id": "L79",
+      "kind": "signature",
+      "text": "John Hancock",
+      "parentEngrossed": "L35",
+      "researchUnit": 1,
+      "researchOf": 1
+    }
+  ],
+  "engrossedBands": [
+    {
+      "id": "L01",
+      "kind": "title",
+      "text": "IN CONGRESS, July 4, 1776.",
+      "researchLines": [
+        "L01"
+      ]
+    },
+    {
+      "id": "L02",
+      "kind": "subtitle",
+      "text": "The unanimous Declaration of the thirteen united States of America,",
+      "researchLines": [
+        "L02"
+      ]
+    },
+    {
+      "id": "L03",
+      "kind": "body",
+      "text": "When in the Course of human events, it becomes necessary for one people to dissolve the political bands which have connected them with another, and to assume among the powers of the earth, the separate and equal station to which the Laws of Nature and of Nature's God entitle them, a decent respect to the opinions of mankind requires that they should declare the causes which impel them to the separation.",
+      "researchLines": [
+        "L03",
+        "L04",
+        "L05",
+        "L06"
+      ]
+    },
+    {
+      "id": "L04",
+      "kind": "body",
+      "text": "We hold these truths to be self-evident, that all men are created equal, that they are endowed by their Creator with certain unalienable Rights, that among these are Life, Liberty and the pursuit of Happiness.--That to secure these rights, Governments are instituted among Men, deriving their just powers from the consent of the governed, --That whenever any Form of Government becomes destructive of these ends, it is the Right of the People to alter or to abolish it, and to institute new Government, laying its foundation on such principles and organizing its powers in such form, as to them shall seem most likely to effect their Safety and Happiness. Prudence, indeed, will dictate that Governments long established should not be changed for light and transient causes; and accordingly all experience hath shewn, that mankind are more disposed to suffer, while evils are sufferable, than to right themselves by abolishing the forms to which they are accustomed. But when a long train of abuses and usurpations, pursuing invariably the same Object evinces a design to reduce them under absolute Despotism, it is their right, it is their duty, to throw off such Government, and to provide new Guards for their future security.--Such has been the patient sufferance of these Colonies; and such is now the necessity which constrains them to alter their former Systems of Government. The history of the present King of Great Britain is a history of repeated injuries and usurpations, all having in direct object the establishment of an absolute Tyranny over these States. To prove this, let Facts be submitted to a candid world.",
+      "researchLines": [
+        "L07",
+        "L08",
+        "L09",
+        "L10",
+        "L11",
+        "L12",
+        "L13",
+        "L14",
+        "L15",
+        "L16",
+        "L17"
+      ]
+    },
+    {
+      "id": "L05",
+      "kind": "grievance",
+      "text": "He has refused his Assent to Laws, the most wholesome and necessary for the public good.",
+      "researchLines": [
+        "L18"
+      ]
+    },
+    {
+      "id": "L06",
+      "kind": "grievance",
+      "text": "He has forbidden his Governors to pass Laws of immediate and pressing importance, unless suspended in their operation till his Assent should be obtained; and when so suspended, he has utterly neglected to attend to them.",
+      "researchLines": [
+        "L19",
+        "L20"
+      ]
+    },
+    {
+      "id": "L07",
+      "kind": "grievance",
+      "text": "He has refused to pass other Laws for the accommodation of large districts of people, unless those people would relinquish the right of Representation in the Legislature, a right inestimable to them and formidable to tyrants only.",
+      "researchLines": [
+        "L21",
+        "L22"
+      ]
+    },
+    {
+      "id": "L08",
+      "kind": "grievance",
+      "text": "He has called together legislative bodies at places unusual, uncomfortable, and distant from the depository of their public Records, for the sole purpose of fatiguing them into compliance with his measures.",
+      "researchLines": [
+        "L23",
+        "L24"
+      ]
+    },
+    {
+      "id": "L09",
+      "kind": "grievance",
+      "text": "He has dissolved Representative Houses repeatedly, for opposing with manly firmness his invasions on the rights of the people.",
+      "researchLines": [
+        "L25"
+      ]
+    },
+    {
+      "id": "L10",
+      "kind": "grievance",
+      "text": "He has refused for a long time, after such dissolutions, to cause others to be elected; whereby the Legislative powers, incapable of Annihilation, have returned to the People at large for their exercise; the State remaining in the mean time exposed to all the dangers of invasion from without, and convulsions within.",
+      "researchLines": [
+        "L26",
+        "L27",
+        "L28"
+      ]
+    },
+    {
+      "id": "L11",
+      "kind": "grievance",
+      "text": "He has endeavoured to prevent the population of these States; for that purpose obstructing the Laws for Naturalization of Foreigners; refusing to pass others to encourage their migrations hither, and raising the conditions of new Appropriations of Lands.",
+      "researchLines": [
+        "L29",
+        "L30",
+        "L31"
+      ]
+    },
+    {
+      "id": "L12",
+      "kind": "grievance",
+      "text": "He has obstructed the Administration of Justice, by refusing his Assent to Laws for establishing Judiciary powers.",
+      "researchLines": [
+        "L32"
+      ]
+    },
+    {
+      "id": "L13",
+      "kind": "grievance",
+      "text": "He has made Judges dependent on his Will alone, for the tenure of their offices, and the amount and payment of their salaries.",
+      "researchLines": [
+        "L33"
+      ]
+    },
+    {
+      "id": "L14",
+      "kind": "grievance",
+      "text": "He has erected a multitude of New Offices, and sent hither swarms of Officers to harrass our people, and eat out their substance.",
+      "researchLines": [
+        "L34"
+      ]
+    },
+    {
+      "id": "L15",
+      "kind": "grievance",
+      "text": "He has kept among us, in times of peace, Standing Armies without the Consent of our legislatures.",
+      "researchLines": [
+        "L35"
+      ]
+    },
+    {
+      "id": "L16",
+      "kind": "grievance",
+      "text": "He has affected to render the Military independent of and superior to the Civil power.",
+      "researchLines": [
+        "L36"
+      ]
+    },
+    {
+      "id": "L17",
+      "kind": "grievance",
+      "text": "He has combined with others to subject us to a jurisdiction foreign to our constitution, and unacknowledged by our laws; giving his Assent to their Acts of pretended Legislation:",
+      "researchLines": [
+        "L37",
+        "L38"
+      ]
+    },
+    {
+      "id": "L18",
+      "kind": "grievance",
+      "text": "For Quartering large bodies of armed troops among us:",
+      "researchLines": [
+        "L39"
+      ]
+    },
+    {
+      "id": "L19",
+      "kind": "grievance",
+      "text": "For protecting them, by a mock Trial, from punishment for any Murders which they should commit on the Inhabitants of these States:",
+      "researchLines": [
+        "L40"
+      ]
+    },
+    {
+      "id": "L20",
+      "kind": "grievance",
+      "text": "For cutting off our Trade with all parts of the world:",
+      "researchLines": [
+        "L41"
+      ]
+    },
+    {
+      "id": "L21",
+      "kind": "grievance",
+      "text": "For imposing Taxes on us without our Consent:",
+      "researchLines": [
+        "L42"
+      ]
+    },
+    {
+      "id": "L22",
+      "kind": "grievance",
+      "text": "For depriving us in many cases, of the benefits of Trial by Jury:",
+      "researchLines": [
+        "L43"
+      ]
+    },
+    {
+      "id": "L23",
+      "kind": "grievance",
+      "text": "For transporting us beyond Seas to be tried for pretended offences:",
+      "researchLines": [
+        "L44"
+      ]
+    },
+    {
+      "id": "L24",
+      "kind": "grievance",
+      "text": "For abolishing the free System of English Laws in a neighbouring Province, establishing therein an Arbitrary government, and enlarging its Boundaries so as to render it at once an example and fit instrument for introducing the same absolute rule into these Colonies:",
+      "researchLines": [
+        "L45",
+        "L46",
+        "L47"
+      ]
+    },
+    {
+      "id": "L25",
+      "kind": "grievance",
+      "text": "For taking away our Charters, abolishing our most valuable Laws, and altering fundamentally the Forms of our Governments:",
+      "researchLines": [
+        "L48"
+      ]
+    },
+    {
+      "id": "L26",
+      "kind": "grievance",
+      "text": "For suspending our own Legislatures, and declaring themselves invested with power to legislate for us in all cases whatsoever.",
+      "researchLines": [
+        "L49"
+      ]
+    },
+    {
+      "id": "L27",
+      "kind": "grievance",
+      "text": "He has abdicated Government here, by declaring us out of his Protection and waging War against us.",
+      "researchLines": [
+        "L50"
+      ]
+    },
+    {
+      "id": "L28",
+      "kind": "grievance",
+      "text": "He has plundered our seas, ravaged our Coasts, burnt our towns, and destroyed the lives of our people.",
+      "researchLines": [
+        "L51"
+      ]
+    },
+    {
+      "id": "L29",
+      "kind": "grievance",
+      "text": "He is at this time transporting large Armies of foreign Mercenaries to compleat the works of death, desolation and tyranny, already begun with circumstances of Cruelty & perfidy scarcely paralleled in the most barbarous ages, and totally unworthy the Head of a civilized nation.",
+      "researchLines": [
+        "L52",
+        "L53",
+        "L54"
+      ]
+    },
+    {
+      "id": "L30",
+      "kind": "grievance",
+      "text": "He has constrained our fellow Citizens taken Captive on the high Seas to bear Arms against their Country, to become the executioners of their friends and Brethren, or to fall themselves by their Hands.",
+      "researchLines": [
+        "L55",
+        "L56"
+      ]
+    },
+    {
+      "id": "L31",
+      "kind": "grievance",
+      "text": "He has excited domestic insurrections amongst us, and has endeavoured to bring on the inhabitants of our frontiers, the merciless Indian Savages, whose known rule of warfare, is an undistinguished destruction of all ages, sexes and conditions.",
+      "researchLines": [
+        "L57",
+        "L58",
+        "L59"
+      ]
+    },
+    {
+      "id": "L32",
+      "kind": "body",
+      "text": "In every stage of these Oppressions We have Petitioned for Redress in the most humble terms: Our repeated Petitions have been answered only by repeated injury. A Prince, whose character is thus marked by every act which may define a Tyrant, is unfit to be the ruler of a free people.",
+      "researchLines": [
+        "L60",
+        "L61"
+      ]
+    },
+    {
+      "id": "L33",
+      "kind": "body",
+      "text": "Nor have We been wanting in attentions to our Brittish brethren. We have warned them from time to time of attempts by their legislature to extend an unwarrantable jurisdiction over us. We have reminded them of the circumstances of our emigration and settlement here. We have appealed to their native justice and magnanimity, and we have conjured them by the ties of our common kindred to disavow these usurpations, which, would inevitably interrupt our connections and correspondence. They too have been deaf to the voice of justice and of consanguinity. We must, therefore, acquiesce in the necessity, which denounces our Separation, and hold them, as we hold the rest of mankind, Enemies in War, in Peace Friends.",
+      "researchLines": [
+        "L62",
+        "L63",
+        "L64",
+        "L65",
+        "L66",
+        "L67",
+        "L68"
+      ]
+    },
+    {
+      "id": "L34",
+      "kind": "closing",
+      "text": "We, therefore, the Representatives of the united States of America, in General Congress, Assembled, appealing to the Supreme Judge of the world for the rectitude of our intentions, do, in the Name, and by Authority of the good People of these Colonies, solemnly publish and declare, That these United Colonies are, and of Right ought to be Free and Independent States; that they are Absolved from all Allegiance to the British Crown, and that all political connection between them and the State of Great Britain, is and ought to be totally dissolved; and that as Free and Independent States, they have full Power to levy War, conclude Peace, contract Alliances, establish Commerce, and to do all other Acts and Things which Independent States may of right do. And for the support of this Declaration, with a firm reliance on the protection of divine Providence, we mutually pledge to each other our Lives, our Fortunes and our sacred Honor.",
+      "researchLines": [
+        "L69",
+        "L70",
+        "L71",
+        "L72",
+        "L73",
+        "L74",
+        "L75",
+        "L76",
+        "L77",
+        "L78"
+      ]
+    },
+    {
+      "id": "L35",
+      "kind": "signature",
+      "text": "John Hancock",
+      "researchLines": [
+        "L79"
+      ]
+    }
+  ]
+}

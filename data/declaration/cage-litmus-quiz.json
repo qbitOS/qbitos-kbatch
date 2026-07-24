@@ -1,0 +1,120 @@
+{
+  "schema": "kbatch-declaration-cage-litmus-v1",
+  "generated": "2026-07-24",
+  "title": "Cage-grade litmus · National Treasure lane (fiction labeled)",
+  "doctrine": [
+    "Always pair RAW (engrossed parchment) + STONE (1823 engraving).",
+    "If the Stone pass is all you analyze, you lose raw surface symbology the movie pretends to chase — not dojo-grade, not Cage-grade.",
+    "Movie lore is optional flavor · never replaces primary source analysis.",
+    "Do not apply lemon juice / heat to real artifacts."
+  ],
+  "grades": {
+    "fail": { "max": 0.49, "label": "stone-only fail", "note": "Lost the raw surface · movie-grade confusion" },
+    "dojo": { "min": 0.5, "max": 0.84, "label": "dojo-grade", "note": "Pairs RAW+STONE · separates fact/fiction" },
+    "cage": { "min": 0.85, "label": "Cage-grade", "note": "Material symbology + labeled fiction · would survive a National Treasure audit" }
+  },
+  "labels": {
+    "FACT": "Historically / archivally true (NARA object, material science, real era practice)",
+    "FICTION": "National Treasure (2004) plot invention · fun lane only",
+    "STONE_TRAP": "True of the engraving but false if you treat Stone as the engrossed object — or analysis that ignores RAW"
+  },
+  "items": [
+    {
+      "id": "q01",
+      "claim": "The engrossed Declaration is a real NARA object (Rotunda, Charters of Freedom).",
+      "answer": "FACT",
+      "why": "Primary object under NARA custody; public-domain scans exist of the parchment.",
+      "lane": "archive",
+      "pairRequired": true
+    },
+    {
+      "id": "q02",
+      "claim": "Iron-gall ink fades; the original is far less legible than the Stone engraving.",
+      "answer": "FACT",
+      "why": "Material truth on RAW; Stone was cut when the plate could restore reading contrast.",
+      "lane": "material",
+      "pairRequired": true
+    },
+    {
+      "id": "q03",
+      "claim": "There is a treasure map on the reverse of the Declaration as depicted in National Treasure (2004).",
+      "answer": "FICTION",
+      "why": "Film plot. The movie invents the map-on-the-back device.",
+      "lane": "cage",
+      "pairRequired": false
+    },
+    {
+      "id": "q04",
+      "claim": "The Ottendorf cipher / Silence Dogood trail is a single treasure-hunt script that leads to a Templar vault under Trinity Church as in the film.",
+      "answer": "FICTION",
+      "why": "Cinematic trail. Revolutionary-era invisible ink interest is real; this trail is movie structure.",
+      "lane": "cage",
+      "pairRequired": false
+    },
+    {
+      "id": "q05",
+      "claim": "The primary scholarly method for reading the engrossed Declaration is lemon juice and heat on the parchment.",
+      "answer": "FICTION",
+      "why": "Do not try this on real artifacts. Film gimmick, not conservation practice.",
+      "lane": "cage",
+      "pairRequired": false
+    },
+    {
+      "id": "q06",
+      "claim": "Historical interest in invisible ink and ciphers existed in the Revolutionary era.",
+      "answer": "FACT",
+      "why": "Real tradecraft history. The film invents the specific Declaration-back map plot, not the entire era of secret writing.",
+      "lane": "history",
+      "pairRequired": false
+    },
+    {
+      "id": "q07",
+      "claim": "The Stone engraving (1823, William J. Stone) is the engrossed Declaration itself.",
+      "answer": "STONE_TRAP",
+      "why": "Stone is a copperplate facsimile for legibility — second-generation mark, not the Matlack engrossed sheet.",
+      "lane": "stone-trap",
+      "pairRequired": true
+    },
+    {
+      "id": "q08",
+      "claim": "If you only analyze the high-contrast Stone pass, you still capture iron-gall relief, parchment grain, and fade maps.",
+      "answer": "STONE_TRAP",
+      "why": "Those symbology classes live on RAW. Stone flattens material topography.",
+      "lane": "stone-trap",
+      "pairRequired": true
+    },
+    {
+      "id": "q09",
+      "claim": "Signature-block ductus and ink density variation are best studied on RAW, not only on Stone.",
+      "answer": "FACT",
+      "why": "Raw holds pressure, flourish, biometric-ish hand; Stone regularizes engraved signatures.",
+      "lane": "material",
+      "pairRequired": true
+    },
+    {
+      "id": "q10",
+      "claim": "The Eye of Providence / pyramid is drawn on the engrossed Declaration sheet.",
+      "answer": "FICTION",
+      "why": "Common mix-up. Great Seal imagery is on the reverse of the US one-dollar bill — different object.",
+      "lane": "mix-up",
+      "pairRequired": false
+    },
+    {
+      "id": "q11",
+      "claim": "Dojo / research should always pair RAW + STONE: one for material marks, one for high-contrast reading.",
+      "answer": "FACT",
+      "why": "Project doctrine. Cage-grade requires both panes.",
+      "lane": "doctrine",
+      "pairRequired": true
+    },
+    {
+      "id": "q12",
+      "claim": "Nicolas Cage's character finds the real national treasure using only the Stone engraving without needing the parchment surface.",
+      "answer": "FICTION",
+      "why": "Film fiction either way; also violates the analysisHook — Stone-only loses the surface the movie pretends to chase.",
+      "lane": "cage",
+      "pairRequired": true
+    }
+  ],
+  "agentPrompt": "You are auditing claims about the US Declaration of Independence and National Treasure (2004). For each claim respond with exactly one of: FACT | FICTION | STONE_TRAP and a one-sentence why. FACT = NARA/material/era truth. FICTION = movie invention or unsafe method. STONE_TRAP = confuses Stone engraving with the engrossed object or ignores RAW material symbology. Always affirm that serious analysis pairs RAW parchment + STONE engraving."
+}

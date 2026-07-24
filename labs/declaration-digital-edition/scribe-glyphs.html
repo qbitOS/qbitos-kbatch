@@ -1,0 +1,642 @@
+<!DOCTYPE html>
+<html lang="en" data-history-page="declaration" data-history-open="1">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+  <title>KBatch · Scribe Glyphs — Read Any Document</title>
+  <meta name="description" content="Codex-style calligraphy glyph chunking: numbered letter tiles from any historical document. Declaration title strip + reusable handoff pipeline." />
+  <meta name="theme-color" content="#0f0f0f" />
+  <link rel="stylesheet" href="/css/app.css" />
+  <link rel="stylesheet" href="/css/history-sliderule.css" />
+  <link rel="stylesheet" href="/css/labs.css" />
+  <link rel="stylesheet" href="/css/declaration-edition.css" />
+  <script>
+    (function () {
+      try {
+        var t = localStorage.getItem("kbatch-dict-theme");
+        if (t !== "light" && t !== "dark")
+          t = matchMedia("(prefers-color-scheme: light)").matches ? "light" : "dark";
+        document.documentElement.setAttribute("data-theme", t);
+      } catch (e) {
+        document.documentElement.setAttribute("data-theme", "dark");
+      }
+    })();
+  </script>
+</head>
+<body class="labs-page dec-page">
+  <header class="app-header">
+    <div class="header-inner">
+      <div class="brand-row">
+        <div class="brand">
+          <button type="button" class="theme-toggle" id="theme-toggle" title="Toggle theme" aria-label="Toggle theme">
+            <span class="theme-icon theme-icon--sun" aria-hidden="true">☀</span>
+            <span class="theme-icon theme-icon--moon" aria-hidden="true">☾</span>
+          </button>
+          <h1><span>KBatch</span> Scribe Glyphs</h1>
+          <span class="brand-sub">archival linear path · any document · numbered tiles</span>
+        </div>
+        <nav class="site-nav" aria-label="Site"></nav>
+      </div>
+      <div class="meta-row">
+        <span class="status-line">Codex-style pipeline · Declaration title demo · portable handoff</span>
+      </div>
+    </div>
+  </header>
+
+  <nav class="dec-version-nav" aria-label="Edition">
+    <a href="index.html">Archive workspace</a>
+    <a href="letter-grid.html">Letter-Grid</a>
+    <a href="cage-litmus.html">Cage litmus</a>
+    <a href="world.html">World · multilingual</a>
+    <a href="paleography-hub.html">Paleography</a>
+    <a href="versions.html">All layers</a>
+    <a href="keyboard.html">Path metrics</a>
+    <a href="scribe-glyphs.html" class="active-link">Scribe glyphs</a>
+  </nav>
+
+  <main class="labs-main dec-main" style="max-width: min(1400px, 100%)">
+    <section class="labs-card">
+      <p class="docs-kicker">RAW parchment · Stone · inverted dark-field · penmanship cone (pass 1→4) · full line height</p>
+      <p>
+        <strong>RAW</strong> = NARA engrossed parchment (material symbology + page extras).
+        <strong>STONE</strong> = 1823 engraving (legibility — flattens marks).
+        <strong>Inverted</strong> = dark-field so hairlines read as light.
+        <strong>Cone</strong> = stroke layering: pass 1 core downstrokes → pass 4 hairlines / flourishes / extras.
+        Live dual + cone also on <a href="index.html">archive workspace</a>.
+        Symbology: <a href="/data/declaration/symbology-raw-vs-stone.json">raw vs Stone</a> ·
+        <a href="/data/declaration/penmanship-layers.json">penmanship layers</a>.
+      </p>
+    </section>
+
+    <section class="labs-card sg-compare-hero">
+      <h2>L01 · RAW vs STONE · full line height</h2>
+      <p class="docs-kicker" id="sg-l01-text">IN CONGRESS, July 4, 1776.</p>
+      <div class="sg-pass-grid">
+        <figure class="sg-pass sg-pass-raw">
+          <figcaption><span class="tag raw">RAW</span> Parchment · full sentence · full band height</figcaption>
+          <div class="scribe-strip scribe-strip--fullh">
+            <img src="images/compare/raw/l01-raw-full.jpg" alt="L01 raw parchment full line height" />
+          </div>
+        </figure>
+        <figure class="sg-pass sg-pass-stone">
+          <figcaption><span class="tag stone">STONE</span> Engraving · full sentence · full band height</figcaption>
+          <div class="scribe-strip scribe-strip--fullh">
+            <img src="images/compare/l01-calligraphy-full.jpg" alt="L01 stone full line height" />
+          </div>
+        </figure>
+      </div>
+
+      <h3>Inverted · dark-field comparison</h3>
+      <p class="docs-kicker">Ink as light · hairlines, flourishes, page extras the stone flattens</p>
+      <div class="sg-invert-grid">
+        <figure class="sg-pass">
+          <figcaption><span class="tag invert">INVERT</span> <span class="tag raw">RAW</span></figcaption>
+          <div class="sg-frame-dark">
+            <img src="images/compare/layers/l01/raw-inverted.jpg" alt="L01 raw inverted" />
+          </div>
+        </figure>
+        <figure class="sg-pass">
+          <figcaption><span class="tag invert">INVERT</span> <span class="tag stone">STONE</span></figcaption>
+          <div class="sg-frame-dark">
+            <img src="images/compare/layers/l01/stone-inverted.jpg" alt="L01 stone inverted" />
+          </div>
+        </figure>
+      </div>
+      <figure>
+        <figcaption>Side-by-side inverted pair</figcaption>
+        <div class="sg-frame-dark">
+          <img src="images/compare/layers/l01/raw-stone-inverted-pair.jpg" alt="L01 raw vs stone inverted pair" />
+        </div>
+      </figure>
+
+      <h3>Penmanship layering cone · stroke passes</h3>
+      <p class="docs-kicker">Pass 1 heaviest core → pass 4 hairlines / page extras · step cumulative or solo</p>
+      <div class="sg-cone-controls" id="sg-l01-cone-controls" role="group" aria-label="L01 stroke pass">
+        <button type="button" data-pass="1" class="on">1</button>
+        <button type="button" data-pass="2">2</button>
+        <button type="button" data-pass="3">3</button>
+        <button type="button" data-pass="4">4</button>
+        <button type="button" data-mode="cumulative" class="on">Cumulative 1→N</button>
+        <button type="button" data-mode="solo">Solo pass</button>
+        <button type="button" data-mode="cone">Full cone strip</button>
+      </div>
+      <p class="sg-pass-label" id="sg-l01-pass-label">Pass 1 · core downstrokes · cumulative</p>
+      <div class="sg-cone-frame">
+        <img id="sg-l01-cone-img" src="images/compare/layers/l01/raw-pass1-cumulative.jpg" alt="L01 penmanship cone pass 1" />
+      </div>
+      <p class="docs-kicker">
+        Full stacked cone:
+        <a href="images/compare/layers/l01/raw-layering-cone.jpg">raw-layering-cone.jpg</a>
+      </p>
+
+      <div class="sg-pass-grid">
+        <figure class="sg-pass sg-pass-raw">
+          <figcaption><span class="tag raw">RAW</span> Numbered glyphs · full stroke height</figcaption>
+          <div class="scribe-strip scribe-strip--tiles">
+            <img src="images/compare/raw/l01-raw-glyphs.jpg" alt="L01 raw numbered glyphs" />
+          </div>
+        </figure>
+        <figure class="sg-pass sg-pass-stone">
+          <figcaption><span class="tag stone">STONE</span> Numbered glyphs · full stroke height</figcaption>
+          <div class="scribe-strip scribe-strip--tiles">
+            <img src="images/compare/l01-calligraphy-glyphs.jpg" alt="L01 stone numbered glyphs" />
+          </div>
+        </figure>
+      </div>
+      <figure>
+        <figcaption>Clean ink · engrosser hand preserved (not modern type) · index-locked</figcaption>
+        <div class="scribe-strip scribe-strip--fullh">
+          <img src="images/compare/l01-clean-row.jpg" alt="L01 clean ink full" />
+        </div>
+        <div class="scribe-strip scribe-strip--tiles" style="margin-top:8px">
+          <img src="images/compare/l01-clean-glyphs.jpg" alt="L01 clean ink glyphs" />
+        </div>
+      </figure>
+      <p class="docs-kicker">
+        Stacked dual (raw + stone + clean):
+        <a href="images/compare/l01-dual.jpg">l01-dual.jpg</a>
+      </p>
+    </section>
+
+    <section class="labs-card">
+      <h2>L02 · RAW vs STONE</h2>
+      <p class="docs-kicker">The unanimous Declaration… · full line height</p>
+      <div class="sg-pass-grid">
+        <figure class="sg-pass">
+          <figcaption><span class="tag raw">RAW</span></figcaption>
+          <div class="scribe-strip scribe-strip--fullh">
+            <img src="images/compare/raw/l02-raw-full.jpg" alt="L02 raw" />
+          </div>
+        </figure>
+        <figure class="sg-pass">
+          <figcaption><span class="tag stone">STONE</span></figcaption>
+          <div class="scribe-strip scribe-strip--fullh">
+            <img src="images/compare/l02-calligraphy-full.jpg" alt="L02 stone" />
+          </div>
+        </figure>
+      </div>
+    </section>
+
+    <section class="labs-card">
+      <h2>All lines · RAW + STONE + invert + cone + clean</h2>
+      <p class="docs-kicker">L01–L35 · raw reference · inverted dark-field · stroke passes 1→4 · Stone · full line height</p>
+      <div id="sg-all-strips" class="scribe-all-strips">Loading dual pairs…</div>
+    </section>
+
+    <section class="labs-card">
+      <h2>Physical ink-line folios (Stone engraving)</h2>
+      <p class="docs-kicker">Horizontal band detection · reference grid</p>
+      <div id="sg-phys-folios" class="scribe-all-strips">Loading physical lines…</div>
+    </section>
+
+    <section class="labs-card">
+      <h2>Read any document — handoff builder</h2>
+      <p class="docs-kicker">
+        Paste a path or pick a local image · generate a ready-to-paste Grok handoff ·
+        next chat runs <code>image_edit</code> segmentation
+      </p>
+      <div class="scribe-form">
+        <label>Source image path or URL
+          <input type="text" id="sg-source" placeholder="images/VUmKX.jpg or /path/to/manuscript.jpg" value="images/VUmKX.jpg" />
+        </label>
+        <label>Target line / region
+          <input type="text" id="sg-line" placeholder="title · first body line · opening verse…" value="title" />
+        </label>
+        <label>Output filename
+          <input type="text" id="sg-out" placeholder="glyph-strip-numbered.jpg" value="glyph-strip-numbered.jpg" />
+        </label>
+        <label class="scribe-file">Or choose local file (name only — path for handoff)
+          <input type="file" id="sg-file" accept="image/*" />
+        </label>
+        <div class="scribe-actions">
+          <button type="button" class="btn" id="sg-gen">Generate handoff</button>
+          <button type="button" class="btn" id="sg-copy">Copy handoff</button>
+          <button type="button" class="btn" id="sg-examples">Show CLI examples</button>
+        </div>
+      </div>
+      <pre class="dec-pre" id="sg-handoff" aria-live="polite">Click “Generate handoff”…</pre>
+      <pre class="dec-pre" id="sg-cli" hidden></pre>
+    </section>
+
+    <section class="labs-card">
+      <h2>Terminal (Grok Build / sandbox)</h2>
+      <pre class="dec-pre">cd labs/declaration-digital-edition
+
+# PRIMARY — ink-aligned live geometry (Declaration batch)
+/tmp/kbatch-img/bin/python scribe-live-segment.py --batch-declaration
+# → data/declaration/scribe-geometry/L01.json … L35.json
+# → images/compare/*-calligraphy.jpg + full + glyphs + clean duals
+
+# ANY document line (portable · live analysis after one segment pass)
+/tmp/kbatch-img/bin/python scribe-live-segment.py \
+  -i /path/to/line-strip.jpg \
+  -t "exact line transcript text" \
+  --line-id DOC-L01 \
+  -o /path/to/DOC-L01.json \
+  --render-dir /path/to/out/
+
+# Browser live dual: js/scribe-live.js renderLiveDual({ geometryUrl, calligraphyUrl })
+# Secondary scholarly plates
+/tmp/kbatch-img/bin/python build-hires-sections.py --analysis-only
+</pre>
+      <p class="docs-kicker">
+        Library index: <a href="glyph-library.json">glyph-library.json</a> ·
+        Script: <a href="scribe-analysis-pipeline.py">scribe-analysis-pipeline.py</a>
+      </p>
+    </section>
+
+    <section class="labs-card">
+      <h2>Library</h2>
+      <div id="sg-lib">Loading…</div>
+    </section>
+  </main>
+
+  <footer class="app-footer">
+    Scribe Glyph Pipeline · read any document · Declaration Digital Edition · 2026 ·
+    <a href="/">Dictionary ↗</a>
+  </footer>
+
+  <script type="module">
+    function esc(s) {
+      return String(s ?? "")
+        .replace(/&/g, "&amp;")
+        .replace(/</g, "&lt;")
+        .replace(/>/g, "&gt;");
+    }
+
+    function handoffText(source, line, out) {
+      return `Handoff: Scribe Glyph Analysis Pipeline → Any Document
+
+We are continuing the Codex-style calligraphy / paleography glyph chunking system (KBatch).
+
+Already demonstrated on the Declaration of Independence:
+- Extract a calligraphic line from a high-res document image
+- Split into individual letter / numeral / punctuation glyphs
+- Arrange in one long numbered horizontal row (01, 02, 03…)
+- Preserve original stroke style of the historical hand
+- Save into labs/declaration-digital-edition/images/
+- Update scribe-glyphs.html / glyph-library.json if needed
+
+Source image to process next: ${source}
+Target line / region: ${line}
+Suggested output filename: ${out}
+
+Please:
+1. Run the same glyph-segmentation process on the new source (use image_edit with a precise prompt that isolates the line, splits every character into tiles, arranges them left-to-right with sequential numbers underneath).
+2. Save the resulting long numbered glyph strip into the digital-edition images folder.
+3. Register the strip in glyph-library.json (id, file, source, line, note).
+4. Output a NEW handoff prompt so the process can be repeated on the next document or next line.
+
+Goal: build a reusable library of numbered glyph strips for any historical document so letter-forms can be studied, compared, and reconstructed individually — a portable “read any document” scribe tool.`;
+    }
+
+    const srcEl = document.getElementById("sg-source");
+    const lineEl = document.getElementById("sg-line");
+    const outEl = document.getElementById("sg-out");
+    const box = document.getElementById("sg-handoff");
+    const cli = document.getElementById("sg-cli");
+
+    function gen() {
+      box.textContent = handoffText(
+        srcEl.value.trim() || "[path/to/document.jpg]",
+        lineEl.value.trim() || "title",
+        outEl.value.trim() || "glyph-strip-numbered.jpg"
+      );
+    }
+
+    const PASS_LABELS = {
+      1: "Pass 1 · core downstrokes",
+      2: "Pass 2 · main body",
+      3: "Pass 3 · joins / connections",
+      4: "Pass 4 · hairlines / flourishes / page extras",
+    };
+
+    // L01 cone stepper (hero)
+    (function wireL01Cone() {
+      const controls = document.getElementById("sg-l01-cone-controls");
+      const img = document.getElementById("sg-l01-cone-img");
+      const label = document.getElementById("sg-l01-pass-label");
+      if (!controls || !img) return;
+      let pass = 1;
+      let mode = "cumulative";
+      const base = "images/compare/layers/l01";
+      function url() {
+        if (mode === "cone") return `${base}/raw-layering-cone.jpg`;
+        if (mode === "solo") return `${base}/raw-pass${pass}-solo.jpg`;
+        return `${base}/raw-pass${pass}-cumulative.jpg`;
+      }
+      function refresh() {
+        img.src = url();
+        img.alt = `L01 ${mode} pass ${pass}`;
+        if (label) {
+          const note =
+            mode === "cone"
+              ? "full cone strip (1→4 stacked)"
+              : mode === "solo"
+                ? "solo band only"
+                : `cumulative 1→${pass}`;
+          label.textContent = `${PASS_LABELS[pass]} · ${note}`;
+        }
+        controls.querySelectorAll("[data-pass]").forEach((b) => {
+          b.classList.toggle("on", Number(b.getAttribute("data-pass")) === pass);
+        });
+        controls.querySelectorAll("[data-mode]").forEach((b) => {
+          b.classList.toggle("on", b.getAttribute("data-mode") === mode);
+        });
+      }
+      controls.addEventListener("click", (ev) => {
+        const t = ev.target.closest("button");
+        if (!t) return;
+        if (t.hasAttribute("data-pass")) {
+          pass = Number(t.getAttribute("data-pass")) || 1;
+          if (mode === "cone") mode = "cumulative";
+        }
+        if (t.hasAttribute("data-mode")) mode = t.getAttribute("data-mode") || "cumulative";
+        refresh();
+      });
+      refresh();
+    })();
+
+    // Dual calligraphy+clean library + invert/cone + physical ink bands
+    (async () => {
+      const host = document.getElementById("sg-all-strips");
+      const physHost = document.getElementById("sg-phys-folios");
+      const libEl = document.getElementById("sg-lib");
+      try {
+        const lib = await fetch("glyph-library.json", { cache: "no-cache" }).then((r) => r.json());
+        const strips = lib.strips || [];
+        if (libEl) {
+          libEl.innerHTML = `<p class="docs-kicker">${esc(lib.claim || "")} · ${esc(lib.count)} lines · fullLineHeight ${esc(
+            String(lib.fullLineHeight)
+          )} · invert + cone · ${esc(lib.credit || "")}</p>
+            <ul class="dec-list">${strips
+              .map(
+                (s) =>
+                  `<li><code>${esc(s.lineId || s.id)}</code> ·
+                    ${s.rawFullFile ? `<a href="${esc(s.rawFullFile)}">raw</a> ·` : ""}
+                    <a href="${esc(s.calligraphyFullFile || s.calligraphyFile || s.file)}">stone</a> ·
+                    ${s.rawInverted ? `<a href="${esc(s.rawInverted)}">invert</a> ·` : ""}
+                    ${s.rawLayeringCone ? `<a href="${esc(s.rawLayeringCone)}">cone</a> ·` : ""}
+                    <a href="${esc(s.cleanFile || "#")}">clean</a> ·
+                    <a href="${esc(s.file)}">dual</a></li>`
+              )
+              .join("")}</ul>`;
+        }
+        if (host) {
+          host.innerHTML = strips
+            .map((s) => {
+              const lid = s.lineId || s.id;
+              const raw = s.rawFullFile;
+              const rawG = s.rawGlyphsFile;
+              const full = s.calligraphyFullFile || s.calligraphyFile || s.file;
+              const cg = s.calligraphyGlyphsFile;
+              const cl = s.cleanFile;
+              const g = s.cleanGlyphsFile;
+              const rawInv = s.rawInverted;
+              const stoneInv = s.stoneInverted;
+              const pair = s.invertedPair;
+              const cum1 = (s.rawCumulative || []).find((p) => p.pass === 1)?.file;
+              const cone = s.rawLayeringCone;
+              const low = String(lid || "").toLowerCase();
+              return `<figure class="scribe-strip-fig scribe-dual-fig" data-line-id="${esc(lid)}">
+                <figcaption><strong>${esc(lid)}</strong> · full height · invert · cone · ${esc(
+                String(s.line || "").slice(0, 100)
+              )}</figcaption>
+                <div class="scribe-dual">
+                  ${
+                    raw
+                      ? `<div><span class="scribe-lab tag-raw">RAW parchment · full height</span><div class="scribe-strip scribe-strip--fullh"><img src="${esc(
+                          raw
+                        )}" alt="${esc(lid)} raw" loading="lazy" /></div></div>`
+                      : ""
+                  }
+                  ${
+                    full
+                      ? `<div><span class="scribe-lab tag-stone">STONE engraving · full height</span><div class="scribe-strip scribe-strip--fullh"><img src="${esc(
+                          full
+                        )}" alt="${esc(lid)} stone" loading="lazy" /></div></div>`
+                      : ""
+                  }
+                  ${
+                    rawInv || stoneInv
+                      ? `<div class="sg-invert-grid">
+                    ${
+                      rawInv
+                        ? `<div><span class="scribe-lab tag-raw">RAW inverted</span><div class="sg-frame-dark"><img src="${esc(
+                            rawInv
+                          )}" alt="${esc(lid)} raw invert" loading="lazy" /></div></div>`
+                        : ""
+                    }
+                    ${
+                      stoneInv
+                        ? `<div><span class="scribe-lab tag-stone">STONE inverted</span><div class="sg-frame-dark"><img src="${esc(
+                            stoneInv
+                          )}" alt="${esc(lid)} stone invert" loading="lazy" /></div></div>`
+                        : ""
+                    }
+                  </div>`
+                      : ""
+                  }
+                  ${
+                    pair
+                      ? `<div><span class="scribe-lab">Inverted pair</span><div class="sg-frame-dark"><img src="${esc(
+                          pair
+                        )}" alt="${esc(lid)} invert pair" loading="lazy" /></div></div>`
+                      : ""
+                  }
+                  ${
+                    cum1 || cone
+                      ? `<div class="sg-line-cone" data-line="${esc(low)}">
+                    <span class="scribe-lab">Penmanship cone · pass 1→4</span>
+                    <div class="sg-cone-controls" role="group">
+                      <button type="button" data-pass="1" class="on">1</button>
+                      <button type="button" data-pass="2">2</button>
+                      <button type="button" data-pass="3">3</button>
+                      <button type="button" data-pass="4">4</button>
+                      <button type="button" data-mode="cumulative" class="on">Cum</button>
+                      <button type="button" data-mode="solo">Solo</button>
+                      <button type="button" data-mode="cone">Cone</button>
+                    </div>
+                    <p class="sg-pass-label">${esc(PASS_LABELS[1])} · cumulative</p>
+                    <div class="sg-cone-frame">
+                      <img class="sg-cone-img" src="${esc(
+                        cum1 || cone || `images/compare/layers/${low}/raw-pass1-cumulative.jpg`
+                      )}" alt="${esc(lid)} cone" loading="lazy" />
+                    </div>
+                  </div>`
+                      : ""
+                  }
+                  ${
+                    rawG
+                      ? `<div><span class="scribe-lab tag-raw">RAW numbered · full stroke height</span><div class="scribe-strip scribe-strip--tiles"><img src="${esc(
+                          rawG
+                        )}" alt="${esc(lid)} raw glyphs" loading="lazy" /></div></div>`
+                      : ""
+                  }
+                  ${
+                    cg
+                      ? `<div><span class="scribe-lab tag-stone">STONE numbered · full stroke height</span><div class="scribe-strip scribe-strip--tiles"><img src="${esc(
+                          cg
+                        )}" alt="${esc(lid)} stone glyphs" loading="lazy" /></div></div>`
+                      : ""
+                  }
+                  ${
+                    cl
+                      ? `<div><span class="scribe-lab">Clean ink · engrosser hand preserved</span><div class="scribe-strip scribe-strip--fullh"><img src="${esc(
+                          cl
+                        )}" alt="${esc(lid)} clean ink" loading="lazy" /></div></div>`
+                      : ""
+                  }
+                  ${
+                    g
+                      ? `<div><span class="scribe-lab">Clean ink · numbered · same letterforms</span><div class="scribe-strip scribe-strip--tiles"><img src="${esc(
+                          g
+                        )}" alt="${esc(lid)} clean ink glyphs" loading="lazy" /></div></div>`
+                      : ""
+                  }
+                </div>
+              </figure>`;
+            })
+            .join("");
+
+          // Wire per-line cone steppers (paths from line id)
+          host.querySelectorAll(".sg-line-cone").forEach((block) => {
+            const img = block.querySelector(".sg-cone-img");
+            const label = block.querySelector(".sg-pass-label");
+            const controls = block.querySelector(".sg-cone-controls");
+            const low = block.getAttribute("data-line") || "l01";
+            if (!img || !controls) return;
+            let pass = 1;
+            let mode = "cumulative";
+            const base = `images/compare/layers/${low}`;
+            function url() {
+              if (mode === "cone") return `${base}/raw-layering-cone.jpg`;
+              if (mode === "solo") return `${base}/raw-pass${pass}-solo.jpg`;
+              return `${base}/raw-pass${pass}-cumulative.jpg`;
+            }
+            function refresh() {
+              img.src = url();
+              if (label) {
+                const note =
+                  mode === "cone"
+                    ? "full cone strip"
+                    : mode === "solo"
+                      ? "solo band"
+                      : `cumulative 1→${pass}`;
+                label.textContent = `${PASS_LABELS[pass] || "Pass " + pass} · ${note}`;
+              }
+              controls.querySelectorAll("[data-pass]").forEach((b) => {
+                b.classList.toggle("on", Number(b.getAttribute("data-pass")) === pass);
+              });
+              controls.querySelectorAll("[data-mode]").forEach((b) => {
+                b.classList.toggle("on", b.getAttribute("data-mode") === mode);
+              });
+            }
+            controls.addEventListener("click", (ev) => {
+              const t = ev.target.closest("button");
+              if (!t) return;
+              if (t.hasAttribute("data-pass")) {
+                pass = Number(t.getAttribute("data-pass")) || 1;
+                if (mode === "cone") mode = "cumulative";
+              }
+              if (t.hasAttribute("data-mode")) mode = t.getAttribute("data-mode") || "cumulative";
+              refresh();
+            });
+          });
+        }
+      } catch (e) {
+        if (host) host.textContent = "Could not load glyph-library.json";
+        if (libEl) libEl.textContent = String(e);
+      }
+      // Physical lines from map (first 24 previews)
+      try {
+        const map = await fetch("/data/declaration/physical-line-map.json", { cache: "no-cache" }).then((r) =>
+          r.ok ? r.json() : null
+        );
+        const n = map?.physicalBandCount || map?.bands?.length || 0;
+        const cnt = document.getElementById("sg-phys-count");
+        if (cnt) cnt.textContent = String(n);
+        if (physHost && n) {
+          const items = [];
+          for (let i = 1; i <= Math.min(n, 43); i++) {
+            const id = String(i).padStart(3, "0");
+            items.push(`<figure class="scribe-strip-fig">
+              <figcaption>Physical band ${id}</figcaption>
+              <div class="scribe-strip"><img src="images/folios/physical-lines/phys-${id}.jpg" alt="Physical line ${id}" loading="lazy" /></div>
+            </figure>`);
+          }
+          physHost.innerHTML = items.join("");
+        } else if (physHost) {
+          physHost.textContent = "Run build-calligraphy-folios.py to generate physical bands.";
+        }
+      } catch {
+        if (physHost) physHost.textContent = "Physical line map not loaded.";
+      }
+    })();
+
+    document.getElementById("sg-gen")?.addEventListener("click", gen);
+    document.getElementById("sg-copy")?.addEventListener("click", async () => {
+      gen();
+      try {
+        await navigator.clipboard.writeText(box.textContent);
+        box.textContent = box.textContent + "\n\n// ✓ copied to clipboard";
+      } catch {
+        box.textContent = box.textContent + "\n\n// select-all and copy manually";
+      }
+    });
+    document.getElementById("sg-examples")?.addEventListener("click", () => {
+      cli.hidden = !cli.hidden;
+      cli.textContent = `python3 scribe-analysis-pipeline.py --examples
+
+python3 scribe-analysis-pipeline.py -i images/VUmKX.jpg -l "title" --handoff
+python3 scribe-analysis-pipeline.py -i images/VUmKX.jpg -l "When in the Course of human events" --handoff
+python3 scribe-analysis-pipeline.py -i images/2JNeL.jpg -l "title" --handoff
+python3 scribe-analysis-pipeline.py -i /path/to/any-manuscript.jpg -l "opening line" --handoff`;
+    });
+    document.getElementById("sg-file")?.addEventListener("change", (ev) => {
+      const f = ev.target.files?.[0];
+      if (!f) return;
+      srcEl.value = f.name;
+      // local preview of handoff path hint
+      lineEl.focus();
+    });
+
+    document.getElementById("theme-toggle")?.addEventListener("click", () => {
+      const cur = document.documentElement.getAttribute("data-theme") || "dark";
+      const next = cur === "light" ? "dark" : "light";
+      document.documentElement.setAttribute("data-theme", next);
+      try {
+        localStorage.setItem("kbatch-dict-theme", next);
+      } catch {
+        /* */
+      }
+    });
+
+    gen();
+
+    // library
+    const libEl = document.getElementById("sg-lib");
+    try {
+      const r = await fetch("glyph-library.json", { cache: "no-cache" });
+      const lib = await r.json();
+      const strips = lib.strips || [];
+      libEl.innerHTML =
+        strips.length === 0
+          ? `<p class="docs-kicker">No strips registered yet · run <code>python3 scribe-analysis-pipeline.py --sync-library</code></p>`
+          : `<ul class="scribe-lib-list">${strips
+              .map(
+                (s) =>
+                  `<li><strong>${esc(s.id)}</strong> · <a href="${esc(s.file)}">${esc(
+                    s.file
+                  )}</a><br/><span class="docs-kicker">${esc(s.line || "")} · ${esc(
+                    s.note || ""
+                  )}</span></li>`
+              )
+              .join("")}</ul>`;
+    } catch {
+      libEl.innerHTML = `<p class="docs-kicker">glyph-library.json not loaded · strips still viewable above</p>`;
+    }
+  </script>
+  <script src="/js/site-nav.js" defer></script>
+</body>
+</html>

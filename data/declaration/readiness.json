@@ -1,0 +1,92 @@
+{
+  "schema": "kbatch-declaration-readiness-v1",
+  "generated": "2026-07-23",
+  "question": "Is the Declaration page museum / codex level ready?",
+  "verdict": "partial-codex \u00b7 not full museum-ready",
+  "score": 63,
+  "scoreMax": 100,
+  "headline": "Strong US engrossed archival core + expanding world documentation backbone (theme matrix \u00b7 lineage). Multilingual full texts still scaffolded.",
+  "dimensions": [
+    {
+      "id": "source-integrity",
+      "label": "Primary source integrity",
+      "score": 90,
+      "status": "strong",
+      "notes": "NARA parchment + Stone engraving on disk; public-domain credit; transcript NARA-aligned."
+    },
+    {
+      "id": "paleography-scribe",
+      "label": "Paleography / scribe sectioning",
+      "score": 78,
+      "status": "strong",
+      "notes": "Physical ink bands, dual calligraphy+clean tiles, line sections L01\u2013L35. Not pixel CV ink-trace forensics."
+    },
+    {
+      "id": "deep-zoom-align",
+      "label": "Multi-layer deep zoom alignment",
+      "score": 70,
+      "status": "good",
+      "notes": "UV sector lock line/word/letter. Clean plate uses line-stack mapping (not pixel-identical engrossing)."
+    },
+    {
+      "id": "multilingual-declaration",
+      "label": "Declaration in all languages",
+      "score": 18,
+      "status": "scaffold",
+      "notes": "88-language slots + EN full. 87 planned \u2014 no invented full translations. Needs verified PD sources."
+    },
+    {
+      "id": "world-comparisons",
+      "label": "World declarations / through-lines",
+      "score": 72,
+      "status": "scaffold-plus",
+      "notes": "39 instruments (political + sacred-text + substrate) \u00b7 12 through-lines \u00b7 document-lineage gitgraph \u00b7 theme matrix filters"
+    },
+    {
+      "id": "historical-divergence",
+      "label": "Rule-outline divergence history",
+      "score": 62,
+      "status": "improving",
+      "notes": "Lineage trees (English Bible branches, layered-line substrate, Atlantic political) + concept overlap/divergence maps"
+    },
+    {
+      "id": "site-integration",
+      "label": "Dojo / Research / site access",
+      "score": 65,
+      "status": "improving",
+      "notes": "Nav link present; world hub + catalog hooks added. Dojo/Research/Museum surfaces linked."
+    },
+    {
+      "id": "museum-exhibit",
+      "label": "Museum exhibit polish",
+      "score": 45,
+      "status": "lab-grade",
+      "notes": "Archival tone yes; needs wall labels, object IDs, accessibility audit, offline exhibit kit, curator checklist."
+    },
+    {
+      "id": "codex-completeness",
+      "label": "Codex completeness",
+      "score": 68,
+      "status": "usable-codex",
+      "notes": "Multi-layer codex for US engrossed Declaration is usable for study. Full world multilingual codex is not."
+    }
+  ],
+  "readyFor": [
+    "Public digital study of US engrossed Declaration (calligraphy + clean + metrics)",
+    "Educational through-line teaching on shared hopes / divergences",
+    "Open research scaffolding for multilingual fill-in"
+  ],
+  "notReadyFor": [
+    "Claiming full accurate Declaration text in all 88 languages",
+    "Legal or diplomatic citation without primary archives",
+    "Turnkey museum loan / permanent gallery without accessibility + curator packaging"
+  ],
+  "nextMilestones": [
+    "Ingest verified PD translations (es, fr, de, la, \u2026) line-aligned to L01\u2013L35",
+    "Deepen English Bible branch metadata with public-domain edition witnesses",
+    "Optional ECharts / Apache chart export from theme matrix JSON",
+    "NARA Constitution 4 pages same calligraphy pipeline",
+    "Per-polity divergence timelines (amendments, coups, new charters)",
+    "Museum wall-label export + offline exhibit bundle"
+  ]
+}
