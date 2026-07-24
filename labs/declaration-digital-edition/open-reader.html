@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en" data-history-page="declaration" data-history-open="1">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+  <title>KBatch · Open Reader Search · letter paths · words · punct · intonation · slant</title>
+  <meta
+    name="description"
+    content="mueee-style open reader search on the Declaration: letter paths, words, punctuation, intonation, persona slant. Open hits in the reader pane."
+  />
+  <meta name="theme-color" content="#0c0b0a" />
+  <link rel="stylesheet" href="/css/app.css" />
+  <link rel="stylesheet" href="/css/labs.css" />
+  <link rel="stylesheet" href="/css/declaration-edition.css" />
+  <link rel="stylesheet" href="/css/open-reader-search.css?v=ors1" />
+  <script>
+    (function () {
+      try {
+        var t = localStorage.getItem("kbatch-dict-theme");
+        if (t !== "light" && t !== "dark") t = "dark";
+        document.documentElement.setAttribute("data-theme", t || "dark");
+        document.documentElement.style.colorScheme = t === "light" ? "light" : "dark";
+      } catch (e) {
+        document.documentElement.setAttribute("data-theme", "dark");
+      }
+    })();
+  </script>
+</head>
+<body class="labs-page dec-page ors-page">
+  <header class="app-header">
+    <div class="header-inner">
+      <div class="brand-row">
+        <div class="brand">
+          <button type="button" class="theme-toggle" id="theme-toggle" title="Toggle theme" aria-label="Toggle theme">
+            <span class="theme-icon theme-icon--sun" aria-hidden="true">☀</span>
+            <span class="theme-icon theme-icon--moon" aria-hidden="true">☾</span>
+          </button>
+          <h1><span>KBatch</span> Open Reader</h1>
+          <span class="brand-sub">Letter paths · words · punct · intonation · persona slant</span>
+        </div>
+        <nav class="site-nav" aria-label="Site"></nav>
+      </div>
+      <div class="meta-row">
+        <span class="status-line"
+          >mueee.qbitos.ai open-reader lenses on the codex · accordion hits · reader pane</span
+        >
+      </div>
+    </div>
+  </header>
+
+  <nav class="dec-version-nav" data-dec-nav data-active="open-reader" aria-label="Declaration edition toolbox"></nav>
+
+  <main class="labs-main" style="max-width: min(1100px, 100%)">
+    <div id="ors-mount"></div>
+  </main>
+
+  <footer class="app-footer">
+    Open Reader Search · layered like
+    <a href="https://mueee.qbitos.ai/search.html" target="_blank" rel="noopener">mueee search</a>
+    ·
+    <a href="/">Dictionary ↗</a>
+  </footer>
+
+  <script src="/js/open-reader-search.js?v=ors1"></script>
+  <script>
+    document.getElementById("theme-toggle")?.addEventListener("click", () => {
+      const cur = document.documentElement.getAttribute("data-theme") || "dark";
+      const next = cur === "light" ? "dark" : "light";
+      document.documentElement.setAttribute("data-theme", next);
+      try {
+        localStorage.setItem("kbatch-dict-theme", next);
+      } catch {
+        /* */
+      }
+    });
+    window.__kbatchOpenReaderSearch
+      .mount(document.getElementById("ors-mount"), {
+        dataBase: "/data/declaration",
+      })
+      .catch(function (e) {
+        var m = document.getElementById("ors-mount");
+        if (m)
+          m.innerHTML =
+            '<p class="arc-err">Open reader failed: ' +
+            String(e && e.message ? e.message : e) +
+            "</p>";
+      });
+  </script>
+  <script src="/js/declaration-edition-nav.js" defer></script>
+  <script src="/js/site-nav.js" defer></script>
+</body>
+</html>

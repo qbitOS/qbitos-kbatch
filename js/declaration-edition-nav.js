@@ -75,6 +75,12 @@
       note: "World + material",
       items: [
         {
+          id: "open-reader",
+          label: "Open reader",
+          href: "open-reader.html",
+          tip: "Letter paths · words · punct · intonation · persona slant · mueee-style",
+        },
+        {
           id: "world",
           label: "World",
           href: "world.html",
@@ -131,6 +137,7 @@
     if (L === "saint-tumble") return "saint-tumble";
     if (L === "steno-space-grid") return "steno-space-grid";
     if (L === "cage-games") return "cage-games";
+    if (L === "open-reader") return "open-reader";
     if (L === "world") return "world";
     if (L === "paleography-hub") return "paleography";
     if (L === "versions") return "layers";

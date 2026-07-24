@@ -482,6 +482,7 @@
     var gate = el("div", "ssg-gateway");
     [
       ["letter-grid.html", "Letter-Grid glyphs"],
+      ["open-reader.html", "Open reader"],
       ["saint-tumble.html", "Saint tumble"],
       ["cage-games.html", "Games hub"],
       ["/", "Dictionary Rubik"],
