@@ -14,18 +14,26 @@
 (function (global) {
   "use strict";
 
-  var VER = "declaration-letter-grid-v5-contrails";
+  var VER = "declaration-letter-grid-v6-speed-glow";
   var TARGET_RGB = "rgb(10, 132, 255)";
   /** WebGrid default round length (seconds) */
   var ROUND_S = 70;
   var DEFAULT_N = 12;
   var DEFAULT_HOP_MS = 120; /* MG / human hop pace (sudoku-style report) */
+  var MIN_HOP_MS = 1; /* turbo / agent max */
   var GLYPH_RAIL = 48;
   /** Contrail layers: word-first → sentence jumps → same-letter recognition */
   var CONTRAIL_MODES = [
-    { id: "word", label: "Word firsts", color: "rgba(48,209,88,0.9)", width: 1.4 },
-    { id: "sentence", label: "Sentence jumps", color: "rgba(255,159,10,0.92)", width: 2.0 },
-    { id: "same", label: "Same letter", color: "rgba(100,210,255,0.95)", width: 1.6 },
+    { id: "word", label: "Word firsts", color: "#30d158", width: 1.55 },
+    { id: "sentence", label: "Sentence jumps", color: "#ff9f0a", width: 2.15 },
+    { id: "same", label: "Same letter", color: "#64d2ff", width: 1.7 },
+  ];
+  var SPEED_PRESETS = [
+    { id: "human", label: "120ms", ms: 120 },
+    { id: "fast", label: "60ms", ms: 60 },
+    { id: "rapid", label: "30ms", ms: 30 },
+    { id: "turbo", label: "12ms", ms: 12 },
+    { id: "max", label: "max", ms: 1 },
   ];
   var BEST_KEY = "kbatch.declaration.letterGrid.best";
   var TRIALS_KEY = "kbatch.declaration.letterGrid.trials";
@@ -328,6 +336,12 @@
       },
       contrailFocusLetter: null, /* override; else target glyph letter */
       contrailPts: { word: [], sentence: [], same: [] },
+      cellNodes: null, /* reused DOM buttons for high-speed updates */
+      boardKey: "", /* N|layerStart|mode cache key */
+      contrailRaf: 0,
+      glyphRaf: 0,
+      highSpeed: false, /* hop ≤ 40ms: skip heavy paint */
+      lastContrailPub: 0,
     };
 
     root.innerHTML = "";
@@ -410,6 +424,26 @@
     controls.appendChild(btnN8);
     controls.appendChild(btnN12);
     controls.appendChild(btnN16);
+    /* speed presets for casual + agent */
+    var speedHost = el("span", "dlg-speed-presets");
+    SPEED_PRESETS.forEach(function (sp) {
+      var b = el("button", sp.ms === DEFAULT_HOP_MS ? "on dlg-speed" : "dlg-speed", sp.label);
+      b.type = "button";
+      b.dataset.hop = String(sp.ms);
+      b.title = "Hop " + sp.ms + "ms";
+      b.onclick = function () {
+        state.hopMs = sp.ms;
+        state.highSpeed = sp.ms <= 40;
+        boardHost.classList.toggle("is-turbo", state.highSpeed);
+        speedHost.querySelectorAll("button").forEach(function (x) {
+          x.classList.remove("on");
+        });
+        b.classList.add("on");
+        slog("speed hop " + sp.ms + "ms" + (state.highSpeed ? " · turbo paint" : ""));
+      };
+      speedHost.appendChild(b);
+    });
+    controls.appendChild(speedHost);
     boardTop.appendChild(prompt);
     boardTop.appendChild(controls);
     boardWrap.appendChild(boardTop);
@@ -1203,10 +1237,10 @@
       } else {
         state.targetIdx = -1;
       }
-      paintBoard();
-      paintGlyphRail();
-      paintLayerRail();
-      paintContrails();
+      paintBoard(!!opts.forceFull);
+      scheduleGlyphRail();
+      if (!state.highSpeed || opts.forceFull) paintLayerRail();
+      scheduleContrails();
       if (state.masterPos < state.master.length) {
         var g = state.master[state.masterPos];
         var viewLayer = Math.floor(state.layerStart / need) + 1;
@@ -1215,25 +1249,60 @@
           viewLayer !== playLayer
             ? " · viewing L" + viewLayer + " (play L" + playLayer + ")"
             : "";
-        prompt.innerHTML =
-          "Next glyph <em>" +
-          g.display +
-          "</em> · " +
-          g.lineId +
-          " · master #" +
-          g.gi +
-          " · layer " +
-          playLayer +
-          peek;
+        if (!state.highSpeed || state.masterPos % 4 === 0 || opts.forceFull) {
+          prompt.innerHTML =
+            "Next glyph <em>" +
+            g.display +
+            "</em> · " +
+            g.lineId +
+            " · master #" +
+            g.gi +
+            " · layer " +
+            playLayer +
+            peek;
+        } else {
+          /* turbo: minimal prompt update */
+          var em = prompt.querySelector("em");
+          if (em) em.textContent = g.display;
+          else
+            prompt.innerHTML =
+              "Next <em>" + g.display + "</em> · #" + g.gi + " · L" + playLayer;
+        }
         state.contrailFocusLetter = g.letterKey || g.ch.toUpperCase();
-        paintXref(g.ch.toUpperCase());
-        openLine(g.lineId, g.ch.toUpperCase());
+        if (!state.highSpeed || opts.forceFull) {
+          paintXref(g.ch.toUpperCase());
+          openLine(g.lineId, g.ch.toUpperCase());
+        }
       } else {
         prompt.innerHTML = "Codex complete · start <b>finale wandering path</b>";
         btnFinale.disabled = false;
         btnFinale.classList.add("primary");
       }
       refreshScore();
+    }
+
+    function scheduleContrails() {
+      if (state.contrailRaf) return;
+      var delay = state.highSpeed ? 2 : 0;
+      state.contrailRaf = requestAnimationFrame(function () {
+        state.contrailRaf = 0;
+        paintContrails();
+      });
+      if (delay && !state.highSpeed) {
+        /* no-op; rAF is enough */
+      }
+    }
+
+    function scheduleGlyphRail() {
+      if (state.highSpeed) {
+        if (state.glyphRaf) return;
+        state.glyphRaf = requestAnimationFrame(function () {
+          state.glyphRaf = 0;
+          if (state.masterPos % 3 === 0) paintGlyphRail();
+        });
+        return;
+      }
+      paintGlyphRail();
     }
 
     function focusLetter() {
@@ -1279,46 +1348,151 @@
       };
     }
 
-    function appendPolyline(pts, color, width, cls) {
+    /** Smooth cubic path through points (Catmull-Rom → cubic Bezier) */
+    function smoothPathD(pts) {
+      if (!pts || pts.length < 2) return "";
+      if (pts.length === 2) {
+        return (
+          "M " +
+          pts[0].x.toFixed(2) +
+          " " +
+          pts[0].y.toFixed(2) +
+          " L " +
+          pts[1].x.toFixed(2) +
+          " " +
+          pts[1].y.toFixed(2)
+        );
+      }
+      var d = "M " + pts[0].x.toFixed(2) + " " + pts[0].y.toFixed(2);
+      for (var i = 0; i < pts.length - 1; i++) {
+        var p0 = pts[i === 0 ? i : i - 1];
+        var p1 = pts[i];
+        var p2 = pts[i + 1];
+        var p3 = pts[i + 2 < pts.length ? i + 2 : i + 1];
+        var c1x = p1.x + (p2.x - p0.x) / 6;
+        var c1y = p1.y + (p2.y - p0.y) / 6;
+        var c2x = p2.x - (p3.x - p1.x) / 6;
+        var c2y = p2.y - (p3.y - p1.y) / 6;
+        d +=
+          " C " +
+          c1x.toFixed(2) +
+          " " +
+          c1y.toFixed(2) +
+          ", " +
+          c2x.toFixed(2) +
+          " " +
+          c2y.toFixed(2) +
+          ", " +
+          p2.x.toFixed(2) +
+          " " +
+          p2.y.toFixed(2);
+      }
+      return d;
+    }
+
+    function ensureContrailDefs() {
+      var defs = pathSvg.querySelector("defs");
+      if (defs) return defs;
+      defs = document.createElementNS("http://www.w3.org/2000/svg", "defs");
+      /* glow filters */
+      [
+        { id: "glow-word", color: "#30d158" },
+        { id: "glow-sentence", color: "#ff9f0a" },
+        { id: "glow-same", color: "#64d2ff" },
+        { id: "glow-finale", color: "#0a84ff" },
+      ].forEach(function (f) {
+        var filter = document.createElementNS("http://www.w3.org/2000/svg", "filter");
+        filter.setAttribute("id", f.id);
+        filter.setAttribute("x", "-40%");
+        filter.setAttribute("y", "-40%");
+        filter.setAttribute("width", "180%");
+        filter.setAttribute("height", "180%");
+        var blur = document.createElementNS("http://www.w3.org/2000/svg", "feGaussianBlur");
+        blur.setAttribute("stdDeviation", state.highSpeed ? "0.8" : "1.35");
+        blur.setAttribute("result", "b");
+        var merge = document.createElementNS("http://www.w3.org/2000/svg", "feMerge");
+        var n1 = document.createElementNS("http://www.w3.org/2000/svg", "feMergeNode");
+        n1.setAttribute("in", "b");
+        var n2 = document.createElementNS("http://www.w3.org/2000/svg", "feMergeNode");
+        n2.setAttribute("in", "SourceGraphic");
+        merge.appendChild(n1);
+        merge.appendChild(n2);
+        filter.appendChild(blur);
+        filter.appendChild(merge);
+        defs.appendChild(filter);
+      });
+      pathSvg.appendChild(defs);
+      return defs;
+    }
+
+    function appendGlowTrail(pts, color, width, cls, filterId, dashed) {
       if (!pts || pts.length < 2) return null;
-      var poly = document.createElementNS("http://www.w3.org/2000/svg", "polyline");
-      poly.setAttribute(
-        "points",
-        pts
-          .map(function (p) {
-            return p.x.toFixed(2) + "," + p.y.toFixed(2);
-          })
-          .join(" ")
-      );
-      poly.setAttribute("fill", "none");
-      poly.setAttribute("stroke", color);
-      poly.setAttribute("stroke-width", String(width));
-      poly.setAttribute("stroke-linecap", "round");
-      poly.setAttribute("stroke-linejoin", "round");
-      poly.setAttribute("class", cls || "dlg-contrail-line");
-      pathSvg.appendChild(poly);
-      /* dots at anchors */
-      pts.forEach(function (p, i) {
+      var d = smoothPathD(pts);
+      /* soft underglow */
+      if (!state.highSpeed) {
+        var under = document.createElementNS("http://www.w3.org/2000/svg", "path");
+        under.setAttribute("d", d);
+        under.setAttribute("fill", "none");
+        under.setAttribute("stroke", color);
+        under.setAttribute("stroke-width", String(width * 2.6));
+        under.setAttribute("stroke-opacity", "0.22");
+        under.setAttribute("stroke-linecap", "round");
+        under.setAttribute("stroke-linejoin", "round");
+        under.setAttribute("class", cls + " dlg-contrail-glow");
+        pathSvg.appendChild(under);
+      }
+      var path = document.createElementNS("http://www.w3.org/2000/svg", "path");
+      path.setAttribute("d", d);
+      path.setAttribute("fill", "none");
+      path.setAttribute("stroke", color);
+      path.setAttribute("stroke-width", String(width));
+      path.setAttribute("stroke-linecap", "round");
+      path.setAttribute("stroke-linejoin", "round");
+      path.setAttribute("class", cls || "dlg-contrail-line");
+      if (filterId && !state.highSpeed) path.setAttribute("filter", "url(#" + filterId + ")");
+      if (dashed) {
+        path.setAttribute("stroke-dasharray", "3.2 2.4");
+        if (!state.highSpeed) path.classList.add("dlg-contrail-dash-anim");
+      }
+      pathSvg.appendChild(path);
+      /* anchor beads + tip */
+      var step = state.highSpeed ? Math.max(1, Math.floor(pts.length / 8)) : 1;
+      for (var i = 0; i < pts.length; i += step) {
+        var p = pts[i];
+        var isEnd = i === 0 || i >= pts.length - 1;
         var c = document.createElementNS("http://www.w3.org/2000/svg", "circle");
         c.setAttribute("cx", p.x.toFixed(2));
         c.setAttribute("cy", p.y.toFixed(2));
-        c.setAttribute("r", i === 0 || i === pts.length - 1 ? "1.6" : "1.1");
+        c.setAttribute("r", isEnd ? "1.85" : "1.15");
         c.setAttribute("fill", color);
-        c.setAttribute("class", "dlg-contrail-dot");
+        c.setAttribute("class", "dlg-contrail-dot" + (isEnd ? " is-tip" : ""));
+        if (isEnd && !state.highSpeed) c.setAttribute("filter", "url(#" + filterId + ")");
         pathSvg.appendChild(c);
-      });
-      return poly;
+      }
+      /* bright tip on last point */
+      if (pts.length && !state.highSpeed) {
+        var tip = pts[pts.length - 1];
+        var halo = document.createElementNS("http://www.w3.org/2000/svg", "circle");
+        halo.setAttribute("cx", tip.x.toFixed(2));
+        halo.setAttribute("cy", tip.y.toFixed(2));
+        halo.setAttribute("r", "3.2");
+        halo.setAttribute("fill", color);
+        halo.setAttribute("fill-opacity", "0.28");
+        halo.setAttribute("class", "dlg-contrail-halo");
+        pathSvg.appendChild(halo);
+      }
+      return path;
     }
 
     /**
-     * Draw contrails:
+     * Draw contrails (smooth glow trails):
      *  1) word — first letter of every word on this layer
      *  2) sentence — jumps between sentence-start letters
      *  3) same — same-letter recognition for focus letter
-     * Also publishes path points for Memory Glass __mgContrail / draw.
      */
     function paintContrails() {
       while (pathSvg.firstChild) pathSvg.removeChild(pathSvg.firstChild);
+      ensureContrailDefs();
       var N = state.N;
       var indices = contrailIndicesOnBoard();
       var any =
@@ -1330,7 +1504,7 @@
       if (!any && state.mode !== "finale") {
         pathSvg.style.opacity = "0";
         state.contrailPts = { word: [], sentence: [], same: [] };
-        if (contrailMeta) {
+        if (contrailMeta && !state.highSpeed) {
           contrailMeta.textContent =
             "contrails · focus " +
             focusLetter() +
@@ -1344,6 +1518,7 @@
         return;
       }
       pathSvg.style.opacity = "1";
+      pathSvg.classList.toggle("is-turbo", state.highSpeed);
 
       var ptsWord = indices.word.map(function (i) {
         return idxToSvgPt(i, N);
@@ -1357,37 +1532,41 @@
       state.contrailPts = { word: ptsWord, sentence: ptsSent, same: ptsSame };
 
       if (state.contrail.word) {
-        appendPolyline(ptsWord, "rgba(48,209,88,0.88)", 1.35, "dlg-contrail-word");
+        appendGlowTrail(ptsWord, "#30d158", 1.5, "dlg-contrail-word", "glow-word", false);
       }
       if (state.contrail.sentence) {
-        appendPolyline(ptsSent, "rgba(255,159,10,0.92)", 2.05, "dlg-contrail-sentence");
+        appendGlowTrail(ptsSent, "#ff9f0a", 2.1, "dlg-contrail-sentence", "glow-sentence", true);
       }
       if (state.contrail.same) {
-        appendPolyline(ptsSame, "rgba(100,210,255,0.92)", 1.55, "dlg-contrail-same");
+        appendGlowTrail(ptsSame, "#64d2ff", 1.65, "dlg-contrail-same", "glow-same", false);
       }
 
-      /* finale path (blue) still drawn when in finale mode */
       if (state.mode === "finale" && state.path.length) {
         var fpts = [];
         for (var i = 0; i <= Math.min(state.pathStep, state.path.length - 1); i++) {
           fpts.push(idxToSvgPt(state.path[i], N));
         }
-        appendPolyline(fpts, "rgba(10,132,255,0.9)", 1.4, "dlg-contrail-finale");
+        appendGlowTrail(fpts, "#0a84ff", 1.55, "dlg-contrail-finale", "glow-finale", false);
       }
 
       if (contrailMeta) {
         contrailMeta.textContent =
           "contrails · " +
           focusLetter() +
-          " · word " +
+          " · W" +
           ptsWord.length +
-          " · sent " +
+          " · S" +
           ptsSent.length +
-          " · same " +
-          ptsSame.length;
+          " · =" +
+          ptsSame.length +
+          (state.highSpeed ? " · turbo" : "");
       }
 
-      publishContrailToMg(ptsWord, ptsSent, ptsSame);
+      var now = Date.now();
+      if (!state.highSpeed || now - state.lastContrailPub > 80) {
+        state.lastContrailPub = now;
+        publishContrailToMg(ptsWord, ptsSent, ptsSame);
+      }
     }
 
     function publishContrailToMg(word, sent, same) {
@@ -1451,16 +1630,47 @@
       } catch (e2) {}
     }
 
-    function paintBoard() {
-      board.innerHTML = "";
+    function paintBoard(forceFull) {
+      var key = state.N + "|" + state.layerStart + "|" + state.mode + "|" + state.cells.length;
+      var reuse =
+        !forceFull &&
+        state.cellNodes &&
+        state.cellNodes.length === state.cells.length &&
+        state.boardKey === key;
       board.style.gridTemplateColumns = "repeat(" + state.N + ", 1fr)";
+      boardHost.classList.toggle("is-turbo", state.highSpeed);
       var letter = focusLetter();
+
+      if (!reuse) {
+        board.innerHTML = "";
+        state.cellNodes = [];
+        state.boardKey = key;
+        state.cells.forEach(function (c, idx) {
+          var cell = el("button", "dlg-cell", c.display || "·");
+          cell.type = "button";
+          cell.dataset.idx = String(idx);
+          if (c.gi >= 0) cell.dataset.gi = String(c.gi);
+          if (c.letterKey) cell.dataset.letter = c.letterKey;
+          cell.onclick = function () {
+            if (c.letterKey && !c.pad) state.contrailFocusLetter = c.letterKey;
+            onCell(idx);
+          };
+          board.appendChild(cell);
+          state.cellNodes.push(cell);
+        });
+      }
+
+      /* incremental class/state update (fast path for high speed) */
       state.cells.forEach(function (c, idx) {
-        var cell = el("button", "dlg-cell", c.display || "·");
-        cell.type = "button";
+        var cell = state.cellNodes[idx];
+        if (!cell) return;
+        if (!reuse) cell.textContent = c.display || "·";
+        cell.className = "dlg-cell";
         if (c.pad) cell.classList.add("is-pad");
-        if (c.wordStart) cell.classList.add("is-word-start");
-        if (c.sentenceStart) cell.classList.add("is-sentence-start");
+        if (!state.highSpeed) {
+          if (c.wordStart) cell.classList.add("is-word-start");
+          if (c.sentenceStart) cell.classList.add("is-sentence-start");
+        }
         if (
           !c.pad &&
           letter &&
@@ -1477,20 +1687,8 @@
           if (pidx === state.pathStep) cell.classList.add("is-target", "is-path-head");
           if (pidx > state.pathStep) cell.classList.add("is-path-future");
         }
-        cell.dataset.idx = String(idx);
-        if (c.gi >= 0) cell.dataset.gi = String(c.gi);
-        if (c.letterKey) cell.dataset.letter = c.letterKey;
-        cell.onclick = function () {
-          /* click same-letter cell sets focus for recognition trail */
-          if (c.letterKey && !c.pad) {
-            state.contrailFocusLetter = c.letterKey;
-          }
-          onCell(idx);
-          paintContrails();
-        };
-        board.appendChild(cell);
       });
-      paintContrails();
+      scheduleContrails();
     }
 
     function paintPathSvg(show) {
@@ -1791,15 +1989,17 @@
     };
     function setN(n, btn) {
       state.N = n;
+      state.cellNodes = null;
+      state.boardKey = "";
       [btnN8, btnN12, btnN16].forEach(function (b) {
         b.classList.remove("on");
       });
       btn.classList.add("on");
       mGrid.b.textContent = n + "×" + n;
       if (state.playing && state.mode === "finale") startFinale();
-      else if (state.playing) dealCodexBoard();
+      else if (state.playing) dealCodexBoard({ forceFull: true });
       else {
-        dealCodexBoard();
+        dealCodexBoard({ forceFull: true });
         refreshScore();
       }
     }
@@ -1889,8 +2089,12 @@
     function agentPlay(optsA) {
       optsA = optsA || {};
       var paceMs = optsA.paceMs != null ? optsA.paceMs : state.hopMs || DEFAULT_HOP_MS;
+      paceMs = Math.max(MIN_HOP_MS, Number(paceMs) || DEFAULT_HOP_MS);
       var maxHits = optsA.maxHits != null ? optsA.maxHits : 1e9;
       var open = !!optsA.openCodex;
+      state.hopMs = paceMs;
+      state.highSpeed = paceMs <= 40;
+      boardHost.classList.toggle("is-turbo", state.highSpeed);
       startRound({
         openCodex: open,
         agent: true,
@@ -1898,10 +2102,12 @@
       });
       return new Promise(function (resolve) {
         var n = 0;
+        var last = 0;
         function done() {
+          state.highSpeed = state.hopMs <= 40;
           resolve(state.lastReport || buildScoreReport("agent"));
         }
-        function tick() {
+        function tick(ts) {
           if (state.phase === "end" || (!state.playing && state.phase !== "playing")) {
             done();
             return;
@@ -1911,23 +2117,46 @@
             done();
             return;
           }
-          var idx = -1;
-          if (state.mode === "finale") {
-            idx = state.path[state.pathStep];
-          } else {
-            idx = state.targetIdx;
+          /* pace gate for high-speed: batch by time budget */
+          if (paceMs > 0 && last && ts - last < paceMs - 0.5) {
+            requestAnimationFrame(tick);
+            return;
           }
-          if (idx >= 0) {
+          last = ts || performance.now();
+          var budget = paceMs <= 4 ? 12 : paceMs <= 16 ? 4 : 1; /* multi-hit per frame at max */
+          var k = 0;
+          while (k < budget && n < maxHits && state.playing && state.phase === "playing") {
+            var idx = -1;
+            if (state.mode === "finale") {
+              idx = state.path[state.pathStep];
+            } else {
+              idx = state.targetIdx;
+            }
+            if (idx < 0) break;
             onCell(idx);
             n++;
+            k++;
+            if (state.phase === "end") break;
           }
           if (state.phase === "end") {
             done();
             return;
           }
-          setTimeout(tick, paceMs);
+          if (paceMs <= 0) {
+            requestAnimationFrame(tick);
+          } else if (paceMs <= 8) {
+            requestAnimationFrame(tick);
+          } else {
+            setTimeout(function () {
+              requestAnimationFrame(tick);
+            }, 0);
+          }
         }
-        setTimeout(tick, 30);
+        requestAnimationFrame(function () {
+          setTimeout(function () {
+            requestAnimationFrame(tick);
+          }, 16);
+        });
       });
     }
 
@@ -2048,7 +2277,9 @@
             else setN(12, btnN12);
           },
           setHop: function (ms) {
-            state.hopMs = Math.max(8, Number(ms) || DEFAULT_HOP_MS);
+            state.hopMs = Math.max(MIN_HOP_MS, Number(ms) || DEFAULT_HOP_MS);
+            state.highSpeed = state.hopMs <= 40;
+            boardHost.classList.toggle("is-turbo", state.highSpeed);
             return state.hopMs;
           },
           snapshot: snapshotNow,
@@ -2110,6 +2341,8 @@
     ver: VER,
     ROUND_S: ROUND_S,
     DEFAULT_HOP_MS: DEFAULT_HOP_MS,
+    MIN_HOP_MS: MIN_HOP_MS,
+    SPEED_PRESETS: SPEED_PRESETS,
     mount: mount,
     bpsFromNtpm: bpsFromNtpm,
     bpsFactor: bpsFactor,

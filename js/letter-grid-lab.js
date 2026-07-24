@@ -302,7 +302,8 @@
       '<section class="lgl-card"><h3>Benchmark controls</h3>' +
       '<div class="lgl-bench-form">' +
       '<label>Rounds <input id="lgl-rounds" type="number" min="1" max="10" value="1" /></label>' +
-      '<label>Hop ms <input id="lgl-hop" type="number" min="8" max="500" value="120" /></label>' +
+      '<label>Hop ms <input id="lgl-hop" type="number" min="1" max="500" value="120" /></label>' +
+      '<span class="lgl-hint">1–12ms = turbo paint · multi-hit frames</span>' +
       '<label>N <select id="lgl-n"><option value="8">8</option><option value="12" selected>12</option><option value="16">16</option></select></label>' +
       '<label>Round s <input id="lgl-round-s" type="number" min="10" max="120" value="70" /></label>' +
       '<label class="lgl-check"><input type="checkbox" id="lgl-contrails" checked /> Contrails on</label>' +
@@ -664,7 +665,7 @@
         return;
       }
       var rounds = Math.max(1, Math.min(10, parseInt(paneBench.querySelector("#lgl-rounds").value, 10) || 1));
-      var hop = Math.max(8, parseInt(paneBench.querySelector("#lgl-hop").value, 10) || 120);
+      var hop = Math.max(1, parseInt(paneBench.querySelector("#lgl-hop").value, 10) || 120);
       var N = parseInt(paneBench.querySelector("#lgl-n").value, 10) || 12;
       var roundS = Math.max(10, parseInt(paneBench.querySelector("#lgl-round-s").value, 10) || 70);
       var contrailsOn = paneBench.querySelector("#lgl-contrails").checked;
