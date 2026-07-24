@@ -1,0 +1,528 @@
+{
+  "id": "L01",
+  "kind": "title",
+  "text": "IN CONGRESS, July 4, 1776.",
+  "charCount": 26,
+  "letterCount": 14,
+  "wordCount": 5,
+  "sentenceCount": 1,
+  "counts": {
+    "chars": 26,
+    "letters": 14,
+    "upper": 11,
+    "lower": 3,
+    "digits": 5,
+    "punct": 3,
+    "spaces": 4,
+    "words": 5,
+    "sentences": 1,
+    "ascenders": 17,
+    "descenders": 1
+  },
+  "metrics": {
+    "upperRatio": 0.7857,
+    "lowerRatio": 0.2143,
+    "ascDescDensity": 0.6923,
+    "avgWordLen": 4.4,
+    "spaceRatio": 0.1538,
+    "lineHeightHint": "display-majuscule"
+  },
+  "glyphs": [
+    {
+      "i": 0,
+      "n": 1,
+      "ch": "I",
+      "class": "upper",
+      "display": "I",
+      "word": 0,
+      "x0": 0,
+      "x1": 0.038461538461538464,
+      "cx": 0.019230769230769232,
+      "ascender": true,
+      "descender": false
+    },
+    {
+      "i": 1,
+      "n": 2,
+      "ch": "N",
+      "class": "upper",
+      "display": "N",
+      "word": 0,
+      "x0": 0.038461538461538464,
+      "x1": 0.07692307692307693,
+      "cx": 0.057692307692307696,
+      "ascender": true,
+      "descender": false
+    },
+    {
+      "i": 2,
+      "n": 3,
+      "ch": " ",
+      "class": "space",
+      "display": "␣",
+      "word": -1,
+      "x0": 0.07692307692307693,
+      "x1": 0.11538461538461539,
+      "cx": 0.09615384615384616,
+      "ascender": false,
+      "descender": false
+    },
+    {
+      "i": 3,
+      "n": 4,
+      "ch": "C",
+      "class": "upper",
+      "display": "C",
+      "word": 1,
+      "x0": 0.11538461538461539,
+      "x1": 0.15384615384615385,
+      "cx": 0.1346153846153846,
+      "ascender": true,
+      "descender": false
+    },
+    {
+      "i": 4,
+      "n": 5,
+      "ch": "O",
+      "class": "upper",
+      "display": "O",
+      "word": 1,
+      "x0": 0.15384615384615385,
+      "x1": 0.19230769230769232,
+      "cx": 0.17307692307692307,
+      "ascender": true,
+      "descender": false
+    },
+    {
+      "i": 5,
+      "n": 6,
+      "ch": "N",
+      "class": "upper",
+      "display": "N",
+      "word": 1,
+      "x0": 0.19230769230769232,
+      "x1": 0.23076923076923078,
+      "cx": 0.21153846153846154,
+      "ascender": true,
+      "descender": false
+    },
+    {
+      "i": 6,
+      "n": 7,
+      "ch": "G",
+      "class": "upper",
+      "display": "G",
+      "word": 1,
+      "x0": 0.23076923076923078,
+      "x1": 0.2692307692307692,
+      "cx": 0.25,
+      "ascender": true,
+      "descender": false
+    },
+    {
+      "i": 7,
+      "n": 8,
+      "ch": "R",
+      "class": "upper",
+      "display": "R",
+      "word": 1,
+      "x0": 0.2692307692307692,
+      "x1": 0.3076923076923077,
+      "cx": 0.28846153846153844,
+      "ascender": true,
+      "descender": false
+    },
+    {
+      "i": 8,
+      "n": 9,
+      "ch": "E",
+      "class": "upper",
+      "display": "E",
+      "word": 1,
+      "x0": 0.3076923076923077,
+      "x1": 0.34615384615384615,
+      "cx": 0.3269230769230769,
+      "ascender": true,
+      "descender": false
+    },
+    {
+      "i": 9,
+      "n": 10,
+      "ch": "S",
+      "class": "upper",
+      "display": "S",
+      "word": 1,
+      "x0": 0.34615384615384615,
+      "x1": 0.38461538461538464,
+      "cx": 0.36538461538461536,
+      "ascender": true,
+      "descender": false
+    },
+    {
+      "i": 10,
+      "n": 11,
+      "ch": "S",
+      "class": "upper",
+      "display": "S",
+      "word": 1,
+      "x0": 0.38461538461538464,
+      "x1": 0.4230769230769231,
+      "cx": 0.40384615384615385,
+      "ascender": true,
+      "descender": false
+    },
+    {
+      "i": 11,
+      "n": 12,
+      "ch": ",",
+      "class": "punct",
+      "display": ",",
+      "word": 1,
+      "x0": 0.4230769230769231,
+      "x1": 0.46153846153846156,
+      "cx": 0.4423076923076923,
+      "ascender": false,
+      "descender": false
+    },
+    {
+      "i": 12,
+      "n": 13,
+      "ch": " ",
+      "class": "space",
+      "display": "␣",
+      "word": -1,
+      "x0": 0.46153846153846156,
+      "x1": 0.5,
+      "cx": 0.4807692307692308,
+      "ascender": false,
+      "descender": false
+    },
+    {
+      "i": 13,
+      "n": 14,
+      "ch": "J",
+      "class": "upper",
+      "display": "J",
+      "word": 2,
+      "x0": 0.5,
+      "x1": 0.5384615384615384,
+      "cx": 0.5192307692307693,
+      "ascender": true,
+      "descender": false
+    },
+    {
+      "i": 14,
+      "n": 15,
+      "ch": "u",
+      "class": "lower",
+      "display": "u",
+      "word": 2,
+      "x0": 0.5384615384615384,
+      "x1": 0.5769230769230769,
+      "cx": 0.5576923076923077,
+      "ascender": false,
+      "descender": false
+    },
+    {
+      "i": 15,
+      "n": 16,
+      "ch": "l",
+      "class": "lower",
+      "display": "l",
+      "word": 2,
+      "x0": 0.5769230769230769,
+      "x1": 0.6153846153846154,
+      "cx": 0.5961538461538461,
+      "ascender": true,
+      "descender": false
+    },
+    {
+      "i": 16,
+      "n": 17,
+      "ch": "y",
+      "class": "lower",
+      "display": "y",
+      "word": 2,
+      "x0": 0.6153846153846154,
+      "x1": 0.6538461538461539,
+      "cx": 0.6346153846153846,
+      "ascender": false,
+      "descender": true
+    },
+    {
+      "i": 17,
+      "n": 18,
+      "ch": " ",
+      "class": "space",
+      "display": "␣",
+      "word": -1,
+      "x0": 0.6538461538461539,
+      "x1": 0.6923076923076923,
+      "cx": 0.6730769230769231,
+      "ascender": false,
+      "descender": false
+    },
+    {
+      "i": 18,
+      "n": 19,
+      "ch": "4",
+      "class": "digit",
+      "display": "4",
+      "word": 3,
+      "x0": 0.6923076923076923,
+      "x1": 0.7307692307692307,
+      "cx": 0.7115384615384616,
+      "ascender": true,
+      "descender": false
+    },
+    {
+      "i": 19,
+      "n": 20,
+      "ch": ",",
+      "class": "punct",
+      "display": ",",
+      "word": 3,
+      "x0": 0.7307692307692307,
+      "x1": 0.7692307692307693,
+      "cx": 0.75,
+      "ascender": false,
+      "descender": false
+    },
+    {
+      "i": 20,
+      "n": 21,
+      "ch": " ",
+      "class": "space",
+      "display": "␣",
+      "word": -1,
+      "x0": 0.7692307692307693,
+      "x1": 0.8076923076923077,
+      "cx": 0.7884615384615384,
+      "ascender": false,
+      "descender": false
+    },
+    {
+      "i": 21,
+      "n": 22,
+      "ch": "1",
+      "class": "digit",
+      "display": "1",
+      "word": 4,
+      "x0": 0.8076923076923077,
+      "x1": 0.8461538461538461,
+      "cx": 0.8269230769230769,
+      "ascender": true,
+      "descender": false
+    },
+    {
+      "i": 22,
+      "n": 23,
+      "ch": "7",
+      "class": "digit",
+      "display": "7",
+      "word": 4,
+      "x0": 0.8461538461538461,
+      "x1": 0.8846153846153846,
+      "cx": 0.8653846153846154,
+      "ascender": true,
+      "descender": false
+    },
+    {
+      "i": 23,
+      "n": 24,
+      "ch": "7",
+      "class": "digit",
+      "display": "7",
+      "word": 4,
+      "x0": 0.8846153846153846,
+      "x1": 0.9230769230769231,
+      "cx": 0.9038461538461539,
+      "ascender": true,
+      "descender": false
+    },
+    {
+      "i": 24,
+      "n": 25,
+      "ch": "6",
+      "class": "digit",
+      "display": "6",
+      "word": 4,
+      "x0": 0.9230769230769231,
+      "x1": 0.9615384615384616,
+      "cx": 0.9423076923076923,
+      "ascender": true,
+      "descender": false
+    },
+    {
+      "i": 25,
+      "n": 26,
+      "ch": ".",
+      "class": "punct",
+      "display": ".",
+      "word": 4,
+      "x0": 0.9615384615384616,
+      "x1": 1,
+      "cx": 0.9807692307692307,
+      "ascender": false,
+      "descender": false
+    }
+  ],
+  "words": [
+    {
+      "i": 0,
+      "text": "IN",
+      "start": 0,
+      "end": 1,
+      "len": 2,
+      "x0": 0,
+      "x1": 0.07692307692307693
+    },
+    {
+      "i": 1,
+      "text": "CONGRESS,",
+      "start": 3,
+      "end": 11,
+      "len": 9,
+      "x0": 0.11538461538461539,
+      "x1": 0.46153846153846156
+    },
+    {
+      "i": 2,
+      "text": "July",
+      "start": 13,
+      "end": 16,
+      "len": 4,
+      "x0": 0.5,
+      "x1": 0.6538461538461539
+    },
+    {
+      "i": 3,
+      "text": "4,",
+      "start": 18,
+      "end": 19,
+      "len": 2,
+      "x0": 0.6923076923076923,
+      "x1": 0.7692307692307693
+    },
+    {
+      "i": 4,
+      "text": "1776.",
+      "start": 21,
+      "end": 25,
+      "len": 5,
+      "x0": 0.8076923076923077,
+      "x1": 1
+    }
+  ],
+  "sentences": [
+    {
+      "i": 0,
+      "text": "IN CONGRESS, July 4, 1776.",
+      "start": 0,
+      "end": 25,
+      "len": 26,
+      "x0": 0,
+      "x1": 1
+    }
+  ],
+  "runs": [
+    {
+      "start": 0,
+      "end": 1,
+      "class": "upper",
+      "text": "IN",
+      "len": 2
+    },
+    {
+      "start": 2,
+      "end": 2,
+      "class": "space",
+      "text": " ",
+      "len": 1
+    },
+    {
+      "start": 3,
+      "end": 10,
+      "class": "upper",
+      "text": "CONGRESS",
+      "len": 8
+    },
+    {
+      "start": 11,
+      "end": 11,
+      "class": "punct",
+      "text": ",",
+      "len": 1
+    },
+    {
+      "start": 12,
+      "end": 12,
+      "class": "space",
+      "text": " ",
+      "len": 1
+    },
+    {
+      "start": 13,
+      "end": 13,
+      "class": "upper",
+      "text": "J",
+      "len": 1
+    },
+    {
+      "start": 14,
+      "end": 16,
+      "class": "lower",
+      "text": "uly",
+      "len": 3
+    },
+    {
+      "start": 17,
+      "end": 17,
+      "class": "space",
+      "text": " ",
+      "len": 1
+    },
+    {
+      "start": 18,
+      "end": 18,
+      "class": "digit",
+      "text": "4",
+      "len": 1
+    },
+    {
+      "start": 19,
+      "end": 19,
+      "class": "punct",
+      "text": ",",
+      "len": 1
+    },
+    {
+      "start": 20,
+      "end": 20,
+      "class": "space",
+      "text": " ",
+      "len": 1
+    },
+    {
+      "start": 21,
+      "end": 24,
+      "class": "digit",
+      "text": "1776",
+      "len": 4
+    },
+    {
+      "start": 25,
+      "end": 25,
+      "class": "punct",
+      "text": ".",
+      "len": 1
+    }
+  ],
+  "sectioned": true,
+  "method": "transcript-exact-sectioning-v2-dense",
+  "epistemic": "Exact character/word geometry from NARA public-domain transcript · densified research lines · not pixel CV ink tracing · educational",
+  "parentEngrossed": "L01",
+  "parentIndex": 0,
+  "researchUnit": 1,
+  "researchOf": 1
+}

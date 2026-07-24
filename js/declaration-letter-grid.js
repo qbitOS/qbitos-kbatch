@@ -1,33 +1,19 @@
 /**
- * Declaration Letter-Grid · WebGrid-style square-chunk litmus
- * Neuralink-inspired: BPS ≈ log2(N²-1) * NTPM/60 · target rgb(10,132,255)
- * Document gateway: line unlock stair + letter cross-reference → archive lines
+ * Declaration Letter-Grid v2 · full-document layer passes
+ * · Master small glyphs in reading order through the entire codex
+ * · Layer = square chunk of the master stream (WebGrid grammar)
+ * · Finale = wandering path of letters across the board
+ *
+ * BPS ≈ log2(N²-1) * NTPM/60 · target rgb(10,132,255)
  */
 (function (global) {
   "use strict";
 
-  var VER = "declaration-letter-grid-v1";
+  var VER = "declaration-letter-grid-v2-codex";
   var TARGET_RGB = "rgb(10, 132, 255)";
-  var ROUND_MS = 70000;
+  var ROUND_MS = 0; /* 0 = open codex pass (no timer); timed optional */
   var DEFAULT_N = 12;
-
-  /** Growth stair · document gateway stages */
-  var STAIRS = [
-    { id: "S0", label: "Title", lines: ["L01", "L02"], unlockDoc: true },
-    { id: "S1", label: "Preamble", lines: ["L03"], unlockDoc: true },
-    { id: "S2", label: "Self-evident", lines: ["L04"], unlockDoc: true },
-    { id: "S3", label: "Grievances 1–6", lines: ["L05", "L06", "L07", "L08", "L09", "L10"], unlockDoc: true },
-    { id: "S4", label: "Grievances 7–15", lines: lineRange(11, 19), unlockDoc: true },
-    { id: "S5", label: "Grievances 16–27", lines: lineRange(20, 31), unlockDoc: true },
-    { id: "S6", label: "Close · free", lines: lineRange(32, 35), unlockDoc: true },
-    { id: "S7", label: "Full codex", lines: lineRange(1, 35), unlockDoc: true },
-  ];
-
-  function lineRange(a, b) {
-    var out = [];
-    for (var i = a; i <= b; i++) out.push("L" + String(i).padStart(2, "0"));
-    return out;
-  }
+  var GLYPH_RAIL = 48;
 
   function log2(x) {
     return Math.log(x) / Math.LN2;
@@ -46,111 +32,98 @@
     });
   }
 
-  function buildLetterStream(lines, allowedIds) {
-    var allow = null;
-    if (allowedIds && allowedIds.length) {
-      allow = {};
-      allowedIds.forEach(function (id) {
-        allow[id] = true;
-      });
-    }
-    var stream = [];
-    var xref = {}; /* letter -> [{lineId, i, ch, word}] */
+  /** Ordered master glyph stream (letters only) through entire document */
+  function buildMaster(lines) {
+    var master = [];
+    var xref = {};
     lines.forEach(function (ln) {
-      if (allow && !allow[ln.id]) return;
       var text = ln.text || "";
       for (var i = 0; i < text.length; i++) {
         var ch = text[i];
-        var isLetter = /[A-Za-z]/.test(ch);
+        if (!/[A-Za-z]/.test(ch)) continue;
+        var gi = master.length;
         var entry = {
+          gi: gi,
           lineId: ln.id,
           i: i,
           ch: ch,
-          display: ch === " " ? "·" : ch,
-          isLetter: isLetter,
+          display: ch,
           kind: ln.kind || "body",
+          parent: ln.parentEngrossed || ln.id,
         };
-        stream.push(entry);
-        if (isLetter) {
-          var key = ch.toUpperCase();
-          if (!xref[key]) xref[key] = [];
-          xref[key].push({ lineId: ln.id, i: i, ch: ch });
-        }
+        master.push(entry);
+        var key = ch.toUpperCase();
+        if (!xref[key]) xref[key] = [];
+        xref[key].push({ lineId: ln.id, i: i, ch: ch, gi: gi });
       }
     });
-    return { stream: stream, xref: xref };
+    return { master: master, xref: xref };
   }
 
-  function lineTextMap(lines) {
-    var m = {};
-    lines.forEach(function (ln) {
-      m[ln.id] = ln;
-    });
-    return m;
-  }
-
-  function pickTargetLetter(stream, N) {
-    var counts = {};
-    var letters = [];
-    stream.forEach(function (e) {
-      if (!e.isLetter) return;
-      var k = e.ch.toUpperCase();
-      counts[k] = (counts[k] || 0) + 1;
-      letters.push(k);
-    });
-    if (!letters.length) return "E";
-    /* Prefer mid-frequency letters for good density */
-    var ranked = Object.keys(counts).sort(function (a, b) {
-      return counts[b] - counts[a];
-    });
-    var mid = ranked.slice(2, Math.min(10, ranked.length));
-    if (!mid.length) mid = ranked;
-    return mid[Math.floor(Math.random() * mid.length)];
-  }
-
-  function chunkFromStream(stream, offset, N) {
+  /**
+   * Layer pass: N×N window starting at master index layerStart.
+   * Target is always the sequential master glyph at masterPos (must fall in window).
+   */
+  function layerWindow(master, layerStart, N) {
     var need = N * N;
     var cells = [];
-    var i = offset;
-    while (cells.length < need && stream.length) {
-      if (i >= stream.length) i = 0;
-      cells.push(stream[i]);
-      i++;
-      if (i === offset && cells.length < need) {
-        /* pad if tiny stream */
-        while (cells.length < need) {
-          cells.push({ lineId: "—", i: -1, ch: "·", display: "·", isLetter: false, pad: true });
-        }
-        break;
+    for (var k = 0; k < need; k++) {
+      var gi = layerStart + k;
+      if (gi < master.length) {
+        cells.push(Object.assign({}, master[gi], { pad: false }));
+      } else {
+        cells.push({
+          gi: -1,
+          lineId: "—",
+          i: -1,
+          ch: "·",
+          display: "·",
+          isLetter: false,
+          pad: true,
+        });
       }
     }
-    return { cells: cells, nextOffset: i % Math.max(1, stream.length) };
+    return cells;
   }
 
-  function placeTarget(cells, letter) {
-    var candidates = [];
-    cells.forEach(function (c, idx) {
-      if (c.isLetter && c.ch.toUpperCase() === letter) candidates.push(idx);
-    });
-    if (!candidates.length) {
-      /* inject one target into a random non-pad cell */
-      var free = [];
-      cells.forEach(function (c, idx) {
-        if (!c.pad) free.push(idx);
-      });
-      if (!free.length) return -1;
-      var j = free[Math.floor(Math.random() * free.length)];
-      cells[j] = {
-        lineId: cells[j].lineId || "L01",
-        i: cells[j].i || 0,
-        ch: letter,
-        display: letter,
-        isLetter: true,
-        injected: true,
-      };
-      return j;
+  /** Spiral / wandering path indices on N×N board (center-out spiral, then snake fill) */
+  function wanderingPathIndices(N) {
+    var path = [];
+    var seen = {};
+    var x = Math.floor((N - 1) / 2);
+    var y = Math.floor((N - 1) / 2);
+    var dirs = [
+      [1, 0],
+      [0, 1],
+      [-1, 0],
+      [0, -1],
+    ];
+    var di = 0;
+    var leg = 1;
+    function push(cx, cy) {
+      if (cx < 0 || cy < 0 || cx >= N || cy >= N) return false;
+      var idx = cy * N + cx;
+      if (seen[idx]) return false;
+      seen[idx] = true;
+      path.push(idx);
+      return true;
     }
-    return candidates[Math.floor(Math.random() * candidates.length)];
+    push(x, y);
+    while (path.length < N * N) {
+      for (var rep = 0; rep < 2; rep++) {
+        for (var s = 0; s < leg; s++) {
+          x += dirs[di][0];
+          y += dirs[di][1];
+          push(x, y);
+          if (path.length >= N * N) return path;
+        }
+        di = (di + 1) % 4;
+      }
+      leg++;
+    }
+    /* residual row-major if spiral incomplete */
+    for (var i = 0; i < N * N; i++) if (!seen[i]) path.push(i);
+    return path;
   }
 
   function el(tag, cls, text) {
@@ -164,26 +137,29 @@
     opts = opts || {};
     var base = opts.dataBase || "/data/declaration";
     var N = opts.N || DEFAULT_N;
+
     var state = {
       N: N,
       lines: [],
       lineMap: {},
-      stair: 0,
-      unlocked: { S0: true },
-      stream: [],
+      master: [],
       xref: {},
-      offset: 0,
+      masterPos: 0,
+      layerStart: 0,
+      mode: "codex", /* codex | finale */
       cells: [],
       targetIdx: -1,
-      targetLetter: "E",
       hits: [],
-      events: [], /* {t, ok} for NTPM */
+      events: [],
       peakBps: 0,
       peakNtpm: 0,
-      roundUntil: 0,
       playing: false,
+      roundUntil: 0,
       focusLine: null,
       logs: [],
+      path: [],
+      pathStep: 0,
+      layerComplete: 0,
     };
 
     root.innerHTML = "";
@@ -193,45 +169,68 @@
     var hero = el("div", "dlg-hero");
     var htxt = el("div");
     htxt.innerHTML =
-      "<h2>Letter-Grid · Declaration litmus</h2>" +
-      "<p>WebGrid-style square chunks of the engrossed Declaration. Hit the " +
-      '<span style="color:' +
-      TARGET_RGB +
-      '">blue</span> letter · cross-ref every line it appears · growth stair unlocks document gateway. Tensor loop for MG / persona scaffold.</p>';
+      "<h2>Letter-Grid · Full codex layer passes</h2>" +
+      "<p>Master <b>small glyphs in order</b> through the entire Declaration. " +
+      "Each layer is an N×N square of the stream (WebGrid blue target). " +
+      "Clear all layers → <b>finale wandering path</b> of letters. Cross-ref + document gateway stay live.</p>";
     hero.appendChild(htxt);
     var boardMetrics = el("div", "dlg-scoreboard");
     var mBps = metric("0.00", "BPS");
     var mNtpm = metric("0", "NTPM");
-    var mHits = metric("0", "hits");
-    var mTimer = metric("1:10", "timer");
+    var mProg = metric("0/0", "glyphs");
+    var mLayer = metric("0", "layer");
     boardMetrics.appendChild(mBps.wrap);
     boardMetrics.appendChild(mNtpm.wrap);
-    boardMetrics.appendChild(mHits.wrap);
-    boardMetrics.appendChild(mTimer.wrap);
+    boardMetrics.appendChild(mProg.wrap);
+    boardMetrics.appendChild(mLayer.wrap);
     hero.appendChild(boardMetrics);
     shell.appendChild(hero);
+
+    /* progress bar */
+    var prog = el("div", "dlg-progress");
+    prog.innerHTML =
+      '<div class="dlg-progress-bar"><i id="dlg-prog-fill"></i></div>' +
+      '<div class="dlg-progress-meta" id="dlg-prog-meta">—</div>';
+    shell.appendChild(prog);
+
+    /* glyph rail */
+    var rail = el("div", "dlg-glyph-rail");
+    rail.id = "dlg-glyph-rail";
+    shell.appendChild(rail);
 
     var layout = el("div", "dlg-layout");
     var boardWrap = el("div", "dlg-board-wrap");
     var boardTop = el("div", "dlg-board-top");
     var prompt = el("div", "dlg-prompt");
-    prompt.innerHTML = "Load transcript…";
+    prompt.innerHTML = "Load codex…";
     var controls = el("div", "dlg-controls");
-    var btnPlay = el("button", "", "Play round");
-    var btnN12 = el("button", "on", "12×12");
+    var btnPlay = el("button", "primary", "Start codex pass");
+    var btnFinale = el("button", "", "Finale path");
+    btnFinale.disabled = true;
     var btnN8 = el("button", "", "8×8");
+    var btnN12 = el("button", "on", "12×12");
     var btnN16 = el("button", "", "16×16");
     controls.appendChild(btnPlay);
+    controls.appendChild(btnFinale);
     controls.appendChild(btnN8);
     controls.appendChild(btnN12);
     controls.appendChild(btnN16);
     boardTop.appendChild(prompt);
     boardTop.appendChild(controls);
     boardWrap.appendChild(boardTop);
+
+    var boardHost = el("div", "dlg-board-host");
     var board = el("div", "dlg-board");
-    boardWrap.appendChild(board);
-    var stair = el("div", "dlg-stair");
-    boardWrap.appendChild(stair);
+    var pathSvg = document.createElementNS("http://www.w3.org/2000/svg", "svg");
+    pathSvg.setAttribute("class", "dlg-path-svg");
+    pathSvg.setAttribute("viewBox", "0 0 100 100");
+    pathSvg.setAttribute("preserveAspectRatio", "none");
+    boardHost.appendChild(board);
+    boardHost.appendChild(pathSvg);
+    boardWrap.appendChild(boardHost);
+
+    var layerRail = el("div", "dlg-layer-rail");
+    boardWrap.appendChild(layerRail);
     layout.appendChild(boardWrap);
 
     var side = el("div", "dlg-side");
@@ -242,7 +241,7 @@
     side.appendChild(cardX);
     var cardD = el("div", "dlg-card");
     cardD.innerHTML = "<h3>Document gateway</h3>";
-    var docHost = el("div", "dlg-doc", "Unlock a stair step or click a cross-ref line.");
+    var docHost = el("div", "dlg-doc", "Hit ordered glyphs to walk the codex.");
     cardD.appendChild(docHost);
     var gate = el("div", "dlg-gateway");
     cardD.appendChild(gate);
@@ -267,7 +266,7 @@
 
     function slog(msg) {
       state.logs.unshift(new Date().toLocaleTimeString() + " · " + msg);
-      if (state.logs.length > 40) state.logs.pop();
+      if (state.logs.length > 50) state.logs.pop();
       logHost.textContent = state.logs.join("\n");
     }
 
@@ -289,179 +288,119 @@
       }
       mBps.b.textContent = bps.toFixed(2);
       mNtpm.b.textContent = String(ntpm);
-      mHits.b.textContent = String(state.hits.length);
-      if (state.playing) {
-        var left = Math.max(0, state.roundUntil - Date.now());
-        var sec = Math.ceil(left / 1000);
-        var mm = Math.floor(sec / 60);
-        var ss = sec % 60;
-        mTimer.b.textContent = mm + ":" + String(ss).padStart(2, "0");
+      mProg.b.textContent = state.masterPos + "/" + state.master.length;
+      var layer = Math.floor(state.masterPos / Math.max(1, state.N * state.N));
+      var layers = Math.ceil(state.master.length / Math.max(1, state.N * state.N));
+      mLayer.b.textContent = Math.min(layer + 1, layers) + "/" + layers;
+      var fill = document.getElementById("dlg-prog-fill");
+      var meta = document.getElementById("dlg-prog-meta");
+      var pct = state.master.length ? (100 * state.masterPos) / state.master.length : 0;
+      if (fill) fill.style.width = Math.min(100, pct).toFixed(2) + "%";
+      if (meta) {
+        meta.textContent =
+          state.mode === "finale"
+            ? "FINALE · wandering path " + state.pathStep + "/" + state.path.length
+            : "Codex " +
+              pct.toFixed(1) +
+              "% · layer " +
+              (layer + 1) +
+              "/" +
+              layers +
+              " · next gi=" +
+              state.masterPos;
+      }
+    }
+
+    function paintGlyphRail() {
+      rail.innerHTML = "";
+      var start = Math.max(0, state.masterPos - 4);
+      var end = Math.min(state.master.length, start + GLYPH_RAIL);
+      for (var gi = start; gi < end; gi++) {
+        var g = state.master[gi];
+        var chip = el("span", "dlg-gchip", g.display);
+        if (gi < state.masterPos) chip.classList.add("done");
+        if (gi === state.masterPos) chip.classList.add("next");
+        chip.title = g.lineId + " · #" + gi;
+        rail.appendChild(chip);
+      }
+    }
+
+    function paintLayerRail() {
+      layerRail.innerHTML = "";
+      var need = state.N * state.N;
+      var layers = Math.ceil(state.master.length / need) || 1;
+      for (var L = 0; L < layers; L++) {
+        var b = el("button", "", "L" + (L + 1));
+        var done = (L + 1) * need <= state.masterPos;
+        var cur = L === Math.floor(state.masterPos / need) && state.mode === "codex";
+        if (done) b.classList.add("done");
+        if (cur) b.classList.add("active");
+        b.disabled = !done && !cur && L * need > state.masterPos;
+        (function (layerIdx) {
+          b.onclick = function () {
+            var curLayer = Math.floor(state.masterPos / need);
+            /* only visit layers already reached (or current) */
+            if (layerIdx > curLayer) return;
+            state.layerStart = layerIdx * need;
+            dealCodexBoard({ keepLayer: true });
+          };
+        })(L);
+        layerRail.appendChild(b);
+      }
+    }
+
+    /**
+     * Deal N×N window from master stream.
+     * opts.keepLayer — preserve state.layerStart (layer-rail peek at past windows).
+     */
+    function dealCodexBoard(opts) {
+      opts = opts || {};
+      var need = state.N * state.N;
+      if (!opts.keepLayer) {
+        state.layerStart = Math.floor(state.masterPos / need) * need;
+      }
+      if (state.layerStart < 0) state.layerStart = 0;
+      state.cells = layerWindow(state.master, state.layerStart, state.N);
+      /* target only when next glyph sits inside this layer window */
+      if (
+        state.masterPos >= state.layerStart &&
+        state.masterPos < state.layerStart + need &&
+        state.masterPos < state.master.length
+      ) {
+        state.targetIdx = state.masterPos - state.layerStart;
       } else {
-        mTimer.b.textContent = "—";
+        state.targetIdx = -1;
       }
-    }
-
-    function currentLineIds() {
-      return STAIRS[state.stair].lines.slice();
-    }
-
-    function rebuildStream() {
-      var built = buildLetterStream(state.lines, currentLineIds());
-      state.stream = built.stream;
-      state.xref = built.xref;
-      state.offset = 0;
-    }
-
-    function renderStair() {
-      stair.innerHTML = "";
-      STAIRS.forEach(function (s, idx) {
-        var b = el("button", "", s.id + " " + s.label);
-        if (state.unlocked[s.id] || idx === 0) b.classList.add("unlocked");
-        if (idx === state.stair) b.classList.add("active");
-        if (!state.unlocked[s.id] && idx > 0) b.disabled = true;
-        b.onclick = function () {
-          if (!state.unlocked[s.id] && idx > 0) return;
-          state.stair = idx;
-          rebuildStream();
-          dealBoard(true);
-          renderStair();
-          slog("stair " + s.id + " · lines " + s.lines.join(","));
-        };
-        stair.appendChild(b);
-      });
-    }
-
-    function paintXref(letter) {
-      xrefHost.innerHTML = "";
-      var head = el("p");
-      head.innerHTML = "Target <em style='color:#0a84ff;font-style:normal;font-weight:700'>" + letter + "</em>";
-      xrefHost.appendChild(head);
-      var arr = state.xref[letter] || [];
-      var byLine = {};
-      arr.forEach(function (e) {
-        byLine[e.lineId] = (byLine[e.lineId] || 0) + 1;
-      });
-      var ids = Object.keys(byLine).sort();
-      var ul = el("ul", "dlg-xref-list");
-      ids.forEach(function (id) {
-        var li = el("li");
-        li.innerHTML =
-          '<span class="lid">' +
-          id +
-          '</span><span class="cnt">×' +
-          byLine[id] +
-          "</span> " +
-          snippet(id, letter);
-        li.onclick = function () {
-          openLine(id, letter);
-        };
-        ul.appendChild(li);
-      });
-      if (!ids.length) {
-        xrefHost.appendChild(el("p", "", "No occurrences in this stair window."));
-      } else {
-        xrefHost.appendChild(ul);
-      }
-      var total = el("p");
-      total.style.marginTop = "6px";
-      total.style.opacity = "0.75";
-      total.style.fontSize = "0.75rem";
-      total.textContent = "window count " + arr.length + " · global letter density used for train bus";
-      xrefHost.appendChild(total);
-    }
-
-    function snippet(lineId, letter) {
-      var ln = state.lineMap[lineId];
-      if (!ln) return "";
-      var t = ln.text || "";
-      var re = new RegExp(letter, "i");
-      var m = t.search(re);
-      if (m < 0) return t.slice(0, 48);
-      var a = Math.max(0, m - 18);
-      var b = Math.min(t.length, m + 22);
-      return (a > 0 ? "…" : "") + t.slice(a, b) + (b < t.length ? "…" : "");
-    }
-
-    function openLine(lineId, letter) {
-      state.focusLine = lineId;
-      var ln = state.lineMap[lineId];
-      if (!ln) {
-        docHost.textContent = "Missing " + lineId;
-        return;
-      }
-      var html = "";
-      var text = ln.text || "";
-      for (var i = 0; i < text.length; i++) {
-        var ch = text[i];
-        if (letter && ch.toUpperCase() === letter) html += "<mark>" + escapeHtml(ch) + "</mark>";
-        else html += escapeHtml(ch);
-      }
-      docHost.innerHTML = "<div><b>" + lineId + "</b> · " + (ln.kind || "") + "</div>" + html;
-      gate.innerHTML = "";
-      var a1 = el("a", "");
-      a1.href = "index.html";
-      a1.textContent = "Archive workspace";
-      var a2 = el("a", "");
-      a2.href = "versions.html";
-      a2.textContent = "Line layers";
-      var a3 = el("a", "");
-      a3.href = "scribe-glyphs.html";
-      a3.textContent = "Scribe glyphs";
-      var a4 = el("a", "");
-      a4.href = "stroke-player.html";
-      a4.textContent = "Stroke player";
-      var a5 = el("a", "");
-      a5.href = "/labs/declaration-digital-edition/";
-      a5.textContent = "Edition home";
-      /* persona scaffold if served */
-      var a6 = el("a", "");
-      a6.href = "http://127.0.0.1:8765/persona-tensor-scaffold.html";
-      a6.textContent = "MG persona·tensor";
-      a6.target = "_blank";
-      a6.rel = "noopener";
-      var a7 = el("a", "");
-      a7.href = "cage-litmus.html";
-      a7.textContent = "Cage litmus (RAW+STONE)";
-      gate.appendChild(a1);
-      gate.appendChild(a7);
-      gate.appendChild(a2);
-      gate.appendChild(a3);
-      gate.appendChild(a4);
-      gate.appendChild(a5);
-      gate.appendChild(a6);
-      try {
-        global.dispatchEvent(
-          new CustomEvent("kbatch-declaration-line", {
-            detail: { lineId: lineId, letter: letter, ver: VER },
-          })
-        );
-      } catch (e) {}
-      slog("gateway " + lineId + " · letter " + (letter || "—"));
-    }
-
-    function escapeHtml(s) {
-      return String(s)
-        .replace(/&/g, "&amp;")
-        .replace(/</g, "&lt;")
-        .replace(/>/g, "&gt;");
-    }
-
-    function dealBoard(newLetter) {
-      var pack = chunkFromStream(state.stream, state.offset, state.N);
-      state.cells = pack.cells;
-      state.offset = pack.nextOffset;
-      if (newLetter || !state.targetLetter) state.targetLetter = pickTargetLetter(state.stream, state.N);
-      state.targetIdx = placeTarget(state.cells, state.targetLetter);
       paintBoard();
-      paintXref(state.targetLetter);
-      prompt.innerHTML =
-        "Find <em>" +
-        state.targetLetter +
-        "</em> · N=" +
-        state.N +
-        " · stair " +
-        STAIRS[state.stair].id +
-        " · blue = target (WebGrid grammar)";
+      paintGlyphRail();
+      paintLayerRail();
+      paintPathSvg(false);
+      if (state.masterPos < state.master.length) {
+        var g = state.master[state.masterPos];
+        var viewLayer = Math.floor(state.layerStart / need) + 1;
+        var playLayer = Math.floor(state.masterPos / need) + 1;
+        var peek =
+          viewLayer !== playLayer
+            ? " · viewing L" + viewLayer + " (play L" + playLayer + ")"
+            : "";
+        prompt.innerHTML =
+          "Next glyph <em>" +
+          g.display +
+          "</em> · " +
+          g.lineId +
+          " · master #" +
+          g.gi +
+          " · layer " +
+          playLayer +
+          peek;
+        paintXref(g.ch.toUpperCase());
+        openLine(g.lineId, g.ch.toUpperCase());
+      } else {
+        prompt.innerHTML = "Codex complete · start <b>finale wandering path</b>";
+        btnFinale.disabled = false;
+        btnFinale.classList.add("primary");
+      }
+      refreshScore();
     }
 
     function paintBoard() {
@@ -471,8 +410,15 @@
         var cell = el("button", "dlg-cell", c.display || "·");
         cell.type = "button";
         if (c.pad) cell.classList.add("is-pad");
-        if (c.ch === " ") cell.classList.add("is-space");
-        if (idx === state.targetIdx) cell.classList.add("is-target");
+        if (state.mode === "codex") {
+          if (c.gi >= 0 && c.gi < state.masterPos) cell.classList.add("is-hit");
+          if (idx === state.targetIdx) cell.classList.add("is-target");
+        } else if (state.mode === "finale") {
+          var pidx = state.path.indexOf(idx);
+          if (pidx >= 0 && pidx < state.pathStep) cell.classList.add("is-hit");
+          if (pidx === state.pathStep) cell.classList.add("is-target", "is-path-head");
+          if (pidx > state.pathStep) cell.classList.add("is-path-future");
+        }
         cell.dataset.idx = String(idx);
         cell.onclick = function () {
           onCell(idx);
@@ -481,83 +427,189 @@
       });
     }
 
-    function onCell(idx) {
-      if (!state.playing && opts.requirePlay !== false) {
-        /* allow practice clicks too */
+    function paintPathSvg(show) {
+      while (pathSvg.firstChild) pathSvg.removeChild(pathSvg.firstChild);
+      if (!show || state.mode !== "finale" || !state.path.length) {
+        pathSvg.style.opacity = "0";
+        return;
       }
-      var ok = idx === state.targetIdx;
+      pathSvg.style.opacity = "1";
+      var N = state.N;
+      var pts = [];
+      for (var i = 0; i <= Math.min(state.pathStep, state.path.length - 1); i++) {
+        var idx = state.path[i];
+        var cx = (idx % N) + 0.5;
+        var cy = Math.floor(idx / N) + 0.5;
+        pts.push(((cx / N) * 100).toFixed(2) + "," + ((cy / N) * 100).toFixed(2));
+      }
+      if (pts.length < 2) return;
+      var poly = document.createElementNS("http://www.w3.org/2000/svg", "polyline");
+      poly.setAttribute("points", pts.join(" "));
+      poly.setAttribute("fill", "none");
+      poly.setAttribute("stroke", "rgba(10,132,255,0.85)");
+      poly.setAttribute("stroke-width", "1.2");
+      poly.setAttribute("stroke-linecap", "round");
+      poly.setAttribute("stroke-linejoin", "round");
+      pathSvg.appendChild(poly);
+    }
+
+    function paintXref(letter) {
+      xrefHost.innerHTML = "";
+      var head = el("p");
+      head.innerHTML = "Letter <em style='color:#0a84ff;font-style:normal;font-weight:700'>" + letter + "</em>";
+      xrefHost.appendChild(head);
+      var arr = state.xref[letter] || [];
+      var byLine = {};
+      arr.forEach(function (e) {
+        byLine[e.lineId] = (byLine[e.lineId] || 0) + 1;
+      });
+      var ul = el("ul", "dlg-xref-list");
+      Object.keys(byLine)
+        .sort()
+        .forEach(function (id) {
+          var li = el("li");
+          li.innerHTML =
+            '<span class="lid">' +
+            id +
+            '</span><span class="cnt">×' +
+            byLine[id] +
+            "</span>";
+          li.onclick = function () {
+            openLine(id, letter);
+          };
+          ul.appendChild(li);
+        });
+      xrefHost.appendChild(ul);
+      var tot = el("p");
+      tot.style.fontSize = "0.72rem";
+      tot.style.opacity = "0.75";
+      tot.textContent = "document total ×" + arr.length + " · master stream " + state.master.length;
+      xrefHost.appendChild(tot);
+    }
+
+    function openLine(lineId, letter) {
+      state.focusLine = lineId;
+      var ln = state.lineMap[lineId];
+      if (!ln) {
+        docHost.textContent = "Missing " + lineId;
+        return;
+      }
+      var html = "<div><b>" + lineId + "</b> · " + (ln.kind || "") + "</div>";
+      var text = ln.text || "";
+      for (var i = 0; i < text.length; i++) {
+        var ch = text[i];
+        if (letter && ch.toUpperCase() === letter) html += "<mark>" + escapeHtml(ch) + "</mark>";
+        else html += escapeHtml(ch);
+      }
+      docHost.innerHTML = html;
+      gate.innerHTML = "";
+      [
+        ["index.html", "Archive"],
+        ["versions.html", "Layers"],
+        ["scribe-glyphs.html", "Glyphs"],
+        ["stroke-player.html", "Strokes"],
+        ["cage-litmus.html", "Cage litmus"],
+      ].forEach(function (pair) {
+        var a = el("a", "");
+        a.href = pair[0];
+        a.textContent = pair[1];
+        gate.appendChild(a);
+      });
+    }
+
+    function escapeHtml(s) {
+      return String(s).replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;");
+    }
+
+    function onCell(idx) {
       var now = Date.now();
+      if (state.mode === "finale") {
+        var expect = state.path[state.pathStep];
+        var ok = idx === expect;
+        state.events.push({ t: now, ok: ok });
+        if (ok) {
+          state.pathStep++;
+          state.hits.push({ t: now, mode: "finale", idx: idx });
+          slog("path " + state.pathStep + "/" + state.path.length);
+          if (state.pathStep >= state.path.length) {
+            slog("FINALE COMPLETE · full wandering path");
+            prompt.innerHTML = "<b>Finale complete</b> · entire document path walked";
+            try {
+              global.dispatchEvent(
+                new CustomEvent("kbatch-declaration-finale", {
+                  detail: { ver: VER, hits: state.hits.length, master: state.master.length },
+                })
+              );
+            } catch (e) {}
+          }
+          paintBoard();
+          paintPathSvg(true);
+        } else {
+          slog("path miss");
+        }
+        refreshScore();
+        reportTrial(ok, "finale");
+        return;
+      }
+
+      /* codex ordered */
+      var ok = idx === state.targetIdx && state.masterPos < state.master.length;
       state.events.push({ t: now, ok: ok });
       if (ok) {
-        state.hits.push({ t: now, letter: state.targetLetter, lineId: state.cells[idx].lineId });
-        openLine(state.cells[idx].lineId, state.targetLetter);
-        maybeUnlock();
-        slog("hit " + state.targetLetter + " @ " + (state.cells[idx].lineId || "?"));
-        /* next target — denser like agent hop */
-        state.targetLetter = pickTargetLetter(state.stream, state.N);
-        dealBoard(false);
+        var g = state.master[state.masterPos];
+        state.hits.push({ t: now, gi: g.gi, ch: g.ch, lineId: g.lineId });
+        state.masterPos++;
+        slog("glyph #" + g.gi + " " + g.display + " @ " + g.lineId);
+        if (state.masterPos >= state.master.length) {
+          slog("CODEX COMPLETE · " + state.master.length + " glyphs · unlock finale");
+          btnFinale.disabled = false;
+          btnFinale.classList.add("primary");
+          prompt.innerHTML = "Codex complete · press <b>Finale path</b>";
+          try {
+            global.dispatchEvent(
+              new CustomEvent("kbatch-declaration-codex-complete", {
+                detail: { ver: VER, master: state.master.length },
+              })
+            );
+          } catch (e2) {}
+        }
+        dealCodexBoard();
       } else {
-        slog("miss cell " + idx);
+        slog("miss · need master #" + state.masterPos);
         var nodes = board.querySelectorAll(".dlg-cell");
         if (nodes[idx]) {
           nodes[idx].classList.add("is-miss");
           setTimeout(function () {
             nodes[idx] && nodes[idx].classList.remove("is-miss");
-          }, 180);
+          }, 160);
         }
       }
       refreshScore();
-      try {
-        reportTrial(ok);
-      } catch (eR) {}
+      reportTrial(ok, "codex");
     }
 
-    function maybeUnlock() {
-      var need = 8 + state.stair * 4;
-      var stairHits = state.hits.filter(function (h) {
-        return true;
-      }).length;
-      if (stairHits >= need && state.stair < STAIRS.length - 1) {
-        var next = STAIRS[state.stair + 1];
-        if (!state.unlocked[next.id]) {
-          state.unlocked[next.id] = true;
-          state.stair = state.stair + 1;
-          rebuildStream();
-          renderStair();
-          slog("UNLOCK " + next.id + " · " + next.label + " · document gateway open");
-          try {
-            global.dispatchEvent(
-              new CustomEvent("kbatch-declaration-stair", {
-                detail: { stair: next, unlocked: Object.keys(state.unlocked), ver: VER },
-              })
-            );
-          } catch (e) {}
-        }
-      }
-    }
-
-    function reportTrial(ok) {
+    function reportTrial(ok, mode) {
       var row = {
         kind: "declaration_letter_grid",
         ver: VER,
         t: Date.now(),
         ok: ok,
-        letter: state.targetLetter,
+        mode: mode || state.mode,
+        masterPos: state.masterPos,
+        masterTotal: state.master.length,
         N: state.N,
-        stair: STAIRS[state.stair].id,
         bps: bpsFromNtpm(ntpmNow(), state.N),
         ntpm: ntpmNow(),
         peakBps: state.peakBps,
-        focusLine: state.focusLine,
+        pathStep: state.pathStep,
       };
       try {
         var key = "kbatch.declaration.letterGrid.trials";
         var prev = JSON.parse(localStorage.getItem(key) || "[]");
         prev.push(row);
-        if (prev.length > 200) prev = prev.slice(-200);
+        if (prev.length > 400) prev = prev.slice(-400);
         localStorage.setItem(key, JSON.stringify(prev));
       } catch (e) {}
-      /* optional soak bus */
       try {
         fetch("http://127.0.0.1:9880/", {
           method: "POST",
@@ -565,43 +617,58 @@
           body: JSON.stringify(row),
         }).catch(function () {});
       } catch (e2) {}
-      try {
-        if (global.__mgUgradWebgrid && global.__mgUgradWebgrid.observeCell) {
-          /* reuse tensor observe if MG injects */
-        }
-      } catch (e3) {}
     }
 
-    var tickTimer = null;
-    function startRound() {
-      state.playing = true;
-      state.roundUntil = Date.now() + ROUND_MS;
-      state.events = [];
-      state.hits = [];
-      dealBoard(true);
-      slog("round start N=" + state.N + " · " + ROUND_MS / 1000 + "s · peak track BPS");
-      if (tickTimer) clearInterval(tickTimer);
-      tickTimer = setInterval(function () {
-        refreshScore();
-        if (Date.now() >= state.roundUntil) {
-          state.playing = false;
-          clearInterval(tickTimer);
-          slog(
-            "round end peak " +
-              state.peakBps.toFixed(2) +
-              " BPS / " +
-              state.peakNtpm +
-              " NTPM · hits " +
-              state.hits.length
-          );
-          refreshScore();
-        }
-      }, 200);
+    function startFinale() {
+      if (state.masterPos < state.master.length && !opts.forceFinale) {
+        slog("finish codex first (" + state.masterPos + "/" + state.master.length + ")");
+        return;
+      }
+      state.mode = "finale";
+      state.path = wanderingPathIndices(state.N);
+      state.pathStep = 0;
+      /* map path cells to sequential master glyphs (wrap) */
+      var need = state.N * state.N;
+      state.cells = [];
+      for (var k = 0; k < need; k++) {
+        var gi = k % Math.max(1, state.master.length);
+        var g = state.master[gi] || {
+          ch: "·",
+          display: "·",
+          lineId: "—",
+          gi: -1,
+          pad: true,
+        };
+        state.cells.push(Object.assign({}, g, { pad: false }));
+      }
+      /* reorder display by path: cell at path[i] shows master[i] */
+      var display = new Array(need);
+      for (var i = 0; i < need; i++) {
+        var gi2 = i % Math.max(1, state.master.length);
+        display[state.path[i]] = Object.assign({}, state.master[gi2], { pathOrder: i });
+      }
+      state.cells = display;
+      prompt.innerHTML = "Finale · follow the <em>wandering path</em> in order (blue head)";
+      paintBoard();
+      paintPathSvg(true);
+      paintGlyphRail();
+      slog("FINALE start path len " + state.path.length);
       refreshScore();
     }
 
     btnPlay.onclick = function () {
-      startRound();
+      state.mode = "codex";
+      state.playing = true;
+      if (state.masterPos >= state.master.length) {
+        state.masterPos = 0;
+        state.hits = [];
+        state.events = [];
+      }
+      dealCodexBoard();
+      slog("codex pass · " + state.master.length + " master glyphs");
+    };
+    btnFinale.onclick = function () {
+      startFinale();
     };
     function setN(n, btn) {
       state.N = n;
@@ -609,8 +676,8 @@
         b.classList.remove("on");
       });
       btn.classList.add("on");
-      dealBoard(true);
-      refreshScore();
+      if (state.mode === "finale") startFinale();
+      else dealCodexBoard();
     }
     btnN8.onclick = function () {
       setN(8, btnN8);
@@ -622,25 +689,69 @@
       setN(16, btnN16);
     };
 
-    return fetchJson(base + "/full-transcript-lines.json")
-      .then(function (data) {
-        state.lines = data.lines || [];
-        state.lineMap = lineTextMap(state.lines);
-        rebuildStream();
-        renderStair();
-        dealBoard(true);
-        refreshScore();
-        slog(VER + " · lines " + state.lines.length + " · letters in window " + state.stream.filter(function (e) { return e.isLetter; }).length);
-        openLine("L01", state.targetLetter);
+    /* Prefer dense research lines if present, else full-transcript */
+    var urls = [base + "/line-sections/index.json", base + "/full-transcript-lines.json"];
+
+    return fetchJson(urls[0])
+      .then(function (idx) {
+        if (idx && idx.lines && idx.lines.length) {
+          /* load each section file for full text — or use index + parallel */
+          var files = idx.lines.map(function (L) {
+            return fetchJson("/" + L.file.replace(/^\//, "")).catch(function () {
+              return fetchJson(base + "/line-sections/" + L.id + ".json");
+            });
+          });
+          return Promise.all(files).then(function (secs) {
+            return secs
+              .filter(Boolean)
+              .map(function (s) {
+                return {
+                  id: s.id,
+                  kind: s.kind,
+                  text: s.text,
+                  parentEngrossed: s.parentEngrossed,
+                };
+              });
+          });
+        }
+        throw new Error("no dense index");
+      })
+      .catch(function () {
+        return fetchJson(base + "/full-transcript-lines.json").then(function (d) {
+          return d.lines || [];
+        });
+      })
+      .then(function (lines) {
+        state.lines = lines;
+        state.lineMap = {};
+        lines.forEach(function (ln) {
+          state.lineMap[ln.id] = ln;
+        });
+        var built = buildMaster(lines);
+        state.master = built.master;
+        state.xref = built.xref;
+        state.masterPos = 0;
+        dealCodexBoard();
+        slog(
+          VER +
+            " · lines " +
+            lines.length +
+            " · master glyphs " +
+            state.master.length +
+            " · layers " +
+            Math.ceil(state.master.length / (state.N * state.N))
+        );
         return {
           ver: VER,
           state: state,
-          startRound: startRound,
-          dealBoard: dealBoard,
+          startCodex: function () {
+            btnPlay.click();
+          },
+          startFinale: startFinale,
         };
       })
       .catch(function (e) {
-        prompt.textContent = "Failed to load transcript: " + e;
+        prompt.textContent = "Failed: " + e;
         slog(String(e));
         throw e;
       });
@@ -649,7 +760,7 @@
   global.__kbatchDeclarationLetterGrid = {
     ver: VER,
     mount: mount,
-    STAIRS: STAIRS,
     bpsFromNtpm: bpsFromNtpm,
+    wanderingPathIndices: wanderingPathIndices,
   };
 })(typeof window !== "undefined" ? window : globalThis);

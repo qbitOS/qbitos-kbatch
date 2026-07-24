@@ -20,21 +20,24 @@ Machine scorecard: [`/data/declaration/readiness.json`](/data/declaration/readin
 |-----|------|
 | **`/labs/declaration-digital-edition/`** | Archive workspace — 4-layer UV zoom · folio lines · lattice · scribe dual |
 | **`cage-litmus.html`** | **Cage-grade litmus** — RAW+STONE pair · National Treasure fiction labeled · FACT/FICTION/STONE_TRAP verify |
-| **`letter-grid.html`** | **WebGrid-style letter litmus** — square chunks · letter cross-ref · growth stair → document gateway · MG tensor loop |
+| **`letter-grid.html`** | **Full-codex Letter-Grid v2** — master glyphs in order · N×N layer passes · finale wandering path · cross-ref → archive gateway · MG tensor loop |
 | **`world.html`** | Multilingual plane · world instruments · through-lines · readiness |
 | `scribe-glyphs.html` | Calligraphy + clean numbered tiles |
 | `paleography-hub.html` | Codicology notes |
 | `versions.html` | Layer gallery |
 | `/dojo/` · `/research` · `/museum` | Site-wide access points |
 
-## Letter-Grid litmus (iteration / growth stair)
+## Letter-Grid litmus v2 (full codex layer passes)
 
-- **Engine:** `/js/declaration-letter-grid.js` · styles `/css/declaration-letter-grid.css`
-- **Data:** `/data/declaration/full-transcript-lines.json` (NARA L01–L35)
-- **Grammar:** Neuralink WebGrid-like — blue target · BPS ≈ log₂(N²−1)×NTPM/60 · 8/12/16 square boards
+- **Engine:** `/js/declaration-letter-grid.js` (`declaration-letter-grid-v2-codex`) · styles `/css/declaration-letter-grid.css`
+- **Data:** dense `/data/declaration/line-sections/` (L01–L79) with fallback `/data/declaration/full-transcript-lines.json`
+- **Master stream:** every A–Z letter glyph in document reading order (~6.2k on dense lines)
+- **Layer pass:** N×N window of the master stream · blue target = next master glyph · layer rail L1…Ln
+- **Glyph rail:** small chips of the ordered master (done / next)
+- **Finale:** after codex complete → **wandering path** (center-out spiral) with SVG trail; click path head in order
+- **Grammar:** WebGrid-like — blue target · BPS ≈ log₂(N²−1)×NTPM/60 · 8/12/16 boards
 - **Cross-ref:** every line containing the target letter (gateway into archive / strokes / glyphs)
-- **Stair S0→S7:** title → preamble → self-evident → grievances bands → full codex unlock
-- **Trials:** `localStorage kbatch.declaration.letterGrid.trials` · optional POST `:9880` for soak bus
+- **Trials:** `localStorage kbatch.declaration.letterGrid.trials` · optional POST `:9880` · events `kbatch-declaration-codex-complete` / `kbatch-declaration-finale`
 - **Persona scaffold:** link out to Memory Glass `persona-tensor` L5 tensor loop
 
 ## Multilingual Declaration
@@ -57,7 +60,7 @@ Machine scorecard: [`/data/declaration/readiness.json`](/data/declaration/readin
 
 - **Instruments:** `data/declaration/world-declarations.json` (~39 political + sacred-text + substrate instruments)
 - **Themes:** `data/declaration/through-lines.json` (political hopes + sacred transmission + layered lines + catechism circles)
-- **Lineage gitgraph:** `data/declaration/document-lineage.json` (English Bible branches · Matthew/Rogers node · Atlantic political · stone substrates)
+- **Lineage gitgraph:** `data/declaration/document-lineage.json` v2 — 11 trees · shortTitle at every dot · English Bible · world substrates · Atlantic + global rights · classical Mediterranean · East/South Asia · Abrahamic comparative · literature epic→print · song/chant/anthem · law codex reception
 - **UI:** `world.html` — theme matrix filters · ancestry-style branch paths · concept overlap/divergence
 - Goal: shared **hopes for government** + **divergence** of rule-based outlines over time
 
