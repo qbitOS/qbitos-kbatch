@@ -9,6 +9,12 @@ import { SCHEMA_VERSION } from "./schema.js";
 
 export const LETTERGRID_MCP_TOOLS = [
   {
+    name: "kbatch_lettergrid_ping",
+    description:
+      "Lightweight health check: engine version, master glyph count (6235), layer counts, tool list, static URLs. No board session required.",
+    inputSchema: { type: "object", properties: {} },
+  },
+  {
     name: "kbatch_lettergrid_state",
     description:
       "Return the full current state of the Declaration Letter-Grid (timer, BPS, NTPM, layer, next glyph, progress).",
@@ -475,6 +481,37 @@ export async function lettergridMcpCall(name, args = {}, opts = {}) {
   const fetchImpl = opts.fetch;
 
   switch (name) {
+    case "kbatch_lettergrid_ping": {
+      const master = await loadMasterGlyphs(fetchImpl).catch(() => null);
+      const total = master?.total || 6235;
+      const layersAt = master?.layersAt || {
+        "8": Math.ceil(total / 64),
+        "12": Math.ceil(total / 144),
+        "16": Math.ceil(total / 256),
+      };
+      const live = liveApi();
+      return {
+        schema: "kbatch-letter-grid-ping-v1",
+        tool: name,
+        ok: true,
+        ver: (live && live.ver) || master?.ver || "declaration-letter-grid-v8-pipe",
+        masterGlyphs: total,
+        first: master?.first || "INCONGRE",
+        layersAt,
+        liveSession: !!live,
+        tools: LETTERGRID_MCP_TOOLS.map((t) => t.name),
+        toolCount: LETTERGRID_MCP_TOOLS.length,
+        urls: {
+          play: PLAY_URL,
+          pipe: PIPE_URL,
+          master: MASTER_URL,
+          paleography: PALEO_URL,
+          mcp: "/api/mcp",
+        },
+        at: new Date().toISOString(),
+      };
+    }
+
     case "kbatch_lettergrid_state": {
       if (api && typeof api.mcpState === "function") {
         return api.mcpState(args.include || []);
