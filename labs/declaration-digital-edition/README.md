@@ -19,8 +19,10 @@ Machine scorecard: [`/data/declaration/readiness.json`](/data/declaration/readin
 | URL | Role |
 |-----|------|
 | **`/labs/declaration-digital-edition/`** | Archive workspace — 4-layer UV zoom · folio lines · lattice · scribe dual |
+| **`cage-games.html`** | **Cage tensor games hub** — Letter-Grid + Cage litmus + dual-surface stair · agent hooks · persona L5 |
 | **`cage-litmus.html`** | **Cage-grade litmus** — RAW+STONE pair · National Treasure fiction labeled · FACT/FICTION/STONE_TRAP verify |
 | **`letter-grid.html`** | **Full-codex Letter-Grid v2** — master glyphs in order · N×N layer passes · finale wandering path · cross-ref → archive gateway · MG tensor loop |
+| **`saint-tumble.html`** | **Saint crypto tumble** — Vals · Human Fly · Boris · two talks → live DAC/Steno/Gutter/Rubik 3×3 mixer · Letter-Grid seed |
 | **`world.html`** | Multilingual plane · world instruments · through-lines · readiness |
 | `scribe-glyphs.html` | Calligraphy + clean numbered tiles |
 | `paleography-hub.html` | Codicology notes |
@@ -38,7 +40,20 @@ Machine scorecard: [`/data/declaration/readiness.json`](/data/declaration/readin
 - **Grammar:** WebGrid-like — blue target · BPS ≈ log₂(N²−1)×NTPM/60 · 8/12/16 boards
 - **Cross-ref:** every line containing the target letter (gateway into archive / strokes / glyphs)
 - **Trials:** `localStorage kbatch.declaration.letterGrid.trials` · optional POST `:9880` · events `kbatch-declaration-codex-complete` / `kbatch-declaration-finale`
-- **Persona scaffold:** link out to Memory Glass `persona-tensor` L5 tensor loop
+- **Persona scaffold:** Memory Glass `persona-tensor` L5 · hub `/labs/declaration-digital-edition/cage-games`
+- **Agent API:** `window.__letterGridApi` · `snapshot()` · `clickCell(i)` · `startCodex()` · `startFinale()`
+- **Pack:** `/data/declaration/cage-tensor-games.json`
+
+## Cage tensor games (main AI test suite)
+
+| Game | Role | Grade |
+|------|------|-------|
+| **Letter-Grid** | Motor / path tensor · ordered codex + finale | dojo = codex · cage = + finale |
+| **Cage litmus** | Epistemic FACT / FICTION / STONE_TRAP | hard-fail if 0 stone-traps |
+| **Dual-surface** | RAW vs STONE doctrine (in litmus hero) | never confuse plate with object |
+| **Workspace** | Deep archive after stair | unlock after litmus |
+
+Agent: `__letterGridApi` + `__cageLitmusApi.verify` · trials in localStorage · optional POST `:9880`.
 
 ## Multilingual Declaration
 

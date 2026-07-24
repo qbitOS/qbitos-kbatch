@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en" data-history-page="declaration" data-history-open="1">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+  <title>KBatch · Saint Crypto Tumble · Vals · Human Fly · Boris</title>
+  <meta
+    name="description"
+    content="Saint-movie cypher salon: two short conversations tumbled live through DAC, StenoStrip, Quantum Gutter, and Rubik 3×3 — cast Vals, Human Fly, Boris. Seeds Letter-Grid. Memory Glass ready."
+  />
+  <meta name="theme-color" content="#0c0b0a" />
+  <link rel="stylesheet" href="/css/app.css" />
+  <link rel="stylesheet" href="/css/labs.css" />
+  <link rel="stylesheet" href="/css/declaration-edition.css" />
+  <link rel="stylesheet" href="/css/saint-crypto-tumble.css?v=sct1" />
+  <script>
+    (function () {
+      try {
+        var t = localStorage.getItem("kbatch-dict-theme");
+        if (t !== "light" && t !== "dark") t = "dark";
+        document.documentElement.setAttribute("data-theme", t || "dark");
+        document.documentElement.style.colorScheme = t === "light" ? "light" : "dark";
+      } catch (e) {
+        document.documentElement.setAttribute("data-theme", "dark");
+      }
+    })();
+  </script>
+</head>
+<body class="labs-page dec-page sct-page">
+  <header class="app-header">
+    <div class="header-inner">
+      <div class="brand-row">
+        <div class="brand">
+          <button type="button" class="theme-toggle" id="theme-toggle" title="Toggle theme" aria-label="Toggle theme">
+            <span class="theme-icon theme-icon--sun" aria-hidden="true">☀</span>
+            <span class="theme-icon theme-icon--moon" aria-hidden="true">☾</span>
+          </button>
+          <h1><span>KBatch</span> Saint Tumble</h1>
+          <span class="brand-sub">Crypto cypher · Vals · Human Fly · Boris · Rubik 3×3</span>
+        </div>
+        <nav class="site-nav" aria-label="Site"></nav>
+      </div>
+      <div class="meta-row">
+        <span class="status-line"
+          >Two talks → live tumble · DAC · StenoStrip · Quantum Gutter · Rubik faces · Letter-Grid seed</span
+        >
+      </div>
+    </div>
+  </header>
+
+  <nav class="dec-version-nav" data-dec-nav data-active="saint-tumble" aria-label="Declaration edition toolbox"></nav>
+
+  <main class="labs-main" style="max-width: min(1100px, 100%)">
+    <div id="sct-mount"></div>
+    <section class="sct-doctrine" style="max-width: min(1100px, 100%); margin: 0 auto; padding: 0 16px 32px">
+      <div
+        style="
+          border: 1px solid rgba(201, 162, 39, 0.35);
+          border-radius: 12px;
+          padding: 12px 14px;
+          background: rgba(201, 162, 39, 0.08);
+          font-size: 0.8rem;
+          line-height: 1.45;
+          color: var(--muted, #a8b3c0);
+        "
+      >
+        <strong style="color: #c9a227">Growth path</strong>
+        Letter-Grid + Cage litmus finish the codex stair → this salon grows them into a
+        <em>Saint</em>-style cypher conversation: two short talks, one live tumble, three voices.
+        Dictionary page tools stay authoritative for deep DAC / Rubik / gutter; this surface is the
+        live mixer and Memory Glass scrape point.
+        <div style="margin-top: 8px; display: flex; flex-wrap: wrap; gap: 8px">
+          <a href="letter-grid.html" style="color: #64d2ff">Letter-Grid</a>
+          <a href="cage-litmus.html" style="color: #64d2ff">Cage litmus</a>
+          <a href="cage-games.html" style="color: #64d2ff">Games hub</a>
+          <a href="/" style="color: #64d2ff">Dictionary · Rubik / gutter</a>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="app-footer">
+    Saint Crypto Tumble · educational cypher salon · NARA public domain codex nearby ·
+    <a href="/">Dictionary ↗</a>
+  </footer>
+
+  <script src="/js/saint-crypto-tumble.js?v=sct1"></script>
+  <script>
+    document.getElementById("theme-toggle")?.addEventListener("click", () => {
+      const cur = document.documentElement.getAttribute("data-theme") || "dark";
+      const next = cur === "light" ? "dark" : "light";
+      document.documentElement.setAttribute("data-theme", next);
+      try {
+        localStorage.setItem("kbatch-dict-theme", next);
+      } catch {
+        /* */
+      }
+    });
+    window.__kbatchSaintCryptoTumble.mount(document.getElementById("sct-mount"), {
+      autoplay: true,
+    });
+  </script>
+  <script src="/js/declaration-edition-nav.js" defer></script>
+  <script src="/js/site-nav.js" defer></script>
+</body>
+</html>

@@ -1,0 +1,301 @@
+<!DOCTYPE html>
+<html lang="en" data-history-page="declaration" data-history-open="1">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+  <title>KBatch · Cage tensor games · Letter-Grid + litmus suite</title>
+  <meta
+    name="description"
+    content="Main Nicolas Cage / National Treasure AI tensor test games: Letter-Grid codex path, Cage-grade FACT/FICTION/STONE_TRAP litmus, dual-surface RAW+STONE doctrine. Memory Glass persona-tensor L5."
+  />
+  <meta name="theme-color" content="#0c0b0a" />
+  <link rel="stylesheet" href="/css/app.css" />
+  <link rel="stylesheet" href="/css/labs.css" />
+  <link rel="stylesheet" href="/css/declaration-edition.css" />
+  <link rel="stylesheet" href="/css/declaration-cage-litmus.css" />
+  <style>
+    .cg-shell { max-width: min(1000px, 100%); margin: 0 auto; display: flex; flex-direction: column; gap: 14px; }
+    .cg-hero h2 { margin: 0 0 6px; font-size: 1.25rem; letter-spacing: -0.02em; }
+    .cg-hero p { margin: 0; color: var(--muted, #8b949e); font-size: 0.88rem; line-height: 1.45; }
+    .cg-doctrine {
+      border: 1px solid color-mix(in srgb, #c9a227 35%, var(--line, #30363d));
+      border-radius: 12px;
+      padding: 12px 14px;
+      background: color-mix(in srgb, #c9a227 8%, var(--panel, #161b22));
+      font-size: 0.8rem;
+      line-height: 1.4;
+    }
+    .cg-doctrine strong { color: #c9a227; }
+    .cg-doctrine ul { margin: 8px 0 0; padding-left: 1.15rem; }
+    .cg-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+      gap: 12px;
+    }
+    .cg-card {
+      border: 1px solid var(--line, #30363d);
+      border-radius: 12px;
+      padding: 14px;
+      background: color-mix(in srgb, var(--panel, #161b22) 94%, #000 6%);
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+      min-height: 100%;
+    }
+    .cg-card .ord {
+      font: 800 0.65rem/1 ui-monospace, Menlo, monospace;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: #c9a227;
+    }
+    .cg-card h3 { margin: 0; font-size: 1rem; letter-spacing: -0.02em; }
+    .cg-card .kind {
+      font: 650 0.65rem/1 ui-monospace, Menlo, monospace;
+      color: var(--muted, #8b949e);
+    }
+    .cg-card p { margin: 0; font-size: 0.78rem; color: var(--muted, #8b949e); line-height: 1.4; flex: 1; }
+    .cg-card .pass {
+      font-size: 0.72rem;
+      border-top: 1px solid var(--line-soft, #21262d);
+      padding-top: 8px;
+      color: var(--ink, #e6edf3);
+    }
+    .cg-card .pass b { color: #3fb950; }
+    .cg-card .actions { display: flex; flex-wrap: wrap; gap: 6px; }
+    .cg-card a.btn {
+      display: inline-flex;
+      align-items: center;
+      padding: 7px 11px;
+      border-radius: 8px;
+      border: 1px solid var(--line, #30363d);
+      text-decoration: none;
+      font: 700 0.72rem/1 system-ui, sans-serif;
+      color: inherit;
+      background: rgba(255,255,255,0.04);
+    }
+    .cg-card a.btn.primary {
+      background: color-mix(in srgb, #c9a227 88%, #111);
+      color: #111;
+      border-color: #c9a227;
+    }
+    .cg-agent {
+      border: 1px solid var(--line, #30363d);
+      border-radius: 12px;
+      padding: 12px 14px;
+      background: var(--bg-elev, #0d1117);
+    }
+    .cg-agent h3 { margin: 0 0 8px; font-size: 0.9rem; }
+    .cg-agent pre {
+      margin: 0;
+      padding: 10px 12px;
+      border-radius: 8px;
+      background: #0a0c10;
+      border: 1px solid var(--line, #30363d);
+      font: 600 0.7rem/1.4 ui-monospace, Menlo, monospace;
+      overflow: auto;
+      white-space: pre-wrap;
+      color: #e6edf3;
+    }
+    .cg-status { font-size: 0.75rem; color: var(--muted, #8b949e); }
+    .cg-status code { color: #79c0ff; font-size: 0.7rem; }
+  </style>
+  <script>
+    (function () {
+      try {
+        var t = localStorage.getItem("kbatch-dict-theme");
+        if (t !== "light" && t !== "dark") t = "dark";
+        document.documentElement.setAttribute("data-theme", t || "dark");
+      } catch (e) {
+        document.documentElement.setAttribute("data-theme", "dark");
+      }
+    })();
+  </script>
+</head>
+<body class="labs-page dec-page">
+  <header class="app-header">
+    <div class="header-inner">
+      <div class="brand-row">
+        <div class="brand">
+          <button type="button" class="theme-toggle" id="theme-toggle" title="Toggle theme" aria-label="Toggle theme">
+            <span class="theme-icon theme-icon--sun" aria-hidden="true">☀</span>
+            <span class="theme-icon theme-icon--moon" aria-hidden="true">☾</span>
+          </button>
+          <h1><span>KBatch</span> Cage tensor games</h1>
+          <span class="brand-sub">Letter-Grid · Cage litmus · dual-surface · AI persona-tensor L5</span>
+        </div>
+        <nav class="site-nav" aria-label="Site"></nav>
+      </div>
+      <div class="meta-row">
+        <span class="status-line" id="cg-status">Loading game pack…</span>
+      </div>
+    </div>
+  </header>
+
+  <nav class="dec-version-nav" data-dec-nav data-active="cage-games" aria-label="Declaration edition toolbox"></nav>
+
+  <main class="labs-main" style="max-width: min(1000px, 100%)">
+    <div class="cg-shell" id="cg-root">
+      <p class="cg-status">Loading…</p>
+    </div>
+  </main>
+
+  <footer class="app-footer">
+    Cage tensor suite · National Treasure fiction labeled · NARA PD · Memory Glass soak :9880 ·
+    <a href="/data/declaration/cage-tensor-games.json">cage-tensor-games.json</a> ·
+    <a href="/for-ai#archival-litmus">For AI</a>
+  </footer>
+
+  <script>
+    document.getElementById("theme-toggle")?.addEventListener("click", () => {
+      const cur = document.documentElement.getAttribute("data-theme") || "dark";
+      const next = cur === "light" ? "dark" : "light";
+      document.documentElement.setAttribute("data-theme", next);
+      try { localStorage.setItem("kbatch-dict-theme", next); } catch { /* */ }
+    });
+
+    (async function () {
+      const root = document.getElementById("cg-root");
+      const st = document.getElementById("cg-status");
+      function esc(s) {
+        return String(s ?? "")
+          .replace(/&/g, "&amp;")
+          .replace(/</g, "&lt;")
+          .replace(/"/g, "&quot;");
+      }
+      let pack;
+      try {
+        const r = await fetch("/data/declaration/cage-tensor-games.json", { cache: "no-store" });
+        if (!r.ok) throw new Error(r.status);
+        pack = await r.json();
+      } catch (e) {
+        root.innerHTML = "<p class='arc-err'>Could not load cage-tensor-games.json · " + esc(e.message || e) + "</p>";
+        if (st) st.textContent = "Pack missing";
+        return;
+      }
+
+      const games = (pack.games || []).slice().sort((a, b) => (a.order || 0) - (b.order || 0));
+      const doctrine = (pack.doctrine || [])
+        .map((d) => "<li>" + esc(d) + "</li>")
+        .join("");
+
+      const cards = games
+        .map((g) => {
+          const pass = g.pass || {};
+          return (
+            '<article class="cg-card" data-game="' +
+            esc(g.id) +
+            '">' +
+            '<span class="ord">Game ' +
+            esc(String(g.order || "—")) +
+            " · " +
+            esc(g.kind || "") +
+            "</span>" +
+            "<h3>" +
+            esc(g.label) +
+            "</h3>" +
+            '<span class="kind">' +
+            esc(g.api || "—") +
+            "</span>" +
+            "<p>" +
+            esc(g.note || "") +
+            "</p>" +
+            '<div class="pass"><b>dojo</b> ' +
+            esc(pass.dojo || "—") +
+            "<br/><b>cage</b> " +
+            esc(pass.cage || "—") +
+            "</div>" +
+            '<div class="actions">' +
+            '<a class="btn primary" href="' +
+            esc(g.url) +
+            (g.anchor || "") +
+            '">Play →</a>' +
+            (g.data && g.data[0]
+              ? '<a class="btn" href="' + esc(g.data[0]) + '">Data</a>'
+              : "") +
+            "</div></article>"
+          );
+        })
+        .join("");
+
+      const steps = (pack.agentQuickstart && pack.agentQuickstart.steps) || [];
+      const agentPre =
+        "// Cage tensor suite · agent quickstart\n" +
+        "// Pack: /data/declaration/cage-tensor-games.json\n\n" +
+        "// 1) Letter-Grid (motor path)\n" +
+        "const lg = window.__letterGridApi;\n" +
+        "lg?.startTimed?.(120);\n" +
+        "// lg.clickCell(i) · lg.report() → score table + growth stair\n\n" +
+        "// 1b) Saint crypto tumble (two talks → DAC/Steno/Gutter/Rubik)\n" +
+        "const st = window.__saintTumbleApi;\n" +
+        "st?.run(); // or st.tumble(convA, convB, { mode: 'zip' })\n" +
+        "// st.report() · __mgSaintTumble · letter seed → Letter-Grid\n\n" +
+        "// 2) Cage litmus (epistemic)\n" +
+        "const quiz = await fetch('/data/declaration/cage-litmus-quiz.json').then(r=>r.json());\n" +
+        "window.__cageLitmusApi?.verify([\n" +
+        "  { id: 'q03', answer: 'FICTION' },\n" +
+        "  { id: 'q07', answer: 'STONE_TRAP' },\n" +
+        "  // … all 12\n" +
+        "]);\n\n" +
+        "// Trials: localStorage " +
+        ((pack.persona && pack.persona.trialKeys) || []).join(" · ") +
+        "\n// Soak bus: " +
+        ((pack.persona && pack.persona.soakBus) || "—");
+
+      root.innerHTML =
+        '<div class="cg-hero">' +
+        "<h2>" +
+        esc(pack.title) +
+        "</h2>" +
+        "<p>" +
+        esc(pack.claim) +
+        "</p></div>" +
+        '<div class="cg-doctrine"><strong>Doctrine</strong><ul>' +
+        doctrine +
+        "</ul></div>" +
+        '<div class="cg-grid">' +
+        cards +
+        "</div>" +
+        '<div class="cg-agent"><h3>Agent / Memory Glass hooks</h3>' +
+        "<p class='cg-status'>Persona <code>" +
+        esc((pack.persona && pack.persona.id) || "L5-cage-tensor") +
+        "</code> · soak <code>" +
+        esc((pack.persona && pack.persona.soakBus) || "") +
+        "</code></p>" +
+        "<ol style='font-size:0.78rem;color:var(--muted);line-height:1.45'>" +
+        steps.map((s) => "<li>" + esc(s) + "</li>").join("") +
+        "</ol>" +
+        "<pre>" +
+        esc(agentPre) +
+        "</pre>" +
+        '<p class="cg-status" style="margin-top:8px">' +
+        '<button type="button" class="btn" id="cg-copy-agent">Copy agent quickstart</button> · ' +
+        '<a href="/data/declaration/cage-tensor-games.json">cage-tensor-games.json</a> · ' +
+        '<a href="/for-ai#archival-litmus">For AI archival litmus</a>' +
+        "</p></div>";
+
+      if (st) {
+        st.textContent =
+          (pack.games || []).length +
+          " games · stair Letter-Grid → Cage → dual → workspace · " +
+          (pack.persona && pack.persona.id);
+      }
+
+      document.getElementById("cg-copy-agent")?.addEventListener("click", function () {
+        const t = agentPre;
+        if (navigator.clipboard && navigator.clipboard.writeText) {
+          navigator.clipboard.writeText(t).then(function () {
+            st.textContent = "Agent quickstart copied";
+          });
+        }
+      });
+
+      window.__cageTensorGames = {
+        ver: pack.schema,
+        pack: pack,
+      };
+    })();
+  </script>
+  <script src="/js/declaration-edition-nav.js" defer></script>
+  <script src="/js/site-nav.js" defer></script>
+</body>
+</html>
