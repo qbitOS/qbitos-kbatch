@@ -591,18 +591,17 @@
         var row = el("div", "sct-beat");
         row.style.setProperty("--cast", s.castColor);
         row.style.setProperty("--face", s.faceColor);
-        row.innerHTML =
-          '<span class="sct-pfx">' +
-          s.prefix +
-          '</span><span class="sct-face-tag">' +
-          s.face +
-          "</span><span class="sct-who">' +
-          s.speaker +
-          '</span><span class="sct-txt">' +
-          s.text +
-          '</span><span class="sct-steno" title="steno coins">¢' +
-          s.steno.coins +
-          "</span>";
+        var pfx = el("span", "sct-pfx", s.prefix);
+        var face = el("span", "sct-face-tag", s.face);
+        var who = el("span", "sct-who", s.speaker);
+        var txt = el("span", "sct-txt", s.text);
+        var st = el("span", "sct-steno", "¢" + s.steno.coins);
+        st.title = "steno coins";
+        row.appendChild(pfx);
+        row.appendChild(face);
+        row.appendChild(who);
+        row.appendChild(txt);
+        row.appendChild(st);
         beatList.appendChild(row);
       });
       try {
