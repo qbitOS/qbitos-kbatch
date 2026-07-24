@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Letter-Grid · Grok / Dojo / Colossus pipe</title>
+  <meta
+    name="description"
+    content="Headless-friendly Letter-Grid pipe: getState · nextGlyph · playRound · exportColossus · master glyphs JSON."
+  />
+  <link rel="stylesheet" href="/css/declaration-letter-grid.css?v=pipe8" />
+  <style>
+    body { margin: 0; background: #0c0b0a; color: #e6edf3; font: 13px ui-monospace, Menlo, monospace; }
+    #hud { padding: 12px 16px; border-bottom: 1px solid #30363d; display: flex; flex-wrap: wrap; gap: 8px; align-items: center; }
+    #hud button { font: inherit; padding: 6px 10px; border-radius: 8px; border: 1px solid #30363d; background: #161b22; color: #e6edf3; cursor: pointer; }
+    #hud button.primary { background: #1f6feb; border-color: #1f6feb; }
+    #out { padding: 12px 16px; white-space: pre-wrap; max-height: 42vh; overflow: auto; }
+    #dlg-mount { max-width: 960px; margin: 0 auto; padding: 8px; }
+    .tag { opacity: 0.7; }
+  </style>
+</head>
+<body>
+  <div id="hud">
+    <span class="tag">pipe v8</span>
+    <button type="button" id="btn-dojo" class="primary">Dojo on</button>
+    <button type="button" id="btn-step">nextGlyph ×1</button>
+    <button type="button" id="btn-step10">nextGlyph ×10</button>
+    <button type="button" id="btn-round">playRound 70s @120</button>
+    <button type="button" id="btn-export">exportColossus</button>
+    <button type="button" id="btn-master">masterGlyphs</button>
+    <span id="live" class="tag">…</span>
+  </div>
+  <div id="dlg-mount"></div>
+  <pre id="out">mounting…</pre>
+  <script src="/js/declaration-letter-grid.js?v=pipe8"></script>
+  <script>
+    (async function () {
+      var out = document.getElementById("out");
+      var live = document.getElementById("live");
+      var q = new URLSearchParams(location.search);
+      var mode = q.get("mode") || "ready"; /* ready | dojo | step | round | export */
+      var steps = parseInt(q.get("steps") || "0", 10);
+      var hop = parseInt(q.get("hop") || "120", 10);
+      var N = parseInt(q.get("N") || "12", 10);
+
+      function show(obj) {
+        out.textContent =
+          typeof obj === "string" ? obj : JSON.stringify(obj, null, 2);
+      }
+      function paintLive(api) {
+        var s = api.getState();
+        live.textContent =
+          s.live +
+          " · gi " +
+          s.masterPos +
+          "/" +
+          s.masterTotal +
+          " · L" +
+          s.layer +
+          "/" +
+          s.layers +
+          (s.next && s.next.ch ? " · next " + s.next.ch : "");
+      }
+
+      var api = await window.__kbatchDeclarationLetterGrid.mount(
+        document.getElementById("dlg-mount"),
+        { dataBase: "/data/declaration", N: N, hopMs: hop, autoplay: false }
+      );
+      window.__letterGridPipe = api;
+      window.letterGrid = api;
+      paintLive(api);
+      show({
+        ready: true,
+        ver: api.ver,
+        surface: [
+          "letterGrid.getState()",
+          "letterGrid.nextGlyph()",
+          "letterGrid.playRound({ size, speed })",
+          "letterGrid.exportColossus()",
+          "letterGrid.setDojoMode(true)",
+          "letterGrid.masterGlyphs()",
+        ],
+        masterTotal: api.getState().masterTotal,
+        staticMaster: "/data/declaration/master-glyphs.json",
+      });
+
+      document.getElementById("btn-dojo").onclick = function () {
+        show(api.setDojoMode(true));
+        paintLive(api);
+      };
+      document.getElementById("btn-step").onclick = function () {
+        show(api.nextGlyph());
+        paintLive(api);
+      };
+      document.getElementById("btn-step10").onclick = function () {
+        var rows = [];
+        for (var i = 0; i < 10; i++) rows.push(api.nextGlyph());
+        show({ steps: rows.length, last: rows[rows.length - 1], state: api.getState() });
+        paintLive(api);
+      };
+      document.getElementById("btn-round").onclick = async function () {
+        show("playing…");
+        var rep = await api.playRound({ size: N, speed: hop, timed: true });
+        show(rep);
+        paintLive(api);
+        document.documentElement.dataset.agentDone = "1";
+        document.documentElement.dataset.peakBps = String(
+          (rep.report && rep.report.peakBps) || api.getState().peakBps
+        );
+      };
+      document.getElementById("btn-export").onclick = function () {
+        var pack = api.exportColossus({ includeGlyphs: false });
+        show(pack);
+        document.documentElement.dataset.agentDone = "1";
+        document.documentElement.dataset.exportKind = pack.kind;
+      };
+      document.getElementById("btn-master").onclick = function () {
+        var m = api.masterGlyphs({ compact: true });
+        show({ total: m.total, sample: m.glyphs.slice(0, 12), schema: m.schema });
+      };
+
+      /* URL-driven headless modes */
+      if (mode === "dojo" || mode === "step") {
+        api.setDojoMode(true);
+        var n = steps > 0 ? steps : mode === "step" ? 1 : 0;
+        var last = null;
+        for (var i = 0; i < n; i++) last = api.nextGlyph();
+        var pack = api.exportColossus({
+          includeGlyphs: mode === "export-full",
+        });
+        window.__mgLetterGridPipeLast = {
+          mode: mode,
+          steps: n,
+          last: last,
+          state: api.getState(),
+          colossus: pack,
+        };
+        show(window.__mgLetterGridPipeLast);
+        paintLive(api);
+        document.documentElement.dataset.agentDone = "1";
+        document.documentElement.dataset.masterPos = String(api.getState().masterPos);
+        document.documentElement.dataset.wordCount = String(api.getState().masterTotal);
+      } else if (mode === "export") {
+        api.setDojoMode(true);
+        var ex = api.exportColossus({ includeGlyphs: q.get("glyphs") === "1" });
+        window.__mgLetterGridPipeLast = ex;
+        show(ex);
+        document.documentElement.dataset.agentDone = "1";
+      } else if (mode === "round") {
+        var r = await api.playRound({ size: N, speed: hop, timed: true });
+        window.__mgLetterGridPipeLast = r;
+        show(r);
+        paintLive(api);
+        document.documentElement.dataset.agentDone = "1";
+        document.documentElement.dataset.peakBps = String(
+          (r.report && r.report.peakBps) || 0
+        );
+      } else if (mode === "smoke") {
+        /* fast pipe smoke: dojo + 32 steps + colossus without full glyph dump */
+        api.setDojoMode(true);
+        for (var j = 0; j < 32; j++) api.nextGlyph();
+        var smoke = {
+          kind: "letter_grid_pipe_smoke",
+          ver: api.ver,
+          at: new Date().toISOString(),
+          state: api.getState(),
+          colossus: api.exportColossus({ includeGlyphs: false }),
+          masterStaticOk: true,
+        };
+        try {
+          var mj = await fetch("/data/declaration/master-glyphs.json").then(function (r) {
+            return r.json();
+          });
+          smoke.masterStatic = { total: mj.total, first: mj.first, layersAt: mj.layersAt };
+        } catch (e) {
+          smoke.masterStaticOk = false;
+        }
+        window.__mgLetterGridPipeLast = smoke;
+        show(smoke);
+        paintLive(api);
+        document.documentElement.dataset.agentDone = "1";
+        document.documentElement.dataset.masterPos = String(smoke.state.masterPos);
+        document.documentElement.dataset.layerClears = String(
+          smoke.colossus.layer.clears.length
+        );
+      }
+    })().catch(function (e) {
+      document.getElementById("out").textContent = String(e && e.stack ? e.stack : e);
+      document.documentElement.dataset.agentDone = "err";
+    });
+  </script>
+</body>
+</html>

@@ -14,7 +14,7 @@
 (function (global) {
   "use strict";
 
-  var VER = "declaration-letter-grid-v7-classy";
+  var VER = "declaration-letter-grid-v8-pipe";
   var TARGET_RGB = "rgb(10, 132, 255)";
   /** WebGrid default round length (seconds) */
   var ROUND_S = 70;
@@ -345,6 +345,10 @@
       glyphRaf: 0,
       highSpeed: false, /* hop ≤ 40ms: skip heavy paint */
       lastContrailPub: 0,
+      /* Grok / Dojo / Colossus pipe */
+      dojoMode: false, /* no timer · step glyph-by-glyph */
+      layerClears: [], /* { layer, at, masterPos, bps, ntpm, hits } */
+      pipeLog: [], /* compact agent events for Colossus */
     };
 
     root.innerHTML = "";
@@ -1135,13 +1139,21 @@
       state.pathStep = 0;
       state.stairUnlocks = [];
       state.lastReport = null;
+      state.layerClears = [];
+      state.pipeLog = [];
+      state.dojoMode = !!optsRound.dojo || !!optsRound.openCodex;
       state.roundStartedAt = Date.now();
       if (state.openCodex) {
         state.roundUntil = 0;
         btnPlay.textContent = "Restart timed 70s";
         btnPlay.classList.remove("primary");
         btnOpen.classList.add("on");
-        slog("OPEN CODEX · no timer · " + state.master.length + " glyphs");
+        slog(
+          (state.dojoMode ? "DOJO · " : "OPEN CODEX · ") +
+            "no timer · " +
+            state.master.length +
+            " glyphs"
+        );
       } else {
         state.roundUntil = Date.now() + state.roundS * 1000;
         btnPlay.textContent = "Playing…";
@@ -1749,10 +1761,34 @@
       state.events.push({ t: now, ok: ok });
       if (ok) {
         var g = state.master[state.masterPos];
+        var needCells = state.N * state.N;
+        var layerBefore = Math.floor(state.masterPos / Math.max(1, needCells));
         state.hits.push({ t: now, gi: g.gi, ch: g.ch, lineId: g.lineId });
         state.masterPos++;
         state.hitCount++;
         noteStairProgress();
+        /* layer clear → Colossus pipe log */
+        var layerAfter = Math.floor(state.masterPos / Math.max(1, needCells));
+        if (layerAfter > layerBefore || state.masterPos >= state.master.length) {
+          var ntpmL = ntpmNow();
+          var bpsL = bpsFromNtpm(ntpmL, state.N);
+          var clearRow = {
+            layer: layerBefore + 1,
+            at: new Date().toISOString(),
+            masterPos: state.masterPos,
+            bps: +bpsL.toFixed(2),
+            ntpm: ntpmL,
+            hits: state.hitCount,
+            complete: state.masterPos >= state.master.length,
+          };
+          state.layerClears.push(clearRow);
+          state.pipeLog.push({ kind: "layer-clear", t: now, row: clearRow });
+          try {
+            global.dispatchEvent(
+              new CustomEvent("letter-grid-layer-clear", { detail: clearRow })
+            );
+          } catch (eL) {}
+        }
         slog("glyph #" + g.gi + " " + g.display + " @ " + g.lineId);
         if (state.masterPos >= state.master.length) {
           slog("CODEX COMPLETE · " + state.master.length + " glyphs · unlock finale");
@@ -1975,6 +2011,7 @@
           " NTPM)",
         codexDone: codexDone,
         finaleDone: finaleDone,
+        dojoMode: !!state.dojoMode,
         grade: finaleDone
           ? "cage"
           : codexDone
@@ -1983,8 +2020,608 @@
               ? "in-progress"
               : "ready",
         lines: state.lines.length,
+        layerClears: state.layerClears.length,
+        next: nextGlyphPreview(),
+        targetIdx: state.mode === "finale" ? state.path[state.pathStep] : state.targetIdx,
       };
       return snap;
+    }
+
+    /** Next master glyph (or finale cell) without advancing */
+    function nextGlyphPreview() {
+      if (state.mode === "finale") {
+        return {
+          mode: "finale",
+          pathStep: state.pathStep,
+          pathTotal: state.path.length,
+          cell: state.path[state.pathStep],
+          ch: null,
+          gi: null,
+        };
+      }
+      var g = state.master[state.masterPos];
+      if (!g) return null;
+      return {
+        mode: "codex",
+        gi: g.gi,
+        ch: g.ch,
+        display: g.display,
+        lineId: g.lineId,
+        kind: g.kind,
+        letterKey: g.letterKey,
+        wordStart: !!g.wordStart,
+        sentenceStart: !!g.sentenceStart,
+        cell: state.targetIdx,
+      };
+    }
+
+    function getState() {
+      return snapshotNow();
+    }
+
+    /** Enter Dojo mode: no 70s timer, step-friendly open codex */
+    function setDojoMode(on) {
+      state.dojoMode = on !== false;
+      if (state.dojoMode) {
+        if (!state.playing || state.phase === "end" || state.phase === "lobby") {
+          startRound({ openCodex: true, agent: true, dojo: true });
+        } else {
+          state.openCodex = true;
+          state.roundUntil = 0;
+          stopTimer();
+          btnOpen.classList.add("on");
+          slog("DOJO on · timer off · step with nextGlyph()");
+        }
+      } else {
+        state.dojoMode = false;
+      }
+      return getState();
+    }
+
+    /**
+     * Advance one correct glyph (or finale cell). Primary Dojo / agent step.
+     * Auto-enters Dojo if idle.
+     */
+    function nextGlyph(optsG) {
+      optsG = optsG || {};
+      if (!state.playing || state.phase === "lobby" || state.phase === "end") {
+        setDojoMode(true);
+      }
+      var beforePos = state.masterPos;
+      var beforePath = state.pathStep;
+      var preview = nextGlyphPreview();
+      var idx =
+        state.mode === "finale"
+          ? state.path[state.pathStep]
+          : state.targetIdx;
+      if (idx == null || idx < 0) {
+        return {
+          ok: false,
+          reason: state.masterPos >= state.master.length ? "codex-done" : "no-target",
+          glyph: preview,
+          state: getState(),
+        };
+      }
+      onCell(idx);
+      var ok =
+        state.mode === "finale"
+          ? state.pathStep > beforePath
+          : state.masterPos > beforePos;
+      var row = {
+        ok: ok,
+        glyph: preview,
+        cell: idx,
+        state: getState(),
+      };
+      state.pipeLog.push({
+        kind: "nextGlyph",
+        t: Date.now(),
+        ok: ok,
+        gi: preview && preview.gi,
+        ch: preview && preview.ch,
+      });
+      try {
+        global.dispatchEvent(new CustomEvent("letter-grid-next-glyph", { detail: row }));
+      } catch (eN) {}
+      return row;
+    }
+
+    /**
+     * One-shot round for agents.
+     * playRound({ size:12, speed:60, timed:true }) → agentPlay 70s
+     * playRound({ dojo:true }) → open codex, no autoplay
+     * playRound({ agent:true, maxHits:100 }) → paced agent walk
+     */
+    function playRound(optsP) {
+      optsP = optsP || {};
+      var size = optsP.size != null ? optsP.size : optsP.N != null ? optsP.N : state.N;
+      var speed =
+        optsP.speed != null
+          ? optsP.speed
+          : optsP.hopMs != null
+            ? optsP.hopMs
+            : optsP.paceMs != null
+              ? optsP.paceMs
+              : state.hopMs;
+      if (size === 8) setN(8, btnN8);
+      else if (size === 16) setN(16, btnN16);
+      else setN(12, btnN12);
+      state.hopMs = Math.max(MIN_HOP_MS, Number(speed) || DEFAULT_HOP_MS);
+      state.highSpeed = state.hopMs <= 40;
+      boardHost.classList.toggle("is-turbo", state.highSpeed);
+      if (optsP.roundS != null) state.roundS = Math.max(5, Number(optsP.roundS) || ROUND_S);
+
+      var wantDojo = !!(optsP.dojo || optsP.openCodex || optsP.timed === false);
+      var wantAgent = optsP.agent !== false && !optsP.stepOnly && !wantDojo;
+      if (optsP.agent === true) wantAgent = true;
+      if (optsP.stepOnly) wantAgent = false;
+
+      if (wantDojo && !wantAgent) {
+        setDojoMode(true);
+        return Promise.resolve({
+          kind: "letter_grid_play_round",
+          mode: "dojo",
+          state: getState(),
+        });
+      }
+
+      return agentPlay({
+        paceMs: state.hopMs,
+        openCodex: wantDojo,
+        maxHits: optsP.maxHits,
+      }).then(function (rep) {
+        return {
+          kind: "letter_grid_play_round",
+          mode: wantDojo ? "open-agent" : "timed-agent",
+          report: rep,
+          state: getState(),
+          colossus: exportColossus({ includeGlyphs: false }),
+        };
+      });
+    }
+
+    /**
+     * Single Colossus-friendly export: layer + glyph sequence + score + clears.
+     * opts.includeGlyphs (default true) · opts.compact (default true) · opts.hitLimit
+     */
+    function exportColossus(optsC) {
+      optsC = optsC || {};
+      var includeGlyphs = optsC.includeGlyphs !== false;
+      var compact = optsC.compact !== false;
+      var hitLimit = optsC.hitLimit != null ? optsC.hitLimit : 2000;
+      var need = state.N * state.N;
+      var layers = Math.ceil(state.master.length / Math.max(1, need)) || 1;
+      var layer = Math.min(Math.floor(state.masterPos / Math.max(1, need)) + 1, layers);
+      var glyphs = null;
+      if (includeGlyphs) {
+        glyphs = state.master.map(function (g) {
+          if (compact) {
+            /* [gi, ch, lineId, kind, wordStart, sentenceStart] */
+            return [
+              g.gi,
+              g.ch,
+              g.lineId,
+              g.kind || "body",
+              g.wordStart ? 1 : 0,
+              g.sentenceStart ? 1 : 0,
+            ];
+          }
+          return {
+            gi: g.gi,
+            ch: g.ch,
+            lineId: g.lineId,
+            kind: g.kind,
+            letterKey: g.letterKey,
+            wordStart: !!g.wordStart,
+            sentenceStart: !!g.sentenceStart,
+          };
+        });
+      }
+      var pack = {
+        schema: "kbatch-letter-grid-colossus-v1",
+        kind: "letter_grid_colossus",
+        ver: VER,
+        at: new Date().toISOString(),
+        game: "letter-grid",
+        docId: "declaration",
+        N: state.N,
+        hopMs: state.hopMs,
+        dojoMode: !!state.dojoMode,
+        openCodex: !!state.openCodex,
+        mode: state.mode,
+        phase: state.phase,
+        master: {
+          total: state.master.length,
+          pos: state.masterPos,
+          remaining: Math.max(0, state.master.length - state.masterPos),
+          glyphSchema: compact
+            ? ["gi", "ch", "lineId", "kind", "wordStart", "sentenceStart"]
+            : null,
+          glyphs: glyphs,
+        },
+        layer: {
+          current: layer,
+          total: layers,
+          cells: need,
+          clears: state.layerClears.slice(),
+        },
+        stair: state.stairUnlocks.slice(),
+        score: getState(),
+        sequence: state.hits.slice(-hitLimit),
+        pipeLog: state.pipeLog.slice(-500),
+        report: state.lastReport,
+        contrail: {
+          layers: Object.assign({}, state.contrail),
+          counts: {
+            word: (state.contrailPts.word || []).length,
+            sentence: (state.contrailPts.sentence || []).length,
+            same: (state.contrailPts.same || []).length,
+          },
+        },
+        urls: {
+          play: "/labs/declaration-digital-edition/letter-grid.html",
+          lab: "/labs/declaration-digital-edition/letter-grid-lab.html",
+          pipe: "/labs/declaration-digital-edition/letter-grid-pipe.html",
+          masterJson: "/data/declaration/master-glyphs.json",
+        },
+      };
+      try {
+        global.__mgLetterGridColossus = pack;
+        global.dispatchEvent(
+          new CustomEvent("letter-grid-colossus-export", { detail: pack })
+        );
+      } catch (eC) {}
+      return pack;
+    }
+
+    /** Master glyph list only (for kbatch_colossus / letter_atom pull) */
+    function masterGlyphs(optsM) {
+      optsM = optsM || {};
+      var compact = optsM.compact !== false;
+      return {
+        schema: "kbatch-letter-grid-master-v1",
+        ver: VER,
+        at: new Date().toISOString(),
+        total: state.master.length,
+        glyphSchema: compact
+          ? ["gi", "ch", "lineId", "kind", "wordStart", "sentenceStart"]
+          : null,
+        glyphs: state.master.map(function (g) {
+          if (compact) {
+            return [
+              g.gi,
+              g.ch,
+              g.lineId,
+              g.kind || "body",
+              g.wordStart ? 1 : 0,
+              g.sentenceStart ? 1 : 0,
+            ];
+          }
+          return g;
+        }),
+      };
+    }
+
+    /** Document line → glyph ranges (L01 title, etc.) — Colossus layerMap */
+    function documentLineMap() {
+      var map = {};
+      for (var i = 0; i < state.master.length; i++) {
+        var g = state.master[i];
+        var id = g.lineId || "—";
+        if (!map[id]) {
+          map[id] = {
+            label: g.kind || "body",
+            range: [g.gi, g.gi],
+            count: 0,
+          };
+        }
+        map[id].range[1] = g.gi;
+        map[id].count++;
+      }
+      return map;
+    }
+
+    /** N×N grid layer → master index range */
+    function gridLayerMap() {
+      var need = state.N * state.N;
+      var total = Math.ceil(state.master.length / Math.max(1, need)) || 1;
+      var map = {};
+      for (var L = 1; L <= total; L++) {
+        var start = (L - 1) * need;
+        var end = Math.min(state.master.length - 1, start + need - 1);
+        map[String(L)] = {
+          layer: L,
+          range: [start, end],
+          cells: need,
+          complete: state.masterPos > end,
+        };
+      }
+      return map;
+    }
+
+    /**
+     * Jump to grid layer 1..layers (sets masterPos to layer start).
+     * Enters dojo if idle.
+     */
+    function jumpToLayer(layerNum) {
+      var need = state.N * state.N;
+      var layers = Math.ceil(state.master.length / Math.max(1, need)) || 1;
+      var L = Math.max(1, Math.min(layers, Number(layerNum) || 1));
+      if (!state.playing || state.phase === "lobby" || state.phase === "end") {
+        setDojoMode(true);
+      }
+      state.mode = "codex";
+      state.masterPos = (L - 1) * need;
+      if (state.masterPos >= state.master.length) {
+        state.masterPos = Math.max(0, state.master.length - 1);
+      }
+      state.layerStart = Math.floor(state.masterPos / need) * need;
+      dealCodexBoard({ forceFull: true });
+      refreshScore();
+      state.pipeLog.push({ kind: "jump-layer", t: Date.now(), layer: L });
+      return {
+        ok: true,
+        action: "jump",
+        layer: L,
+        layers: layers,
+        masterPos: state.masterPos,
+        state: mcpStateShape(),
+      };
+    }
+
+    /** Skip remaining cells in current grid layer → start of next */
+    function skipLayer() {
+      var need = state.N * state.N;
+      var layers = Math.ceil(state.master.length / Math.max(1, need)) || 1;
+      var cur = Math.floor(state.masterPos / Math.max(1, need)) + 1;
+      if (cur >= layers) {
+        return {
+          ok: false,
+          reason: "last-layer",
+          layer: cur,
+          state: mcpStateShape(),
+        };
+      }
+      return jumpToLayer(cur + 1);
+    }
+
+    /** Draft MCP kbatch_lettergrid_state return shape */
+    function mcpStateShape(include) {
+      include = include || [];
+      var s = getState();
+      var out = {
+        tool: "kbatch_lettergrid_state",
+        ver: VER,
+        timer: s.timer,
+        bps: +Number(s.bps).toFixed(2),
+        ntpm: s.ntpm,
+        grid: s.N + "×" + s.N,
+        N: s.N,
+        glyphs: { done: s.masterPos, total: s.masterTotal },
+        layer: { current: s.layer, total: s.layers },
+        nextGlyph: s.next && s.next.ch != null ? s.next.ch : null,
+        next: s.next,
+        masterIndex: s.masterPos,
+        peakBps: +Number(s.peakBps).toFixed(2),
+        peakNtpm: s.peakNtpm,
+        mode: s.phase === "lobby" ? "lobby" : s.dojoMode ? "dojo" : s.mode,
+        phase: s.phase,
+        playing: s.playing,
+        openCodex: s.openCodex,
+        dojoMode: s.dojoMode,
+        hitCount: s.hitCount,
+        missCount: s.missCount,
+        hitRate: s.hitRate,
+        hopMs: s.hopMs,
+      };
+      if (include.indexOf("score") >= 0 || include.indexOf("session") >= 0) {
+        out.score = {
+          peakBps: out.peakBps,
+          peakNtpm: out.peakNtpm,
+          hits: s.hitCount,
+          misses: s.missCount,
+          best: s.best,
+          report: s.report,
+        };
+      }
+      if (include.indexOf("layers") >= 0) {
+        out.gridLayerMap = gridLayerMap();
+        out.layerClears = state.layerClears.slice();
+      }
+      if (include.indexOf("glyphs") >= 0) {
+        out.masterSample = state.master.slice(0, 32).map(function (g) {
+          return g.ch;
+        });
+      }
+      if (include.indexOf("crossref") >= 0) {
+        out.crossref = letterFreqXref();
+      }
+      if (include.indexOf("session") >= 0) {
+        out.session = {
+          stairUnlocks: state.stairUnlocks.slice(),
+          pipeLogTail: state.pipeLog.slice(-40),
+          layerClears: state.layerClears.slice(),
+        };
+      }
+      return out;
+    }
+
+    function letterFreqXref() {
+      var xr = {};
+      Object.keys(state.xref || {}).forEach(function (k) {
+        var arr = state.xref[k] || [];
+        var byLine = {};
+        for (var i = 0; i < arr.length; i++) {
+          var lid = arr[i].lineId;
+          byLine[lid] = (byLine[lid] || 0) + 1;
+        }
+        xr[k] = byLine;
+      });
+      return xr;
+    }
+
+    /**
+     * Training pack: glyph sequence + layer boundaries + BPS targets.
+     * format: json | jsonl-rows | jax-vectors
+     */
+    function exportTraining(optsT) {
+      optsT = optsT || {};
+      var format = optsT.format || "json";
+      var need = state.N * state.N;
+      var layers = Math.ceil(state.master.length / Math.max(1, need)) || 1;
+      var boundaries = [];
+      for (var L = 1; L <= layers; L++) {
+        boundaries.push({
+          layer: L,
+          start: (L - 1) * need,
+          end: Math.min(state.master.length, L * need),
+        });
+      }
+      var seq = state.master.map(function (g) {
+        return g.ch;
+      });
+      var factor = bpsFactor(state.N);
+      var pack = {
+        schema: "kbatch-letter-grid-training-v1",
+        tool: "kbatch_lettergrid_export_training",
+        ver: VER,
+        at: new Date().toISOString(),
+        document: "declaration-of-independence",
+        N: state.N,
+        masterGlyphs: state.master.length,
+        layers: layers,
+        sequence: seq,
+        layerBoundaries: boundaries,
+        documentLineMap: documentLineMap(),
+        bps: {
+          factor: +factor.toFixed(4),
+          note: "BPS = factor * NTPM/60 · factor = log2(N²-1)",
+          targets: {
+            humanPace: { hopMs: 120, note: "MG default" },
+            agentFast: { hopMs: 60 },
+            turbo: { hopMs: 12 },
+          },
+        },
+        compactGlyphs: state.master.map(function (g) {
+          return [g.gi, g.ch, g.lineId, g.kind || "body"];
+        }),
+      };
+      if (format === "jsonl") {
+        return {
+          format: "jsonl",
+          lines: state.master.map(function (g) {
+            return JSON.stringify({
+              gi: g.gi,
+              ch: g.ch,
+              lineId: g.lineId,
+              kind: g.kind,
+              layer: Math.floor(g.gi / need) + 1,
+            });
+          }),
+          meta: {
+            schema: pack.schema,
+            masterGlyphs: pack.masterGlyphs,
+            layers: pack.layers,
+          },
+        };
+      }
+      if (format === "jax") {
+        /* numeric features: gi, charCode, layer, wordStart, sentenceStart, kindId */
+        var kindIds = {
+          title: 0,
+          subtitle: 1,
+          body: 2,
+          grievance: 3,
+          closing: 4,
+          signature: 5,
+        };
+        var vectors = state.master.map(function (g) {
+          return [
+            g.gi,
+            g.ch.charCodeAt(0),
+            Math.floor(g.gi / need) + 1,
+            g.wordStart ? 1 : 0,
+            g.sentenceStart ? 1 : 0,
+            kindIds[g.kind] != null ? kindIds[g.kind] : 2,
+          ];
+        });
+        return {
+          format: "jax",
+          schema: pack.schema,
+          columns: ["gi", "charCode", "layer", "wordStart", "sentenceStart", "kindId"],
+          shape: [vectors.length, 6],
+          vectors: vectors,
+          bps: pack.bps,
+        };
+      }
+      return pack;
+    }
+
+    /** Draft-shaped Colossus snapshot */
+    function exportColossusDraft(optsD) {
+      optsD = optsD || {};
+      var depth = optsD.depth || "full";
+      var include = optsD.include || ["glyphs", "layers", "scores", "crossref", "session"];
+      var light = depth === "light";
+      var training = depth === "training";
+      var base = {
+        document: "declaration-of-independence",
+        version: VER,
+        schema: "kbatch-letter-grid-colossus-v1",
+        masterGlyphs: state.master.length,
+        layers: Math.ceil(state.master.length / Math.max(1, state.N * state.N)) || 1,
+        state: mcpStateShape(["score"]),
+        paleography: {
+          scribe: "Timothy Matlack",
+          ink: "iron-gall",
+          substrate: "parchment",
+          notes:
+            "NARA engrossed transcript glyphs · letter-grid master stream is orthographic order, not stroke path.",
+          rights: "public-domain transcript",
+        },
+      };
+      if (!light && include.indexOf("glyphs") >= 0) {
+        base.glyphs = state.master.map(function (g) {
+          return g.ch;
+        });
+      }
+      if (!light && (include.indexOf("layers") >= 0 || true)) {
+        base.layerMap = documentLineMap();
+        base.gridLayerMap = gridLayerMap();
+      }
+      if (!light && include.indexOf("scores") >= 0) {
+        base.scoreHistory = (function () {
+          try {
+            return JSON.parse(localStorage.getItem(REPORT_KEY) || "[]");
+          } catch (e) {
+            return [];
+          }
+        })();
+        base.layerClears = state.layerClears.slice();
+        base.stair = state.stairUnlocks.slice();
+      }
+      if (!light && include.indexOf("crossref") >= 0) {
+        base.crossref = letterFreqXref();
+      }
+      if (!light && include.indexOf("session") >= 0) {
+        base.session = {
+          pipeLog: state.pipeLog.slice(-100),
+          hits: state.hits.slice(-200),
+        };
+      }
+      if (include.indexOf("paleography") >= 0 || !light) {
+        /* already attached */
+      }
+      if (training) {
+        base.training = exportTraining({ format: "json" });
+      }
+      try {
+        global.__mgLetterGridColossus = base;
+        global.dispatchEvent(
+          new CustomEvent("letter-grid-colossus-export", { detail: base })
+        );
+      } catch (e) {}
+      return base;
     }
 
     /**
@@ -2125,7 +2762,7 @@
           ROUND_S: ROUND_S,
           DEFAULT_HOP_MS: DEFAULT_HOP_MS,
           startCodex: function () {
-            startRound({ openCodex: true });
+            startRound({ openCodex: true, dojo: true });
           },
           startTimed: function (hop) {
             startRound({
@@ -2137,6 +2774,20 @@
           endRound: endRound,
           startFinale: startFinale,
           agentPlay: agentPlay,
+          /* —— Grok / Dojo / Colossus pipe (clean one-shot surface) —— */
+          getState: getState,
+          nextGlyph: nextGlyph,
+          playRound: playRound,
+          exportColossus: exportColossus,
+          exportColossusDraft: exportColossusDraft,
+          setDojoMode: setDojoMode,
+          masterGlyphs: masterGlyphs,
+          jumpToLayer: jumpToLayer,
+          skipLayer: skipLayer,
+          mcpState: mcpStateShape,
+          exportTraining: exportTraining,
+          documentLineMap: documentLineMap,
+          gridLayerMap: gridLayerMap,
           setContrail: function (layer, on) {
             if (state.contrail[layer] == null) return state.contrail;
             state.contrail[layer] = !!on;
@@ -2200,6 +2851,8 @@
         try {
           global.__letterGridApi = api;
           global.__mgLetterGridApi = api;
+          /* alias surface: letterGrid.* as recommended for pipe docs */
+          global.letterGrid = api;
         } catch (e3) {}
 
         /* Autotest / agent: ?autotest=1 | ?mg_autoplay=1 | opts.autoplay
@@ -2254,5 +2907,9 @@
     formatTimer: formatTimer,
     buildGrowthStair: buildGrowthStair,
     wanderingPathIndices: wanderingPathIndices,
+    buildMaster: buildMaster,
+    /** Pipe schema ids for MCP / Colossus */
+    COLOSSUS_SCHEMA: "kbatch-letter-grid-colossus-v1",
+    MASTER_SCHEMA: "kbatch-letter-grid-master-v1",
   };
 })(typeof window !== "undefined" ? window : globalThis);

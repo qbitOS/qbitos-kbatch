@@ -50,7 +50,7 @@
           id: "letter-grid",
           label: "Letter-Grid",
           href: "letter-grid.html",
-          tip: "Full-codex N×N layers · finale path · WebGrid BPS · __letterGridApi",
+          tip: "Full-codex N×N layers · finale · BPS · letterGrid pipe (getState/nextGlyph/exportColossus)",
         },
         {
           id: "letter-grid-lab",
