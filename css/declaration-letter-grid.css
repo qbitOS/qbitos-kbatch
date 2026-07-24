@@ -34,6 +34,14 @@
   gap: 6px;
   min-width: min(280px, 100%);
 }
+.dlg-scoreboard--sub {
+  margin-top: 6px;
+  opacity: 0.92;
+}
+.dlg-scoreboard--sub .dlg-metric b {
+  font-size: 0.92rem;
+  color: #64d2ff;
+}
 .dlg-metric {
   border: 1px solid var(--line, rgba(255, 255, 255, 0.1));
   border-radius: 10px;
@@ -52,6 +60,109 @@
   letter-spacing: 0.06em;
   text-transform: uppercase;
   color: var(--muted, #8b9bb0);
+}
+/* WebGrid timer emphasis */
+.dlg-metric--timer b {
+  font-size: 1.2rem;
+  letter-spacing: 0.04em;
+  color: #f0f4f8;
+}
+.dlg-metric--timer.is-low b {
+  color: #ff6b63;
+  animation: dlg-timer-blink 0.6s step-end infinite;
+}
+.dlg-metric--timer.is-end b {
+  color: #30d158;
+  animation: none;
+}
+@keyframes dlg-timer-blink {
+  50% {
+    opacity: 0.35;
+  }
+}
+/* Live strip mirrors Neuralink sidebar: MM:SS BPS NTPM · N×N */
+.dlg-live-strip {
+  width: 100%;
+  margin-top: 8px;
+  padding: 8px 12px;
+  border-radius: 10px;
+  border: 1px solid rgba(10, 132, 255, 0.28);
+  background: rgba(10, 132, 255, 0.1);
+  font: 650 0.88rem/1.25 ui-monospace, Menlo, monospace;
+  font-variant-numeric: tabular-nums;
+  letter-spacing: 0.02em;
+  color: #e8f1ff;
+  text-align: center;
+}
+.dlg-live-strip[data-phase="end"] {
+  border-color: rgba(48, 209, 88, 0.4);
+  background: rgba(48, 209, 88, 0.12);
+  color: #d4f5dd;
+}
+.dlg-progress-bar i.is-timer {
+  background: linear-gradient(90deg, #0a84ff, #ff9f0a 85%, #ff6b63);
+}
+/* Peak / end card (WebGrid end screen) */
+.dlg-end-card {
+  position: absolute;
+  inset: 0;
+  z-index: 20;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(6, 8, 12, 0.78);
+  backdrop-filter: blur(6px);
+  border-radius: 14px;
+  padding: 16px;
+}
+.dlg-end-card[hidden] {
+  display: none !important;
+}
+.dlg-end-inner {
+  max-width: 360px;
+  text-align: center;
+  padding: 18px 20px;
+  border-radius: 14px;
+  border: 1px solid rgba(10, 132, 255, 0.35);
+  background: rgba(12, 16, 24, 0.95);
+  box-shadow: 0 12px 40px rgba(0, 0, 0, 0.45);
+}
+.dlg-end-inner h3 {
+  margin: 0 0 10px;
+  font-size: 1rem;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  color: #a8b3c0;
+}
+.dlg-peak-line {
+  margin: 0 0 8px;
+  font: 700 1.05rem/1.35 ui-sans-serif, system-ui, sans-serif;
+  color: #64d2ff;
+}
+.dlg-end-meta {
+  margin: 0 0 14px;
+  font: 600 0.72rem/1.4 ui-monospace, Menlo, monospace;
+  color: #8b9bb0;
+}
+.dlg-end-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  justify-content: center;
+}
+.dlg-end-actions button {
+  appearance: none;
+  border: 1px solid rgba(255, 255, 255, 0.14);
+  background: rgba(255, 255, 255, 0.08);
+  color: #f0f4f8;
+  border-radius: 8px;
+  padding: 7px 12px;
+  font: 600 0.78rem/1.2 ui-sans-serif, system-ui, sans-serif;
+  cursor: pointer;
+}
+.dlg-end-actions button.primary {
+  background: rgba(10, 132, 255, 0.32);
+  border-color: rgba(10, 132, 255, 0.65);
 }
 
 /* Codex progress */
@@ -134,6 +245,7 @@
   }
 }
 .dlg-board-wrap {
+  position: relative;
   border: 1px solid var(--line, rgba(255, 255, 255, 0.1));
   border-radius: 14px;
   padding: 12px;

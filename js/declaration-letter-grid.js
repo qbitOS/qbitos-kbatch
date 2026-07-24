@@ -4,16 +4,24 @@
  * · Layer = square chunk of the master stream (WebGrid grammar)
  * · Finale = wandering path of letters across the board
  *
- * BPS ≈ log2(N²-1) * NTPM/60 · target rgb(10,132,255)
+ * WebGrid score system (Neuralink-calibrated):
+ *   BPS = max(log2(N²-1) * NTPM/60, 0)
+ *   NTPM = net hits in last 60s (+1 hit, −1 miss)
+ *   ROUND = 70s countdown · live "MM:SS BPS NTPM · N×N"
+ *   peak card: "Your peak score: X BPS (Y NTPM)"
+ * target rgb(10,132,255)
  */
 (function (global) {
   "use strict";
 
-  var VER = "declaration-letter-grid-v2-codex";
+  var VER = "declaration-letter-grid-v3-webgrid-score";
   var TARGET_RGB = "rgb(10, 132, 255)";
-  var ROUND_MS = 0; /* 0 = open codex pass (no timer); timed optional */
+  /** WebGrid default round length (seconds) */
+  var ROUND_S = 70;
   var DEFAULT_N = 12;
   var GLYPH_RAIL = 48;
+  var BEST_KEY = "kbatch.declaration.letterGrid.best";
+  var TRIALS_KEY = "kbatch.declaration.letterGrid.trials";
 
   function log2(x) {
     return Math.log(x) / Math.LN2;
@@ -23,6 +31,32 @@
     var cells = N * N;
     var factor = log2(Math.max(2, cells - 1));
     return Math.max(0, (factor * ntpm) / 60);
+  }
+
+  function formatTimer(msLeft) {
+    var s = Math.max(0, Math.ceil(msLeft / 1000));
+    var m = Math.floor(s / 60);
+    var r = s % 60;
+    return (m < 10 ? "0" : "") + m + ":" + (r < 10 ? "0" : "") + r;
+  }
+
+  function loadBest() {
+    try {
+      var j = JSON.parse(localStorage.getItem(BEST_KEY) || "null");
+      if (j && typeof j.peakBps === "number") return j;
+    } catch (e) {}
+    return { peakBps: 0, peakNtpm: 0, hits: 0, N: 0, t: 0 };
+  }
+
+  function saveBest(row) {
+    try {
+      var prev = loadBest();
+      if (!prev.peakBps || row.peakBps > prev.peakBps) {
+        localStorage.setItem(BEST_KEY, JSON.stringify(row));
+        return row;
+      }
+    } catch (e) {}
+    return loadBest();
   }
 
   function fetchJson(url) {
@@ -147,6 +181,7 @@
       masterPos: 0,
       layerStart: 0,
       mode: "codex", /* codex | finale */
+      phase: "lobby", /* lobby | playing | end */
       cells: [],
       targetIdx: -1,
       hits: [],
@@ -154,12 +189,19 @@
       peakBps: 0,
       peakNtpm: 0,
       playing: false,
+      roundS: opts.roundS != null ? opts.roundS : ROUND_S,
       roundUntil: 0,
+      roundStartedAt: 0,
       focusLine: null,
       logs: [],
       path: [],
       pathStep: 0,
       layerComplete: 0,
+      missCount: 0,
+      hitCount: 0,
+      openCodex: false, /* true = no timer (full document walk) */
+      timerHandle: null,
+      best: loadBest(),
     };
 
     root.innerHTML = "";
@@ -169,21 +211,46 @@
     var hero = el("div", "dlg-hero");
     var htxt = el("div");
     htxt.innerHTML =
-      "<h2>Letter-Grid · Full codex layer passes</h2>" +
-      "<p>Master <b>small glyphs in order</b> through the entire Declaration. " +
-      "Each layer is an N×N square of the stream (WebGrid blue target). " +
-      "Clear all layers → <b>finale wandering path</b> of letters. Cross-ref + document gateway stay live.</p>";
+      "<h2>Letter-Grid · Full codex + WebGrid score</h2>" +
+      "<p>Master <b>small glyphs in order</b> through the Declaration. " +
+      "N×N layer passes · WebGrid blue target · <b>70s timer · BPS / NTPM</b> · " +
+      "clear layers → <b>finale wandering path</b>.</p>";
     hero.appendChild(htxt);
-    var boardMetrics = el("div", "dlg-scoreboard");
+
+    /* WebGrid-style primary scoreboard: TIMER · BPS · NTPM · N×N */
+    var boardMetrics = el("div", "dlg-scoreboard dlg-scoreboard--webgrid");
+    var mTimer = metric("01:10", "timer");
+    mTimer.wrap.classList.add("dlg-metric--timer");
     var mBps = metric("0.00", "BPS");
     var mNtpm = metric("0", "NTPM");
-    var mProg = metric("0/0", "glyphs");
-    var mLayer = metric("0", "layer");
+    var mGrid = metric(N + "×" + N, "grid");
+    boardMetrics.appendChild(mTimer.wrap);
     boardMetrics.appendChild(mBps.wrap);
     boardMetrics.appendChild(mNtpm.wrap);
-    boardMetrics.appendChild(mProg.wrap);
-    boardMetrics.appendChild(mLayer.wrap);
+    boardMetrics.appendChild(mGrid.wrap);
     hero.appendChild(boardMetrics);
+
+    /* secondary: glyphs · layer · peak · best */
+    var boardMetrics2 = el("div", "dlg-scoreboard dlg-scoreboard--sub");
+    var mProg = metric("0/0", "glyphs");
+    var mLayer = metric("0", "layer");
+    var mPeak = metric("0.00", "peak BPS");
+    var mBest = metric(
+      state.best.peakBps ? state.best.peakBps.toFixed(2) : "—",
+      "best BPS"
+    );
+    boardMetrics2.appendChild(mProg.wrap);
+    boardMetrics2.appendChild(mLayer.wrap);
+    boardMetrics2.appendChild(mPeak.wrap);
+    boardMetrics2.appendChild(mBest.wrap);
+    hero.appendChild(boardMetrics2);
+
+    /* Live WebGrid strip: "MM:SS BPS NTPM · N×N" */
+    var liveStrip = el("div", "dlg-live-strip");
+    liveStrip.id = "dlg-live-strip";
+    liveStrip.setAttribute("aria-live", "polite");
+    liveStrip.textContent = "01:10  0.00 BPS  0 NTPM  ·  " + N + "×" + N;
+    hero.appendChild(liveStrip);
     shell.appendChild(hero);
 
     /* progress bar */
@@ -204,13 +271,15 @@
     var prompt = el("div", "dlg-prompt");
     prompt.innerHTML = "Load codex…";
     var controls = el("div", "dlg-controls");
-    var btnPlay = el("button", "primary", "Start codex pass");
+    var btnPlay = el("button", "primary", "Play 70s");
+    var btnOpen = el("button", "", "Open codex");
     var btnFinale = el("button", "", "Finale path");
     btnFinale.disabled = true;
     var btnN8 = el("button", "", "8×8");
     var btnN12 = el("button", "on", "12×12");
     var btnN16 = el("button", "", "16×16");
     controls.appendChild(btnPlay);
+    controls.appendChild(btnOpen);
     controls.appendChild(btnFinale);
     controls.appendChild(btnN8);
     controls.appendChild(btnN12);
@@ -218,6 +287,20 @@
     boardTop.appendChild(prompt);
     boardTop.appendChild(controls);
     boardWrap.appendChild(boardTop);
+
+    /* End card (WebGrid peak score) */
+    var endCard = el("div", "dlg-end-card");
+    endCard.hidden = true;
+    endCard.innerHTML =
+      '<div class="dlg-end-inner">' +
+      "<h3>Round complete</h3>" +
+      '<p class="dlg-peak-line" id="dlg-peak-line">Your peak score: 0.00 BPS (0 NTPM)</p>' +
+      '<p class="dlg-end-meta" id="dlg-end-meta"></p>' +
+      '<div class="dlg-end-actions">' +
+      '<button type="button" class="primary" id="dlg-play-again">Play again</button>' +
+      '<button type="button" id="dlg-end-open">Open codex</button>' +
+      "</div></div>";
+    boardWrap.appendChild(endCard);
 
     var boardHost = el("div", "dlg-board-host");
     var board = el("div", "dlg-board");
@@ -279,36 +362,257 @@
       return net;
     }
 
+    function msLeft() {
+      if (state.openCodex || !state.playing) {
+        if (state.phase === "end") return 0;
+        return state.roundS * 1000;
+      }
+      return Math.max(0, state.roundUntil - Date.now());
+    }
+
+    function stopTimer() {
+      if (state.timerHandle) {
+        clearInterval(state.timerHandle);
+        state.timerHandle = null;
+      }
+    }
+
     function refreshScore() {
+      var ntpm = ntpmNow();
+      var bps = bpsFromNtpm(ntpm, state.N);
+      if (state.playing || state.phase === "end") {
+        if (bps > state.peakBps) {
+          state.peakBps = bps;
+          state.peakNtpm = ntpm;
+        }
+      }
+      var left = msLeft();
+      var timerStr = state.openCodex && state.playing ? "OPEN" : formatTimer(left);
+      mTimer.b.textContent = timerStr;
+      mBps.b.textContent = bps.toFixed(2);
+      mNtpm.b.textContent = String(ntpm);
+      mGrid.b.textContent = state.N + "×" + state.N;
+      mProg.b.textContent = state.masterPos + "/" + state.master.length;
+      var layer = Math.floor(state.masterPos / Math.max(1, state.N * state.N));
+      var layers = Math.ceil(state.master.length / Math.max(1, state.N * state.N));
+      mLayer.b.textContent = Math.min(layer + 1, layers) + "/" + layers;
+      mPeak.b.textContent = state.peakBps.toFixed(2);
+      mBest.b.textContent = state.best.peakBps ? state.best.peakBps.toFixed(2) : "—";
+
+      /* WebGrid live strip */
+      liveStrip.textContent =
+        timerStr +
+        "  " +
+        bps.toFixed(2) +
+        " BPS  " +
+        ntpm +
+        " NTPM  ·  " +
+        state.N +
+        "×" +
+        state.N;
+      liveStrip.dataset.phase = state.phase;
+      liveStrip.dataset.timer = timerStr;
+      liveStrip.dataset.bps = bps.toFixed(2);
+      liveStrip.dataset.ntpm = String(ntpm);
+
+      var fill = document.getElementById("dlg-prog-fill");
+      var meta = document.getElementById("dlg-prog-meta");
+      var pct = state.master.length ? (100 * state.masterPos) / state.master.length : 0;
+      if (fill) {
+        if (state.playing && !state.openCodex) {
+          var tPct = 100 * (1 - left / (state.roundS * 1000));
+          fill.style.width = Math.min(100, Math.max(0, tPct)).toFixed(2) + "%";
+          fill.classList.add("is-timer");
+        } else {
+          fill.style.width = Math.min(100, pct).toFixed(2) + "%";
+          fill.classList.remove("is-timer");
+        }
+      }
+      if (meta) {
+        if (state.phase === "end") {
+          meta.textContent =
+            "PEAK " +
+            state.peakBps.toFixed(2) +
+            " BPS (" +
+            state.peakNtpm +
+            " NTPM) · hits " +
+            state.hitCount +
+            " · miss " +
+            state.missCount;
+        } else if (state.mode === "finale") {
+          meta.textContent =
+            "FINALE · path " + state.pathStep + "/" + state.path.length + " · " + timerStr;
+        } else {
+          meta.textContent =
+            (state.playing ? "PLAYING · " : "LOBBY · ") +
+            "codex " +
+            pct.toFixed(1) +
+            "% · L" +
+            (layer + 1) +
+            "/" +
+            layers +
+            " · " +
+            timerStr;
+        }
+      }
+      mTimer.wrap.classList.toggle("is-low", left <= 10000 && state.playing && !state.openCodex);
+      mTimer.wrap.classList.toggle("is-end", state.phase === "end");
+    }
+
+    function showEndCard() {
+      endCard.hidden = false;
+      boardWrap.classList.add("is-ended");
+      var peakLine = endCard.querySelector("#dlg-peak-line");
+      var endMeta = endCard.querySelector("#dlg-end-meta");
+      if (peakLine) {
+        peakLine.textContent =
+          "Your peak score: " +
+          state.peakBps.toFixed(2) +
+          " BPS (" +
+          state.peakNtpm +
+          " NTPM)";
+      }
+      if (endMeta) {
+        var layers = Math.ceil(state.master.length / Math.max(1, state.N * state.N)) || 1;
+        var layer = Math.floor(state.masterPos / Math.max(1, state.N * state.N));
+        endMeta.textContent =
+          state.N +
+          "×" +
+          state.N +
+          " · hits " +
+          state.hitCount +
+          " · miss " +
+          state.missCount +
+          " · glyphs " +
+          state.masterPos +
+          "/" +
+          state.master.length +
+          " · layer " +
+          Math.min(layer + 1, layers) +
+          "/" +
+          layers +
+          (state.best.peakBps
+            ? " · best " + state.best.peakBps.toFixed(2) + " BPS"
+            : "");
+      }
+      btnPlay.textContent = "Play again";
+      btnPlay.classList.add("primary");
+    }
+
+    function hideEndCard() {
+      endCard.hidden = true;
+      boardWrap.classList.remove("is-ended");
+    }
+
+    function endRound(reason) {
+      if (state.phase === "end" && !state.playing) return;
+      stopTimer();
+      state.playing = false;
+      state.phase = "end";
+      state.roundUntil = Date.now();
+      /* final peak snap */
       var ntpm = ntpmNow();
       var bps = bpsFromNtpm(ntpm, state.N);
       if (bps > state.peakBps) {
         state.peakBps = bps;
         state.peakNtpm = ntpm;
       }
-      mBps.b.textContent = bps.toFixed(2);
-      mNtpm.b.textContent = String(ntpm);
-      mProg.b.textContent = state.masterPos + "/" + state.master.length;
-      var layer = Math.floor(state.masterPos / Math.max(1, state.N * state.N));
-      var layers = Math.ceil(state.master.length / Math.max(1, state.N * state.N));
-      mLayer.b.textContent = Math.min(layer + 1, layers) + "/" + layers;
-      var fill = document.getElementById("dlg-prog-fill");
-      var meta = document.getElementById("dlg-prog-meta");
-      var pct = state.master.length ? (100 * state.masterPos) / state.master.length : 0;
-      if (fill) fill.style.width = Math.min(100, pct).toFixed(2) + "%";
-      if (meta) {
-        meta.textContent =
-          state.mode === "finale"
-            ? "FINALE · wandering path " + state.pathStep + "/" + state.path.length
-            : "Codex " +
-              pct.toFixed(1) +
-              "% · layer " +
-              (layer + 1) +
-              "/" +
-              layers +
-              " · next gi=" +
-              state.masterPos;
+      var bestRow = {
+        peakBps: state.peakBps,
+        peakNtpm: state.peakNtpm,
+        hits: state.hitCount,
+        miss: state.missCount,
+        masterPos: state.masterPos,
+        N: state.N,
+        t: Date.now(),
+        ver: VER,
+        reason: reason || "timer",
+      };
+      state.best = saveBest(bestRow);
+      showEndCard();
+      refreshScore();
+      slog(
+        "ROUND END · peak " +
+          state.peakBps.toFixed(2) +
+          " BPS (" +
+          state.peakNtpm +
+          " NTPM) · " +
+          (reason || "timer")
+      );
+      try {
+        global.dispatchEvent(
+          new CustomEvent("kbatch-declaration-round-end", {
+            detail: {
+              ver: VER,
+              peakBps: state.peakBps,
+              peakNtpm: state.peakNtpm,
+              hits: state.hitCount,
+              miss: state.missCount,
+              masterPos: state.masterPos,
+              N: state.N,
+              reason: reason || "timer",
+              best: state.best,
+            },
+          })
+        );
+      } catch (e) {}
+      reportTrial(true, "round-end");
+    }
+
+    function startRound(optsRound) {
+      optsRound = optsRound || {};
+      stopTimer();
+      hideEndCard();
+      state.openCodex = !!optsRound.openCodex;
+      state.mode = "codex";
+      state.phase = "playing";
+      state.playing = true;
+      state.masterPos = 0;
+      state.layerStart = 0;
+      state.hits = [];
+      state.events = [];
+      state.peakBps = 0;
+      state.peakNtpm = 0;
+      state.hitCount = 0;
+      state.missCount = 0;
+      state.path = [];
+      state.pathStep = 0;
+      state.roundStartedAt = Date.now();
+      if (state.openCodex) {
+        state.roundUntil = 0;
+        btnPlay.textContent = "Restart timed 70s";
+        btnPlay.classList.remove("primary");
+        btnOpen.classList.add("on");
+        slog("OPEN CODEX · no timer · " + state.master.length + " glyphs");
+      } else {
+        state.roundUntil = Date.now() + state.roundS * 1000;
+        btnPlay.textContent = "Playing…";
+        btnPlay.classList.add("primary");
+        btnOpen.classList.remove("on");
+        slog("PLAY " + state.roundS + "s · WebGrid score · N=" + state.N);
+        state.timerHandle = setInterval(function () {
+          refreshScore();
+          if (Date.now() >= state.roundUntil) {
+            endRound("timer");
+          }
+        }, 100);
       }
+      btnFinale.disabled = true;
+      btnFinale.classList.remove("primary");
+      dealCodexBoard();
+      refreshScore();
+      try {
+        global.dispatchEvent(
+          new CustomEvent("kbatch-declaration-round-start", {
+            detail: {
+              ver: VER,
+              openCodex: state.openCodex,
+              roundS: state.roundS,
+              N: state.N,
+            },
+          })
+        );
+      } catch (e2) {}
     }
 
     function paintGlyphRail() {
@@ -523,12 +827,24 @@
 
     function onCell(idx) {
       var now = Date.now();
+      if (state.phase === "end") return;
+      if (!state.playing && state.phase === "lobby") {
+        /* first click starts timed round (WebGrid-like) */
+        startRound({ openCodex: false });
+      }
+      if (!state.playing) return;
+      if (!state.openCodex && now >= state.roundUntil) {
+        endRound("timer");
+        return;
+      }
+
       if (state.mode === "finale") {
         var expect = state.path[state.pathStep];
-        var ok = idx === expect;
-        state.events.push({ t: now, ok: ok });
-        if (ok) {
+        var okF = idx === expect;
+        state.events.push({ t: now, ok: okF });
+        if (okF) {
           state.pathStep++;
+          state.hitCount++;
           state.hits.push({ t: now, mode: "finale", idx: idx });
           slog("path " + state.pathStep + "/" + state.path.length);
           if (state.pathStep >= state.path.length) {
@@ -537,28 +853,37 @@
             try {
               global.dispatchEvent(
                 new CustomEvent("kbatch-declaration-finale", {
-                  detail: { ver: VER, hits: state.hits.length, master: state.master.length },
+                  detail: {
+                    ver: VER,
+                    hits: state.hits.length,
+                    master: state.master.length,
+                    peakBps: state.peakBps,
+                    peakNtpm: state.peakNtpm,
+                  },
                 })
               );
             } catch (e) {}
+            if (state.openCodex) endRound("finale-complete");
           }
           paintBoard();
           paintPathSvg(true);
         } else {
+          state.missCount++;
           slog("path miss");
         }
         refreshScore();
-        reportTrial(ok, "finale");
+        reportTrial(okF, "finale");
         return;
       }
 
-      /* codex ordered */
+      /* codex ordered — target must match WebGrid blue cell */
       var ok = idx === state.targetIdx && state.masterPos < state.master.length;
       state.events.push({ t: now, ok: ok });
       if (ok) {
         var g = state.master[state.masterPos];
         state.hits.push({ t: now, gi: g.gi, ch: g.ch, lineId: g.lineId });
         state.masterPos++;
+        state.hitCount++;
         slog("glyph #" + g.gi + " " + g.display + " @ " + g.lineId);
         if (state.masterPos >= state.master.length) {
           slog("CODEX COMPLETE · " + state.master.length + " glyphs · unlock finale");
@@ -568,13 +893,14 @@
           try {
             global.dispatchEvent(
               new CustomEvent("kbatch-declaration-codex-complete", {
-                detail: { ver: VER, master: state.master.length },
+                detail: { ver: VER, master: state.master.length, peakBps: state.peakBps },
               })
             );
           } catch (e2) {}
         }
         dealCodexBoard();
       } else {
+        state.missCount++;
         slog("miss · need master #" + state.masterPos);
         var nodes = board.querySelectorAll(".dlg-cell");
         if (nodes[idx]) {
@@ -595,20 +921,25 @@
         t: Date.now(),
         ok: ok,
         mode: mode || state.mode,
+        phase: state.phase,
         masterPos: state.masterPos,
         masterTotal: state.master.length,
         N: state.N,
         bps: bpsFromNtpm(ntpmNow(), state.N),
         ntpm: ntpmNow(),
         peakBps: state.peakBps,
+        peakNtpm: state.peakNtpm,
+        hitCount: state.hitCount,
+        missCount: state.missCount,
         pathStep: state.pathStep,
+        timer: formatTimer(msLeft()),
+        openCodex: state.openCodex,
       };
       try {
-        var key = "kbatch.declaration.letterGrid.trials";
-        var prev = JSON.parse(localStorage.getItem(key) || "[]");
+        var prev = JSON.parse(localStorage.getItem(TRIALS_KEY) || "[]");
         prev.push(row);
         if (prev.length > 400) prev = prev.slice(-400);
-        localStorage.setItem(key, JSON.stringify(prev));
+        localStorage.setItem(TRIALS_KEY, JSON.stringify(prev));
       } catch (e) {}
       try {
         fetch("http://127.0.0.1:9880/", {
@@ -657,18 +988,22 @@
     }
 
     btnPlay.onclick = function () {
-      state.mode = "codex";
-      state.playing = true;
-      if (state.masterPos >= state.master.length) {
-        state.masterPos = 0;
-        state.hits = [];
-        state.events = [];
-      }
-      dealCodexBoard();
-      slog("codex pass · " + state.master.length + " master glyphs");
+      startRound({ openCodex: false });
+    };
+    btnOpen.onclick = function () {
+      startRound({ openCodex: true });
     };
     btnFinale.onclick = function () {
+      if (!state.playing && state.phase !== "end") {
+        startRound({ openCodex: true });
+      }
       startFinale();
+    };
+    endCard.querySelector("#dlg-play-again").onclick = function () {
+      startRound({ openCodex: false });
+    };
+    endCard.querySelector("#dlg-end-open").onclick = function () {
+      startRound({ openCodex: true });
     };
     function setN(n, btn) {
       state.N = n;
@@ -676,8 +1011,13 @@
         b.classList.remove("on");
       });
       btn.classList.add("on");
-      if (state.mode === "finale") startFinale();
-      else dealCodexBoard();
+      mGrid.b.textContent = n + "×" + n;
+      if (state.playing && state.mode === "finale") startFinale();
+      else if (state.playing) dealCodexBoard();
+      else {
+        dealCodexBoard();
+        refreshScore();
+      }
     }
     btnN8.onclick = function () {
       setN(8, btnN8);
@@ -688,6 +1028,109 @@
     btnN16.onclick = function () {
       setN(16, btnN16);
     };
+
+    /** Live snapshot (used by API + agent; no forward ref to api object) */
+    function snapshotNow() {
+      var need = state.N * state.N;
+      var layers = Math.ceil(state.master.length / Math.max(1, need)) || 1;
+      var layer = Math.floor(state.masterPos / Math.max(1, need));
+      var codexDone = state.masterPos >= state.master.length;
+      var finaleDone = state.mode === "finale" && state.pathStep >= state.path.length;
+      var ntpm = ntpmNow();
+      var bps = bpsFromNtpm(ntpm, state.N);
+      var timer = formatTimer(msLeft());
+      return {
+        ver: VER,
+        game: "letter-grid",
+        mode: state.mode,
+        phase: state.phase,
+        playing: state.playing,
+        openCodex: state.openCodex,
+        N: state.N,
+        timer: timer,
+        live:
+          timer +
+          "  " +
+          bps.toFixed(2) +
+          " BPS  " +
+          ntpm +
+          " NTPM  ·  " +
+          state.N +
+          "×" +
+          state.N,
+        masterPos: state.masterPos,
+        masterTotal: state.master.length,
+        layer: Math.min(layer + 1, layers),
+        layers: layers,
+        pathStep: state.pathStep,
+        pathTotal: state.path.length || need,
+        bps: bps,
+        ntpm: ntpm,
+        peakBps: state.peakBps,
+        peakNtpm: state.peakNtpm,
+        hitCount: state.hitCount,
+        missCount: state.missCount,
+        best: state.best,
+        peakLine:
+          "Your peak score: " +
+          state.peakBps.toFixed(2) +
+          " BPS (" +
+          state.peakNtpm +
+          " NTPM)",
+        codexDone: codexDone,
+        finaleDone: finaleDone,
+        grade: finaleDone
+          ? "cage"
+          : codexDone
+            ? "dojo"
+            : state.masterPos > 0 || state.phase === "end"
+              ? "in-progress"
+              : "ready",
+        lines: state.lines.length,
+      };
+    }
+
+    /**
+     * Agent play: hit blue targets as fast as paceMs allows until round ends.
+     * Returns Promise resolving to peak snapshot (WebGrid-compatible fields).
+     */
+    function agentPlay(optsA) {
+      optsA = optsA || {};
+      var paceMs = optsA.paceMs != null ? optsA.paceMs : 45;
+      var maxHits = optsA.maxHits != null ? optsA.maxHits : 1e9;
+      var open = !!optsA.openCodex;
+      startRound({ openCodex: open });
+      return new Promise(function (resolve) {
+        var n = 0;
+        function tick() {
+          if (state.phase === "end" || (!state.playing && state.phase !== "playing")) {
+            resolve(snapshotNow());
+            return;
+          }
+          if (n >= maxHits) {
+            if (!state.openCodex) endRound("agent-max");
+            resolve(snapshotNow());
+            return;
+          }
+          var idx = -1;
+          if (state.mode === "finale") {
+            idx = state.path[state.pathStep];
+          } else {
+            idx = state.targetIdx;
+          }
+          if (idx >= 0) {
+            onCell(idx);
+            n++;
+          }
+          if (state.phase === "end") {
+            resolve(snapshotNow());
+            return;
+          }
+          setTimeout(tick, paceMs);
+        }
+        setTimeout(tick, 30);
+      });
+    }
 
     /**
      * Load full document lines for master stream.
@@ -740,14 +1183,66 @@
             " · layers " +
             Math.ceil(state.master.length / (state.N * state.N))
         );
-        return {
+        var api = {
           ver: VER,
+          game: "letter-grid",
           state: state,
+          ROUND_S: ROUND_S,
           startCodex: function () {
-            btnPlay.click();
+            startRound({ openCodex: true });
           },
+          startTimed: function () {
+            startRound({ openCodex: false });
+          },
+          startRound: startRound,
+          endRound: endRound,
           startFinale: startFinale,
+          agentPlay: agentPlay,
+          setN: function (n) {
+            n = Number(n) || 12;
+            if (n === 8) setN(8, btnN8);
+            else if (n === 16) setN(16, btnN16);
+            else setN(12, btnN12);
+          },
+          snapshot: snapshotNow,
+          /** Agent-friendly: click board index (0..N²-1) as human would */
+          clickCell: function (idx) {
+            onCell(Number(idx));
+            return snapshotNow();
+          },
+          trialsKey: TRIALS_KEY,
+          bestKey: BEST_KEY,
         };
+        try {
+          global.__letterGridApi = api;
+        } catch (e3) {}
+
+        /* Autotest / agent: ?autotest=1 | ?mg_autoplay=1 | opts.autoplay */
+        var wantAuto = !!opts.autoplay;
+        try {
+          if (/[?&](autotest|mg_autoplay)=1\b/i.test(location.search || "")) wantAuto = true;
+        } catch (e4) {}
+        if (wantAuto) {
+          setTimeout(function () {
+            agentPlay({ paceMs: opts.paceMs || 40 }).then(function (snap) {
+              slog(
+                "AUTO peak " +
+                  snap.peakBps.toFixed(2) +
+                  " BPS (" +
+                  snap.peakNtpm +
+                  " NTPM) · " +
+                  snap.live
+              );
+              try {
+                global.dispatchEvent(
+                  new CustomEvent("kbatch-declaration-agent-done", { detail: snap })
+                );
+              } catch (e5) {}
+            });
+          }, 200);
+        }
+
+        return api;
       })
       .catch(function (e) {
         prompt.textContent = "Failed: " + e;
@@ -758,8 +1253,10 @@
 
   global.__kbatchDeclarationLetterGrid = {
     ver: VER,
+    ROUND_S: ROUND_S,
     mount: mount,
     bpsFromNtpm: bpsFromNtpm,
+    formatTimer: formatTimer,
     wanderingPathIndices: wanderingPathIndices,
   };
 })(typeof window !== "undefined" ? window : globalThis);

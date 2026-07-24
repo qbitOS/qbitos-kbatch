@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Letter-Grid agent play</title>
+  <link rel="stylesheet" href="/css/declaration-letter-grid.css?v=wgscore3" />
+  <style>
+    body { margin: 0; background: #0c0b0a; color: #e6edf3; font: 14px ui-sans-serif, system-ui; }
+    #result { margin: 12px; padding: 12px; border-radius: 10px; background: #141820; white-space: pre-wrap; font: 12px ui-monospace, Menlo, monospace; }
+  </style>
+</head>
+<body>
+  <div id="dlg-mount"></div>
+  <pre id="result">agent starting…</pre>
+  <script src="/js/declaration-letter-grid.js?v=wgscore3"></script>
+  <script>
+    (async function () {
+      var result = document.getElementById("result");
+      try {
+        var q = new URLSearchParams(location.search);
+        var pace = parseInt(q.get("pace") || "25", 10);
+        var roundS = parseInt(q.get("round") || "70", 10);
+        var N = parseInt(q.get("N") || "12", 10);
+        var api = await window.__kbatchDeclarationLetterGrid.mount(
+          document.getElementById("dlg-mount"),
+          { dataBase: "/data/declaration", N: N, roundS: roundS, autoplay: false }
+        );
+        result.textContent = "playing " + roundS + "s @ " + pace + "ms pace · N=" + N + "…";
+        var snap = await api.agentPlay({ paceMs: pace });
+        result.textContent = JSON.stringify(snap, null, 2);
+        document.title = "DONE " + snap.peakBps.toFixed(2) + " BPS / " + snap.peakNtpm + " NTPM";
+        document.documentElement.dataset.agentDone = "1";
+        document.documentElement.dataset.peakBps = String(snap.peakBps);
+        document.documentElement.dataset.peakNtpm = String(snap.peakNtpm);
+        document.documentElement.dataset.live = snap.live || "";
+        console.log("LETTER_GRID_RESULT", JSON.stringify(snap));
+      } catch (e) {
+        result.textContent = String(e && e.stack ? e.stack : e);
+        document.documentElement.dataset.agentDone = "err";
+      }
+    })();
+  </script>
+</body>
+</html>
