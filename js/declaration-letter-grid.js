@@ -14,23 +14,28 @@
 (function (global) {
   "use strict";
 
-  var VER = "declaration-letter-grid-v3-webgrid-score";
+  var VER = "declaration-letter-grid-v4-score-report";
   var TARGET_RGB = "rgb(10, 132, 255)";
   /** WebGrid default round length (seconds) */
   var ROUND_S = 70;
   var DEFAULT_N = 12;
+  var DEFAULT_HOP_MS = 120; /* MG / human hop pace (sudoku-style report) */
   var GLYPH_RAIL = 48;
   var BEST_KEY = "kbatch.declaration.letterGrid.best";
   var TRIALS_KEY = "kbatch.declaration.letterGrid.trials";
+  var LAST_REPORT_KEY = "kbatch.declaration.letterGrid.lastReport";
+  var REPORT_KEY = "kbatch.declaration.letterGrid.reports";
 
   function log2(x) {
     return Math.log(x) / Math.LN2;
   }
 
+  function bpsFactor(N) {
+    return log2(Math.max(2, N * N - 1));
+  }
+
   function bpsFromNtpm(ntpm, N) {
-    var cells = N * N;
-    var factor = log2(Math.max(2, cells - 1));
-    return Math.max(0, (factor * ntpm) / 60);
+    return Math.max(0, (bpsFactor(N) * ntpm) / 60);
   }
 
   function formatTimer(msLeft) {
@@ -57,6 +62,76 @@
       }
     } catch (e) {}
     return loadBest();
+  }
+
+  /**
+   * Growth stair S0–S7 — hit-count unlocks (MG timed-first / sudoku report style).
+   * After S7 the rest of the round hammers the full document stream.
+   * Also stores landmark glyph index for document cross-ref.
+   */
+  function buildGrowthStair(master) {
+    /* Classic timed-first milestones (hits cumulative) */
+    var stages = [
+      { id: "S0", label: "Title", hitsNeed: 1 },
+      { id: "S1", label: "Preamble", hitsNeed: 8 },
+      { id: "S2", label: "Self-evident", hitsNeed: 12 },
+      { id: "S3", label: "Grievances 1–6", hitsNeed: 16 },
+      { id: "S4", label: "Grievances 7–15", hitsNeed: 20 },
+      { id: "S5", label: "Grievances 16–27", hitsNeed: 24 },
+      { id: "S6", label: "Close", hitsNeed: 28 },
+      { id: "S7", label: "Full codex", hitsNeed: 32 },
+    ];
+    /* Attach document landmark gi for each band (for xref / narrative) */
+    var landmarks = {
+      S0: -1,
+      S1: -1,
+      S2: -1,
+      S3: -1,
+      S4: -1,
+      S5: -1,
+      S6: -1,
+      S7: master.length,
+    };
+    var griev = [];
+    for (var i = 0; i < master.length; i++) {
+      var g = master[i];
+      var kind = g.kind || "";
+      var lid = g.lineId || "";
+      if (landmarks.S0 < 0 && (kind === "title" || lid === "L01")) landmarks.S0 = i;
+      if (landmarks.S1 < 0 && (kind === "subtitle" || lid === "L02" || lid === "L03"))
+        landmarks.S1 = i;
+      if (landmarks.S2 < 0 && kind === "body" && lid >= "L07" && lid <= "L17")
+        landmarks.S2 = i;
+      if (kind === "grievance") {
+        if (!griev.length || griev[griev.length - 1].lineId !== lid)
+          griev.push({ lineId: lid, gi: i });
+      }
+      if (landmarks.S6 < 0 && (kind === "closing" || kind === "signature"))
+        landmarks.S6 = i;
+    }
+    if (landmarks.S0 < 0) landmarks.S0 = 0;
+    if (landmarks.S1 < 0) landmarks.S1 = landmarks.S0;
+    if (landmarks.S2 < 0) landmarks.S2 = landmarks.S1;
+    if (griev.length) {
+      landmarks.S3 = griev[0].gi;
+      landmarks.S4 = griev[Math.min(6, griev.length - 1)].gi;
+      landmarks.S5 = griev[Math.min(15, griev.length - 1)].gi;
+    } else {
+      landmarks.S3 = landmarks.S2;
+      landmarks.S4 = landmarks.S2;
+      landmarks.S5 = landmarks.S2;
+    }
+    if (landmarks.S6 < 0) landmarks.S6 = Math.floor(master.length * 0.9);
+    stages.forEach(function (st) {
+      st.gi = landmarks[st.id] != null ? landmarks[st.id] : 0;
+    });
+    return stages;
+  }
+
+  function hitRatePct(hits, misses) {
+    var t = hits + misses;
+    if (!t) return 0;
+    return (100 * hits) / t;
   }
 
   function fetchJson(url) {
@@ -202,6 +277,13 @@
       openCodex: false, /* true = no timer (full document walk) */
       timerHandle: null,
       best: loadBest(),
+      hopMs: opts.hopMs != null ? opts.hopMs : DEFAULT_HOP_MS,
+      stair: [],
+      stairUnlocks: [], /* { id, label, tMs, hits, gi } */
+      finalBps: 0,
+      finalNtpm: 0,
+      lastReport: null,
+      agentMode: false,
     };
 
     root.innerHTML = "";
@@ -288,19 +370,34 @@
     boardTop.appendChild(controls);
     boardWrap.appendChild(boardTop);
 
-    /* End card (WebGrid peak score) */
+    /* End card: WebGrid peak + score table + growth stair (MG-ready report) */
     var endCard = el("div", "dlg-end-card");
     endCard.hidden = true;
     endCard.innerHTML =
-      '<div class="dlg-end-inner">' +
-      "<h3>Round complete</h3>" +
+      '<div class="dlg-end-inner dlg-end-inner--report">' +
+      '<h3 id="dlg-score-title">Score</h3>' +
       '<p class="dlg-peak-line" id="dlg-peak-line">Your peak score: 0.00 BPS (0 NTPM)</p>' +
+      '<div class="dlg-score-table-wrap" id="dlg-score-table-wrap"></div>' +
+      '<p class="dlg-bps-note" id="dlg-bps-note"></p>' +
+      '<h4 class="dlg-stair-heading">Growth stair</h4>' +
+      '<div class="dlg-stair-table-wrap" id="dlg-stair-table-wrap"></div>' +
       '<p class="dlg-end-meta" id="dlg-end-meta"></p>' +
       '<div class="dlg-end-actions">' +
       '<button type="button" class="primary" id="dlg-play-again">Play again</button>' +
       '<button type="button" id="dlg-end-open">Open codex</button>' +
+      '<button type="button" id="dlg-copy-report" title="Copy markdown report">Copy report</button>' +
       "</div></div>";
     boardWrap.appendChild(endCard);
+
+    /* Side-panel live report (always available for MG scrape) */
+    var cardReport = el("div", "dlg-card dlg-card--report");
+    cardReport.innerHTML = "<h3>Score report</h3>";
+    var reportHost = el("div", "dlg-report-host");
+    reportHost.id = "dlg-report-host";
+    reportHost.innerHTML =
+      '<p class="dlg-report-placeholder">Play a 70s round to fill the score table.</p>';
+    cardReport.appendChild(reportHost);
+    /* insert report card at top of side after layout built — appended later */
 
     var boardHost = el("div", "dlg-board-host");
     var board = el("div", "dlg-board");
@@ -317,6 +414,7 @@
     layout.appendChild(boardWrap);
 
     var side = el("div", "dlg-side");
+    side.appendChild(cardReport);
     var cardX = el("div", "dlg-card");
     cardX.innerHTML = "<h3>Letter cross-ref</h3>";
     var xrefHost = el("div");
@@ -459,42 +557,378 @@
       mTimer.wrap.classList.toggle("is-end", state.phase === "end");
     }
 
-    function showEndCard() {
-      endCard.hidden = false;
-      boardWrap.classList.add("is-ended");
-      var peakLine = endCard.querySelector("#dlg-peak-line");
-      var endMeta = endCard.querySelector("#dlg-end-meta");
-      if (peakLine) {
-        peakLine.textContent =
+    function noteStairProgress() {
+      if (!state.stair.length || !state.roundStartedAt) return;
+      var tMs = Date.now() - state.roundStartedAt;
+      var unlocked = {};
+      state.stairUnlocks.forEach(function (u) {
+        unlocked[u.id] = true;
+      });
+      for (var i = 0; i < state.stair.length; i++) {
+        var st = state.stair[i];
+        if (unlocked[st.id]) continue;
+        var need = st.hitsNeed != null ? st.hitsNeed : i + 1;
+        if (state.hitCount < need) continue;
+        state.stairUnlocks.push({
+          id: st.id,
+          label: st.label,
+          tMs: tMs,
+          hits: state.hitCount,
+          gi: st.gi,
+          hitsNeed: need,
+        });
+        slog(
+          "STAIR " +
+            st.id +
+            " " +
+            st.label +
+            " · +" +
+            (tMs / 1000).toFixed(1) +
+            "s · hits " +
+            state.hitCount
+        );
+      }
+    }
+
+    function buildScoreReport(reason) {
+      var ntpm = ntpmNow();
+      var bps = bpsFromNtpm(ntpm, state.N);
+      var hits = state.hitCount;
+      var misses = state.missCount;
+      var rate = hitRatePct(hits, misses);
+      var elapsedMs = state.roundStartedAt
+        ? Math.max(0, (state.phase === "end" ? state.roundUntil || Date.now() : Date.now()) - state.roundStartedAt)
+        : 0;
+      if (state.phase === "end" && !state.openCodex) {
+        elapsedMs = Math.min(elapsedMs, state.roundS * 1000);
+      }
+      var factor = bpsFactor(state.N);
+      var factor30 = bpsFactor(30);
+      var hop = state.hopMs;
+      var title =
+        "Score (" +
+        state.roundS +
+        "s · " +
+        state.N +
+        "×" +
+        state.N +
+        " · hop ~" +
+        hop +
+        "ms)";
+      var stairRows = state.stairUnlocks.map(function (u) {
+        return {
+          id: u.id,
+          label: u.label,
+          tSec: +(u.tMs / 1000).toFixed(1),
+          tLabel: "+" + (u.tMs / 1000).toFixed(1) + "s",
+          hits: u.hits,
+          unlock: u.id + " " + u.label,
+        };
+      });
+      var report = {
+        kind: "letter_grid_score",
+        game: "letter-grid",
+        ver: VER,
+        title: title,
+        at: new Date().toISOString(),
+        reason: reason || "timer",
+        durationS: +(elapsedMs / 1000).toFixed(1),
+        roundS: state.roundS,
+        N: state.N,
+        grid: state.N + "×" + state.N,
+        hopMs: hop,
+        agent: !!state.agentMode,
+        /* table metrics (sudoku / MG style) */
+        metrics: {
+          hits: hits,
+          misses: misses,
+          hitRate: +rate.toFixed(1),
+          hitRateLabel: rate.toFixed(1) + "%",
+          peakBps: +state.peakBps.toFixed(2),
+          peakNtpm: state.peakNtpm,
+          finalBps: +bps.toFixed(2),
+          finalNtpm: ntpm,
+        },
+        hits: hits,
+        misses: misses,
+        hitRate: +rate.toFixed(1),
+        peakBps: +state.peakBps.toFixed(2),
+        peakNtpm: state.peakNtpm,
+        finalBps: +bps.toFixed(2),
+        finalNtpm: ntpm,
+        peakLine:
           "Your peak score: " +
           state.peakBps.toFixed(2) +
           " BPS (" +
           state.peakNtpm +
-          " NTPM)";
-      }
-      if (endMeta) {
-        var layers = Math.ceil(state.master.length / Math.max(1, state.N * state.N)) || 1;
-        var layer = Math.floor(state.masterPos / Math.max(1, state.N * state.N));
-        endMeta.textContent =
+          " NTPM)",
+        live:
+          formatTimer(msLeft()) +
+          "  " +
+          bps.toFixed(2) +
+          " BPS  " +
+          ntpm +
+          " NTPM  ·  " +
           state.N +
           "×" +
-          state.N +
-          " · hits " +
-          state.hitCount +
-          " · miss " +
-          state.missCount +
+          state.N,
+        bpsNote:
+          "BPS is lower than WebGrid 30×30 by design: factor ≈ log₂(" +
+          (state.N * state.N - 1) +
+          ") ≈ " +
+          factor.toFixed(2) +
+          " vs ~" +
+          factor30.toFixed(2) +
+          " on 30×30.",
+        factor: +factor.toFixed(4),
+        factor30: +factor30.toFixed(4),
+        growthStair: stairRows,
+        unlocked: stairRows.map(function (r) {
+          return r.id;
+        }),
+        masterPos: state.masterPos,
+        masterTotal: state.master.length,
+        layer: Math.floor(state.masterPos / Math.max(1, state.N * state.N)) + 1,
+        layers: Math.ceil(state.master.length / Math.max(1, state.N * state.N)) || 1,
+        best: state.best,
+        /* MG activity-leaderboard / agent_end shape */
+        mg: {
+          kind: "letter-grid",
+          peak: { bps: state.peakBps, ntpm: state.peakNtpm },
+          bestBps: state.peakBps,
+          bestNtpm: state.peakNtpm,
+          final: { bps: bps, ntpm: ntpm },
+          clicks: hits + misses,
+          hitsGuess: hits,
+          missGuess: misses,
+          N: state.N,
+          grid: state.N + "x" + state.N,
+          timer: formatTimer(msLeft()),
+          hopMs: hop,
+          durationS: +(elapsedMs / 1000).toFixed(1),
+        },
+      };
+      report.markdown = formatReportMarkdown(report);
+      report.tableHtml = formatScoreTableHtml(report);
+      report.stairHtml = formatStairTableHtml(report);
+      return report;
+    }
+
+    function formatScoreTableHtml(r) {
+      var m = r.metrics;
+      var rows = [
+        ["Hits", m.hits],
+        ["Misses", m.misses],
+        ["Hit rate", m.hitRateLabel],
+        ["Peak BPS", m.peakBps.toFixed(2)],
+        ["Peak NTPM", m.peakNtpm],
+        ["Final BPS", m.finalBps.toFixed(2)],
+        ["Final NTPM", m.finalNtpm],
+      ];
+      var html =
+        '<table class="dlg-score-table" data-mg-score-table="1"><thead><tr><th>Metric</th><th>Value</th></tr></thead><tbody>';
+      rows.forEach(function (row) {
+        var hi = row[0].indexOf("Peak BPS") === 0 ? ' class="is-peak"' : "";
+        html +=
+          "<tr" +
+          hi +
+          "><td>" +
+          row[0] +
+          '</td><td class="num">' +
+          row[1] +
+          "</td></tr>";
+      });
+      html += "</tbody></table>";
+      return html;
+    }
+
+    function formatStairTableHtml(r) {
+      if (!r.growthStair || !r.growthStair.length) {
+        return '<p class="dlg-report-placeholder">No stair unlocks this round.</p>';
+      }
+      var html =
+        '<table class="dlg-stair-table" data-mg-stair-table="1"><thead><tr><th>Time</th><th>Unlock</th></tr></thead><tbody>';
+      r.growthStair.forEach(function (u) {
+        html +=
+          "<tr><td class=\"num\">" +
+          u.tLabel +
+          "</td><td><b>" +
+          u.id +
+          "</b> " +
+          u.label +
+          "</td></tr>";
+      });
+      html += "</tbody></table>";
+      return html;
+    }
+
+    function formatReportMarkdown(r) {
+      var m = r.metrics;
+      var lines = [
+        "# Letter-Grid " + r.title,
+        "",
+        "**At:** " + r.at,
+        "**Duration:** " + r.durationS + "s (target " + r.roundS + "s)",
+        "**N:** " + r.grid + " · hop " + r.hopMs + "ms" + (r.agent ? " · agent" : ""),
+        "",
+        "## Score",
+        "| Metric | Value |",
+        "|--------|------:|",
+        "| Hits | " + m.hits + " |",
+        "| Misses | " + m.misses + " |",
+        "| Hit rate | " + m.hitRateLabel + " |",
+        "| **Peak BPS** | **" + m.peakBps.toFixed(2) + "** |",
+        "| Peak NTPM | " + m.peakNtpm + " |",
+        "| Final BPS | " + m.finalBps.toFixed(2) + " |",
+        "| Final NTPM | " + m.finalNtpm + " |",
+        "",
+        r.bpsNote,
+        "",
+        "## Growth stair (what happened)",
+        "",
+      ];
+      if (r.growthStair && r.growthStair.length) {
+        var full = r.growthStair.filter(function (u) {
+          return u.id === "S7";
+        })[0];
+        if (full) {
+          lines.push("Full codex unlocked in ~" + full.tSec + "s:");
+          lines.push("");
+        }
+        lines.push("| Time | Unlock |");
+        lines.push("|------|--------|");
+        r.growthStair.forEach(function (u) {
+          lines.push("| " + u.tLabel + " | " + u.id + " " + u.label + " |");
+        });
+      } else {
+        lines.push("_No stair unlocks recorded._");
+      }
+      lines.push("");
+      lines.push("## Unlocked");
+      lines.push((r.unlocked && r.unlocked.length ? r.unlocked : ["—"]).join(", "));
+      lines.push("");
+      lines.push("## Live");
+      lines.push(r.live);
+      lines.push("");
+      lines.push("## MG");
+      lines.push(
+        "game=letter-grid · peak " +
+          m.peakBps.toFixed(2) +
+          " BPS / " +
+          m.peakNtpm +
+          " NTPM · " +
+          r.grid +
+          " · hop ~" +
+          r.hopMs +
+          "ms"
+      );
+      return lines.join("\n");
+    }
+
+    function paintReport(report) {
+      if (!report) return;
+      var titleEl = endCard.querySelector("#dlg-score-title");
+      var peakLine = endCard.querySelector("#dlg-peak-line");
+      var endMeta = endCard.querySelector("#dlg-end-meta");
+      var scoreWrap = endCard.querySelector("#dlg-score-table-wrap");
+      var stairWrap = endCard.querySelector("#dlg-stair-table-wrap");
+      var bpsNote = endCard.querySelector("#dlg-bps-note");
+      if (titleEl) titleEl.textContent = report.title;
+      if (peakLine) peakLine.textContent = report.peakLine;
+      if (scoreWrap) scoreWrap.innerHTML = report.tableHtml;
+      if (stairWrap) stairWrap.innerHTML = report.stairHtml;
+      if (bpsNote) bpsNote.textContent = report.bpsNote;
+      if (endMeta) {
+        endMeta.textContent =
+          report.grid +
           " · glyphs " +
-          state.masterPos +
+          report.masterPos +
           "/" +
-          state.master.length +
+          report.masterTotal +
           " · layer " +
-          Math.min(layer + 1, layers) +
+          report.layer +
           "/" +
-          layers +
-          (state.best.peakBps
-            ? " · best " + state.best.peakBps.toFixed(2) + " BPS"
+          report.layers +
+          " · " +
+          report.durationS +
+          "s" +
+          (report.best && report.best.peakBps
+            ? " · best " + report.best.peakBps.toFixed(2) + " BPS"
             : "");
       }
+      reportHost.innerHTML =
+        "<div class=\"dlg-report-title\">" +
+        report.title +
+        "</div>" +
+        report.tableHtml +
+        '<p class="dlg-bps-note">' +
+        report.bpsNote +
+        "</p>" +
+        '<h4 class="dlg-stair-heading">Growth stair</h4>' +
+        report.stairHtml;
+      reportHost.dataset.peakBps = String(report.peakBps);
+      reportHost.dataset.peakNtpm = String(report.peakNtpm);
+      reportHost.dataset.hits = String(report.hits);
+      reportHost.dataset.live = report.live;
+    }
+
+    function publishMgReport(report) {
+      if (!report) return;
+      state.lastReport = report;
+      try {
+        localStorage.setItem(LAST_REPORT_KEY, JSON.stringify(report));
+        var prev = JSON.parse(localStorage.getItem(REPORT_KEY) || "[]");
+        prev.push({
+          at: report.at,
+          peakBps: report.peakBps,
+          peakNtpm: report.peakNtpm,
+          hits: report.hits,
+          N: report.N,
+          hopMs: report.hopMs,
+        });
+        if (prev.length > 40) prev = prev.slice(-40);
+        localStorage.setItem(REPORT_KEY, JSON.stringify(prev));
+      } catch (e) {}
+      /* Memory Glass activity-leaderboard scrape surface */
+      try {
+        global.__mgAgentPlayLast = Object.assign({}, report.mg, {
+          kind: "letter-grid",
+          report: report,
+          peak: report.mg.peak,
+          at: report.at,
+        });
+        global.__mgLetterGridLast = report;
+        global.__mgLetterGridReport = report;
+        if (global.__mgHotPipe) {
+          global.__mgHotPipe.letterGrid = report;
+          global.__mgHotPipe.letterGridLast = report;
+        }
+      } catch (e2) {}
+      try {
+        global.dispatchEvent(
+          new CustomEvent("kbatch-declaration-score-report", { detail: report })
+        );
+        global.dispatchEvent(
+          new CustomEvent("mg-letter-grid-score", { detail: report })
+        );
+      } catch (e3) {}
+      try {
+        fetch("http://127.0.0.1:9880/", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({
+            kind: "letter_grid_score_report",
+            ver: VER,
+            report: report,
+          }),
+        }).catch(function () {});
+      } catch (e4) {}
+    }
+
+    function showEndCard(report) {
+      endCard.hidden = false;
+      boardWrap.classList.add("is-ended");
+      if (report) paintReport(report);
       btnPlay.textContent = "Play again";
       btnPlay.classList.add("primary");
     }
@@ -509,7 +943,12 @@
       stopTimer();
       state.playing = false;
       state.phase = "end";
-      state.roundUntil = Date.now();
+      var endAt = Date.now();
+      if (!state.openCodex && state.roundStartedAt) {
+        state.roundUntil = Math.min(endAt, state.roundStartedAt + state.roundS * 1000);
+      } else {
+        state.roundUntil = endAt;
+      }
       /* final peak snap */
       var ntpm = ntpmNow();
       var bps = bpsFromNtpm(ntpm, state.N);
@@ -517,6 +956,11 @@
         state.peakBps = bps;
         state.peakNtpm = ntpm;
       }
+      state.finalBps = bps;
+      state.finalNtpm = ntpm;
+      noteStairProgress();
+      /* S7 if codex finished during timed window */
+      if (state.masterPos >= state.master.length) noteStairProgress();
       var bestRow = {
         peakBps: state.peakBps,
         peakNtpm: state.peakNtpm,
@@ -529,30 +973,24 @@
         reason: reason || "timer",
       };
       state.best = saveBest(bestRow);
-      showEndCard();
+      var report = buildScoreReport(reason || "timer");
+      publishMgReport(report);
+      showEndCard(report);
       refreshScore();
       slog(
         "ROUND END · peak " +
           state.peakBps.toFixed(2) +
           " BPS (" +
           state.peakNtpm +
-          " NTPM) · " +
+          " NTPM) · hit " +
+          report.metrics.hitRateLabel +
+          " · " +
           (reason || "timer")
       );
       try {
         global.dispatchEvent(
           new CustomEvent("kbatch-declaration-round-end", {
-            detail: {
-              ver: VER,
-              peakBps: state.peakBps,
-              peakNtpm: state.peakNtpm,
-              hits: state.hitCount,
-              miss: state.missCount,
-              masterPos: state.masterPos,
-              N: state.N,
-              reason: reason || "timer",
-              best: state.best,
-            },
+            detail: report,
           })
         );
       } catch (e) {}
@@ -564,6 +1002,8 @@
       stopTimer();
       hideEndCard();
       state.openCodex = !!optsRound.openCodex;
+      state.agentMode = !!optsRound.agent;
+      if (optsRound.hopMs != null) state.hopMs = optsRound.hopMs;
       state.mode = "codex";
       state.phase = "playing";
       state.playing = true;
@@ -573,10 +1013,14 @@
       state.events = [];
       state.peakBps = 0;
       state.peakNtpm = 0;
+      state.finalBps = 0;
+      state.finalNtpm = 0;
       state.hitCount = 0;
       state.missCount = 0;
       state.path = [];
       state.pathStep = 0;
+      state.stairUnlocks = [];
+      state.lastReport = null;
       state.roundStartedAt = Date.now();
       if (state.openCodex) {
         state.roundUntil = 0;
@@ -589,7 +1033,17 @@
         btnPlay.textContent = "Playing…";
         btnPlay.classList.add("primary");
         btnOpen.classList.remove("on");
-        slog("PLAY " + state.roundS + "s · WebGrid score · N=" + state.N);
+        slog(
+          "PLAY " +
+            state.roundS +
+            "s · " +
+            state.N +
+            "×" +
+            state.N +
+            " · hop ~" +
+            state.hopMs +
+            "ms"
+        );
         state.timerHandle = setInterval(function () {
           refreshScore();
           if (Date.now() >= state.roundUntil) {
@@ -600,6 +1054,7 @@
       btnFinale.disabled = true;
       btnFinale.classList.remove("primary");
       dealCodexBoard();
+      noteStairProgress();
       refreshScore();
       try {
         global.dispatchEvent(
@@ -609,6 +1064,7 @@
               openCodex: state.openCodex,
               roundS: state.roundS,
               N: state.N,
+              hopMs: state.hopMs,
             },
           })
         );
@@ -884,6 +1340,7 @@
         state.hits.push({ t: now, gi: g.gi, ch: g.ch, lineId: g.lineId });
         state.masterPos++;
         state.hitCount++;
+        noteStairProgress();
         slog("glyph #" + g.gi + " " + g.display + " @ " + g.lineId);
         if (state.masterPos >= state.master.length) {
           slog("CODEX COMPLETE · " + state.master.length + " glyphs · unlock finale");
@@ -1005,6 +1462,24 @@
     endCard.querySelector("#dlg-end-open").onclick = function () {
       startRound({ openCodex: true });
     };
+    endCard.querySelector("#dlg-copy-report").onclick = function () {
+      var rep = state.lastReport || buildScoreReport("copy");
+      var md = rep.markdown || formatReportMarkdown(rep);
+      function ok() {
+        slog("report copied · " + rep.title);
+      }
+      try {
+        if (navigator.clipboard && navigator.clipboard.writeText) {
+          navigator.clipboard.writeText(md).then(ok).catch(function () {
+            window.prompt("Copy score report:", md);
+          });
+        } else {
+          window.prompt("Copy score report:", md);
+        }
+      } catch (e) {
+        window.prompt("Copy score report:", md);
+      }
+    };
     function setN(n, btn) {
       state.N = n;
       [btnN8, btnN12, btnN16].forEach(function (b) {
@@ -1039,7 +1514,8 @@
       var ntpm = ntpmNow();
       var bps = bpsFromNtpm(ntpm, state.N);
       var timer = formatTimer(msLeft());
-      return {
+      var rate = hitRatePct(state.hitCount, state.missCount);
+      var snap = {
         ver: VER,
         game: "letter-grid",
         mode: state.mode,
@@ -1047,6 +1523,7 @@
         playing: state.playing,
         openCodex: state.openCodex,
         N: state.N,
+        hopMs: state.hopMs,
         timer: timer,
         live:
           timer +
@@ -1068,9 +1545,14 @@
         ntpm: ntpm,
         peakBps: state.peakBps,
         peakNtpm: state.peakNtpm,
+        finalBps: state.phase === "end" ? state.finalBps : bps,
+        finalNtpm: state.phase === "end" ? state.finalNtpm : ntpm,
         hitCount: state.hitCount,
         missCount: state.missCount,
+        hitRate: +rate.toFixed(1),
         best: state.best,
+        stairUnlocks: state.stairUnlocks.slice(),
+        report: state.lastReport,
         peakLine:
           "Your peak score: " +
           state.peakBps.toFixed(2) +
@@ -1088,28 +1570,36 @@
               : "ready",
         lines: state.lines.length,
       };
+      return snap;
     }
 
     /**
      * Agent play: hit blue targets as fast as paceMs allows until round ends.
-     * Returns Promise resolving to peak snapshot (WebGrid-compatible fields).
+     * Default hop ~120ms (MG human-pace report). Returns score report.
      */
     function agentPlay(optsA) {
       optsA = optsA || {};
-      var paceMs = optsA.paceMs != null ? optsA.paceMs : 45;
+      var paceMs = optsA.paceMs != null ? optsA.paceMs : state.hopMs || DEFAULT_HOP_MS;
       var maxHits = optsA.maxHits != null ? optsA.maxHits : 1e9;
       var open = !!optsA.openCodex;
-      startRound({ openCodex: open });
+      startRound({
+        openCodex: open,
+        agent: true,
+        hopMs: paceMs,
+      });
       return new Promise(function (resolve) {
         var n = 0;
+        function done() {
+          resolve(state.lastReport || buildScoreReport("agent"));
+        }
         function tick() {
           if (state.phase === "end" || (!state.playing && state.phase !== "playing")) {
-            resolve(snapshotNow());
+            done();
             return;
           }
           if (n >= maxHits) {
             if (!state.openCodex) endRound("agent-max");
-            resolve(snapshotNow());
+            done();
             return;
           }
           var idx = -1;
@@ -1123,7 +1613,7 @@
             n++;
           }
           if (state.phase === "end") {
-            resolve(snapshotNow());
+            done();
             return;
           }
           setTimeout(tick, paceMs);
@@ -1172,6 +1662,7 @@
         var built = buildMaster(lines);
         state.master = built.master;
         state.xref = built.xref;
+        state.stair = buildGrowthStair(state.master);
         state.masterPos = 0;
         dealCodexBoard();
         slog(
@@ -1181,28 +1672,47 @@
             " · master glyphs " +
             state.master.length +
             " · layers " +
-            Math.ceil(state.master.length / (state.N * state.N))
+            Math.ceil(state.master.length / (state.N * state.N)) +
+            " · stair S0–S7"
         );
         var api = {
           ver: VER,
           game: "letter-grid",
           state: state,
           ROUND_S: ROUND_S,
+          DEFAULT_HOP_MS: DEFAULT_HOP_MS,
           startCodex: function () {
             startRound({ openCodex: true });
           },
-          startTimed: function () {
-            startRound({ openCodex: false });
+          startTimed: function (hop) {
+            startRound({
+              openCodex: false,
+              hopMs: hop != null ? hop : state.hopMs,
+            });
           },
           startRound: startRound,
           endRound: endRound,
           startFinale: startFinale,
           agentPlay: agentPlay,
+          report: function () {
+            return state.lastReport || buildScoreReport(state.phase === "end" ? "snapshot" : "live");
+          },
+          scoreReport: function () {
+            return api.report();
+          },
+          markdownReport: function () {
+            var r = api.report();
+            return r.markdown || formatReportMarkdown(r);
+          },
           setN: function (n) {
             n = Number(n) || 12;
             if (n === 8) setN(8, btnN8);
             else if (n === 16) setN(16, btnN16);
             else setN(12, btnN12);
+          },
+          setHop: function (ms) {
+            state.hopMs = Math.max(8, Number(ms) || DEFAULT_HOP_MS);
+            return state.hopMs;
           },
           snapshot: snapshotNow,
           /** Agent-friendly: click board index (0..N²-1) as human would */
@@ -1212,30 +1722,38 @@
           },
           trialsKey: TRIALS_KEY,
           bestKey: BEST_KEY,
+          lastReportKey: LAST_REPORT_KEY,
         };
         try {
           global.__letterGridApi = api;
+          global.__mgLetterGridApi = api;
         } catch (e3) {}
 
-        /* Autotest / agent: ?autotest=1 | ?mg_autoplay=1 | opts.autoplay */
+        /* Autotest / agent: ?autotest=1 | ?mg_autoplay=1 | opts.autoplay
+           hop from ?hop=120 (default 120ms for MG human-pace report) */
         var wantAuto = !!opts.autoplay;
+        var hopQ = opts.paceMs || opts.hopMs || state.hopMs;
         try {
           if (/[?&](autotest|mg_autoplay)=1\b/i.test(location.search || "")) wantAuto = true;
+          var hm = /[?&]hop=(\d+)/i.exec(location.search || "");
+          if (hm) hopQ = parseInt(hm[1], 10);
+          var pm = /[?&]pace=(\d+)/i.exec(location.search || "");
+          if (pm) hopQ = parseInt(pm[1], 10);
         } catch (e4) {}
         if (wantAuto) {
           setTimeout(function () {
-            agentPlay({ paceMs: opts.paceMs || 40 }).then(function (snap) {
+            agentPlay({ paceMs: hopQ || DEFAULT_HOP_MS }).then(function (rep) {
               slog(
-                "AUTO peak " +
-                  snap.peakBps.toFixed(2) +
-                  " BPS (" +
-                  snap.peakNtpm +
-                  " NTPM) · " +
-                  snap.live
+                "AUTO " +
+                  (rep.title || "") +
+                  " · peak " +
+                  rep.peakBps +
+                  " BPS · hit " +
+                  (rep.metrics && rep.metrics.hitRateLabel)
               );
               try {
                 global.dispatchEvent(
-                  new CustomEvent("kbatch-declaration-agent-done", { detail: snap })
+                  new CustomEvent("kbatch-declaration-agent-done", { detail: rep })
                 );
               } catch (e5) {}
             });
@@ -1254,9 +1772,12 @@
   global.__kbatchDeclarationLetterGrid = {
     ver: VER,
     ROUND_S: ROUND_S,
+    DEFAULT_HOP_MS: DEFAULT_HOP_MS,
     mount: mount,
     bpsFromNtpm: bpsFromNtpm,
+    bpsFactor: bpsFactor,
     formatTimer: formatTimer,
+    buildGrowthStair: buildGrowthStair,
     wanderingPathIndices: wanderingPathIndices,
   };
 })(typeof window !== "undefined" ? window : globalThis);
