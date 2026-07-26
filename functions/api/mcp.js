@@ -1593,6 +1593,7 @@ async function toolLettergrid(request, name, args) {
     if (include.includes("patterns")) out.patterns = rubik.patterns;
     if (include.includes("compose")) out.compose = rubik.compose;
     const TOUR_PATH = "declaration/rubik-all-language-path.json";
+    const STAIR_PATH = "world-path/rubik-stair-next.json";
     if (include.includes("tour") || args.tour) {
       let tour = await fetchJson(request, TOUR_PATH);
       if (!tour) {
@@ -1633,10 +1634,55 @@ async function toolLettergrid(request, name, args) {
         };
       }
     }
+    if (include.includes("stair") || include.includes("tour") || args.stair) {
+      let stair = await fetchJson(request, STAIR_PATH);
+      if (!stair) {
+        try {
+          const u = new URL("/data/" + STAIR_PATH, request.url);
+          const r = await fetch(u.toString());
+          if (r.ok) stair = await r.json();
+        } catch {
+          /* */
+        }
+      }
+      if (stair) {
+        out.stair = {
+          schema: stair.schema,
+          phases: (stair.phases || []).map((p) => ({
+            id: p.id,
+            title: p.title,
+            langs: p.langs,
+            sumC: p.sumC,
+            actions: p.actions,
+          })),
+          steps: (stair.steps || []).map((s) => ({
+            n: s.n,
+            lang: s.lang,
+            pathId: s.pathId,
+            status: s.status,
+            role: s.role,
+            costFromPrev: s.costFromPrev,
+            wordPackTotal: s.wordPackTotal,
+            samplePhrases: s.samplePhrases,
+            nextCuts: s.nextCuts,
+          })),
+          metrics: stair.metrics,
+          agent: stair.agent,
+          urls: stair.urls,
+        };
+      } else {
+        out.stair = {
+          error: "rubik-stair-next.json not deployed",
+          url: "/data/" + STAIR_PATH,
+        };
+      }
+    }
     out.urls = {
       bind: "/data/declaration/letter-grid-rubik.json",
       allLanguagePath: "/data/declaration/rubik-all-language-path.json",
       allLanguagePathDoc: "/docs/RUBIK-ALL-LANGUAGE-PATH.md",
+      stair: "/data/world-path/rubik-stair-next.json",
+      stairDoc: "/docs/RUBIK-STAIR-NEXT.md",
       costMatrix: rubik.patterns?.worldPath?.costMatrix,
       jaxBank: rubik.calibration?.jaxFeatureBank,
       probeSet: rubik.calibration?.probeSet,

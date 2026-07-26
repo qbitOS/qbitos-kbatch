@@ -587,15 +587,15 @@ export async function lettergridMcpCall(name, args = {}, opts = {}) {
       if (include.includes("compose")) out.compose = pack.compose;
       // All-13 Rubik mathematical tour (pure C, DOJO-true — no tilde_c)
       const TOUR_URL = "/data/declaration/rubik-all-language-path.json";
+      const STAIR_URL = "/data/world-path/rubik-stair-next.json";
+      const base =
+        typeof location !== "undefined" && location.origin
+          ? location.origin
+          : "https://kbatch.ugrad.ai";
+      const f = fetchImpl || fetch;
       if (include.includes("tour") || args.tour) {
         try {
-          const base =
-            typeof location !== "undefined" && location.origin
-              ? location.origin
-              : "https://kbatch.ugrad.ai";
-          const tr = await (fetchImpl || fetch)(base + TOUR_URL, {
-            cache: "default",
-          });
+          const tr = await f(base + TOUR_URL, { cache: "default" });
           if (tr.ok) {
             const tour = await tr.json();
             out.tour = {
@@ -624,11 +624,47 @@ export async function lettergridMcpCall(name, args = {}, opts = {}) {
           out.tour = { error: "tour pack load failed", url: TOUR_URL };
         }
       }
+      if (include.includes("stair") || include.includes("tour") || args.stair) {
+        try {
+          const sr = await f(base + STAIR_URL, { cache: "default" });
+          if (sr.ok) {
+            const stair = await sr.json();
+            out.stair = {
+              schema: stair.schema,
+              phases: (stair.phases || []).map((p) => ({
+                id: p.id,
+                title: p.title,
+                langs: p.langs,
+                sumC: p.sumC,
+                actions: p.actions,
+              })),
+              steps: (stair.steps || []).map((s) => ({
+                n: s.n,
+                lang: s.lang,
+                pathId: s.pathId,
+                status: s.status,
+                role: s.role,
+                costFromPrev: s.costFromPrev,
+                wordPackTotal: s.wordPackTotal,
+                samplePhrases: s.samplePhrases,
+                nextCuts: s.nextCuts,
+              })),
+              metrics: stair.metrics,
+              agent: stair.agent,
+              urls: stair.urls,
+            };
+          }
+        } catch {
+          out.stair = { error: "stair pack load failed", url: STAIR_URL };
+        }
+      }
       out.urls = {
         bind: RUBIK_URL,
         doc: "/docs/SHADOW-RUBIK-LETTER-GRID.md",
         allLanguagePath: TOUR_URL,
         allLanguagePathDoc: "/docs/RUBIK-ALL-LANGUAGE-PATH.md",
+        stair: STAIR_URL,
+        stairDoc: "/docs/RUBIK-STAIR-NEXT.md",
         costMatrix: pack.patterns?.worldPath?.costMatrix,
         jaxBank: pack.calibration?.jaxFeatureBank,
         probeSet: pack.calibration?.probeSet,

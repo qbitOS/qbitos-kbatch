@@ -989,7 +989,9 @@
     "worldPathModel": "/docs/WORLD-PATH-COST-MODEL.md",
     "mcpRubik": "kbatch_lettergrid_rubik",
     "mcpWorldPath": "kbatch_world_path",
-    "mgSession": "~/.panda/mg-session/rubik-all-path-2026-07-26T0120/"
+    "mgSession": "~/.panda/mg-session/rubik-all-path-2026-07-26T0120/",
+    "stair": "/data/world-path/rubik-stair-next.json",
+    "stairDoc": "/docs/RUBIK-STAIR-NEXT.md"
   },
   "summary": {
     "primaryTour": "rubikCubeCover",
@@ -1173,7 +1175,8 @@
     "ping": "await kbatchDict.mcp(\"kbatch_lettergrid_rubik\")",
     "tour": "fetch(\"/data/declaration/rubik-all-language-path.json\")",
     "ready": "await kbatchDict.mcp(\"kbatch_world_path\", { from: \"en\", mode: \"ready\" })",
-    "includeTour": "await kbatchDict.mcp(\"kbatch_lettergrid_rubik\", { include: [\"pathways\",\"tour\"] })"
+    "includeTour": "await kbatchDict.mcp(\"kbatch_lettergrid_rubik\", { include: [\"pathways\",\"tour\"] })",
+    "stair": "fetch(\"/data/world-path/rubik-stair-next.json\")"
   },
   "shipped": "2026-07-26T01:28:12Z"
 }

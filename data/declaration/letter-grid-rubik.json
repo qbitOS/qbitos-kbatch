@@ -1,7 +1,7 @@
 {
   "schema": "kbatch-letter-grid-rubik-v1",
   "ver": "1.0.0",
-  "at": "2026-07-24",
+  "at": "2026-07-26",
   "docId": "declaration-of-independence",
   "purpose": "Bind Declaration Letter-Grid (motor glyph stream) to Shadow Rubik origin-cube atlas + calibration banks for cross-language transfer.",
   "letterGrid": {
@@ -65,79 +65,196 @@
       "label": "PIE → Germanic → English",
       "family": "Germanic",
       "declarationDefault": true,
-      "note": "Primary bind for engrossed English text + Letter-Grid master stream"
-    },
-    {
-      "n": 2,
-      "pathId": "latin-romance-es",
-      "label": "Latin → Spanish",
-      "family": "Romance"
-    },
-    {
-      "n": 3,
-      "pathId": "latin-romance-fr",
-      "label": "Latin → French → English loans",
-      "family": "Romance"
-    },
-    {
-      "n": 4,
-      "pathId": "latin-romance-it",
-      "label": "Latin → Italian",
-      "family": "Romance"
-    },
-    {
-      "n": 5,
-      "pathId": "latin-de-contact",
-      "label": "Latin / Greek → German → English",
-      "family": "Germanic"
+      "note": "Primary bind for engrossed English text + Letter-Grid master stream",
+      "repLang": "en",
+      "tourStep": 1,
+      "tourCostFromPrev": null,
+      "status": "ready",
+      "script": "Latin",
+      "layout": "qwerty",
+      "samplePhrase": "life liberty pursuit of happiness",
+      "wordPackTotal": 16592291,
+      "stair": "/data/world-path/rubik-stair-next.json"
     },
     {
       "n": 6,
       "pathId": "norse-en",
       "label": "Old Norse → English",
-      "family": "Germanic"
+      "family": "Germanic",
+      "repLang": "is",
+      "tourStep": 2,
+      "tourCostFromPrev": 3.5,
+      "status": "placeholder",
+      "script": "Latin",
+      "layout": "qwerty",
+      "samplePhrase": "halló heimur",
+      "wordPackTotal": 256264,
+      "stair": "/data/world-path/rubik-stair-next.json"
     },
     {
-      "n": 7,
-      "pathId": "greek-learned",
-      "label": "Greek → learned European",
-      "family": "Hellenic"
+      "n": 5,
+      "pathId": "latin-de-contact",
+      "label": "Latin / Greek → German → English",
+      "family": "Germanic",
+      "repLang": "de",
+      "tourStep": 3,
+      "tourCostFromPrev": 2.2,
+      "status": "ready",
+      "script": "Latin",
+      "layout": "qwertz",
+      "samplePhrase": "leben freiheit glück",
+      "wordPackTotal": 1157685,
+      "stair": "/data/world-path/rubik-stair-next.json"
     },
     {
-      "n": 8,
-      "pathId": "arabic-loans",
-      "label": "Arabic → European science words",
-      "family": "Semitic"
+      "n": 3,
+      "pathId": "latin-romance-fr",
+      "label": "Latin → French → English loans",
+      "family": "Romance",
+      "repLang": "fr",
+      "tourStep": 4,
+      "tourCostFromPrev": 3,
+      "status": "ready",
+      "script": "Latin",
+      "layout": "azerty",
+      "samplePhrase": "vie liberté bonheur",
+      "wordPackTotal": 834758,
+      "stair": "/data/world-path/rubik-stair-next.json"
     },
     {
-      "n": 9,
-      "pathId": "sanskrit-ia",
-      "label": "Sanskrit → Indo-Aryan",
-      "family": "Indo-Aryan"
+      "n": 4,
+      "pathId": "latin-romance-it",
+      "label": "Latin → Italian",
+      "family": "Romance",
+      "repLang": "it",
+      "tourStep": 5,
+      "tourCostFromPrev": 2.2,
+      "status": "ready",
+      "script": "Latin",
+      "layout": "qwerty",
+      "samplePhrase": "vita libertà felicità",
+      "wordPackTotal": 798015,
+      "stair": "/data/world-path/rubik-stair-next.json"
     },
     {
-      "n": 10,
-      "pathId": "sinitic",
-      "label": "Old Chinese → modern Sinitic",
-      "family": "Sinitic"
-    },
-    {
-      "n": 11,
-      "pathId": "algic-anishinaabe",
-      "label": "Algic → Anishinaabemowin / nêhiyawêwin",
-      "family": "Algic"
-    },
-    {
-      "n": 12,
-      "pathId": "iroquoian-tsalagi",
-      "label": "Iroquoian → Tsalagi / Kanienʼkéha",
-      "family": "Iroquoian"
+      "n": 2,
+      "pathId": "latin-romance-es",
+      "label": "Latin → Spanish",
+      "family": "Romance",
+      "repLang": "es",
+      "tourStep": 6,
+      "tourCostFromPrev": 1,
+      "status": "ready",
+      "script": "Latin",
+      "layout": "qwerty",
+      "samplePhrase": "vida libertad felicidad",
+      "wordPackTotal": 1202518,
+      "stair": "/data/world-path/rubik-stair-next.json"
     },
     {
       "n": 13,
       "pathId": "nadene-dine",
       "label": "Na-Dené → Diné bizaad",
-      "family": "Na-Dené"
+      "family": "Na-Dené",
+      "repLang": "nav",
+      "tourStep": 7,
+      "tourCostFromPrev": 9.2,
+      "status": "honor",
+      "script": "Latin",
+      "layout": "qwerty",
+      "samplePhrase": "ahéhee'",
+      "wordPackTotal": 70,
+      "stair": "/data/world-path/rubik-stair-next.json"
+    },
+    {
+      "n": 11,
+      "pathId": "algic-anishinaabe",
+      "label": "Algic → Anishinaabemowin / nêhiyawêwin",
+      "family": "Algic",
+      "repLang": "oj",
+      "tourStep": 8,
+      "tourCostFromPrev": 7.8,
+      "status": "honor",
+      "script": "Latin",
+      "layout": "qwerty",
+      "samplePhrase": "boozhoo",
+      "wordPackTotal": 70,
+      "stair": "/data/world-path/rubik-stair-next.json"
+    },
+    {
+      "n": 8,
+      "pathId": "arabic-loans",
+      "label": "Arabic → European science words",
+      "family": "Semitic",
+      "repLang": "ar",
+      "tourStep": 9,
+      "tourCostFromPrev": 10.7,
+      "status": "ready",
+      "script": "Arabic",
+      "layout": "arabic",
+      "samplePhrase": "سلام كتاب نور",
+      "wordPackTotal": 2505456,
+      "stair": "/data/world-path/rubik-stair-next.json"
+    },
+    {
+      "n": 9,
+      "pathId": "sanskrit-ia",
+      "label": "Sanskrit → Indo-Aryan",
+      "family": "Indo-Aryan",
+      "repLang": "hi",
+      "tourStep": 10,
+      "tourCostFromPrev": 10.7,
+      "status": "ready",
+      "script": "Devanagari",
+      "layout": "hindi",
+      "samplePhrase": "नमस्ते भारत",
+      "wordPackTotal": 20960,
+      "stair": "/data/world-path/rubik-stair-next.json"
+    },
+    {
+      "n": 7,
+      "pathId": "greek-learned",
+      "label": "Greek → learned European",
+      "family": "Hellenic",
+      "repLang": "el",
+      "tourStep": 11,
+      "tourCostFromPrev": 9.3,
+      "status": "ready",
+      "script": "Greek",
+      "layout": "greek",
+      "samplePhrase": "ελληνική γλώσσα",
+      "wordPackTotal": 1487911,
+      "stair": "/data/world-path/rubik-stair-next.json"
+    },
+    {
+      "n": 10,
+      "pathId": "sinitic",
+      "label": "Old Chinese → modern Sinitic",
+      "family": "Sinitic",
+      "repLang": "zh",
+      "tourStep": 12,
+      "tourCostFromPrev": 10.7,
+      "status": "ready",
+      "script": "Han",
+      "layout": "qwerty",
+      "samplePhrase": "中文 路径",
+      "wordPackTotal": 766611,
+      "stair": "/data/world-path/rubik-stair-next.json"
+    },
+    {
+      "n": 12,
+      "pathId": "iroquoian-tsalagi",
+      "label": "Iroquoian → Tsalagi / Kanienʼkéha",
+      "family": "Iroquoian",
+      "repLang": "chr",
+      "tourStep": 13,
+      "tourCostFromPrev": 13.2,
+      "status": "honor",
+      "script": "Cherokee",
+      "layout": "qwerty",
+      "samplePhrase": "tsalagi",
+      "wordPackTotal": 60,
+      "stair": "/data/world-path/rubik-stair-next.json"
     }
   ],
   "allMap": {
@@ -176,7 +293,8 @@
       "allLanguagePathDoc": "/docs/RUBIK-ALL-LANGUAGE-PATH.md",
       "rubikCoverSumC": 83.5,
       "readyFromEnSumC": 121.6,
-      "note": "Tour pack uses pure C · DOJO-true · no tilde_c"
+      "note": "Tour pack uses pure C · DOJO-true · no tilde_c",
+      "stair": "/data/world-path/rubik-stair-next.json"
     }
   },
   "calibration": {
@@ -232,5 +350,12 @@
     "rubik": "/js/rubik-language-map.js",
     "stepping": "/js/language-stepping.js",
     "letterGrid": "/js/declaration-letter-grid.js"
+  },
+  "tour": {
+    "pack": "/data/declaration/rubik-all-language-path.json",
+    "stair": "/data/world-path/rubik-stair-next.json",
+    "orderStr": "en → is → de → fr → it → es → nav → oj → ar → hi → el → zh → chr",
+    "sumC": 83.5,
+    "doctrine": "pure C · DOJO-true"
   }
 }

@@ -1,0 +1,541 @@
+{
+  "schema": "kbatch-capsule-pack-v1",
+  "id": "rubik-stair-pack",
+  "generated": "2026-07-26T01:45:01Z",
+  "claim": "Capsules for Rubik stair dictionary iteration — one atom per tour stand-in.",
+  "capsules": [
+    {
+      "id": "caps.rubik.stair.en",
+      "name": "Rubik stair · English (en)",
+      "cat": "research",
+      "rung": 4,
+      "age": "all",
+      "desc": "Tour step 1/13 · pie-germanic-en · status ready · pack 16592291",
+      "flag": "🧊",
+      "color": "#58a6ff",
+      "words": [
+        "life",
+        "liberty",
+        "pursuit",
+        "of",
+        "happiness",
+        "in",
+        "congress",
+        "july",
+        "we",
+        "the",
+        "people"
+      ],
+      "wordCount": 11,
+      "meta": {
+        "entity_type": "rubik-stair-step",
+        "lang": "en",
+        "pathId": "pie-germanic-en",
+        "tourStep": 1,
+        "status": "ready",
+        "costFromPrev": null,
+        "source": "rubik-stair-next"
+      },
+      "geometryHooks": [
+        "path-geometry",
+        "shadow-live",
+        "capsule-analyzer"
+      ],
+      "drill": {
+        "mode": "path-phrases",
+        "evidence": [
+          "life liberty pursuit of happiness",
+          "in congress july",
+          "we the people"
+        ]
+      }
+    },
+    {
+      "id": "caps.rubik.stair.is",
+      "name": "Rubik stair · Icelandic (is)",
+      "cat": "research",
+      "rung": 4,
+      "age": "all",
+      "desc": "Tour step 2/13 · norse-en · status placeholder · pack 256264",
+      "flag": "🧊",
+      "color": "#d29922",
+      "words": [
+        "halló",
+        "heimur",
+        "ís",
+        "land",
+        "norræna",
+        "edda",
+        "völuspá"
+      ],
+      "wordCount": 7,
+      "meta": {
+        "entity_type": "rubik-stair-step",
+        "lang": "is",
+        "pathId": "norse-en",
+        "tourStep": 2,
+        "status": "placeholder",
+        "costFromPrev": 3.5,
+        "source": "rubik-stair-next"
+      },
+      "geometryHooks": [
+        "path-geometry",
+        "shadow-live",
+        "capsule-analyzer"
+      ],
+      "drill": {
+        "mode": "path-phrases",
+        "evidence": [
+          "halló heimur",
+          "ís land",
+          "norræna edda"
+        ]
+      }
+    },
+    {
+      "id": "caps.rubik.stair.de",
+      "name": "Rubik stair · German (de)",
+      "cat": "research",
+      "rung": 4,
+      "age": "all",
+      "desc": "Tour step 3/13 · latin-de-contact · status ready · pack 1157685",
+      "flag": "🧊",
+      "color": "#58a6ff",
+      "words": [
+        "leben",
+        "freiheit",
+        "glück",
+        "deutsch",
+        "sprache",
+        "pfad",
+        "geometrie"
+      ],
+      "wordCount": 7,
+      "meta": {
+        "entity_type": "rubik-stair-step",
+        "lang": "de",
+        "pathId": "latin-de-contact",
+        "tourStep": 3,
+        "status": "ready",
+        "costFromPrev": 2.2,
+        "source": "rubik-stair-next"
+      },
+      "geometryHooks": [
+        "path-geometry",
+        "shadow-live",
+        "capsule-analyzer"
+      ],
+      "drill": {
+        "mode": "path-phrases",
+        "evidence": [
+          "leben freiheit glück",
+          "deutsch sprache",
+          "pfad geometrie"
+        ]
+      }
+    },
+    {
+      "id": "caps.rubik.stair.fr",
+      "name": "Rubik stair · French (fr)",
+      "cat": "research",
+      "rung": 4,
+      "age": "all",
+      "desc": "Tour step 4/13 · latin-romance-fr · status ready · pack 834758",
+      "flag": "🧊",
+      "color": "#58a6ff",
+      "words": [
+        "vie",
+        "liberté",
+        "bonheur",
+        "français",
+        "chemin",
+        "déclaration"
+      ],
+      "wordCount": 6,
+      "meta": {
+        "entity_type": "rubik-stair-step",
+        "lang": "fr",
+        "pathId": "latin-romance-fr",
+        "tourStep": 4,
+        "status": "ready",
+        "costFromPrev": 3,
+        "source": "rubik-stair-next"
+      },
+      "geometryHooks": [
+        "path-geometry",
+        "shadow-live",
+        "capsule-analyzer"
+      ],
+      "drill": {
+        "mode": "path-phrases",
+        "evidence": [
+          "vie liberté bonheur",
+          "français chemin",
+          "déclaration"
+        ]
+      }
+    },
+    {
+      "id": "caps.rubik.stair.it",
+      "name": "Rubik stair · Italian (it)",
+      "cat": "research",
+      "rung": 4,
+      "age": "all",
+      "desc": "Tour step 5/13 · latin-romance-it · status ready · pack 798015",
+      "flag": "🧊",
+      "color": "#58a6ff",
+      "words": [
+        "vita",
+        "libertà",
+        "felicità",
+        "italiano",
+        "percorso",
+        "dichiarazione"
+      ],
+      "wordCount": 6,
+      "meta": {
+        "entity_type": "rubik-stair-step",
+        "lang": "it",
+        "pathId": "latin-romance-it",
+        "tourStep": 5,
+        "status": "ready",
+        "costFromPrev": 2.2,
+        "source": "rubik-stair-next"
+      },
+      "geometryHooks": [
+        "path-geometry",
+        "shadow-live",
+        "capsule-analyzer"
+      ],
+      "drill": {
+        "mode": "path-phrases",
+        "evidence": [
+          "vita libertà felicità",
+          "italiano percorso",
+          "dichiarazione"
+        ]
+      }
+    },
+    {
+      "id": "caps.rubik.stair.es",
+      "name": "Rubik stair · Spanish (es)",
+      "cat": "research",
+      "rung": 4,
+      "age": "all",
+      "desc": "Tour step 6/13 · latin-romance-es · status ready · pack 1202518",
+      "flag": "🧊",
+      "color": "#58a6ff",
+      "words": [
+        "vida",
+        "libertad",
+        "felicidad",
+        "español",
+        "camino",
+        "declaración"
+      ],
+      "wordCount": 6,
+      "meta": {
+        "entity_type": "rubik-stair-step",
+        "lang": "es",
+        "pathId": "latin-romance-es",
+        "tourStep": 6,
+        "status": "ready",
+        "costFromPrev": 1,
+        "source": "rubik-stair-next"
+      },
+      "geometryHooks": [
+        "path-geometry",
+        "shadow-live",
+        "capsule-analyzer"
+      ],
+      "drill": {
+        "mode": "path-phrases",
+        "evidence": [
+          "vida libertad felicidad",
+          "español camino",
+          "declaración"
+        ]
+      }
+    },
+    {
+      "id": "caps.rubik.stair.nav",
+      "name": "Rubik stair · Navajo (nav)",
+      "cat": "research",
+      "rung": 4,
+      "age": "all",
+      "desc": "Tour step 7/13 · nadene-dine · status honor · pack 70",
+      "flag": "🧊",
+      "color": "#f85149",
+      "words": [
+        "ahéhee",
+        "yá",
+        "át",
+        "ééh",
+        "hózhǫ́",
+        "diné",
+        "bizaad"
+      ],
+      "wordCount": 7,
+      "meta": {
+        "entity_type": "rubik-stair-step",
+        "lang": "nav",
+        "pathId": "nadene-dine",
+        "tourStep": 7,
+        "status": "honor",
+        "costFromPrev": 9.2,
+        "source": "rubik-stair-next"
+      },
+      "geometryHooks": [
+        "path-geometry",
+        "shadow-live",
+        "capsule-analyzer"
+      ],
+      "drill": {
+        "mode": "path-phrases",
+        "evidence": [
+          "ahéhee'",
+          "yá'át'ééh",
+          "hózhǫ́"
+        ]
+      }
+    },
+    {
+      "id": "caps.rubik.stair.oj",
+      "name": "Rubik stair · Ojibwe (oj)",
+      "cat": "research",
+      "rung": 4,
+      "age": "all",
+      "desc": "Tour step 8/13 · algic-anishinaabe · status honor · pack 70",
+      "flag": "🧊",
+      "color": "#f85149",
+      "words": [
+        "boozhoo",
+        "miigwech",
+        "gichigami",
+        "anishinaabe"
+      ],
+      "wordCount": 4,
+      "meta": {
+        "entity_type": "rubik-stair-step",
+        "lang": "oj",
+        "pathId": "algic-anishinaabe",
+        "tourStep": 8,
+        "status": "honor",
+        "costFromPrev": 7.8,
+        "source": "rubik-stair-next"
+      },
+      "geometryHooks": [
+        "path-geometry",
+        "shadow-live",
+        "capsule-analyzer"
+      ],
+      "drill": {
+        "mode": "path-phrases",
+        "evidence": [
+          "boozhoo",
+          "miigwech",
+          "gichigami"
+        ]
+      }
+    },
+    {
+      "id": "caps.rubik.stair.ar",
+      "name": "Rubik stair · Arabic (ar)",
+      "cat": "research",
+      "rung": 4,
+      "age": "all",
+      "desc": "Tour step 9/13 · arabic-loans · status ready · pack 2505456",
+      "flag": "🧊",
+      "color": "#58a6ff",
+      "words": [
+        "سلام",
+        "كتاب",
+        "نور",
+        "لغة",
+        "عربية",
+        "مسار"
+      ],
+      "wordCount": 6,
+      "meta": {
+        "entity_type": "rubik-stair-step",
+        "lang": "ar",
+        "pathId": "arabic-loans",
+        "tourStep": 9,
+        "status": "ready",
+        "costFromPrev": 10.7,
+        "source": "rubik-stair-next"
+      },
+      "geometryHooks": [
+        "path-geometry",
+        "shadow-live",
+        "capsule-analyzer"
+      ],
+      "drill": {
+        "mode": "path-phrases",
+        "evidence": [
+          "سلام كتاب نور",
+          "لغة عربية",
+          "مسار"
+        ]
+      }
+    },
+    {
+      "id": "caps.rubik.stair.hi",
+      "name": "Rubik stair · Hindi (hi)",
+      "cat": "research",
+      "rung": 4,
+      "age": "all",
+      "desc": "Tour step 10/13 · sanskrit-ia · status ready · pack 20960",
+      "flag": "🧊",
+      "color": "#58a6ff",
+      "words": [
+        "नमस्ते",
+        "भारत",
+        "हिन्दी",
+        "भाषा",
+        "मार्ग"
+      ],
+      "wordCount": 5,
+      "meta": {
+        "entity_type": "rubik-stair-step",
+        "lang": "hi",
+        "pathId": "sanskrit-ia",
+        "tourStep": 10,
+        "status": "ready",
+        "costFromPrev": 10.7,
+        "source": "rubik-stair-next"
+      },
+      "geometryHooks": [
+        "path-geometry",
+        "shadow-live",
+        "capsule-analyzer"
+      ],
+      "drill": {
+        "mode": "path-phrases",
+        "evidence": [
+          "नमस्ते भारत",
+          "हिन्दी भाषा",
+          "मार्ग"
+        ]
+      }
+    },
+    {
+      "id": "caps.rubik.stair.el",
+      "name": "Rubik stair · Greek (el)",
+      "cat": "research",
+      "rung": 4,
+      "age": "all",
+      "desc": "Tour step 11/13 · greek-learned · status ready · pack 1487911",
+      "flag": "🧊",
+      "color": "#58a6ff",
+      "words": [
+        "ελληνική",
+        "γλώσσα",
+        "ελευθερία",
+        "μονοπάτι"
+      ],
+      "wordCount": 4,
+      "meta": {
+        "entity_type": "rubik-stair-step",
+        "lang": "el",
+        "pathId": "greek-learned",
+        "tourStep": 11,
+        "status": "ready",
+        "costFromPrev": 9.3,
+        "source": "rubik-stair-next"
+      },
+      "geometryHooks": [
+        "path-geometry",
+        "shadow-live",
+        "capsule-analyzer"
+      ],
+      "drill": {
+        "mode": "path-phrases",
+        "evidence": [
+          "ελληνική γλώσσα",
+          "ελευθερία",
+          "μονοπάτι"
+        ]
+      }
+    },
+    {
+      "id": "caps.rubik.stair.zh",
+      "name": "Rubik stair · Chinese (zh)",
+      "cat": "research",
+      "rung": 4,
+      "age": "all",
+      "desc": "Tour step 12/13 · sinitic · status ready · pack 766611",
+      "flag": "🧊",
+      "color": "#58a6ff",
+      "words": [
+        "中文",
+        "路径",
+        "汉字",
+        "几何",
+        "声明"
+      ],
+      "wordCount": 5,
+      "meta": {
+        "entity_type": "rubik-stair-step",
+        "lang": "zh",
+        "pathId": "sinitic",
+        "tourStep": 12,
+        "status": "ready",
+        "costFromPrev": 10.7,
+        "source": "rubik-stair-next"
+      },
+      "geometryHooks": [
+        "path-geometry",
+        "shadow-live",
+        "capsule-analyzer"
+      ],
+      "drill": {
+        "mode": "path-phrases",
+        "evidence": [
+          "中文 路径",
+          "汉字 几何",
+          "声明"
+        ]
+      }
+    },
+    {
+      "id": "caps.rubik.stair.chr",
+      "name": "Rubik stair · Cherokee (chr)",
+      "cat": "research",
+      "rung": 4,
+      "age": "all",
+      "desc": "Tour step 13/13 · iroquoian-tsalagi · status honor · pack 60",
+      "flag": "🧊",
+      "color": "#f85149",
+      "words": [
+        "tsalagi",
+        "osiyo",
+        "wado",
+        "nvda"
+      ],
+      "wordCount": 4,
+      "meta": {
+        "entity_type": "rubik-stair-step",
+        "lang": "chr",
+        "pathId": "iroquoian-tsalagi",
+        "tourStep": 13,
+        "status": "honor",
+        "costFromPrev": 13.2,
+        "source": "rubik-stair-next"
+      },
+      "geometryHooks": [
+        "path-geometry",
+        "shadow-live",
+        "capsule-analyzer"
+      ],
+      "drill": {
+        "mode": "path-phrases",
+        "evidence": [
+          "tsalagi",
+          "osiyo",
+          "wado"
+        ]
+      }
+    }
+  ]
+}

@@ -1,0 +1,28 @@
+{
+  "schema": "kbatch-lang-word-index-v1",
+  "lang": "nav",
+  "generated": "2026-07-26T01:43:54.513Z",
+  "total": 70,
+  "buckets": {
+    "y": 6,
+    "a": 9,
+    "h": 10,
+    "s": 8,
+    "n": 11,
+    "b": 2,
+    "d": 7,
+    "t": 9,
+    "j": 1,
+    "ł": 2,
+    "m": 1,
+    "g": 1,
+    "i": 1,
+    "o": 1,
+    "k": 1
+  },
+  "path": "data/words/nav/{bucket}.json",
+  "bucketFile": "a-z | hXX (CJK/Hangul high-byte) | u{hex}.json",
+  "geometry": true,
+  "source": "fn-seed:nav",
+  "note": "Diné bizaad educational seed — orthography for path practice; not a full dictionary"
+}

@@ -1,0 +1,589 @@
+{
+  "schema": "kbatch-rubik-stair-next-v1",
+  "generated": "2026-07-26T01:45:01Z",
+  "claim": "Iterate the dictionary forward along the all-13 Rubik mathematical path (pure C). Each step = cube Focus + word pack + path samples + next cuts. Honor stays opt-in.",
+  "doctrine": {
+    "cost": "Pure C[88×88] langTransferCost — DOJO-true; no SO/phon tilde_c on this stair",
+    "honor": "nav/oj/chr educational seeds only; community gate for bulk",
+    "readyFirst": "Phase A latin cluster before script portals",
+    "parallelTracks": [
+      "unsolved manuscripts MG batch",
+      "Declaration Letter-Grid",
+      "Colossus EN growth"
+    ]
+  },
+  "sourceTour": {
+    "pack": "/data/declaration/rubik-all-language-path.json",
+    "visitOrderStr": "en → is → de → fr → it → es → nav → oj → ar → hi → el → zh → chr",
+    "directHopSumC": 83.5,
+    "mstLowerBound": 76,
+    "readyFromEn": 121.6,
+    "familyCover": 286.6
+  },
+  "steps": [
+    {
+      "n": 1,
+      "lang": "en",
+      "label": "English",
+      "pathId": "pie-germanic-en",
+      "cube": "pie-germanic-en",
+      "script": "Latin",
+      "family": "Germanic",
+      "layout": "qwerty",
+      "status": "ready",
+      "role": "start",
+      "costFromPrev": null,
+      "cumulativeCost": 0.0,
+      "wordPackTotal": 16592291,
+      "samplePhrases": [
+        "life liberty pursuit of happiness",
+        "in congress july",
+        "we the people"
+      ],
+      "dictionary": {
+        "pathUrl": "/?lang=en&q=life",
+        "shadowUrl": "/shadow.html?q=life+liberty+pursuit+of+happiness",
+        "wordsPath": "/data/words/en/",
+        "wordIndex": "/data/words/en/word-index.json"
+      },
+      "nextCuts": [
+        "Letter-Grid stream live",
+        "Cage RAW+STONE",
+        "Tour start Focus pie-germanic-en"
+      ],
+      "hooks": [
+        "/labs/declaration-digital-edition/",
+        "/data/declaration/master-glyphs.json"
+      ],
+      "doctrine": "Ready pack · full geometry"
+    },
+    {
+      "n": 2,
+      "lang": "is",
+      "label": "Icelandic",
+      "pathId": "norse-en",
+      "cube": "norse-en",
+      "script": "Latin",
+      "family": "Germanic",
+      "layout": "qwerty",
+      "status": "placeholder",
+      "role": "placeholder-pack",
+      "costFromPrev": 3.5,
+      "cumulativeCost": 3.5,
+      "wordPackTotal": 256264,
+      "samplePhrases": [
+        "halló heimur",
+        "ís land",
+        "norræna edda",
+        "völuspá"
+      ],
+      "dictionary": {
+        "pathUrl": "/?lang=is&q=halló",
+        "shadowUrl": "/shadow.html?q=halló+heimur",
+        "wordsPath": "/data/words/is/",
+        "wordIndex": "/data/words/is/word-index.json"
+      },
+      "nextCuts": [
+        "Promote C status placeholder→ready if pack quality OK",
+        "Norse cube norse-en path samples",
+        "Link Codex Regius living-books"
+      ],
+      "hooks": [
+        "/data/living-books/visual-projects.json#codex-regius-gks2365",
+        "https://fornevercollective.github.io/codex-regius-digital/"
+      ],
+      "doctrine": "Placeholder catalog status · pack may still exist on disk"
+    },
+    {
+      "n": 3,
+      "lang": "de",
+      "label": "German",
+      "pathId": "latin-de-contact",
+      "cube": "latin-de-contact",
+      "script": "Latin",
+      "family": "Germanic",
+      "layout": "qwertz",
+      "status": "ready",
+      "role": "latin-cluster",
+      "costFromPrev": 2.2,
+      "cumulativeCost": 5.7,
+      "wordPackTotal": 1157685,
+      "samplePhrases": [
+        "leben freiheit glück",
+        "deutsch sprache",
+        "pfad geometrie"
+      ],
+      "dictionary": {
+        "pathUrl": "/?lang=de&q=leben",
+        "shadowUrl": "/shadow.html?q=leben+freiheit+glück",
+        "wordsPath": "/data/words/de/",
+        "wordIndex": "/data/words/de/word-index.json"
+      },
+      "nextCuts": [
+        "Qwertz layout rank via JAX bank",
+        "Latin-de-contact cube Focus practice"
+      ],
+      "hooks": [],
+      "doctrine": "Ready pack · full geometry"
+    },
+    {
+      "n": 4,
+      "lang": "fr",
+      "label": "French",
+      "pathId": "latin-romance-fr",
+      "cube": "latin-romance-fr",
+      "script": "Latin",
+      "family": "Romance",
+      "layout": "azerty",
+      "status": "ready",
+      "role": "latin-cluster",
+      "costFromPrev": 3,
+      "cumulativeCost": 8.7,
+      "wordPackTotal": 834758,
+      "samplePhrases": [
+        "vie liberté bonheur",
+        "français chemin",
+        "déclaration"
+      ],
+      "dictionary": {
+        "pathUrl": "/?lang=fr&q=vie",
+        "shadowUrl": "/shadow.html?q=vie+liberté+bonheur",
+        "wordsPath": "/data/words/fr/",
+        "wordIndex": "/data/words/fr/word-index.json"
+      },
+      "nextCuts": [
+        "Azerty layout rank",
+        "Declaration multilingual FR lines when verified"
+      ],
+      "hooks": [],
+      "doctrine": "Ready pack · full geometry"
+    },
+    {
+      "n": 5,
+      "lang": "it",
+      "label": "Italian",
+      "pathId": "latin-romance-it",
+      "cube": "latin-romance-it",
+      "script": "Latin",
+      "family": "Romance",
+      "layout": "qwerty",
+      "status": "ready",
+      "role": "latin-cluster",
+      "costFromPrev": 2.2,
+      "cumulativeCost": 10.9,
+      "wordPackTotal": 798015,
+      "samplePhrases": [
+        "vita libertà felicità",
+        "italiano percorso",
+        "dichiarazione"
+      ],
+      "dictionary": {
+        "pathUrl": "/?lang=it&q=vita",
+        "shadowUrl": "/shadow.html?q=vita+libertà+felicità",
+        "wordsPath": "/data/words/it/",
+        "wordIndex": "/data/words/it/word-index.json"
+      },
+      "nextCuts": [
+        "Romance cluster path drills",
+        "Latin→Italian stepping"
+      ],
+      "hooks": [],
+      "doctrine": "Ready pack · full geometry"
+    },
+    {
+      "n": 6,
+      "lang": "es",
+      "label": "Spanish",
+      "pathId": "latin-romance-es",
+      "cube": "latin-romance-es",
+      "script": "Latin",
+      "family": "Romance",
+      "layout": "qwerty",
+      "status": "ready",
+      "role": "latin-cluster",
+      "costFromPrev": 1,
+      "cumulativeCost": 11.9,
+      "wordPackTotal": 1202518,
+      "samplePhrases": [
+        "vida libertad felicidad",
+        "español camino",
+        "declaración"
+      ],
+      "dictionary": {
+        "pathUrl": "/?lang=es&q=vida",
+        "shadowUrl": "/shadow.html?q=vida+libertad+felicidad",
+        "wordsPath": "/data/words/es/",
+        "wordIndex": "/data/words/es/word-index.json"
+      },
+      "nextCuts": [
+        "Romance cheap hop close",
+        "Declaration multilingual ES"
+      ],
+      "hooks": [],
+      "doctrine": "Ready pack · full geometry"
+    },
+    {
+      "n": 7,
+      "lang": "nav",
+      "label": "Navajo",
+      "pathId": "nadene-dine",
+      "cube": "nadene-dine",
+      "script": "Latin",
+      "family": "Na-Dené",
+      "layout": "qwerty",
+      "status": "honor",
+      "role": "honor-opt-in",
+      "costFromPrev": 9.2,
+      "cumulativeCost": 21.1,
+      "wordPackTotal": 70,
+      "samplePhrases": [
+        "ahéhee'",
+        "yá'át'ééh",
+        "hózhǫ́",
+        "diné bizaad"
+      ],
+      "dictionary": {
+        "pathUrl": "/?lang=nav&q=ahéhee'",
+        "shadowUrl": "/shadow.html?q=ahéhee'",
+        "wordsPath": "/data/words/nav/",
+        "wordIndex": "/data/words/nav/word-index.json"
+      },
+      "nextCuts": [
+        "Honor opt-in only",
+        "Educational seed geometry",
+        "No bulk scrape — community gate"
+      ],
+      "hooks": [
+        "/data/lexicons/first-nations-seeds.json"
+      ],
+      "doctrine": "Honor educational seed only · geometry practice · community gate for bulk"
+    },
+    {
+      "n": 8,
+      "lang": "oj",
+      "label": "Ojibwe",
+      "pathId": "algic-anishinaabe",
+      "cube": "algic-anishinaabe",
+      "script": "Latin",
+      "family": "Algic",
+      "layout": "qwerty",
+      "status": "honor",
+      "role": "honor-opt-in",
+      "costFromPrev": 7.8,
+      "cumulativeCost": 28.9,
+      "wordPackTotal": 70,
+      "samplePhrases": [
+        "boozhoo",
+        "miigwech",
+        "gichigami",
+        "anishinaabe"
+      ],
+      "dictionary": {
+        "pathUrl": "/?lang=oj&q=boozhoo",
+        "shadowUrl": "/shadow.html?q=boozhoo",
+        "wordsPath": "/data/words/oj/",
+        "wordIndex": "/data/words/oj/word-index.json"
+      },
+      "nextCuts": [
+        "Honor opt-in only",
+        "Double-vowel orthography path",
+        "Community gate for bulk"
+      ],
+      "hooks": [
+        "/data/lexicons/first-nations-seeds.json"
+      ],
+      "doctrine": "Honor educational seed only · geometry practice · community gate for bulk"
+    },
+    {
+      "n": 9,
+      "lang": "ar",
+      "label": "Arabic",
+      "pathId": "arabic-loans",
+      "cube": "arabic-loans",
+      "script": "Arabic",
+      "family": "Semitic",
+      "layout": "arabic",
+      "status": "ready",
+      "role": "script-portal",
+      "costFromPrev": 10.7,
+      "cumulativeCost": 39.6,
+      "wordPackTotal": 2505456,
+      "samplePhrases": [
+        "سلام كتاب نور",
+        "لغة عربية",
+        "مسار"
+      ],
+      "dictionary": {
+        "pathUrl": "/?lang=ar&q=سلام",
+        "shadowUrl": "/shadow.html?q=سلام+كتاب+نور",
+        "wordsPath": "/data/words/ar/",
+        "wordIndex": "/data/words/ar/word-index.json"
+      },
+      "nextCuts": [
+        "RTL board path practice",
+        "Script portal cost dominates",
+        "Arabic layout kit museum"
+      ],
+      "hooks": [
+        "/data/museum-resource/index.json"
+      ],
+      "doctrine": "Ready pack · full geometry"
+    },
+    {
+      "n": 10,
+      "lang": "hi",
+      "label": "Hindi",
+      "pathId": "sanskrit-ia",
+      "cube": "sanskrit-ia",
+      "script": "Devanagari",
+      "family": "Indo-Aryan",
+      "layout": "hindi",
+      "status": "ready",
+      "role": "script-portal",
+      "costFromPrev": 10.7,
+      "cumulativeCost": 50.3,
+      "wordPackTotal": 20960,
+      "samplePhrases": [
+        "नमस्ते भारत",
+        "हिन्दी भाषा",
+        "मार्ग"
+      ],
+      "dictionary": {
+        "pathUrl": "/?lang=hi&q=नमस्ते",
+        "shadowUrl": "/shadow.html?q=नमस्ते+भारत",
+        "wordsPath": "/data/words/hi/",
+        "wordIndex": "/data/words/hi/word-index.json"
+      },
+      "nextCuts": [
+        "Devanagari path",
+        "Sanskrit-ia cube",
+        "Hindi layout"
+      ],
+      "hooks": [
+        "/data/antiquity/discovery-projects.json"
+      ],
+      "doctrine": "Ready pack · full geometry"
+    },
+    {
+      "n": 11,
+      "lang": "el",
+      "label": "Greek",
+      "pathId": "greek-learned",
+      "cube": "greek-learned",
+      "script": "Greek",
+      "family": "Hellenic",
+      "layout": "greek",
+      "status": "ready",
+      "role": "script-portal",
+      "costFromPrev": 9.3,
+      "cumulativeCost": 59.6,
+      "wordPackTotal": 1487911,
+      "samplePhrases": [
+        "ελληνική γλώσσα",
+        "ελευθερία",
+        "μονοπάτι"
+      ],
+      "dictionary": {
+        "pathUrl": "/?lang=el&q=ελληνική",
+        "shadowUrl": "/shadow.html?q=ελληνική+γλώσσα",
+        "wordsPath": "/data/words/el/",
+        "wordIndex": "/data/words/el/word-index.json"
+      },
+      "nextCuts": [
+        "Greek layout",
+        "Classical grc sibling optional",
+        "Rosetta / Hellenic cube"
+      ],
+      "hooks": [
+        "/labs/rosetta.html",
+        "/data/living-books/unsolved-manuscripts.json#ms-linear-b"
+      ],
+      "doctrine": "Ready pack · full geometry"
+    },
+    {
+      "n": 12,
+      "lang": "zh",
+      "label": "Chinese",
+      "pathId": "sinitic",
+      "cube": "sinitic",
+      "script": "Han",
+      "family": "Sinitic",
+      "layout": "qwerty",
+      "status": "ready",
+      "role": "script-portal",
+      "costFromPrev": 10.7,
+      "cumulativeCost": 70.3,
+      "wordPackTotal": 766611,
+      "samplePhrases": [
+        "中文 路径",
+        "汉字 几何",
+        "声明"
+      ],
+      "dictionary": {
+        "pathUrl": "/?lang=zh&q=中文",
+        "shadowUrl": "/shadow.html?q=中文+路径",
+        "wordsPath": "/data/words/zh/",
+        "wordIndex": "/data/words/zh/word-index.json"
+      },
+      "nextCuts": [
+        "Han buckets geometry",
+        "Sinitic cube",
+        "High-byte pack browse"
+      ],
+      "hooks": [
+        "/data/museum-resource/index.json"
+      ],
+      "doctrine": "Ready pack · full geometry"
+    },
+    {
+      "n": 13,
+      "lang": "chr",
+      "label": "Cherokee",
+      "pathId": "iroquoian-tsalagi",
+      "cube": "iroquoian-tsalagi",
+      "script": "Cherokee",
+      "family": "Iroquoian",
+      "layout": "qwerty",
+      "status": "honor",
+      "role": "honor-opt-in",
+      "costFromPrev": 13.2,
+      "cumulativeCost": 83.5,
+      "wordPackTotal": 60,
+      "samplePhrases": [
+        "tsalagi",
+        "osiyo",
+        "wado",
+        "nvda"
+      ],
+      "dictionary": {
+        "pathUrl": "/?lang=chr&q=tsalagi",
+        "shadowUrl": "/shadow.html?q=tsalagi",
+        "wordsPath": "/data/words/chr/",
+        "wordIndex": "/data/words/chr/word-index.json"
+      },
+      "nextCuts": [
+        "Cherokee script path",
+        "Honor seed only",
+        "Iroquoian cube Focus"
+      ],
+      "hooks": [
+        "/data/lexicons/first-nations-seeds.json"
+      ],
+      "doctrine": "Honor educational seed only · geometry practice · community gate for bulk"
+    }
+  ],
+  "phases": [
+    {
+      "id": "phase-A-latin-cluster",
+      "title": "Latin ready cluster (cheap hops)",
+      "langs": [
+        "en",
+        "is",
+        "de",
+        "fr",
+        "it",
+        "es"
+      ],
+      "sumC": 11.9,
+      "actions": [
+        "Focus each Romance/Germanic cube in Shadow Rubik",
+        "Path sample phrases on QWERTY / AZERTY / QWERTZ",
+        "Declaration multilingual lines for FR/ES when verified",
+        "Codex Regius deep-zoom for is / norse-en"
+      ]
+    },
+    {
+      "id": "phase-B-honor-opt-in",
+      "title": "Honor stand-ins (high statusBias · educational only)",
+      "langs": [
+        "nav",
+        "oj",
+        "chr"
+      ],
+      "sumC": 30.2,
+      "actions": [
+        "Opt-in honor path only — never auto-include in full world tour UI",
+        "Practice geometry on FN seed orthographies (nav 70 · oj 70 · chr 60)",
+        "Accreditation: acc_fn_seed_path · community gate skills",
+        "Do not bulk-scrape living languages"
+      ]
+    },
+    {
+      "id": "phase-C-script-portals",
+      "title": "Script portals (cost dominates bill)",
+      "langs": [
+        "ar",
+        "hi",
+        "el",
+        "zh"
+      ],
+      "sumC": 41.4,
+      "actions": [
+        "Museum kits for Arabic / CJK / Greek / Hindi layouts",
+        "JAX layout rank on non-QWERTY boards",
+        "Rosetta lab for trilingual calibration (el sibling)",
+        "Antiquity mesh: Maya/Xultun is separate culture track — do not force into this tour"
+      ]
+    },
+    {
+      "id": "phase-D-dictionary-depth",
+      "title": "Dictionary depth along stair",
+      "langs": [
+        "en",
+        "is",
+        "de",
+        "fr",
+        "it",
+        "es",
+        "nav",
+        "oj",
+        "ar",
+        "hi",
+        "el",
+        "zh",
+        "chr"
+      ],
+      "actions": [
+        "Research packs for tour sample headwords",
+        "Living-books unsolved MSS batch (MG) parallel track",
+        "Promote is placeholder→ready after pack audit",
+        "Colossus gap 307k spellings — separate EN growth track",
+        "Optional agent tilde_c experiments offline only — never DOJO default"
+      ]
+    },
+    {
+      "id": "phase-E-agent-mg",
+      "title": "Agent + Memory Glass iteration",
+      "actions": [
+        "MCP kbatch_lettergrid_rubik includes tour+stair",
+        "MG batch: path each samplePhrase along stair order",
+        "exportStoryBeats after each phase",
+        "Cage any 'full universal decoder' claims",
+        "Soft-nav DOJO world-path panel for readyFromEn 121.6"
+      ]
+    }
+  ],
+  "metrics": {
+    "steps": 13,
+    "totalWordFormsOnStair": 25622669,
+    "honorSteps": 3,
+    "readySteps": 9,
+    "placeholderSteps": 1
+  },
+  "agent": {
+    "load": "fetch(\"/data/world-path/rubik-stair-next.json\")",
+    "rubik": "await kbatchDict.mcp(\"kbatch_lettergrid_rubik\")",
+    "worldReady": "await kbatchDict.mcp(\"kbatch_world_path\", { from: \"en\", mode: \"ready\" })",
+    "pathPhrase": "await kbatchDict.mcp(\"kbatch_analyze_lite\", { text: phrase, layout })",
+    "mg": "Walk phases A→E · path samplePhrases · exportStoryBeats per phase"
+  },
+  "urls": {
+    "tour": "/data/declaration/rubik-all-language-path.json",
+    "costMatrix": "/data/world-path/cost-matrix.json",
+    "rubikBind": "/data/declaration/letter-grid-rubik.json",
+    "fnSeeds": "/data/lexicons/first-nations-seeds.json",
+    "doc": "/docs/RUBIK-STAIR-NEXT.md",
+    "tourDoc": "/docs/RUBIK-ALL-LANGUAGE-PATH.md",
+    "dojo": "/dojo/"
+  }
+}
