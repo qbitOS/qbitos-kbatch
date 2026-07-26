@@ -1,0 +1,376 @@
+{
+  "schema": "kbatch-museum-resource-v1",
+  "generated": "2026-07-26T01:11:39Z",
+  "status": "live",
+  "claim": "Axis 3: KBatch is an embeddable script/path resource for museums and libraries — not a replacement gallery.",
+  "page": "https://kbatch.ugrad.ai/museum.html",
+  "offer": {
+    "exhibitKit": "JSON pack + iframe + MCP for one writing system / orthography",
+    "embedSnippet": "<iframe src=\"https://kbatch.ugrad.ai/?lang={lang}&q={word}\" title=\"KBatch path geometry\" loading=\"lazy\" style=\"width:100%;min-height:420px;border:0\"></iframe>",
+    "builder": "https://kbatch.ugrad.ai/museum.html",
+    "api": "https://kbatch.ugrad.ai/api/mcp",
+    "data": "https://data.ugrad.ai/kbatch/",
+    "mcpTools": [
+      "kbatch_museum_resource",
+      "kbatch_world_path",
+      "kbatch_letter_atom",
+      "kbatch_analyze_lite"
+    ],
+    "ethics": "Honor languages stay gated until community agreement — educational seeds only when present",
+    "copyPasteReady": true
+  },
+  "kits": [
+    {
+      "id": "kit-latin-qwerty",
+      "title": "Latin orthography · QWERTY path",
+      "lang": "en",
+      "layout": "qwerty",
+      "sampleWords": [
+        "path",
+        "light",
+        "atlas",
+        "script",
+        "learn"
+      ],
+      "collaboratorSlots": [
+        "british-library",
+        "loc",
+        "smithsonian"
+      ],
+      "status": "live"
+    },
+    {
+      "id": "kit-cyrillic-jcuken",
+      "title": "Cyrillic · ЙЦУКЕН path",
+      "lang": "ru",
+      "layout": "jcuken",
+      "sampleWords": [
+        "мир",
+        "слово",
+        "путь",
+        "язык"
+      ],
+      "collaboratorSlots": [
+        "loc",
+        "bnf"
+      ],
+      "status": "live"
+    },
+    {
+      "id": "kit-arabic-rtl",
+      "title": "Arabic orthography · RTL board",
+      "lang": "ar",
+      "layout": "arabic",
+      "sampleWords": [
+        "كتاب",
+        "نور",
+        "سلام",
+        "لغة"
+      ],
+      "collaboratorSlots": [
+        "loc",
+        "bnf",
+        "british-library"
+      ],
+      "status": "live"
+    },
+    {
+      "id": "kit-cjk-buckets",
+      "title": "CJK high-byte buckets · geometry browse",
+      "lang": "zh",
+      "layout": "qwerty",
+      "sampleWords": [
+        "人",
+        "大",
+        "中",
+        "国"
+      ],
+      "collaboratorSlots": [
+        "loc",
+        "smithsonian"
+      ],
+      "status": "live"
+    },
+    {
+      "id": "kit-classical-latin",
+      "title": "Classical Latin seed · dead language as live path",
+      "lang": "la",
+      "layout": "qwerty",
+      "sampleWords": [
+        "amor",
+        "vita",
+        "lux",
+        "veritas",
+        "pax"
+      ],
+      "collaboratorSlots": [
+        "british-library",
+        "bnf"
+      ],
+      "status": "live"
+    },
+    {
+      "id": "kit-hangul",
+      "title": "Hangul · Korean pack path",
+      "lang": "ko",
+      "layout": "korean",
+      "sampleWords": [
+        "한글",
+        "사람",
+        "길",
+        "빛"
+      ],
+      "collaboratorSlots": [
+        "loc",
+        "smithsonian"
+      ],
+      "status": "live"
+    },
+    {
+      "id": "kit-greek",
+      "title": "Modern Greek · Greek layout",
+      "lang": "el",
+      "layout": "greek",
+      "sampleWords": [
+        "λόγος",
+        "φως",
+        "γλώσσα",
+        "οδός"
+      ],
+      "collaboratorSlots": [
+        "bnf",
+        "british-library"
+      ],
+      "status": "live"
+    },
+    {
+      "id": "kit-honor-ojibwe",
+      "title": "Ojibwe educational seed · honor gate",
+      "lang": "oj",
+      "layout": "qwerty",
+      "sampleWords": [
+        "boozhoo",
+        "miigwech",
+        "nibi",
+        "makwa"
+      ],
+      "collaboratorSlots": [
+        "smithsonian",
+        "loc"
+      ],
+      "status": "live",
+      "note": "Educational seed only — community agreement for bulk growth"
+    },
+    {
+      "id": "kit-honor-navajo",
+      "title": "Navajo educational seed · honor gate",
+      "lang": "nav",
+      "layout": "qwerty",
+      "sampleWords": [
+        "yá'át'ééh",
+        "ahéhee'",
+        "tó",
+        "diné"
+      ],
+      "collaboratorSlots": [
+        "smithsonian",
+        "loc"
+      ],
+      "status": "live",
+      "note": "Educational seed only — community agreement for bulk growth"
+    },
+    {
+      "id": "kit-script-portals",
+      "title": "World-path script portals (multi-lang tour)",
+      "lang": "en",
+      "layout": "qwerty",
+      "sampleWords": [
+        "portal",
+        "script",
+        "path",
+        "world"
+      ],
+      "mcp": "kbatch_world_path mode=portals",
+      "collaboratorSlots": [
+        "unicode",
+        "loc"
+      ],
+      "status": "live"
+    },
+    {
+      "id": "kit-hebrew-rtl",
+      "title": "Hebrew orthography · RTL board",
+      "lang": "he",
+      "layout": "hebrew",
+      "sampleWords": [
+        "שלום",
+        "אור",
+        "דרך",
+        "לשון"
+      ],
+      "collaboratorSlots": [
+        "loc",
+        "british-library"
+      ],
+      "status": "live"
+    },
+    {
+      "id": "kit-thai-kedmanee",
+      "title": "Thai · Kedmanee path",
+      "lang": "th",
+      "layout": "thai",
+      "sampleWords": [
+        "ภาษา",
+        "ทาง",
+        "แสง",
+        "เรียน"
+      ],
+      "collaboratorSlots": [
+        "loc",
+        "smithsonian"
+      ],
+      "status": "live"
+    },
+    {
+      "id": "kit-japanese-romaji",
+      "title": "Japanese · JIS romaji path bridge",
+      "lang": "ja",
+      "layout": "japanese",
+      "sampleWords": [
+        "みち",
+        "ことば",
+        "ひかり",
+        "学ぶ"
+      ],
+      "collaboratorSlots": [
+        "loc",
+        "smithsonian"
+      ],
+      "status": "live"
+    },
+    {
+      "id": "kit-turkish-f",
+      "title": "Turkish F layout path",
+      "lang": "tr",
+      "layout": "turkish_f",
+      "sampleWords": [
+        "yol",
+        "dil",
+        "ışık",
+        "öğren"
+      ],
+      "collaboratorSlots": [
+        "bnf",
+        "loc"
+      ],
+      "status": "live"
+    },
+    {
+      "id": "kit-devanagari",
+      "title": "Devanagari · Hindi pack path",
+      "lang": "hi",
+      "layout": "hindi",
+      "sampleWords": [
+        "मार्ग",
+        "भाषा",
+        "प्रकाश",
+        "शब्द"
+      ],
+      "collaboratorSlots": [
+        "loc",
+        "british-library"
+      ],
+      "status": "live"
+    },
+    {
+      "id": "kit-french-azerty",
+      "title": "French orthography · AZERTY",
+      "lang": "fr",
+      "layout": "azerty",
+      "sampleWords": [
+        "chemin",
+        "langue",
+        "lumière",
+        "écrire"
+      ],
+      "collaboratorSlots": [
+        "bnf",
+        "loc"
+      ],
+      "status": "live"
+    },
+    {
+      "id": "kit-german-qwertz",
+      "title": "German orthography · QWERTZ",
+      "lang": "de",
+      "layout": "qwertz",
+      "sampleWords": [
+        "Weg",
+        "Sprache",
+        "Licht",
+        "Schrift"
+      ],
+      "collaboratorSlots": [
+        "bnf",
+        "british-library"
+      ],
+      "status": "live"
+    },
+    {
+      "id": "kit-maya-romanized-scaffold",
+      "title": "Classic Maya · romanized path seed (Sak Tahn Waax)",
+      "lang": "myn",
+      "layout": "qwerty",
+      "sampleWords": [
+        "sak",
+        "tahn",
+        "waax",
+        "xultun",
+        "venus",
+        "maya",
+        "codex",
+        "glyph"
+      ],
+      "collaboratorSlots": [
+        "smithsonian",
+        "loc"
+      ],
+      "status": "scaffold",
+      "note": "Educational romanized tokens only · full hieroglyph kit needs community/museum partnership",
+      "mesh": "data/antiquity/discovery-projects.json#xultun-sak-tahn-waax"
+    },
+    {
+      "id": "kit-antiquity-mesh",
+      "title": "Antiquity discovery mesh · multi-script seeds",
+      "lang": "mul",
+      "layout": "qwerty",
+      "sampleWords": [
+        "codex",
+        "parchment",
+        "papyrus",
+        "rosetta",
+        "gilgamesh",
+        "declaration"
+      ],
+      "collaboratorSlots": [
+        "british-library",
+        "loc",
+        "smithsonian",
+        "bnf"
+      ],
+      "status": "scaffold",
+      "mesh": "data/antiquity/discovery-projects.json"
+    }
+  ],
+  "kitCount": 17,
+  "partnershipStatus": "M3.6 path embed · MOU pack ready (unsigned) · M4 human",
+  "contact": "via ugrad.ai / for-ai sponsor lane · r3-outreach CRM",
+  "climb": {
+    "at": "2026-07-19T00:54:42.842Z",
+    "kits": 17,
+    "embedBuilder": true,
+    "mous": "unsigned-ready-pack",
+    "next": "Human CRM · signed MOU or pilot embed",
+    "mouPack": "data/museum-resource/mou-pack.json"
+  }
+}

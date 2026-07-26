@@ -1,0 +1,667 @@
+{
+  "schema": "kbatch-living-books-visual-v1",
+  "generated": "2026-07-26T01:11:04Z",
+  "claim": "Graphic novels · comics · codex facsimiles · large PDF/deep-zoom projects. PD or project-open only. Snapdragon-class pan/zoom · Codex folio pattern.",
+  "doctrine": {
+    "rights": "public-domain images or explicitly open project facsimiles",
+    "noPirate": true,
+    "deepZoom": "js/deep-zoom-viewer.js · wheel/pinch/drag · maxScale 64",
+    "codex": "/Volumes/qbitOS/00.dev/projects/codex-regius-digital",
+    "pdf": "Rasterize large PDFs to high-res page images; optional IIIF later"
+  },
+  "count": 17,
+  "projects": [
+    {
+      "id": "codex-regius-gks2365",
+      "kind": "visual-project",
+      "mediaType": "codex-facsimile",
+      "title": "Codex Regius · GKS 2365 4to (Poetic Edda)",
+      "author": "Medieval Icelandic · digital edition",
+      "year": 1270,
+      "rights": "project-open",
+      "licenseNote": "Scholarly digital edition — fornevercollective/codex-regius-digital. Use project viewer for full 144 folios.",
+      "samplePhrase": "havamal counsel odin",
+      "tags": [
+        "codex",
+        "edda",
+        "norse",
+        "facsimile",
+        "deep-zoom",
+        "restoration"
+      ],
+      "tradition": "norse",
+      "corpus": "visual",
+      "viewer": "deep-zoom",
+      "zoom": {
+        "min": 0.2,
+        "max": 48
+      },
+      "externalViewer": "https://fornevercollective.github.io/codex-regius-digital/book-viewer.html",
+      "externalHub": "https://fornevercollective.github.io/codex-regius-digital/paleography-hub.html",
+      "localPath": "/Volumes/qbitOS/00.dev/projects/codex-regius-digital",
+      "layers": [
+        "grok-clean",
+        "grok-vellum",
+        "clean-white",
+        "artistic-vellum"
+      ],
+      "pageCount": 144,
+      "baseUrl": "https://fornevercollective.github.io/codex-regius-digital",
+      "pages": [
+        {
+          "n": 1,
+          "layer": "grok_clean",
+          "label": "Page 1 · Völuspá · Grok clean",
+          "url": "https://fornevercollective.github.io/codex-regius-digital/processed/page_001/grok_clean_white.jpg"
+        },
+        {
+          "n": 2,
+          "layer": "grok_clean",
+          "label": "Page 2 · Völuspá · Grok clean",
+          "url": "https://fornevercollective.github.io/codex-regius-digital/processed/page_002/grok_clean_white.jpg"
+        },
+        {
+          "n": 9,
+          "layer": "grok_clean",
+          "label": "Page 9 · Hávamál · Grok clean",
+          "url": "https://fornevercollective.github.io/codex-regius-digital/processed/page_009/grok_clean_white.jpg"
+        },
+        {
+          "n": 10,
+          "layer": "grok_clean",
+          "label": "Page 10 · Hávamál · Grok clean",
+          "url": "https://fornevercollective.github.io/codex-regius-digital/processed/page_010/grok_clean_white.jpg"
+        },
+        {
+          "n": 10,
+          "layer": "grok_vellum",
+          "label": "Page 10 · Hávamál · Grok vellum",
+          "url": "https://fornevercollective.github.io/codex-regius-digital/processed/page_010/grok_artistic_vellum.jpg"
+        },
+        {
+          "n": 10,
+          "layer": "clean",
+          "label": "Page 10 · Hávamál · Clean white",
+          "url": "https://fornevercollective.github.io/codex-regius-digital/processed/page_010/clean_white.jpg"
+        },
+        {
+          "n": 10,
+          "layer": "artistic",
+          "label": "Page 10 · Hávamál · Artistic vellum",
+          "url": "https://fornevercollective.github.io/codex-regius-digital/processed/page_010/artistic_vellum.jpg"
+        },
+        {
+          "n": 11,
+          "layer": "grok_clean",
+          "label": "Page 11 · Hávamál · Grok clean",
+          "url": "https://fornevercollective.github.io/codex-regius-digital/processed/page_011/grok_clean_white.jpg"
+        },
+        {
+          "n": 50,
+          "layer": "grok_clean",
+          "label": "Page 50 · — · Grok clean",
+          "url": "https://fornevercollective.github.io/codex-regius-digital/processed/page_050/grok_clean_white.jpg"
+        },
+        {
+          "n": 100,
+          "layer": "grok_clean",
+          "label": "Page 100 · — · Grok clean",
+          "url": "https://fornevercollective.github.io/codex-regius-digital/processed/page_100/grok_clean_white.jpg"
+        },
+        {
+          "n": 144,
+          "layer": "grok_clean",
+          "label": "Page 144 · end · Grok clean",
+          "url": "https://fornevercollective.github.io/codex-regius-digital/processed/page_144/grok_clean_white.jpg"
+        }
+      ],
+      "note": "Images from fornevercollective.github.io/codex-regius-digital/processed (not LFS stubs). Full 144-folio flip: Full project viewer.",
+      "geometryHint": "Facsimile layers · restore track · path on poem names"
+    },
+    {
+      "id": "comic-little-nemo",
+      "kind": "visual-project",
+      "mediaType": "comic",
+      "title": "Little Nemo in Slumberland (PD strips)",
+      "author": "Winsor McCay",
+      "year": 1905,
+      "rights": "public-domain",
+      "licenseNote": "US public domain newspaper strips · use Wikimedia / IA images",
+      "samplePhrase": "little nemo slumberland dream",
+      "tags": [
+        "comic",
+        "graphic",
+        "pd",
+        "newspaper",
+        "deep-zoom"
+      ],
+      "tradition": "american",
+      "corpus": "visual",
+      "viewer": "deep-zoom",
+      "zoom": {
+        "min": 0.15,
+        "max": 64
+      },
+      "pages": [
+        {
+          "n": 1,
+          "label": "Little Nemo · 1905-10-15 (Commons)",
+          "url": "https://commons.wikimedia.org/wiki/Special:FilePath/Little_Nemo_1905-10-15.jpg?width=1600"
+        },
+        {
+          "n": 2,
+          "label": "Little Nemo · 1906-01-07 (Commons)",
+          "url": "https://commons.wikimedia.org/wiki/Special:FilePath/Little_Nemo_1906-01-07.jpg?width=1600"
+        },
+        {
+          "n": 3,
+          "label": "Little Nemo · 1907-07-14 (Commons)",
+          "url": "https://commons.wikimedia.org/wiki/Special:FilePath/Little_Nemo_1907-07-14.jpg?width=1600"
+        }
+      ],
+      "gutenbergId": null,
+      "links": {
+        "openLibrary": "https://openlibrary.org/search?q=Little+Nemo+Winsor+McCay",
+        "wikimedia": "https://commons.wikimedia.org/wiki/Category:Little_Nemo_in_Slumberland"
+      },
+      "note": "Public-domain comic pages · deep-zoom for panel reading"
+    },
+    {
+      "id": "comic-krazy-kat",
+      "kind": "visual-project",
+      "mediaType": "comic",
+      "title": "Krazy Kat (early PD strips)",
+      "author": "George Herriman",
+      "year": 1916,
+      "rights": "public-domain",
+      "samplePhrase": "krazy kat ignatz brick",
+      "tags": [
+        "comic",
+        "graphic",
+        "pd",
+        "newspaper"
+      ],
+      "tradition": "american",
+      "corpus": "visual",
+      "viewer": "deep-zoom",
+      "zoom": {
+        "min": 0.2,
+        "max": 48
+      },
+      "pages": [
+        {
+          "n": 1,
+          "label": "Krazy Kat · 1916-07-09 (Commons)",
+          "url": "https://commons.wikimedia.org/wiki/Special:FilePath/Krazy_Kat_1916-07-09.jpg?width=1600"
+        },
+        {
+          "n": 2,
+          "label": "Krazy Kat · 1921-11-20 (Commons)",
+          "url": "https://commons.wikimedia.org/wiki/Special:FilePath/Krazy_Kat_1921-11-20_original.jpg?width=1600"
+        }
+      ],
+      "links": {
+        "wikimedia": "https://commons.wikimedia.org/wiki/Category:Krazy_Kat"
+      },
+      "note": "Early strips PD in US · verify each file date"
+    },
+    {
+      "id": "comic-yellow-kid",
+      "kind": "visual-project",
+      "mediaType": "comic",
+      "title": "The Yellow Kid (PD)",
+      "author": "Richard F. Outcault",
+      "year": 1896,
+      "rights": "public-domain",
+      "samplePhrase": "yellow kid hogans alley",
+      "tags": [
+        "comic",
+        "graphic",
+        "pd",
+        "newspaper",
+        "history"
+      ],
+      "tradition": "american",
+      "corpus": "visual",
+      "viewer": "deep-zoom",
+      "pages": [
+        {
+          "n": 1,
+          "label": "Yellow Kid (Commons)",
+          "url": "https://commons.wikimedia.org/wiki/Special:FilePath/YellowKid.jpeg?width=1200"
+        }
+      ],
+      "links": {
+        "wikimedia": "https://commons.wikimedia.org/wiki/The_Yellow_Kid"
+      }
+    },
+    {
+      "id": "gn-max-und-moritz",
+      "kind": "visual-project",
+      "mediaType": "graphic-novel",
+      "title": "Max und Moritz (illustrated)",
+      "author": "Wilhelm Busch",
+      "year": 1865,
+      "rights": "public-domain",
+      "samplePhrase": "max und moritz pranks",
+      "tags": [
+        "graphic-novel",
+        "illustrated",
+        "pd",
+        "german",
+        "deep-zoom"
+      ],
+      "tradition": "german",
+      "corpus": "visual",
+      "viewer": "deep-zoom",
+      "gutenbergId": 17161,
+      "pages": [
+        {
+          "n": 1,
+          "label": "Max und Moritz · title (Commons)",
+          "url": "https://commons.wikimedia.org/wiki/Special:FilePath/Max_und_Moritz.JPG?width=1400"
+        },
+        {
+          "n": 2,
+          "label": "Max und Moritz · plate 10 (Commons)",
+          "url": "https://commons.wikimedia.org/wiki/Special:FilePath/Max_und_Moritz_(Busch)_010.png?width=1400"
+        },
+        {
+          "n": 3,
+          "label": "Max und Moritz · plate 29 (Commons)",
+          "url": "https://commons.wikimedia.org/wiki/Special:FilePath/Max_und_Moritz_(Busch)_029.png?width=1400"
+        }
+      ],
+      "links": {
+        "gutenbergHtml": "https://www.gutenberg.org/ebooks/17161",
+        "wikimedia": "https://commons.wikimedia.org/wiki/Max_und_Moritz"
+      },
+      "note": "Proto-graphic narrative · deep-zoom plates + Gutenberg text"
+    },
+    {
+      "id": "gn-strwwelpeter",
+      "kind": "visual-project",
+      "mediaType": "graphic-novel",
+      "title": "Der Struwwelpeter",
+      "author": "Heinrich Hoffmann",
+      "year": 1845,
+      "rights": "public-domain",
+      "samplePhrase": "struwwelpeter shock headed peter",
+      "tags": [
+        "graphic-novel",
+        "illustrated",
+        "pd",
+        "german",
+        "children"
+      ],
+      "tradition": "german",
+      "corpus": "visual",
+      "viewer": "deep-zoom",
+      "gutenbergId": 12116,
+      "pages": [
+        {
+          "n": 1,
+          "label": "Struwwelpeter · title figure (Commons)",
+          "url": "https://commons.wikimedia.org/wiki/Special:FilePath/Struwwelpeter.jpg?width=1400"
+        },
+        {
+          "n": 2,
+          "label": "Struwwelpeter · 1876 illustration (Commons)",
+          "url": "https://commons.wikimedia.org/wiki/Special:FilePath/Hoffmann_illustration_from_Der_Struwwelpeter_1876.jpg?width=1400"
+        }
+      ],
+      "links": {
+        "gutenbergHtml": "https://www.gutenberg.org/ebooks/12116"
+      }
+    },
+    {
+      "id": "pdf-blake-songs",
+      "kind": "visual-project",
+      "mediaType": "pdf-zoom",
+      "title": "Blake · Songs of Innocence (illuminated plates)",
+      "author": "William Blake",
+      "year": 1789,
+      "rights": "public-domain",
+      "samplePhrase": "tyger burning bright blake",
+      "tags": [
+        "pdf-zoom",
+        "illuminated",
+        "pd",
+        "poetry",
+        "deep-zoom"
+      ],
+      "tradition": "english",
+      "corpus": "visual",
+      "viewer": "deep-zoom",
+      "zoom": {
+        "min": 0.2,
+        "max": 64
+      },
+      "pages": [
+        {
+          "n": 1,
+          "label": "The Tyger · plate (Commons)",
+          "url": "https://commons.wikimedia.org/wiki/Special:FilePath/The_Tyger_BM_a_1794.jpg?width=1600"
+        },
+        {
+          "n": 2,
+          "label": "The Lamb · plate (Commons)",
+          "url": "https://commons.wikimedia.org/wiki/Special:FilePath/The_Lamb_1826.jpg?width=1600"
+        }
+      ],
+      "note": "Illuminated printing · infinite zoom for plate detail · PD"
+    },
+    {
+      "id": "pdf-dore-dante",
+      "kind": "visual-project",
+      "mediaType": "pdf-zoom",
+      "title": "Doré · Divine Comedy illustrations",
+      "author": "Gustave Doré / Dante",
+      "year": 1861,
+      "rights": "public-domain",
+      "samplePhrase": "dante dore inferno",
+      "tags": [
+        "pdf-zoom",
+        "illustration",
+        "pd",
+        "dante",
+        "deep-zoom"
+      ],
+      "tradition": "christianity",
+      "corpus": "visual",
+      "viewer": "deep-zoom",
+      "zoom": {
+        "min": 0.15,
+        "max": 48
+      },
+      "pages": [
+        {
+          "n": 1,
+          "label": "Doré · Inferno overview (Commons)",
+          "url": "https://commons.wikimedia.org/wiki/Special:FilePath/Gustave_Dore_Inferno1.jpg?width=1600"
+        },
+        {
+          "n": 2,
+          "label": "Doré · Charon Canto III (Commons)",
+          "url": "https://commons.wikimedia.org/wiki/Special:FilePath/Gustave_Dor%C3%A9_-_Dante_Alighieri_-_Inferno_-_Plate_9_(Canto_III_-_Charon).jpg?width=1600"
+        },
+        {
+          "n": 3,
+          "label": "Doré · The Titans (Commons)",
+          "url": "https://commons.wikimedia.org/wiki/Special:FilePath/Gustave_Dor%C3%A9_-_Dante_Alighieri_-_Inferno_-_Plate_65_(Canto_XXXI_-_The_Titans).jpg?width=1600"
+        }
+      ],
+      "bookId": "divine-comedy",
+      "note": "Large engraving plates · Snapdragon-class zoom for line work"
+    },
+    {
+      "id": "pdf-audubon-birds",
+      "kind": "visual-project",
+      "mediaType": "pdf-zoom",
+      "title": "Audubon · Birds of America plates (sample)",
+      "author": "John James Audubon",
+      "year": 1827,
+      "rights": "public-domain",
+      "samplePhrase": "audubon birds america",
+      "tags": [
+        "pdf-zoom",
+        "natural-history",
+        "pd",
+        "deep-zoom",
+        "large-format"
+      ],
+      "tradition": "american",
+      "corpus": "visual",
+      "viewer": "deep-zoom",
+      "zoom": {
+        "min": 0.1,
+        "max": 64
+      },
+      "pages": [
+        {
+          "n": 1,
+          "label": "Wild Turkey · Audubon plate (Commons)",
+          "url": "https://commons.wikimedia.org/wiki/Special:FilePath/Wild_Turkey_(Audubon).jpg?width=2000"
+        },
+        {
+          "n": 2,
+          "label": "Birds of America · composite (Commons)",
+          "url": "https://commons.wikimedia.org/wiki/Special:FilePath/Audubon_Birds_of_America.jpg?width=2000"
+        }
+      ],
+      "note": "Large-format natural history · infinite zoom use case"
+    },
+    {
+      "id": "project-template-infinite-zoom",
+      "kind": "visual-project",
+      "mediaType": "deep-zoom",
+      "title": "Template · Infinite zoom project (add your pages)",
+      "author": "KBatch living books",
+      "year": 2026,
+      "rights": "project-open",
+      "samplePhrase": "infinite zoom template",
+      "tags": [
+        "template",
+        "deep-zoom",
+        "pdf-zoom",
+        "snapdragon"
+      ],
+      "corpus": "visual",
+      "viewer": "deep-zoom",
+      "zoom": {
+        "min": 0.1,
+        "max": 64
+      },
+      "pages": [],
+      "note": "Scaffold: drop CORS-friendly page URLs into visual-projects.json · PDF pages as high-res PNG/WebP",
+      "howTo": [
+        "Rasterize PDF pages to PNG/WebP (≥2000px wide recommended)",
+        "Host on same-origin or CORS-enabled CDN",
+        "Add pages: [{ n, label, url }] under this project or a new id",
+        "Optional: tile pyramid later (IIIF) — viewer API stays the same"
+      ]
+    },
+    {
+      "id": "declaration-engrossed-1776",
+      "kind": "visual-project",
+      "mediaType": "codex-facsimile",
+      "title": "Declaration of Independence · engrossed parchment (archival multi-layer)",
+      "author": "Timothy Matlack · Continental Congress · NARA PD",
+      "year": 1776,
+      "rights": "public-domain",
+      "licenseNote": "National Archives public-domain scans · KBatch multi-layer restoration workspace",
+      "samplePhrase": "life liberty pursuit of happiness",
+      "tags": [
+        "declaration",
+        "facsimile",
+        "paleography",
+        "archive",
+        "codex",
+        "us-history"
+      ],
+      "viewer": "deep-zoom",
+      "viewerUrl": "/labs/declaration-digital-edition/",
+      "surface": "/labs/declaration-digital-edition/",
+      "layers": 6,
+      "note": "Side-by-side archival flip · research slide · scribe glyphs · multilayout path analysis · living-books integrated"
+    },
+    {
+      "id": "xultun-10k2-scaffold",
+      "kind": "visual-project",
+      "mediaType": "wall-inscription-scaffold",
+      "title": "Xultun 10K-2 · Sak Tahn Waax wall (scaffold)",
+      "author": "Classic Maya · San Bartolo–Xultun Project",
+      "year": 781,
+      "discoveryYear": 2026,
+      "rights": "cite-out-only",
+      "licenseNote": "Press/scholarly images under publisher terms — not yet mirrored. Use citations until open glyph pack.",
+      "samplePhrase": "sak tahn waax white chested fox",
+      "tags": [
+        "maya",
+        "xultun",
+        "astronomy",
+        "scaffold",
+        "2026-discovery",
+        "paleography"
+      ],
+      "tradition": "maya",
+      "corpus": "visual",
+      "viewer": "external",
+      "pages": [],
+      "links": {
+        "doi": "https://doi.org/10.15184/aqy.2026.10378",
+        "natgeo": "https://www.nationalgeographic.com/history/article/first-maya-astronomer-mathematician-name",
+        "mesh": "/data/antiquity/discovery-projects.json#xultun-sak-tahn-waax",
+        "restoration": "/data/living-books/restoration-projects.json#restore-xultun-sak-tahn-waax"
+      },
+      "note": "Scaffold project: name + math attribution live in mesh/lexicon; images when licensed.",
+      "geometryHint": "Romanized Maya tokens · path · Cage on claims"
+    },
+    {
+      "id": "dresden-codex-scaffold",
+      "kind": "visual-project",
+      "mediaType": "codex-facsimile-scaffold",
+      "title": "Dresden Codex · facsimile scaffold",
+      "author": "Postclassic Maya",
+      "year": 1200,
+      "rights": "museum-open-when-available",
+      "licenseNote": "Use SLUB Dresden / museum open images only when linked.",
+      "samplePhrase": "dresden codex venus table",
+      "tags": [
+        "maya",
+        "codex",
+        "astronomy",
+        "scaffold"
+      ],
+      "tradition": "maya",
+      "corpus": "visual",
+      "viewer": "deep-zoom",
+      "zoom": {
+        "min": 0.2,
+        "max": 48
+      },
+      "pages": [],
+      "links": {
+        "wiki": "https://en.wikipedia.org/wiki/Dresden_Codex",
+        "mesh": "/data/antiquity/discovery-projects.json#dresden-codex"
+      },
+      "note": "Add folio URLs when open-licensed pack is curated.",
+      "geometryHint": "Day-name tokens · Venus pages"
+    },
+    {
+      "id": "herculaneum-scaffold",
+      "kind": "visual-project",
+      "mediaType": "papyrus-ct-scaffold",
+      "title": "Herculaneum papyri · CT / unwrap scaffold",
+      "author": "Villa of the Papyri · Vesuvius Challenge",
+      "year": -50,
+      "discoveryYear": 2026,
+      "rights": "challenge-open-data",
+      "licenseNote": "Vesuvius Challenge open releases + museum CT terms.",
+      "samplePhrase": "philodemus herculaneum scroll",
+      "tags": [
+        "herculaneum",
+        "papyrus",
+        "ml",
+        "scaffold",
+        "2026-discovery"
+      ],
+      "tradition": "greco-roman",
+      "corpus": "visual",
+      "viewer": "external",
+      "pages": [],
+      "links": {
+        "challenge": "https://scrollprize.org/",
+        "mesh": "/data/antiquity/discovery-projects.json#herculaneum-vesuvius-challenge"
+      },
+      "note": "Link open segment images as they appear; text stream in restoration track.",
+      "geometryHint": "Greek column tokens · path"
+    },
+    {
+      "id": "dead-sea-scrolls-scaffold",
+      "kind": "visual-project",
+      "mediaType": "spectral-scroll-scaffold",
+      "title": "Dead Sea Scrolls · spectral library scaffold",
+      "author": "Qumran corpus",
+      "year": -200,
+      "rights": "iaa-digital-library",
+      "licenseNote": "Leon Levy DSS Digital Library terms apply.",
+      "samplePhrase": "great isaiah scroll qumran",
+      "tags": [
+        "qumran",
+        "hebrew",
+        "spectral",
+        "scaffold"
+      ],
+      "tradition": "jewish",
+      "corpus": "visual",
+      "viewer": "external",
+      "pages": [],
+      "links": {
+        "library": "https://www.deadseascrolls.org.il/",
+        "mesh": "/data/antiquity/discovery-projects.json#dead-sea-scrolls"
+      },
+      "note": "External spectral viewer primary; path on PD English samples.",
+      "geometryHint": "Hebrew romanization path samples"
+    },
+    {
+      "id": "rosetta-stone-scaffold",
+      "kind": "visual-project",
+      "mediaType": "stele-scaffold",
+      "title": "Rosetta Stone · trilingual stele scaffold",
+      "author": "Ptolemaic Egypt · 196 BCE",
+      "year": -196,
+      "rights": "museum-terms",
+      "licenseNote": "British Museum image terms; decree text PD.",
+      "samplePhrase": "rosetta stone hieroglyph demotic greek",
+      "tags": [
+        "egypt",
+        "trilingual",
+        "calibration",
+        "scaffold"
+      ],
+      "tradition": "egyptian-hellenistic",
+      "corpus": "visual",
+      "viewer": "external",
+      "viewerUrl": "/labs/rosetta.html",
+      "pages": [],
+      "links": {
+        "lab": "/labs/rosetta.html",
+        "mesh": "/data/antiquity/discovery-projects.json#rosetta-stone"
+      },
+      "note": "Rosetta lab is primary interactive surface.",
+      "geometryHint": "Greek surface path · world-path languages"
+    },
+    {
+      "id": "voynich-scaffold",
+      "kind": "visual-project",
+      "mediaType": "codex-facsimile-scaffold",
+      "title": "Voynich Manuscript · Beinecke MS 408 scaffold",
+      "author": "Unknown",
+      "year": 1420,
+      "rights": "beinecke-open",
+      "licenseNote": "Beinecke Rare Book & Manuscript Library open images.",
+      "samplePhrase": "voynich unknown script",
+      "tags": [
+        "undeciphered",
+        "cage",
+        "scaffold"
+      ],
+      "tradition": "unknown",
+      "corpus": "visual",
+      "viewer": "deep-zoom",
+      "zoom": {
+        "min": 0.15,
+        "max": 64
+      },
+      "pages": [],
+      "links": {
+        "beinecke": "https://beinecke.library.yale.edu/collections/highlights/voynich-manuscript",
+        "mesh": "/data/antiquity/discovery-projects.json#voynich-manuscript"
+      },
+      "note": "Cage-first: no STONE decipher claims.",
+      "geometryHint": "Experimental path only"
+    }
+  ],
+  "mesh": "/data/antiquity/discovery-projects.json"
+}

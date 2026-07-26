@@ -1,0 +1,451 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+  <title>KBatch for AI · LLMs · MCP · Agents</title>
+  <meta name="description" content="Geometric input layer for the MCP/LLM era — path analysis, 15-layout shadows, strain metrics, steno paths, capsules. MCP tools agents can call today." />
+  <meta name="theme-color" content="#0d1117" />
+  <meta property="og:title" content="KBatch for AI · MCP tools" />
+  <meta property="og:description" content="Live geometry · shadow paths · MCP tools for LLMs and agents." />
+  <meta property="og:url" content="https://kbatch.ugrad.ai/for-ai.html" />
+  <link rel="manifest" href="manifest.webmanifest" />
+  <link rel="stylesheet" href="css/app.css?v=1.2.0+local+20260724080547" />
+  <link rel="stylesheet" href="css/docs-site.css?v=1.2.0+local+20260724080547" />
+  <link rel="stylesheet" href="css/for-ai.css?v=1.2.0+local+20260724080547" />
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "SoftwareApplication",
+    "name": "KBatch",
+    "applicationCategory": "DeveloperApplication",
+    "operatingSystem": "Web",
+    "url": "https://kbatch.ugrad.ai/",
+    "description": "Path-first keyboard geometry across 15 layouts with MCP tools for LLMs and agents.",
+    "offers": { "@type": "Offer", "price": "0", "priceCurrency": "USD" }
+  }
+  </script>
+  <script>
+    try {
+      var t = localStorage.getItem("kbatch-dict-theme");
+      if (t !== "light" && t !== "dark") {
+        t = matchMedia("(prefers-color-scheme: light)").matches ? "light" : "dark";
+      }
+      document.documentElement.setAttribute("data-theme", t);
+    } catch (e) {
+      document.documentElement.setAttribute("data-theme", "dark");
+    }
+  </script>
+  <script type="importmap">
+{"imports":{"/js/analyze.js":"/js/analyze.js?v=1.2.0+local+20260724080547","js/analyze.js":"js/analyze.js?v=1.2.0+local+20260724080547","/js/ancestory-lab.js":"/js/ancestory-lab.js?v=1.2.0+local+20260724080547","js/ancestory-lab.js":"js/ancestory-lab.js?v=1.2.0+local+20260724080547","/js/app.js":"/js/app.js?v=1.2.0+local+20260724080547","js/app.js":"js/app.js?v=1.2.0+local+20260724080547","/js/archive-restoration-viewer.js":"/js/archive-restoration-viewer.js?v=1.2.0+local+20260724080547","js/archive-restoration-viewer.js":"js/archive-restoration-viewer.js?v=1.2.0+local+20260724080547","/js/billboard-2026.js":"/js/billboard-2026.js?v=1.2.0+local+20260724080547","js/billboard-2026.js":"js/billboard-2026.js?v=1.2.0+local+20260724080547","/js/blank-bridge.js":"/js/blank-bridge.js?v=1.2.0+local+20260724080547","js/blank-bridge.js":"js/blank-bridge.js?v=1.2.0+local+20260724080547","/js/cache-bust.js":"/js/cache-bust.js?v=1.2.0+local+20260724080547","js/cache-bust.js":"js/cache-bust.js?v=1.2.0+local+20260724080547","/js/cage-litmus-mcp.js":"/js/cage-litmus-mcp.js?v=1.2.0+local+20260724080547","js/cage-litmus-mcp.js":"js/cage-litmus-mcp.js?v=1.2.0+local+20260724080547","/js/capsule-analyzer.js":"/js/capsule-analyzer.js?v=1.2.0+local+20260724080547","js/capsule-analyzer.js":"js/capsule-analyzer.js?v=1.2.0+local+20260724080547","/js/capsules-canon.js":"/js/capsules-canon.js?v=1.2.0+local+20260724080547","js/capsules-canon.js":"js/capsules-canon.js?v=1.2.0+local+20260724080547","/js/collab-lab.js":"/js/collab-lab.js?v=1.2.0+local+20260724080547","js/collab-lab.js":"js/collab-lab.js?v=1.2.0+local+20260724080547","/js/contrails-viz.js":"/js/contrails-viz.js?v=1.2.0+local+20260724080547","js/contrails-viz.js":"js/contrails-viz.js?v=1.2.0+local+20260724080547","/js/corpus-sources.js":"/js/corpus-sources.js?v=1.2.0+local+20260724080547","js/corpus-sources.js":"js/corpus-sources.js?v=1.2.0+local+20260724080547","/js/corpus.js":"/js/corpus.js?v=1.2.0+local+20260724080547","js/corpus.js":"js/corpus.js?v=1.2.0+local+20260724080547","/js/cortical-loop.js":"/js/cortical-loop.js?v=1.2.0+local+20260724080547","js/cortical-loop.js":"js/cortical-loop.js?v=1.2.0+local+20260724080547","/js/declaration-cadence.js":"/js/declaration-cadence.js?v=1.2.0+local+20260724080547","js/declaration-cadence.js":"js/declaration-cadence.js?v=1.2.0+local+20260724080547","/js/declaration-cage-litmus.js":"/js/declaration-cage-litmus.js?v=1.2.0+local+20260724080547","js/declaration-cage-litmus.js":"js/declaration-cage-litmus.js?v=1.2.0+local+20260724080547","/js/declaration-edition-nav.js":"/js/declaration-edition-nav.js?v=1.2.0+local+20260724080547","js/declaration-edition-nav.js":"js/declaration-edition-nav.js?v=1.2.0+local+20260724080547","/js/declaration-letter-grid.js":"/js/declaration-letter-grid.js?v=1.2.0+local+20260724080547","js/declaration-letter-grid.js":"js/declaration-letter-grid.js?v=1.2.0+local+20260724080547","/js/declaration-symbology.js":"/js/declaration-symbology.js?v=1.2.0+local+20260724080547","js/declaration-symbology.js":"js/declaration-symbology.js?v=1.2.0+local+20260724080547","/js/declaration-world.js":"/js/declaration-world.js?v=1.2.0+local+20260724080547","js/declaration-world.js":"js/declaration-world.js?v=1.2.0+local+20260724080547","/js/deep-zoom-viewer.js":"/js/deep-zoom-viewer.js?v=1.2.0+local+20260724080547","js/deep-zoom-viewer.js":"js/deep-zoom-viewer.js?v=1.2.0+local+20260724080547","/js/dojo-app.js":"/js/dojo-app.js?v=1.2.0+local+20260724080547","js/dojo-app.js":"js/dojo-app.js?v=1.2.0+local+20260724080547","/js/education.js":"/js/education.js?v=1.2.0+local+20260724080547","js/education.js":"js/education.js?v=1.2.0+local+20260724080547","/js/encoder.js":"/js/encoder.js?v=1.2.0+local+20260724080547","js/encoder.js":"js/encoder.js?v=1.2.0+local+20260724080547","/js/export.js":"/js/export.js?v=1.2.0+local+20260724080547","js/export.js":"js/export.js?v=1.2.0+local+20260724080547","/js/freya-math.js":"/js/freya-math.js?v=1.2.0+local+20260724080547","js/freya-math.js":"js/freya-math.js?v=1.2.0+local+20260724080547","/js/gluelam-consumer.js":"/js/gluelam-consumer.js?v=1.2.0+local+20260724080547","js/gluelam-consumer.js":"js/gluelam-consumer.js?v=1.2.0+local+20260724080547","/js/glyph-steno.js":"/js/glyph-steno.js?v=1.2.0+local+20260724080547","js/glyph-steno.js":"js/glyph-steno.js?v=1.2.0+local+20260724080547","/js/historical.js":"/js/historical.js?v=1.2.0+local+20260724080547","js/historical.js":"js/historical.js?v=1.2.0+local+20260724080547","/js/history-harness.js":"/js/history-harness.js?v=1.2.0+local+20260724080547","js/history-harness.js":"js/history-harness.js?v=1.2.0+local+20260724080547","/js/history-sliderule.js":"/js/history-sliderule.js?v=1.2.0+local+20260724080547","js/history-sliderule.js":"js/history-sliderule.js?v=1.2.0+local+20260724080547","/js/i18n-desc.js":"/js/i18n-desc.js?v=1.2.0+local+20260724080547","js/i18n-desc.js":"js/i18n-desc.js?v=1.2.0+local+20260724080547","/js/inclusive-identity.js":"/js/inclusive-identity.js?v=1.2.0+local+20260724080547","js/inclusive-identity.js":"js/inclusive-identity.js?v=1.2.0+local+20260724080547","/js/ironline-bus.js":"/js/ironline-bus.js?v=1.2.0+local+20260724080547","js/ironline-bus.js":"js/ironline-bus.js?v=1.2.0+local+20260724080547","/js/keyboard-pattern-lab.js":"/js/keyboard-pattern-lab.js?v=1.2.0+local+20260724080547","js/keyboard-pattern-lab.js":"js/keyboard-pattern-lab.js?v=1.2.0+local+20260724080547","/js/language-alphabet-matrix.js":"/js/language-alphabet-matrix.js?v=1.2.0+local+20260724080547","js/language-alphabet-matrix.js":"js/language-alphabet-matrix.js?v=1.2.0+local+20260724080547","/js/language-catalog.js":"/js/language-catalog.js?v=1.2.0+local+20260724080547","js/language-catalog.js":"js/language-catalog.js?v=1.2.0+local+20260724080547","/js/language-stepping.js":"/js/language-stepping.js?v=1.2.0+local+20260724080547","js/language-stepping.js":"js/language-stepping.js?v=1.2.0+local+20260724080547","/js/layout-ring-lattice.js":"/js/layout-ring-lattice.js?v=1.2.0+local+20260724080547","js/layout-ring-lattice.js":"js/layout-ring-lattice.js?v=1.2.0+local+20260724080547","/js/layouts.js":"/js/layouts.js?v=1.2.0+local+20260724080547","js/layouts.js":"js/layouts.js?v=1.2.0+local+20260724080547","/js/lazy-loader.js":"/js/lazy-loader.js?v=1.2.0+local+20260724080547","js/lazy-loader.js":"js/lazy-loader.js?v=1.2.0+local+20260724080547","/js/learn-app.js":"/js/learn-app.js?v=1.2.0+local+20260724080547","js/learn-app.js":"js/learn-app.js?v=1.2.0+local+20260724080547","/js/letter-atom.js":"/js/letter-atom.js?v=1.2.0+local+20260724080547","js/letter-atom.js":"js/letter-atom.js?v=1.2.0+local+20260724080547","/js/letter-grid-lab.js":"/js/letter-grid-lab.js?v=1.2.0+local+20260724080547","js/letter-grid-lab.js":"js/letter-grid-lab.js?v=1.2.0+local+20260724080547","/js/letter-grid-mcp.js":"/js/letter-grid-mcp.js?v=1.2.0+local+20260724080547","js/letter-grid-mcp.js":"js/letter-grid-mcp.js?v=1.2.0+local+20260724080547","/js/live-dict.js":"/js/live-dict.js?v=1.2.0+local+20260724080547","js/live-dict.js":"js/live-dict.js?v=1.2.0+local+20260724080547","/js/living-book-reader.js":"/js/living-book-reader.js?v=1.2.0+local+20260724080547","js/living-book-reader.js":"js/living-book-reader.js?v=1.2.0+local+20260724080547","/js/living-books.js":"/js/living-books.js?v=1.2.0+local+20260724080547","js/living-books.js":"js/living-books.js?v=1.2.0+local+20260724080547","/js/llm-tool-calibrate.js":"/js/llm-tool-calibrate.js?v=1.2.0+local+20260724080547","js/llm-tool-calibrate.js":"js/llm-tool-calibrate.js?v=1.2.0+local+20260724080547","/js/local-identity.js":"/js/local-identity.js?v=1.2.0+local+20260724080547","js/local-identity.js":"js/local-identity.js?v=1.2.0+local+20260724080547","/js/lyrics-analyze.js":"/js/lyrics-analyze.js?v=1.2.0+local+20260724080547","js/lyrics-analyze.js":"js/lyrics-analyze.js?v=1.2.0+local+20260724080547","/js/lyrics-app.js":"/js/lyrics-app.js?v=1.2.0+local+20260724080547","js/lyrics-app.js":"js/lyrics-app.js?v=1.2.0+local+20260724080547","/js/mesh-bus.js":"/js/mesh-bus.js?v=1.2.0+local+20260724080547","js/mesh-bus.js":"js/mesh-bus.js?v=1.2.0+local+20260724080547","/js/mythology-open.js":"/js/mythology-open.js?v=1.2.0+local+20260724080547","js/mythology-open.js":"js/mythology-open.js?v=1.2.0+local+20260724080547","/js/names-glance.js":"/js/names-glance.js?v=1.2.0+local+20260724080547","js/names-glance.js":"js/names-glance.js?v=1.2.0+local+20260724080547","/js/open-reader-search.js":"/js/open-reader-search.js?v=1.2.0+local+20260724080547","js/open-reader-search.js":"js/open-reader-search.js?v=1.2.0+local+20260724080547","/js/open-senses.js":"/js/open-senses.js?v=1.2.0+local+20260724080547","js/open-senses.js":"js/open-senses.js?v=1.2.0+local+20260724080547","/js/order-analysis.js":"/js/order-analysis.js?v=1.2.0+local+20260724080547","js/order-analysis.js":"js/order-analysis.js?v=1.2.0+local+20260724080547","/js/overview-pipe.js":"/js/overview-pipe.js?v=1.2.0+local+20260724080547","js/overview-pipe.js":"js/overview-pipe.js?v=1.2.0+local+20260724080547","/js/paleography.js":"/js/paleography.js?v=1.2.0+local+20260724080547","js/paleography.js":"js/paleography.js?v=1.2.0+local+20260724080547","/js/path-geometry-panel.js":"/js/path-geometry-panel.js?v=1.2.0+local+20260724080547","js/path-geometry-panel.js":"js/path-geometry-panel.js?v=1.2.0+local+20260724080547","/js/pcap-image-bridge.js":"/js/pcap-image-bridge.js?v=1.2.0+local+20260724080547","js/pcap-image-bridge.js":"js/pcap-image-bridge.js?v=1.2.0+local+20260724080547","/js/persona-suggest.js":"/js/persona-suggest.js?v=1.2.0+local+20260724080547","js/persona-suggest.js":"js/persona-suggest.js?v=1.2.0+local+20260724080547","/js/phonation.js":"/js/phonation.js?v=1.2.0+local+20260724080547","js/phonation.js":"js/phonation.js?v=1.2.0+local+20260724080547","/js/phonetic-pattern.js":"/js/phonetic-pattern.js?v=1.2.0+local+20260724080547","js/phonetic-pattern.js":"js/phonetic-pattern.js?v=1.2.0+local+20260724080547","/js/pipeline.js":"/js/pipeline.js?v=1.2.0+local+20260724080547","js/pipeline.js":"js/pipeline.js?v=1.2.0+local+20260724080547","/js/pos.js":"/js/pos.js?v=1.2.0+local+20260724080547","js/pos.js":"js/pos.js?v=1.2.0+local+20260724080547","/js/probe-generator.js":"/js/probe-generator.js?v=1.2.0+local+20260724080547","js/probe-generator.js":"js/probe-generator.js?v=1.2.0+local+20260724080547","/js/qbpm-music.js":"/js/qbpm-music.js?v=1.2.0+local+20260724080547","js/qbpm-music.js":"js/qbpm-music.js?v=1.2.0+local+20260724080547","/js/quantum-bridge.js":"/js/quantum-bridge.js?v=1.2.0+local+20260724080547","js/quantum-bridge.js":"js/quantum-bridge.js?v=1.2.0+local+20260724080547","/js/quantum-gutter.js":"/js/quantum-gutter.js?v=1.2.0+local+20260724080547","js/quantum-gutter.js":"js/quantum-gutter.js?v=1.2.0+local+20260724080547","/js/registers.js":"/js/registers.js?v=1.2.0+local+20260724080547","js/registers.js":"js/registers.js?v=1.2.0+local+20260724080547","/js/research-app.js":"/js/research-app.js?v=1.2.0+local+20260724080547","js/research-app.js":"js/research-app.js?v=1.2.0+local+20260724080547","/js/research-corpus.js":"/js/research-corpus.js?v=1.2.0+local+20260724080547","js/research-corpus.js":"js/research-corpus.js?v=1.2.0+local+20260724080547","/js/rosetta-alphabets.js":"/js/rosetta-alphabets.js?v=1.2.0+local+20260724080547","js/rosetta-alphabets.js":"js/rosetta-alphabets.js?v=1.2.0+local+20260724080547","/js/rosetta-lab.js":"/js/rosetta-lab.js?v=1.2.0+local+20260724080547","js/rosetta-lab.js":"js/rosetta-lab.js?v=1.2.0+local+20260724080547","/js/rubik-language-map.js":"/js/rubik-language-map.js?v=1.2.0+local+20260724080547","js/rubik-language-map.js":"js/rubik-language-map.js?v=1.2.0+local+20260724080547","/js/saint-crypto-tumble.js":"/js/saint-crypto-tumble.js?v=1.2.0+local+20260724080547","js/saint-crypto-tumble.js":"js/saint-crypto-tumble.js?v=1.2.0+local+20260724080547","/js/schema.js":"/js/schema.js?v=1.2.0+local+20260724080547","js/schema.js":"js/schema.js?v=1.2.0+local+20260724080547","/js/scholar-linguistics.js":"/js/scholar-linguistics.js?v=1.2.0+local+20260724080547","js/scholar-linguistics.js":"js/scholar-linguistics.js?v=1.2.0+local+20260724080547","/js/scribe-forensics.js":"/js/scribe-forensics.js?v=1.2.0+local+20260724080547","js/scribe-forensics.js":"js/scribe-forensics.js?v=1.2.0+local+20260724080547","/js/scribe-live.js":"/js/scribe-live.js?v=1.2.0+local+20260724080547","js/scribe-live.js":"js/scribe-live.js?v=1.2.0+local+20260724080547","/js/shadow-live.js":"/js/shadow-live.js?v=1.2.0+local+20260724080547","js/shadow-live.js":"js/shadow-live.js?v=1.2.0+local+20260724080547","/js/shadow-search.js":"/js/shadow-search.js?v=1.2.0+local+20260724080547","js/shadow-search.js":"js/shadow-search.js?v=1.2.0+local+20260724080547","/js/site-nav.js":"/js/site-nav.js?v=1.2.0+local+20260724080547","js/site-nav.js":"js/site-nav.js?v=1.2.0+local+20260724080547","/js/spatial-hooks.js":"/js/spatial-hooks.js?v=1.2.0+local+20260724080547","js/spatial-hooks.js":"js/spatial-hooks.js?v=1.2.0+local+20260724080547","/js/staff-catalogue.js":"/js/staff-catalogue.js?v=1.2.0+local+20260724080547","js/staff-catalogue.js":"js/staff-catalogue.js?v=1.2.0+local+20260724080547","/js/steno-space-letter-grid.js":"/js/steno-space-letter-grid.js?v=1.2.0+local+20260724080547","js/steno-space-letter-grid.js":"js/steno-space-letter-grid.js?v=1.2.0+local+20260724080547","/js/steno-strip.js":"/js/steno-strip.js?v=1.2.0+local+20260724080547","js/steno-strip.js":"js/steno-strip.js?v=1.2.0+local+20260724080547","/js/terminal-lane.js":"/js/terminal-lane.js?v=1.2.0+local+20260724080547","js/terminal-lane.js":"js/terminal-lane.js?v=1.2.0+local+20260724080547","/js/tool-stack.js":"/js/tool-stack.js?v=1.2.0+local+20260724080547","js/tool-stack.js":"js/tool-stack.js?v=1.2.0+local+20260724080547","/js/typing-practice.js":"/js/typing-practice.js?v=1.2.0+local+20260724080547","js/typing-practice.js":"js/typing-practice.js?v=1.2.0+local+20260724080547","/js/ugrad-live-bus.js":"/js/ugrad-live-bus.js?v=1.2.0+local+20260724080547","js/ugrad-live-bus.js":"js/ugrad-live-bus.js?v=1.2.0+local+20260724080547","/js/ui-i18n.js":"/js/ui-i18n.js?v=1.2.0+local+20260724080547","js/ui-i18n.js":"js/ui-i18n.js?v=1.2.0+local+20260724080547","/js/version.js":"/js/version.js?v=1.2.0+local+20260724080547","js/version.js":"js/version.js?v=1.2.0+local+20260724080547","/js/waveform-letters.js":"/js/waveform-letters.js?v=1.2.0+local+20260724080547","js/waveform-letters.js":"js/waveform-letters.js?v=1.2.0+local+20260724080547","/js/words-seed.js":"/js/words-seed.js?v=1.2.0+local+20260724080547","js/words-seed.js":"js/words-seed.js?v=1.2.0+local+20260724080547","/js/world-path.js":"/js/world-path.js?v=1.2.0+local+20260724080547","js/world-path.js":"js/world-path.js?v=1.2.0+local+20260724080547","/js/writing-systems-catalog.js":"/js/writing-systems-catalog.js?v=1.2.0+local+20260724080547","js/writing-systems-catalog.js":"js/writing-systems-catalog.js?v=1.2.0+local+20260724080547","/js/x-article.js":"/js/x-article.js?v=1.2.0+local+20260724080547","js/x-article.js":"js/x-article.js?v=1.2.0+local+20260724080547"}}
+</script>
+</head>
+<body class="docs-site for-ai-page">
+  <header class="docs-top">
+    <div class="docs-top-inner">
+      <a class="docs-brand" href="index.html"><b>KBatch</b> · for AI</a>
+      <nav class="docs-nav site-nav" aria-label="Site"></nav>
+    </div>
+  </header>
+
+  <main class="docs-main for-ai-main">
+    <p class="docs-kicker">ugrad · kbatch · geometric input for the MCP era</p>
+    <h1>Live Geometry · Shadow Paths · Chart Geometry · MCP for Agents</h1>
+    <p class="docs-lead">
+      Path-first typing geometry across <strong>15 keyboard layouts</strong> (shadows), with strain / efficiency / travel,
+      stenoSTRIP paths, letter atoms, pattern matrices, language capsules — plus
+      <strong>1141 chart geometry packs</strong> (title-path → BPM · metrics · MIDI · qbpm) — and a browser
+      <strong>MCP tool surface</strong> your agent can call today.
+    </p>
+
+    <div class="for-ai-hero-card" role="status">
+      <strong>MCP Ready · world axes</strong>
+      <span>Browser + HTTP + stdio · chart · capsules · senses pilot · collaborators · music rights · museum kits.</span>
+      <a class="btn btn-primary" href="dojo/">Open DOJO →</a>
+      <a class="btn" href="/api/mcp">HTTP MCP</a>
+      <a class="btn" href="world-ranking.html">World ranking</a>
+      <a class="btn" href="learn.html">Learn</a>
+      <a class="btn" href="mcp/manifest.json">manifest.json</a>
+    </div>
+
+    <div class="for-ai-hero-card" id="music-geometry" role="region" aria-label="Chart geometry">
+      <strong>Chart Geometry Engine</strong>
+      <span>
+        <strong>1141</strong> chart title-path packs (2015–2026) → keyboard shadows · strain/flow · BPM/key/musica · steno strips ·
+        qbpm orchestration. Full commercial lyrics are <em>not</em> bulk-scraped; licensed drops optional.
+        Demo: <strong>Too Sweet – Hozier</strong> · <code>too-sweet-hozier</code>
+      </span>
+      <a class="btn btn-primary" href="lyrics.html">Open Lyrics lab →</a>
+      <a class="btn" href="labs/music-staff.html">Staff catalogue →</a>
+      <a class="btn" href="https://github.com/fornevercollective/qbpm" target="_blank" rel="noopener">qbpm ↗</a>
+      <a class="btn" href="#chart-lookup">MCP chart_lookup</a>
+    </div>
+
+    <div class="docs-pills">
+      <a class="docs-pill" href="#mcp">MCP tools</a>
+      <a class="docs-pill" href="#llm-train">LLM train · recalibrate</a>
+      <a class="docs-pill" href="#axes-ref">World axes</a>
+      <a class="docs-pill" href="#archival-litmus">Archival litmus</a>
+      <a class="docs-pill" href="#freya-math">Freya · math</a>
+      <a class="docs-pill" href="#music-geometry">Chart geometry</a>
+      <a class="docs-pill" href="labs/music-staff.html">Staff catalogue</a>
+      <a class="docs-pill" href="#steno">Steno path</a>
+      <a class="docs-pill" href="#capsules">Capsules</a>
+      <a class="docs-pill" href="catalog.html">Catalog</a>
+      <a class="docs-pill" href="#roadmap">Roadmap</a>
+      <a class="docs-pill" href="#sponsor">Sponsor</a>
+      <a class="docs-pill" href="lyrics.html">Lyrics lab</a>
+    </div>
+
+    <div class="for-ai-hero-card" id="axes-ref" role="region" aria-label="World axes reference">
+      <strong>World axes · R7.0 archival-litmus</strong>
+      <span>
+        Five axes always climb together: dictionaries · schools · museums · typing · music.
+        Live scores + strengths in <code>data/world-ranking/axes.json</code> (mirrored as <code>axes-live.json</code>).
+        Prefer live JSON over memorized scores. Niche lead: multi-layout path geometry.
+      </span>
+      <a class="btn btn-primary" href="world-ranking.html">World ranking →</a>
+      <a class="btn" href="data/world-ranking/axes.json">axes.json</a>
+      <a class="btn" href="data/world-ranking/collaborators.json">collaborators.json</a>
+      <a class="btn" href="catalog.html">Corpus catalog →</a>
+      <pre class="for-ai-pre" style="margin-top:10px;font-size:0.78rem;overflow:auto">// Prefer live axes
+const axes = await fetch("/data/world-ranking/axes.json").then(r =&gt; r.json())
+// rung: R7.0-archival-litmus · museums dialed M4.0-declaration-codex
+// min/mean from axes.axes[].scoreToday</pre>
+    </div>
+
+        <div class="for-ai-hero-card" id="declaration-lab" role="region" aria-label="Declaration lab for agents">
+      <strong>Declaration lab · Letter-Grid + Cage litmus (agents)</strong>
+      <span>
+        First-class pipe on the Declaration edition. Stair:
+        <strong>Letter-Grid</strong> (motor · 6235 glyphs · 44 layers @12×12) →
+        <strong>Cage litmus</strong> (epistemic FACT / FICTION / STONE_TRAP) →
+        dual-surface → archive workspace.
+        Always pair <strong>RAW</strong> parchment + <strong>STONE</strong> 1823 engraving.
+        Hard rule: zero STONE_TRAP catches → grade <em>fail</em> even if score ≥ 50%.
+      </span>
+      <a class="btn btn-primary" href="labs/declaration-digital-edition/letter-grid.html?v=pipe8">Letter-Grid →</a>
+      <a class="btn" href="labs/declaration-digital-edition/letter-grid-pipe.html?mode=smoke">Pipe smoke →</a>
+      <a class="btn" href="labs/declaration-digital-edition/cage-litmus.html">Cage litmus →</a>
+      <a class="btn" href="labs/declaration-digital-edition/cage-games.html">Cage hub →</a>
+      <a class="btn" href="data/declaration/master-glyphs.json">master 6235</a>
+      <a class="btn" href="data/declaration/paleography.json">paleography</a>
+      <a class="btn" href="data/declaration/cage-litmus-quiz.json">quiz keys</a>
+      <pre class="for-ai-pre" style="margin-top:10px;font-size:0.78rem;overflow:auto">// Health (no board)
+await kbatchDict.mcp("kbatch_lettergrid_ping")
+await kbatchDict.mcp("kbatch_lettergrid_rubik")  // Shadow Rubik bind
+// → { ver, masterGlyphs: 6235, layersAt: {12:44}, tools: … }
+
+// Letter-Grid pipe (static HTTP OK)
+await kbatchDict.mcp("kbatch_lettergrid_colossus", { depth: "light" })
+await kbatchDict.mcp("kbatch_lettergrid_export_training", { format: "jsonl" })
+await kbatchDict.mcp("kbatch_lettergrid_finale", { includePath: true })
+// Live step/play: open letter-grid · letterGrid.nextGlyph() / playRound()
+
+// Cage litmus (static HTTP — no browser required)
+await kbatchDict.mcp("kbatch_cage_litmus_quiz", { answers: false })
+await kbatchDict.mcp("kbatch_cage_litmus_verify", { answers: [/* {id, answer} */], strict: true })
+await kbatchDict.mcp("kbatch_cage_litmus_grade", { profile: "all" })
+
+// Browser page APIs still work
+// letterGrid / __letterGridApi · __cageLitmusApi.verify([{id,answer}])</pre>
+    </div>
+
+    <div class="for-ai-hero-card" id="archival-litmus" role="region" aria-label="Declaration RAW+STONE doctrine">
+      <strong>Doctrine · RAW + STONE (never Stone-only)</strong>
+      <span>
+        Labels: <code>FACT</code> · <code>FICTION</code> (National Treasure lane) · <code>STONE_TRAP</code>.
+        Grok live trial: cage-grade 12/12. See <a href="#declaration-lab">Declaration lab</a> for MCP tools.
+      </span>
+      <a class="btn" href="labs/declaration-digital-edition/">Workspace →</a>
+      <a class="btn" href="data/declaration/cage-tensor-games.json">game pack</a>
+      <a class="btn" href="docs/CAGE-LITMUS-MCP.md">Cage MCP docs</a>
+      <a class="btn" href="docs/LETTER-GRID-MCP-SHAPES.md">Letter-Grid MCP</a>
+      <a class="btn" href="docs/DOJO-GEOMETRY-DEEP.md">DOJO geometry deep</a>
+    </div>
+
+    <div class="for-ai-hero-card" id="antiquity-mesh" role="region" aria-label="Antiquity discovery mesh for agents">
+      <strong>Antiquity discovery mesh · Declaration-class projects</strong>
+      <span>
+        Expand beyond the live parchment/codex stack into <em>potential</em> antiquity projects:
+        Maya wall math, Herculaneum CT papyri, Dead Sea spectral scrolls, Rosetta, cuneiform, runes, and more.
+        Headline 2026: <strong>Sak Tahn Waax</strong> (“White-chested Fox”) — first named Classic Maya
+        astronomer-mathematician at Xultun · plus Vesuvius Challenge full unwrap milestones.
+        Doctrine: PD / museum-open only · Cage sensational claims · honor opt-in for living languages.
+      </span>
+      <a class="btn btn-primary" href="data/antiquity/discovery-projects.json">discovery mesh →</a>
+      <a class="btn" href="data/antiquity/scholar-names.json">scholar names</a>
+      <a class="btn" href="data/antiquity/lexicon-seed.json">lexicon seed</a>
+      <a class="btn" href="data/living-books/restoration-projects.json">restoration tracks</a>
+      <a class="btn" href="labs/living-books.html">Living books →</a>
+      <a class="btn" href="docs/ANTIQUITY-DISCOVERY-MESH.md">mesh docs</a>
+      <pre class="for-ai-pre" style="margin-top:10px;font-size:0.78rem;overflow:auto">// Antiquity mesh (static JSON)
+const mesh = await fetch("/data/antiquity/discovery-projects.json").then(r =&gt; r.json())
+// mesh.headlineDiscoveries · mesh.projects · status: live|scaffold|open
+const sak = mesh.projects.find(p =&gt; p.id === "xultun-sak-tahn-waax")
+// → Sak Tahn Waax · White-chested Fox · composePath · citations
+
+const names = await fetch("/data/antiquity/scholar-names.json").then(r =&gt; r.json())
+const lex = await fetch("/data/antiquity/lexicon-seed.json").then(r =&gt; r.json())
+// path fuel: lex.samplePhrases · e.g. "sak tahn waax white chested fox"
+
+// Live siblings still primary surfaces
+// Declaration: /labs/declaration-digital-edition/
+// Codex Regius: fornevercollective codex-regius-digital book-viewer</pre>
+    </div>
+
+<div class="for-ai-hero-card" id="llm-train" role="region" aria-label="LLM train and recalibrate">
+      <strong>LLM train-as-tool · drift → recalibrate</strong>
+      <span>
+        Agents learn KBatch as a <em>callable tool</em> (MCP + system prompt + few-shots).
+        If answers slip or doctrine drifts: call <code>kbatch_calibrate_check</code> then
+        <code>kbatch_recalibrate</code> to reload system prompt + tool list + doctrine fingerprint.
+      </span>
+      <a class="btn btn-primary" href="data/llm/train-pack.json">train-pack.json →</a>
+      <a class="btn" href="data/llm/system-prompt.md">system-prompt.md</a>
+      <a class="btn" href="data/llm/tool-fewshot.jsonl">few-shot.jsonl</a>
+      <a class="btn" href="/api/mcp">HTTP MCP</a>
+      <pre class="for-ai-pre" style="margin-top:10px;font-size:0.78rem;overflow:auto">POST /api/mcp
+{ "tool": "kbatch_recalibrate", "args": { "reason": "session-drift" } }
+
+// browser
+await kbatchDict.mcp("kbatch_freya_convert", { value: 1, from: "ly", to: "km" })
+await kbatchDict.mcp("kbatch_math", { op: "mul", operands: [1.414, 3.14159] })
+await kbatchDict.mcp("kbatch_calibrate_check", { toolNames: [...] })</pre>
+    </div>
+
+    <div class="for-ai-hero-card" id="freya-math" role="region" aria-label="Freya and math">
+      <strong>FreyaUnits · math</strong>
+      <span>
+        <a href="https://freya.qbitos.ai/" target="_blank" rel="noopener">freya.qbitos.ai</a> —
+        galactic / precision unit converter (qbitOS FreyaUnits). KBatch exposes the core as MCP:
+        <code>kbatch_freya_convert</code> · <code>kbatch_freya_units</code> · <code>kbatch_math</code>
+        (whitelist ops, no free eval). Full UI stays on Freya; agents call tools here.
+      </span>
+      <a class="btn btn-primary" href="https://freya.qbitos.ai/" target="_blank" rel="noopener">Open Freya →</a>
+      <a class="btn" href="https://freya.qbitos.ai/freya-units.html" target="_blank" rel="noopener">Full converter →</a>
+      <a class="btn" href="labs/living-books.html">Living books layouts →</a>
+      <a class="btn" href="labs/myth-names.html">Open deities →</a>
+    </div>
+
+    <section id="mcp" class="docs-section">
+      <h2>For AI / LLMs / MCPs</h2>
+      <p>
+        Most MCP tools are CRUD. KBatch exposes <em>geometric + ergonomic + multilingual linguistic primitives</em>
+        agents can rank, compress, and cite.
+      </p>
+      <table class="for-ai-table">
+        <thead>
+          <tr><th>Tool</th><th>What the agent gets</th></tr>
+        </thead>
+        <tbody>
+          <tr><td><code>kbatch_analyze</code></td><td>Multi-level path · metrics · encodings</td></tr>
+          <tr><td><code>kbatch_lookup</code></td><td>Word card + layout placements</td></tr>
+          <tr><td><code>kbatch_pipe</code></td><td>caption / llm_prompt / jax stream channels</td></tr>
+          <tr><td><code>kbatch_export_jax</code></td><td>Feature vectors for training</td></tr>
+          <tr><td><code>kbatch_letter_atom</code></td><td>Letter on all 15 boards</td></tr>
+          <tr><td><code>kbatch_steno_path</code></td><td>Layout-agnostic steno path unit</td></tr>
+          <tr><td><code>kbatch_matrix</code></td><td>Pattern matrix × layouts</td></tr>
+          <tr><td><code>kbatch_colossus</code></td><td>Full DOJO snapshot</td></tr>
+          <tr><td><code>kbatch_shadows</code></td><td>15-layout shadow strings + scores</td></tr>
+          <tr><td><code>kbatch_path_rank</code></td><td>Ranked ergonomic layout alternatives</td></tr>
+          <tr><td><code>kbatch_chart_lookup</code></td><td>1141 chart geometry packs · title-path · BPM · async</td></tr>
+          <tr><td><code>kbatch_freya_convert</code></td><td>FreyaUnits convert (ly↔km, °C↔K, …) · <a href="https://freya.qbitos.ai/">freya.qbitos.ai</a></td></tr>
+          <tr><td><code>kbatch_math</code></td><td>Safe math ops · const · list</td></tr>
+          <tr><td><code>kbatch_calibrate_check</code> / <code>kbatch_recalibrate</code></td><td>Drift detect · full system rebind</td></tr>
+          <tr><td><code>kbatch_llm_train_pack</code></td><td>Train-as-tool export for SFT/RAG/agents</td></tr>
+          <tr><td><code>kbatch_deity_lookup</code></td><td>Open Wikidata deities (no Turner)</td></tr>
+          <tr><td><code>kbatch_book_stub</code></td><td>Living-books / Gutenberg catalogue stubs</td></tr>
+        </tbody>
+      </table>
+
+      <h3 id="chart-lookup">Chart geometry · <code>kbatch_chart_lookup</code></h3>
+      <pre class="code-block" data-copy><code>// Async — catalog + analysis pack (title-path, rights-safe)
+await kbatchDict.mcp("kbatch_chart_lookup", {
+  query: "too sweet hozier",
+  level: "caption",
+  include: ["path", "musica", "metrics", "steno"]
+})
+
+// Metadata capsules (25) · flowClass contrast
+await kbatchDict.chartLookup({ listCapsules: true })
+await kbatchDict.chartLookup({ capsule: "chart-flow-dense", limit: 3 })
+await kbatchDict.chartLookup({ flowClass: "glide", limit: 3 })
+await kbatchDict.chartLookup({ year: 2024, numberOne: true, limit: 3 })
+// Chain: hit.path.text → kbatch_steno_path / kbatch_export_jax / qbpm-live</code></pre>
+      <p class="docs-muted">
+        Return shape: <code>hits[]</code> with <code>slug</code>, <code>flowClass</code>, <code>metrics.bpm</code>,
+        <code>path.text</code> (title-path), plus <code>contrast</code> dense/balanced/glide demos.
+        Capsules: <a href="data/lyrics/charts/capsules.json">capsules.json</a>.
+      </p>
+
+      <h3>Quickstart (browser)</h3>
+      <pre class="code-block" data-copy><code>// On https://kbatch.ugrad.ai/dojo/ (or Dictionary)
+kbatchDict.mcp("kbatch_analyze", {
+  text: "type once understand everywhere",
+  level: "sentence",
+  layout: "qwerty"
+})
+
+kbatchDict.mcp("kbatch_path_rank", {
+  text: "ergonomic path",
+  baseLayout: "qwerty",
+  limit: 6
+})
+
+// Convenience
+kbatchDict.analyze("hello", { level: "word" })
+kbatchDict.colossus(["the", "quantum", "flow"])
+kbatchDict.matrix()</code></pre>
+
+      <h3>Claude Desktop / Cursor (sketch)</h3>
+      <p>
+        <strong>Today:</strong> load DOJO in a browser/computer-use step and call <code>window.kbatchDict.mcp</code>.
+        <strong>Next:</strong> remote MCP host at <code>kbatch.ugrad.ai/mcp</code> for native config.
+      </p>
+      <pre class="code-block" data-copy><code>{
+  "mcpServers": {
+    "kbatch": {
+      "url": "https://kbatch.ugrad.ai/mcp",
+      "transport": "sse"
+    }
+  }
+}</code></pre>
+      <p class="docs-muted">Remote host is planned — browser tools ship now. See <a href="docs/MCP.md">docs/MCP.md</a>.</p>
+    </section>
+
+    <section id="steno" class="docs-section">
+      <h2>Steno path · what it means here</h2>
+      <p>
+        <strong>Steno path / stenoSTRIP</strong> is a <em>modern, layout-agnostic geometric path</em> on physical key positions —
+        not traditional court-reporter steno. It carries efficiency, strain, rhythm, blank-coin allotment, and can bridge
+        braille / morse / music encodings. Same path → different <strong>shadows</strong> on QWERTY, Dvorak, Colemak, AZERTY, …
+      </p>
+      <ul>
+        <li>Quantum / multi-state paths (ranked alternatives for agents)</li>
+        <li>Level-aware paths (word vs sentence vs caption compression)</li>
+        <li>Flow / rhythm paths (1141 chart packs + DDR; flowClass dense/balanced/glide)</li>
+        <li>Code / domain paths (planned capsules)</li>
+        <li>Multimodal / Rubik origin paths (atlas + modalities)</li>
+      </ul>
+      <p><a href="docs/ROADMAP-STENO-CAPSULES.md">Full steno + capsule roadmap →</a></p>
+    </section>
+
+    <section id="capsules" class="docs-section">
+      <h2>Capsules</h2>
+      <p>
+        Modular, versioned layers on the spelling index — age, region, slang, theme — built with
+        <code>npm run grow-registers:fetch</code>. LLMs reference them when exports are clean JSON, versioned, and MCP-queryable.
+      </p>
+      <div class="for-ai-grid">
+        <div class="for-ai-card">
+          <h3>Live</h3>
+          <p>Age · region · theme · school/tech · city Mandarin vs formal</p>
+        </div>
+        <div class="for-ai-card">
+          <h3>Next</h3>
+          <p>Code/legal/medical · prompt-engineering · RAG training packs · accessibility depth</p>
+        </div>
+        <div class="for-ai-card">
+          <h3>Universal</h3>
+          <p>Best shadow path regardless of user layout — master capsule for agents</p>
+        </div>
+      </div>
+    </section>
+
+    <section id="data" class="docs-section">
+      <h2>Data &amp; exports agents love</h2>
+      <ul>
+        <li><a href="data/language-alphabet-matrix.json">language-alphabet-matrix.json</a> — atlas rows</li>
+        <li><a href="mcp/manifest.json">mcp/manifest.json</a> — tool surface</li>
+        <li><a href="data/lyrics/charts/index.json">charts/index.json</a> — <strong>1141</strong> world chart geometry packs (title-path)</li>
+        <li><a href="data/lyrics/charts/corpus.json">charts/corpus.json</a> — batch stats (avgBpm · strain · efficiency)</li>
+        <li><a href="data/lyrics/charts/capsules.json">charts/capsules.json</a> — <strong>25</strong> metadata chart-geometry capsules</li>
+        <li><a href="data/lyrics/analyses/too-sweet-hozier.json">analyses/too-sweet-hozier.json</a> — canonical #1 demo pack</li>
+        <li>DOJO: Export matrix · atom · snapshot · Copy MCP tools</li>
+        <li>Console: <code>kbatchDict.export</code> / page export bar (JSON · JAX · CSV · MD)</li>
+      </ul>
+    </section>
+
+    <section id="roadmap" class="docs-section">
+      <h2>Roadmap · what’s next</h2>
+      <ol>
+        <li><strong>LIVE:</strong> Chart Geometry + <code>kbatch_chart_lookup</code> · 1141 packs · 25 metadata capsules · flowClass seeds</li>
+        <li>Optional one licensed or PD full-lyric drop (rhyme proof)</li>
+        <li>qbpm live graph polish + screenshot on hub</li>
+        <li>Remote MCP host (Workers) for Claude Desktop / Cursor</li>
+        <li>Quantum multi-state path tool · code/prompt capsules · JAX Colossus dumps</li>
+      </ol>
+      <p><a href="docs/ROADMAP-STENO-CAPSULES.md">docs/ROADMAP-STENO-CAPSULES.md</a></p>
+    </section>
+
+    <section id="sponsor" class="docs-section for-ai-sponsor">
+      <h2>Sponsor / partner</h2>
+      <p class="for-ai-pitch">
+        <strong>The geometric input layer for the MCP/LLM era</strong> —
+        universal keyboard geometry + ergonomics · Chart Geometry Engine (1141 packs) · MCP tools · open atlas + capsules ·
+        qbpm orchestration for music collab.
+      </p>
+      <p class="docs-muted">
+        <strong>Sponsor a licensed lyric drop</strong> — fund one rights-cleared full-text pack so we can prove rhyme/syllable geometry beyond title-path.
+        Or sponsor chart-data / MCP partner tiers below. Demo:
+        <code>await kbatchDict.chartLookup({ query: "too sweet hozier" })</code>
+      </p>
+      <div class="for-ai-grid">
+        <div class="for-ai-card">
+          <h3>Data access</h3>
+          <p>Matrix + chart-geometry capsules · early feeds · JAX packs</p>
+        </div>
+        <div class="for-ai-card">
+          <h3>Capsule lab</h3>
+          <p>Custom domain capsules (code, legal, medical, prompt patterns)</p>
+        </div>
+        <div class="for-ai-card">
+          <h3>MCP partner</h3>
+          <p>Co-branded tools, early remote MCP host, agent demos</p>
+        </div>
+        <div class="for-ai-card">
+          <h3>Hardware</h3>
+          <p>RSI/strain studies, firmware-friendly exports for ergo boards</p>
+        </div>
+      </div>
+      <p>
+        Fit: AI tool / MCP hosts · keyboard/ergonomics hardware · accessibility &amp; language tech ·
+        OSS grants · AI labs · crowdfunding.
+      </p>
+      <p>
+        <a class="btn btn-primary" href="mailto:hello@ugrad.ai?subject=KBatch%20sponsor%20/%20MCP%20partner">Contact · sponsor</a>
+        <a class="btn" href="https://github.com/qbitOS" target="_blank" rel="noopener">GitHub org</a>
+        <a class="btn" href="dojo/">Integrate in DOJO</a>
+      </p>
+    </section>
+
+    <section class="docs-section">
+      <h2>Calls to action</h2>
+      <ul>
+        <li><a href="dojo/">Integrate via MCP</a> — call tools in the DOJO console</li>
+        <li><a href="docs/ROADMAP-STENO-CAPSULES.md">Contribute a capsule</a> — grow-registers + PR</li>
+        <li><a href="#sponsor">Sponsor the next steno path</a></li>
+        <li><a href="labs/collab.html">Join the mesh</a> · <a href="docs/MESH-ACCESS.md">mesh docs</a></li>
+      </ul>
+    </section>
+  </main>
+
+  <footer class="app-footer">
+    KBatch · geometric input for humans + agents ·
+    <a href="index.html">Dictionary</a> ·
+    <a href="dojo/">DOJO</a> ·
+    <a href="docs/MCP.md">MCP</a>
+  </footer>
+
+  <script>
+    document.querySelectorAll("[data-copy]").forEach(function (pre) {
+      pre.addEventListener("click", function () {
+        var t = pre.innerText;
+        if (navigator.clipboard) navigator.clipboard.writeText(t);
+      });
+    });
+  </script>
+  <script src="/js/site-nav.js?v=1.2.0+local+20260724080547" defer></script>
+</body>
+</html>

@@ -84,7 +84,7 @@ for d in music-staff living-books waveform-letters mythology open-names names-gl
 done
 # music-rights + education indexes (small)
 # world-path cost matrix + calibration probes (agent feature bank)
-for d in music-rights education museum-resource typing-arena world-path calibration; do
+for d in music-rights education museum-resource typing-arena world-path calibration antiquity; do
   if [[ -d "$ROOT/data/$d" ]]; then
     mkdir -p "$DIST/data/$d"
     rsync -a --max-size=2m "$ROOT/data/$d/" "$DIST/data/$d/" 2>/dev/null || rsync -a "$ROOT/data/$d/" "$DIST/data/$d/"
@@ -217,7 +217,7 @@ done
 [[ -f "$ROOT/world-ranking.html" ]] && cp -f "$ROOT/world-ranking.html" "$DIST/world-ranking.html"
 mkdir -p "$DIST/docs"
 for f in WORLD-AXIS-DOMINANCE.md MEMORY-GLASS-KBATCH.md ASSET-MAP-LIVING-BOOKS.md RESUME-TOMORROW.md SMOKE-AND-COMMANDS.md \
-  FLEET-NARRATIVE.md FLEET-R4-DATA.md MILESTONE-R4-DATA.md; do
+  FLEET-NARRATIVE.md FLEET-R4-DATA.md MILESTONE-R4-DATA.md ANTIQUITY-DISCOVERY-MESH.md RESEARCH-LAYER.md; do
   [[ -f "$ROOT/docs/$f" ]] && cp -f "$ROOT/docs/$f" "$DIST/docs/"
 done
 [[ -d "$ROOT/docs/fornever-ledger" ]] && rsync -a --max-size=2m "$ROOT/docs/fornever-ledger/" "$DIST/docs/fornever-ledger/"

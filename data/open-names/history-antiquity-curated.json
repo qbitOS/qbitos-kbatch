@@ -1,0 +1,73 @@
+{
+  "schema": "kbatch-open-names-theme-v1",
+  "theme": "history",
+  "generated": "2026-07-26T01:13:03Z",
+  "claim": "Curated antiquity scholar/scribe history names (sparse git). Full open-names history remains in KBatch-dictionary deploy tree.",
+  "count": 4,
+  "names": [
+    {
+      "id": "name:kbatch:sak-tahn-waax",
+      "name": "Sak Tahn Waax",
+      "spelling": "sak-tahn-waax",
+      "theme": "history",
+      "culture": "maya",
+      "era": "classic-maya",
+      "description": "Classic Maya astronomer-mathematician (White-chested Fox); first named · Antiquity 2026",
+      "wikidata": null,
+      "wikipedia": "https://en.wikipedia.org/wiki/Xultun",
+      "wiktionary": null,
+      "license": "kbatch antiquity mesh thin gloss",
+      "source": "antiquity-discovery-mesh",
+      "status": "open-curated",
+      "qid": null
+    },
+    {
+      "id": "name:kbatch:philodemus",
+      "name": "Philodemus of Gadara",
+      "spelling": "philodemus-of-gadara",
+      "theme": "history",
+      "culture": "greco-roman",
+      "era": "hellenistic",
+      "description": "Epicurean philosopher-poet; Herculaneum papyri author",
+      "wikidata": "https://www.wikidata.org/wiki/Q297472",
+      "wikipedia": "https://en.wikipedia.org/wiki/Philodemus",
+      "wiktionary": null,
+      "license": "kbatch antiquity mesh",
+      "source": "antiquity-discovery-mesh",
+      "status": "open-curated",
+      "qid": "Q297472"
+    },
+    {
+      "id": "name:kbatch:enheduanna",
+      "name": "Enheduanna",
+      "spelling": "enheduanna",
+      "theme": "history",
+      "culture": "sumerian",
+      "era": "akkadian",
+      "description": "Earliest named author in world literature tradition",
+      "wikidata": "https://www.wikidata.org/wiki/Q232487",
+      "wikipedia": "https://en.wikipedia.org/wiki/Enheduanna",
+      "wiktionary": null,
+      "license": "kbatch antiquity mesh",
+      "source": "antiquity-discovery-mesh",
+      "status": "open-curated",
+      "qid": "Q232487"
+    },
+    {
+      "id": "name:kbatch:timothy-matlack",
+      "name": "Timothy Matlack",
+      "spelling": "timothy-matlack",
+      "theme": "history",
+      "culture": "american",
+      "era": "early-modern",
+      "description": "Scribe of the engrossed Declaration of Independence",
+      "wikidata": "https://www.wikidata.org/wiki/Q3529187",
+      "wikipedia": "https://en.wikipedia.org/wiki/Timothy_Matlack",
+      "wiktionary": null,
+      "license": "kbatch antiquity mesh",
+      "source": "antiquity-discovery-mesh",
+      "status": "open-curated",
+      "qid": "Q3529187"
+    }
+  ]
+}

@@ -1,0 +1,15 @@
+{
+  "schema": "kbatch-antiquity-index-v1",
+  "generated": "2026-07-26T01:09:27Z",
+  "packs": {
+    "discoveryProjects": "discovery-projects.json",
+    "scholarNames": "scholar-names.json",
+    "lexiconSeed": "lexicon-seed.json"
+  },
+  "counts": {
+    "projects": 41,
+    "scholars": 10,
+    "lexiconWords": 120
+  },
+  "headline": "Sak Tahn Waax (2026) + Herculaneum unwrapping + Declaration/Codex live stack"
+}

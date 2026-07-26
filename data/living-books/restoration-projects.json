@@ -1,0 +1,491 @@
+{
+  "schema": "kbatch-antiquity-restoration-v1",
+  "generated": "2026-07-26T01:11:04Z",
+  "claim": "Antiquity restoration book projects — page-by-page PD/read-through + path geometry. Pattern: Declaration + Codex Regius. Includes 2026 Maya (Sak Tahn Waax) + Herculaneum scaffolds. Never pirate commercial editions.",
+  "doctrine": {
+    "text": "Project Gutenberg PD only via /api/gutenberg",
+    "geometry": "KBatch path on page phrase / sample",
+    "restoration": "Notes + layers scaffold for future paleography / inpaint work (codex-regius-digital pattern)",
+    "codexSibling": "https://fornevercollective.github.io/codex-regius-digital/book-viewer.html"
+  },
+  "projects": [
+    {
+      "id": "restore-declaration",
+      "bookId": "decl-independence",
+      "title": "Declaration of Independence · dense research line track",
+      "status": "in-progress",
+      "era": "early-modern · 1776",
+      "gutenbergId": 1,
+      "summary": "NARA-aligned dense research lines L01–L79 (from 35 engrossed bands). Every line has full glyph/word/sentence pack. parentEngrossed maps back to plate/UV bands. Plates + dual calligraphy live in Declaration digital edition.",
+      "layers": [
+        "source-text",
+        "line-sections-L01-L79",
+        "research-line-map",
+        "path-geometry",
+        "declaration-edition-plates",
+        "restoration-notes"
+      ],
+      "tasks": [
+        "Read L01–L79 in Living Books line mode (full research breakdown each line)",
+        "Path geometry on current research line · parentEngrossed for plate band",
+        "Open Declaration edition for parchment / Stone / clean dual",
+        "Optional: multilingual line-aligned PD translations when verified"
+      ],
+      "links": {
+        "edition": "/labs/declaration-digital-edition/",
+        "transcript": "/data/declaration/full-transcript-lines.json",
+        "lineSections": "/data/declaration/line-sections/",
+        "researchMap": "/data/declaration/research-line-map.json"
+      }
+    },
+    {
+      "id": "restore-beowulf",
+      "bookId": "beowulf",
+      "title": "Beowulf · antiquity restoration track",
+      "status": "open",
+      "era": "early-medieval",
+      "gutenbergId": 16328,
+      "summary": "Old English epic read-through with path geometry on each folio-sized page. Scaffold for paleography notes and future image layers.",
+      "layers": [
+        "source-text",
+        "path-geometry",
+        "restoration-notes"
+      ],
+      "tasks": [
+        "Page-through full PD text",
+        "Tag path phrases per major episode (Grendel · dragon)",
+        "Optional: link codex-style image layers later"
+      ]
+    },
+    {
+      "id": "restore-iliad",
+      "bookId": "iliad",
+      "title": "Iliad · antiquity restoration track",
+      "status": "open",
+      "era": "classical",
+      "gutenbergId": 6130,
+      "summary": "Homeric epic read-through for school orthography + classical restoration notes.",
+      "layers": [
+        "source-text",
+        "path-geometry",
+        "restoration-notes"
+      ],
+      "tasks": [
+        "Read-through by book/page packs",
+        "Geometry samples for names (Achilles · Hector)",
+        "Cross-link mythology open deities"
+      ]
+    },
+    {
+      "id": "restore-odyssey",
+      "bookId": "odyssey",
+      "title": "Odyssey · antiquity restoration track",
+      "status": "open",
+      "era": "classical",
+      "gutenbergId": 1727,
+      "summary": "Homeward voyage as sequential read-through with path geometry.",
+      "layers": [
+        "source-text",
+        "path-geometry",
+        "restoration-notes"
+      ],
+      "tasks": [
+        "Page packs for voyage episodes",
+        "Name orthography · Odysseus · Penelope",
+        "Mythology dual-pane links"
+      ]
+    },
+    {
+      "id": "restore-aeneid",
+      "bookId": "aeneid",
+      "title": "Aeneid · antiquity restoration track",
+      "status": "open",
+      "era": "classical",
+      "gutenbergId": 228,
+      "summary": "Roman epic foundation narrative — read-through + path.",
+      "layers": [
+        "source-text",
+        "path-geometry",
+        "restoration-notes"
+      ],
+      "tasks": [
+        "Sequential books as pages",
+        "Latin name geometry",
+        "Rome foundation notes"
+      ]
+    },
+    {
+      "id": "restore-divine-comedy",
+      "bookId": "divine-comedy",
+      "title": "Divine Comedy · antiquity restoration track",
+      "status": "open",
+      "era": "medieval",
+      "gutenbergId": 8800,
+      "summary": "Inferno–Purgatorio–Paradiso page read-through for path geometry and restoration notes.",
+      "layers": [
+        "source-text",
+        "path-geometry",
+        "restoration-notes"
+      ],
+      "tasks": [
+        "Canticle navigation",
+        "Geometry on tercet samples",
+        "Medieval cosmology notes"
+      ]
+    },
+    {
+      "id": "restore-bulfinch",
+      "bookId": "bulfinch-mythology",
+      "title": "Bulfinch Age of Fable · PD mythology restoration",
+      "status": "in-progress",
+      "era": "victorian-pd-classical",
+      "gutenbergId": 4925,
+      "summary": "Public-domain classical mythology handbook — legal long-form path for deity names (never OUP/Turner scrape).",
+      "layers": [
+        "source-text",
+        "path-geometry",
+        "mythology-crosswalk"
+      ],
+      "tasks": [
+        "Read-through chapters",
+        "Link deity names → labs/mythology.html",
+        "Sample phrases for Zeus · Athena · etc."
+      ]
+    },
+    {
+      "id": "restore-metamorphoses",
+      "bookId": "metamorphoses-ovid",
+      "title": "Ovid Metamorphoses · antiquity restoration",
+      "status": "open",
+      "era": "classical",
+      "gutenbergId": 21765,
+      "summary": "Transformation myths as sequential read-through for mythology orthography.",
+      "layers": [
+        "source-text",
+        "path-geometry",
+        "mythology-crosswalk"
+      ],
+      "tasks": [
+        "Episode index",
+        "Name→myth lab links",
+        "Path samples"
+      ]
+    },
+    {
+      "id": "restore-golden-bough",
+      "bookId": "golden-bough",
+      "title": "Golden Bough · comparative antiquity notes",
+      "status": "open",
+      "era": "victorian-pd",
+      "gutenbergId": 3623,
+      "summary": "Frazer comparative ritual — PD read-through scaffold for school + restoration research notes.",
+      "layers": [
+        "source-text",
+        "path-geometry",
+        "restoration-notes"
+      ],
+      "tasks": [
+        "Chapter packs",
+        "Keyword path samples",
+        "Cite-out only"
+      ]
+    },
+    {
+      "id": "restore-canterbury",
+      "bookId": "canterbury-tales",
+      "title": "Canterbury Tales · middle-english restoration track",
+      "status": "open",
+      "era": "medieval",
+      "gutenbergId": 2383,
+      "summary": "Pilgrimage frame as page-by-page read-through.",
+      "layers": [
+        "source-text",
+        "path-geometry",
+        "restoration-notes"
+      ],
+      "tasks": [
+        "Tale segmentation",
+        "Name geometry",
+        "ME orthography samples"
+      ]
+    },
+    {
+      "id": "restore-paradise-lost",
+      "bookId": "paradise-lost",
+      "title": "Paradise Lost · epic restoration track",
+      "status": "open",
+      "era": "early-modern",
+      "gutenbergId": 26,
+      "summary": "Blank-verse epic read-through with path geometry.",
+      "layers": [
+        "source-text",
+        "path-geometry",
+        "restoration-notes"
+      ],
+      "tasks": [
+        "Book navigation",
+        "Path on openings",
+        "Mythology crosswalk"
+      ]
+    },
+    {
+      "id": "declaration-engrossed-1776",
+      "title": "Declaration of Independence engrossed parchment",
+      "surface": "/labs/declaration-digital-edition/",
+      "year": 1776,
+      "status": "live",
+      "note": "Archival multi-layer restoration workspace"
+    },
+    {
+      "id": "restore-xultun-sak-tahn-waax",
+      "bookId": "xultun-sak-tahn-waax",
+      "title": "Xultun 10K-2 · Sak Tahn Waax (White-chested Fox)",
+      "status": "scaffold",
+      "era": "classic-maya · c. AD 781",
+      "gutenbergId": null,
+      "discoveryYear": 2026,
+      "summary": "First named Maya astronomer-mathematician. Wall microtexts + che-he-na attribution + Venus/Mars calendar equations. Scaffold for glyph stream + path geometry (Declaration-class). Cite Antiquity 2026; no pirate facsimiles.",
+      "layers": [
+        "citation-pack",
+        "romanized-token-stream",
+        "path-geometry",
+        "cage-litmus-claims",
+        "multispectral-notes",
+        "restoration-notes"
+      ],
+      "tasks": [
+        "Curate romanized tokens: Sak Tahn Waax · Xultun · Venus · Mars · calendar cycles",
+        "Path geometry on samplePhrase in Living Books",
+        "Cage quiz: RAW inscription vs modern hype",
+        "Link Dresden Codex sibling tables",
+        "Optional: licensed/open glyph drawings when available"
+      ],
+      "samplePhrase": "sak tahn waax white chested fox venus mars",
+      "links": {
+        "mesh": "/data/antiquity/discovery-projects.json",
+        "names": "/data/antiquity/scholar-names.json",
+        "lexicon": "/data/antiquity/lexicon-seed.json",
+        "doi": "https://doi.org/10.15184/aqy.2026.10378",
+        "natgeo": "https://www.nationalgeographic.com/history/article/first-maya-astronomer-mathematician-name"
+      },
+      "related": [
+        "restore-dresden-codex",
+        "restore-popol-vuh"
+      ]
+    },
+    {
+      "id": "restore-dresden-codex",
+      "bookId": "dresden-codex",
+      "title": "Dresden Codex · Maya astronomy tables",
+      "status": "scaffold",
+      "era": "postclassic-maya",
+      "gutenbergId": null,
+      "summary": "Venus and eclipse tables sibling to Xultun workshop math. Deep-zoom facsimiles when open-licensed; path on day-name tokens.",
+      "layers": [
+        "citation-pack",
+        "folio-index",
+        "path-geometry",
+        "restoration-notes"
+      ],
+      "tasks": [
+        "Index open-image folios",
+        "Sample phrases for Venus pages",
+        "Cross-link Sak Tahn Waax discovery mesh"
+      ],
+      "samplePhrase": "dresden codex venus table eclipse",
+      "links": {
+        "mesh": "/data/antiquity/discovery-projects.json#dresden-codex"
+      },
+      "related": [
+        "restore-xultun-sak-tahn-waax"
+      ]
+    },
+    {
+      "id": "restore-herculaneum",
+      "bookId": "herculaneum-vesuvius",
+      "title": "Herculaneum papyri · Vesuvius Challenge stream",
+      "status": "scaffold",
+      "era": "hellenistic-roman · recovered 2023–2026",
+      "gutenbergId": null,
+      "discoveryYear": 2026,
+      "summary": "Virtually unwrapped columns (PHerc. 1667, 172, …) and Philodemus texts. Ingest open prize passages as page packs; Greek path geometry; Cage on disputed readings.",
+      "layers": [
+        "open-passages",
+        "path-geometry",
+        "greek-orthography",
+        "cage-litmus",
+        "restoration-notes"
+      ],
+      "tasks": [
+        "Pull Vesuvius Challenge open text samples",
+        "Page packs for recovered columns",
+        "Path on Greek romanization + original when available",
+        "Scholar link: Philodemus"
+      ],
+      "samplePhrase": "philodemus herculaneum papyrus pleasure",
+      "links": {
+        "mesh": "/data/antiquity/discovery-projects.json#herculaneum-vesuvius-challenge",
+        "challenge": "https://scrollprize.org/"
+      }
+    },
+    {
+      "id": "restore-dead-sea-scrolls",
+      "bookId": "dead-sea-scrolls",
+      "title": "Dead Sea Scrolls · digital spectral track",
+      "status": "open",
+      "era": "second-temple",
+      "gutenbergId": null,
+      "summary": "Leon Levy digital library pattern — spectral layers + path on Hebrew tokens; PD English translations for school path only.",
+      "layers": [
+        "spectral-notes",
+        "path-geometry",
+        "restoration-notes"
+      ],
+      "tasks": [
+        "Cite DSS library",
+        "Sample Isaiah path phrases",
+        "Cage on forged-fragment scandals"
+      ],
+      "samplePhrase": "isaiah scroll qumran parchment",
+      "links": {
+        "library": "https://www.deadseascrolls.org.il/"
+      }
+    },
+    {
+      "id": "restore-rosetta-stone",
+      "bookId": "rosetta-stone",
+      "title": "Rosetta Stone · trilingual calibration",
+      "status": "scaffold",
+      "era": "ptolemaic · 196 BCE",
+      "gutenbergId": null,
+      "summary": "Trilingual decree as world-path / Rosetta lab anchor. Path on Greek surface + cite hieroglyph/demotic.",
+      "layers": [
+        "trilingual-notes",
+        "path-geometry",
+        "rosetta-lab"
+      ],
+      "tasks": [
+        "Link labs/rosetta.html",
+        "Greek sample path",
+        "Cage on popular myths"
+      ],
+      "samplePhrase": "rosetta stone decree ptolemy",
+      "links": {
+        "lab": "/labs/rosetta.html"
+      }
+    },
+    {
+      "id": "restore-gilgamesh",
+      "bookId": "gilgamesh",
+      "title": "Epic of Gilgamesh · tablet restoration track",
+      "status": "open",
+      "era": "mesopotamian",
+      "gutenbergId": 11000,
+      "summary": "PD translations of Gilgamesh for sequential path + mythology crosswalk. Tablet imaging cite-out only.",
+      "layers": [
+        "source-text",
+        "path-geometry",
+        "mythology-crosswalk"
+      ],
+      "tasks": [
+        "Episode packs",
+        "Name geometry Gilgamesh Enkidu",
+        "Link open mythology"
+      ],
+      "samplePhrase": "gilgamesh enkidu cedar forest"
+    },
+    {
+      "id": "restore-popol-vuh",
+      "bookId": "popol-vuh",
+      "title": "Popol Vuh · K'iche' narrative PD track",
+      "status": "open",
+      "era": "colonial-mesoamerica",
+      "gutenbergId": null,
+      "summary": "PD English translations only; honor modern K'iche' communities. Mythology dual-pane + path.",
+      "layers": [
+        "source-text",
+        "path-geometry",
+        "mythology-crosswalk",
+        "honor-notes"
+      ],
+      "tasks": [
+        "PD translation source",
+        "Hero twins name geometry",
+        "Link Maya discovery mesh"
+      ],
+      "samplePhrase": "popol vuh hero twins maize",
+      "related": [
+        "restore-xultun-sak-tahn-waax"
+      ]
+    },
+    {
+      "id": "restore-codex-regius",
+      "bookId": "codex-regius",
+      "title": "Codex Regius · Poetic Edda folio restoration",
+      "status": "live",
+      "era": "medieval icelandic · c. 1270",
+      "gutenbergId": null,
+      "summary": "Live multi-layer folio project (fornevercollective/codex-regius-digital). Deep-zoom + path on poem names.",
+      "layers": [
+        "facsimile",
+        "grok-clean",
+        "vellum",
+        "path-geometry",
+        "paleography-hub"
+      ],
+      "tasks": [
+        "Use external book viewer for 144 folios",
+        "Path on Völuspá · Hávamál samples",
+        "Mythology crosswalk"
+      ],
+      "samplePhrase": "havamal counsel odin",
+      "links": {
+        "viewer": "https://fornevercollective.github.io/codex-regius-digital/book-viewer.html",
+        "hub": "https://fornevercollective.github.io/codex-regius-digital/paleography-hub.html",
+        "visual": "/data/living-books/visual-projects.json#codex-regius-gks2365"
+      }
+    },
+    {
+      "id": "restore-magna-carta",
+      "bookId": "magna-carta",
+      "title": "Magna Carta · constitutional parchment track",
+      "status": "open",
+      "era": "medieval · 1215",
+      "gutenbergId": null,
+      "summary": "Public law parchment sibling to Declaration pattern — path on Latin clauses when PD text available.",
+      "layers": [
+        "source-text",
+        "path-geometry",
+        "restoration-notes"
+      ],
+      "tasks": [
+        "PD Latin/English clause packs",
+        "Path samples",
+        "Museum scan cite-out"
+      ],
+      "samplePhrase": "magna carta liberties barons"
+    },
+    {
+      "id": "restore-voynich",
+      "bookId": "voynich",
+      "title": "Voynich Manuscript · Cage + imaging track",
+      "status": "open",
+      "era": "medieval-early-modern",
+      "gutenbergId": null,
+      "summary": "Undeciphered codex. Imaging + Cage only — never ship auto-decipher claims as STONE.",
+      "layers": [
+        "deep-zoom-notes",
+        "cage-litmus",
+        "path-geometry-experimental"
+      ],
+      "tasks": [
+        "Beinecke open images",
+        "Cage quiz set",
+        "No decode claims in UI"
+      ],
+      "samplePhrase": "voynich manuscript unknown script"
+    }
+  ],
+  "mesh": "/data/antiquity/discovery-projects.json",
+  "count": 22
+}

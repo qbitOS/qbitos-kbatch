@@ -1,0 +1,233 @@
+{
+  "schema": "kbatch-antiquity-scholar-names-v1",
+  "generated": "2026-07-26T01:09:27Z",
+  "claim": "Thin open scholar/scribe names tied to antiquity discovery mesh. Not private genealogy. Spelling fuel for path geometry + open-names.",
+  "count": 10,
+  "names": [
+    {
+      "id": "sch:sak-tahn-waax",
+      "name": "Sak Tahn Waax",
+      "spelling": "sak-tahn-waax",
+      "gloss": "White-chested Fox",
+      "theme": "history",
+      "culture": "maya",
+      "era": "classic-maya",
+      "year": 781,
+      "role": "astronomer-mathematician",
+      "place": "Xultun, Guatemala",
+      "description": "First named Classic Maya astronomer-mathematician; attributed Venus–Mars calendar formula (che-he-na signature). Discovery published 2026 (Antiquity).",
+      "projectId": "xultun-sak-tahn-waax",
+      "orthographyNote": "Glyph spelling SAK-TAHN-wa-xi",
+      "wikipedia": null,
+      "license": "kbatch-curated thin gloss · cite Antiquity 2026",
+      "source": "antiquity-discovery-mesh",
+      "status": "open-curated",
+      "samplePhrase": "sak tahn waax white chested fox",
+      "pathWords": [
+        "sak",
+        "tahn",
+        "waax",
+        "xultun",
+        "venus",
+        "mars",
+        "maya",
+        "calendar"
+      ]
+    },
+    {
+      "id": "sch:philodemus",
+      "name": "Philodemus of Gadara",
+      "spelling": "philodemus-of-gadara",
+      "theme": "history",
+      "culture": "greco-roman",
+      "era": "hellenistic",
+      "year": -110,
+      "role": "epicurean-philosopher-poet",
+      "place": "Herculaneum / Italy",
+      "description": "Epicurean author whose works appear among Herculaneum papyri recovered via Vesuvius Challenge virtual unwrapping.",
+      "projectId": "herculaneum-vesuvius-challenge",
+      "license": "kbatch-curated thin gloss",
+      "source": "antiquity-discovery-mesh",
+      "status": "open-curated",
+      "samplePhrase": "philodemus pleasure nature gods",
+      "pathWords": [
+        "philodemus",
+        "herculaneum",
+        "epicurean",
+        "papyrus"
+      ]
+    },
+    {
+      "id": "sch:timothy-matlack",
+      "name": "Timothy Matlack",
+      "spelling": "timothy-matlack",
+      "theme": "history",
+      "culture": "american-founding",
+      "era": "early-modern",
+      "year": 1776,
+      "role": "scribe",
+      "place": "Philadelphia",
+      "description": "Scribe of the engrossed Declaration of Independence parchment (NARA).",
+      "projectId": "decl-independence-1776",
+      "license": "kbatch-curated · NARA public history",
+      "source": "antiquity-discovery-mesh",
+      "status": "open-curated",
+      "samplePhrase": "life liberty pursuit of happiness",
+      "pathWords": [
+        "matlack",
+        "declaration",
+        "parchment",
+        "engrossed"
+      ]
+    },
+    {
+      "id": "sch:hypatia",
+      "name": "Hypatia",
+      "spelling": "hypatia",
+      "theme": "history",
+      "culture": "late-antique",
+      "era": "late-antique",
+      "year": 370,
+      "role": "philosopher-mathematician",
+      "place": "Alexandria",
+      "description": "Late antique philosopher and mathematician of Alexandria.",
+      "projectId": null,
+      "license": "open historical",
+      "source": "antiquity-discovery-mesh",
+      "status": "open-curated",
+      "pathWords": [
+        "hypatia",
+        "alexandria",
+        "philosophy"
+      ]
+    },
+    {
+      "id": "sch:ptolemy",
+      "name": "Claudius Ptolemy",
+      "spelling": "claudius-ptolemy",
+      "theme": "history",
+      "culture": "greco-egyptian",
+      "era": "roman-imperial",
+      "year": 150,
+      "role": "astronomer",
+      "place": "Alexandria",
+      "description": "Almagest astronomer — classical comparison peer for Maya calendar science (cite-out).",
+      "projectId": null,
+      "license": "open historical",
+      "source": "antiquity-discovery-mesh",
+      "status": "open-curated",
+      "pathWords": [
+        "ptolemy",
+        "almagest",
+        "astronomy"
+      ]
+    },
+    {
+      "id": "sch:aryabhata",
+      "name": "Aryabhata",
+      "spelling": "aryabhata",
+      "theme": "history",
+      "culture": "indian",
+      "era": "classical-india",
+      "year": 476,
+      "role": "astronomer-mathematician",
+      "place": "India",
+      "description": "Classical Indian astronomer-mathematician — global peer set for named scientists.",
+      "projectId": null,
+      "license": "open historical",
+      "source": "antiquity-discovery-mesh",
+      "status": "open-curated",
+      "pathWords": [
+        "aryabhata",
+        "siddhanta",
+        "astronomy"
+      ]
+    },
+    {
+      "id": "sch:zhang-heng",
+      "name": "Zhang Heng",
+      "spelling": "zhang-heng",
+      "theme": "history",
+      "culture": "han-chinese",
+      "era": "han",
+      "year": 78,
+      "role": "astronomer-engineer",
+      "place": "China",
+      "description": "Han dynasty polymath known for astronomy and seismograph tradition.",
+      "projectId": null,
+      "license": "open historical",
+      "source": "antiquity-discovery-mesh",
+      "status": "open-curated",
+      "pathWords": [
+        "zhang",
+        "heng",
+        "astronomy"
+      ]
+    },
+    {
+      "id": "sch:hipparchus",
+      "name": "Hipparchus",
+      "spelling": "hipparchus",
+      "theme": "history",
+      "culture": "greek",
+      "era": "hellenistic",
+      "year": -190,
+      "role": "astronomer",
+      "place": "Rhodes",
+      "description": "Hellenistic astronomer; precession tradition — peer framing for Xultun science.",
+      "projectId": null,
+      "license": "open historical",
+      "source": "antiquity-discovery-mesh",
+      "status": "open-curated",
+      "pathWords": [
+        "hipparchus",
+        "precession",
+        "star"
+      ]
+    },
+    {
+      "id": "sch:scribe-ahmes",
+      "name": "Ahmes (Rhind Mathematical Papyrus scribe)",
+      "spelling": "ahmes",
+      "theme": "history",
+      "culture": "egyptian",
+      "era": "second-intermediate",
+      "year": -1650,
+      "role": "scribe-mathematician",
+      "place": "Egypt",
+      "description": "Scribe named on Rhind Mathematical Papyrus tradition.",
+      "projectId": null,
+      "license": "open historical",
+      "source": "antiquity-discovery-mesh",
+      "status": "open-curated",
+      "pathWords": [
+        "ahmes",
+        "rhind",
+        "papyrus",
+        "mathematics"
+      ]
+    },
+    {
+      "id": "sch:enheduanna",
+      "name": "Enheduanna",
+      "spelling": "enheduanna",
+      "theme": "history",
+      "culture": "sumerian",
+      "era": "akkadian-empire",
+      "year": -2285,
+      "role": "priestess-poet",
+      "place": "Ur",
+      "description": "Earliest named author in world literature tradition.",
+      "projectId": "gilgamesh-tablets",
+      "license": "open historical",
+      "source": "antiquity-discovery-mesh",
+      "status": "open-curated",
+      "pathWords": [
+        "enheduanna",
+        "sumer",
+        "temple",
+        "hymn"
+      ]
+    }
+  ]
+}

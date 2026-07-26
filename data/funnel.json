@@ -1,0 +1,201 @@
+{
+  "schema": "kbatch-funnel-v1",
+  "product": "ugrad.kbatch.shadow",
+  "generated": "2026-07-26T01:11:39Z",
+  "claim": "Path-first world orthography geometry — climb five world axes (dictionaries, schools, museums, typing, music rights) while owning the geometry spine; collaboration slots for every top institution. Archival litmus: RAW+STONE · Cage-grade agents.",
+  "rung": "R7.0-archival-litmus",
+  "hosts": {
+    "spa": "https://kbatch.ugrad.ai/",
+    "shadow": "https://kbatch.ugrad.ai/shadow",
+    "dojo": "https://kbatch.ugrad.ai/dojo/",
+    "forAi": "https://kbatch.ugrad.ai/for-ai",
+    "install": "https://kbatch.ugrad.ai/install",
+    "data": "https://data.ugrad.ai/kbatch/",
+    "hub": "https://ugrad.ai/",
+    "glueLam": "https://mueee.qbitos.ai/",
+    "quantumGutter": "https://mueee.qbitos.ai/quantum-gutter.html",
+    "schoolCorpus": "https://mueee.qbitos.ai/school/corpus/school-corpus.html",
+    "digitalAlphabet": "https://mueee.qbitos.ai/digital_alphabet.html",
+    "gamesHub": "https://mueee.qbitos.ai/games-ugrad-hub.html",
+    "sponsor": "https://mueee.qbitos.ai/sponsor.html",
+    "launcher": "https://mueee.qbitos.ai/launcher.html",
+    "learn": "https://kbatch.ugrad.ai/learn",
+    "lyrics": "https://kbatch.ugrad.ai/lyrics",
+    "worldRanking": "https://kbatch.ugrad.ai/world-ranking",
+    "catalog": "https://kbatch.ugrad.ai/catalog",
+    "declaration": "https://kbatch.ugrad.ai/labs/declaration-digital-edition/",
+    "cageLitmus": "https://kbatch.ugrad.ai/labs/declaration-digital-edition/cage-litmus",
+    "letterGrid": "https://kbatch.ugrad.ai/labs/declaration-digital-edition/letter-grid",
+    "ancestory": "https://kbatch.ugrad.ai/labs/ancestory",
+    "httpMcp": "https://kbatch.ugrad.ai/api/mcp",
+    "trainPack": "https://kbatch.ugrad.ai/data/llm/train-pack.json",
+    "axesJson": "https://kbatch.ugrad.ai/data/world-ranking/axes.json"
+  },
+  "people": {
+    "entry": "https://kbatch.ugrad.ai/",
+    "typeOnce": "https://kbatch.ugrad.ai/shadow",
+    "browse": "A–Z rail + aa/ab/ac slivers · mother tongue selector",
+    "export": "JSON · JAX · CSV · Markdown · X article",
+    "installCli": "https://kbatch.ugrad.ai/install → kb doctor && kb serve"
+  },
+  "llms": {
+    "manifest": "https://kbatch.ugrad.ai/mcp/manifest.json",
+    "forAi": "https://kbatch.ugrad.ai/for-ai",
+    "systemPrompt": "https://kbatch.ugrad.ai/data/llm/system-prompt.md",
+    "trainPack": "https://kbatch.ugrad.ai/data/llm/train-pack.json",
+    "doctrine": "https://kbatch.ugrad.ai/data/llm/doctrine.json",
+    "browserApi": "window.kbatchDict.mcp(tool, args)",
+    "cageLitmusApi": "window.__cageLitmusApi.verify([{id,answer}])",
+    "tools": [
+      "kbatch_analyze",
+      "kbatch_lookup",
+      "kbatch_pipe",
+      "kbatch_export_jax",
+      "kbatch_letter_atom",
+      "kbatch_steno_path",
+      "kbatch_matrix",
+      "kbatch_colossus",
+      "kbatch_shadows",
+      "kbatch_path_rank",
+      "kbatch_chart_lookup",
+      "kbatch_world_predict",
+      "kbatch_glyph_steno",
+      "kbatch_quantum_binary",
+      "kbatch_list_capsules",
+      "kbatch_open_capsule",
+      "kbatch_word_index",
+      "kbatch_school_skills",
+      "kbatch_analyze_lite",
+      "kbatch_world_axes",
+      "kbatch_collaborators",
+      "kbatch_sense_lookup",
+      "kbatch_music_rights",
+      "kbatch_museum_resource",
+      "kbatch_calibrate_check",
+      "kbatch_recalibrate",
+      "kbatch_llm_train_pack"
+    ],
+    "promptHint": "Use kbatch_world_axes + kbatch_collaborators for partnership context; kbatch_sense_lookup for gloss pilot; kbatch_music_rights for licensed rails; geometry via kbatch_analyze / chart_lookup. Declaration agents: Cage litmus quiz + RAW+STONE doctrine. Never scrape commercial lyrics."
+  },
+  "mcp": {
+    "browser": {
+      "global": "window.kbatchDict.mcp",
+      "status": "live"
+    },
+    "http": {
+      "status": "live",
+      "endpoint": "https://kbatch.ugrad.ai/api/mcp"
+    },
+    "resources": [
+      "kbatch://dict/{level}/{text}",
+      "kbatch://steno/{path}",
+      "kbatch://matrix",
+      "kbatch://colossus",
+      "kbatch://world/{lang}/{prefix}",
+      "kbatch://analyzed/{prefix}",
+      "kbatch://glyph/{n}",
+      "kbatch://quantum/binary/{text}"
+    ],
+    "stdio": {
+      "status": "live",
+      "command": "node mcp/stdio-server.mjs",
+      "readme": "mcp/README.md"
+    }
+  },
+  "dataPlane": {
+    "base": "https://data.ugrad.ai/kbatch/",
+    "catalog": "https://data.ugrad.ai/kbatch/index.json",
+    "funnel": "https://data.ugrad.ai/kbatch/funnel.json",
+    "english": {
+      "spellings": 16592291,
+      "analyzed": 1689776,
+      "coveragePct": 100,
+      "words": "words/{a-z}.json or words/slivers/{prefix}.json",
+      "analyzedMonoletter": "analyzed/{a-z}.json (FAT — avoid in clients)",
+      "analyzedSlivers": "analyzed/slivers/{prefix}.json (prefer)",
+      "analyzedSliverIndex": "analyzed/sliver-index.json",
+      "note": "colossus+world-latin geometry atlas"
+    },
+    "world": {
+      "langIndex": "words/lang-index.json",
+      "packsReady": 56,
+      "langsListed": 97,
+      "totalSpellingsApprox": 54590639,
+      "path": "words/{lang}/{bucket}.json",
+      "analyzedWorld": "analyzed/{lang}/slivers/{prefix}.json",
+      "worldAnalyzedIndex": "analyzed/world-index.json",
+      "top8Precomputed": [
+        "es",
+        "de",
+        "fr",
+        "zh",
+        "ar",
+        "ru",
+        "sr",
+        "sl"
+      ],
+      "geometry": "EN full + top-8 sampled precomputed; else live",
+      "note": "Open frequency orthographies · senses pilot in data/senses/"
+    }
+  },
+  "rubik": {
+    "role": "Live-predict words from world packs via pattern flow, cadence, likely divergence",
+    "api": "kbatchDict.corpus.rubikPredict(text, { lang, limit })",
+    "faces": [
+      "Written",
+      "Spoken",
+      "Movement",
+      "Digital",
+      "Analog",
+      "Thought"
+    ],
+    "signals": [
+      "density",
+      "strain",
+      "flowBigrams",
+      "cadenceBpm",
+      "layoutDivergence",
+      "register"
+    ]
+  },
+  "glyphSteno": {
+    "role": "GrokYtalkY-style alphabet embeds at binary glyph scale inside steno whitespace stream",
+    "sizes": [
+      13,
+      25,
+      37,
+      49
+    ],
+    "api": "kbatchDict.glyph.encode(carrier, pixels) / .decode(text)",
+    "align": [
+      "https://mueee.qbitos.ai/digital_alphabet.html",
+      "https://fornevercollective.github.io/GrokYtalkY/"
+    ]
+  },
+  "quantum": {
+    "role": "glyph→steno binary stream maps toward quantum 0–1 gutter symbols",
+    "gutter": "https://mueee.qbitos.ai/quantum-gutter.html",
+    "packField": "bi (binary string per spelling in analyzed v3 packs)",
+    "api": "kbatchDict.quantum.binaryStream(text) · classifyGutterLine",
+    "school": "https://mueee.qbitos.ai/school/corpus/school-corpus.html"
+  },
+  "lagPolicy": {
+    "never": "Download analyzed/{letter}.json in interactive browse (50–175MB)",
+    "prefer": "words/slivers + analyzed/slivers + live analyzeWordSlim for visible rows",
+    "cache": "R2 objects should ship Cache-Control max-age=604800 (upload-r2-fast.mjs)"
+  },
+  "worldAxes": {
+    "page": "https://kbatch.ugrad.ai/world-ranking.html",
+    "strategy": "https://kbatch.ugrad.ai/docs/WORLD-AXIS-DOMINANCE.md",
+    "axes": "data/world-ranking/axes.json",
+    "collaborators": "data/world-ranking/collaborators.json",
+    "senses": "data/senses/index.json",
+    "museum": "data/museum-resource/index.json",
+    "musicRights": "data/music-rights/index.json",
+    "typingArena": "data/typing-arena/modes.json"
+  },
+  "labs": {
+    "antiquityMesh": "https://kbatch.ugrad.ai/data/antiquity/discovery-projects.json",
+    "livingBooks": "https://kbatch.ugrad.ai/labs/living-books.html"
+  }
+}

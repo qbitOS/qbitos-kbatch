@@ -1,0 +1,283 @@
+{
+  "schema": "kbatch-capsule-pack-v1",
+  "id": "antiquity-discovery-pack",
+  "generated": "2026-07-26T01:11:39Z",
+  "claim": "Capsules for antiquity discovery mesh — orthography surface for Declaration-class projects.",
+  "capsules": [
+    {
+      "id": "caps.antiquity.mesh",
+      "name": "Antiquity discovery mesh",
+      "cat": "research",
+      "rung": 4,
+      "age": "all",
+      "desc": "Declaration-class antiquity projects: codices, walls, scrolls, stelae — path + Cage ready.",
+      "flag": "🏺",
+      "color": "#c9a227",
+      "words": [
+        "aeneid",
+        "akkadian",
+        "amarna",
+        "antikythera",
+        "aramaic",
+        "archimedes",
+        "astronomer",
+        "aztec",
+        "baktun",
+        "bartolo",
+        "bayeux",
+        "beowulf",
+        "calendar",
+        "carta",
+        "cascajal",
+        "chehena",
+        "chested",
+        "codex",
+        "cuneiform",
+        "cycle",
+        "declaration",
+        "deepzoom",
+        "demotic",
+        "diamond",
+        "domesday",
+        "dresden",
+        "dunhuang",
+        "ebla",
+        "eclipse",
+        "edda",
+        "engrossed",
+        "enheduanna",
+        "epicurean",
+        "epigraphy",
+        "equation",
+        "equinox",
+        "facsimile",
+        "folio",
+        "formula",
+        "fox",
+        "futhark",
+        "gall",
+        "gilgamesh",
+        "glyph",
+        "grolier",
+        "haab",
+        "hammurabi",
+        "havamal",
+        "hebrew",
+        "herculaneum",
+        "hieroglyph",
+        "hieroglyphic",
+        "hipparchus",
+        "iliad",
+        "indus",
+        "ink",
+        "iron",
+        "isaiah",
+        "katun",
+        "kiche",
+        "linear",
+        "longcount",
+        "madrid",
+        "magna",
+        "mars",
+        "mathematician",
+        "matlack",
+        "maya",
+        "microtext",
+        "multispectral",
+        "mural",
+        "mycenaean",
+        "nahua",
+        "nara",
+        "odyssey",
+        "ogham",
+        "olmec",
+        "orbit",
+        "oxyrhynchus",
+        "paleography"
+      ],
+      "wordCount": 120,
+      "wordsPath": "data/antiquity/lexicon-seed.json#words",
+      "meta": {
+        "entity_type": "antiquity-mesh",
+        "source": "data/antiquity/discovery-projects.json",
+        "provenance": "kbatch-curated",
+        "license": "kbatch-open-seed",
+        "projectCount": 41
+      },
+      "geometryHooks": [
+        "path-geometry",
+        "shadow-live",
+        "capsule-analyzer",
+        "cage-litmus"
+      ],
+      "skillHooks": [],
+      "drill": {
+        "mode": "path-phrases",
+        "evidence": [
+          "sak tahn waax white chested fox",
+          "xultun venus mars calendar formula",
+          "dresden codex eclipse table",
+          "herculaneum papyrus virtual unwrap",
+          "rosetta stone demotic greek",
+          "life liberty pursuit of happiness"
+        ]
+      }
+    },
+    {
+      "id": "caps.antiquity.sak-tahn-waax",
+      "name": "Sak Tahn Waax · Xultun",
+      "cat": "ancient",
+      "rung": 4,
+      "age": "all",
+      "desc": "First named Classic Maya astronomer-mathematician (White-chested Fox) · 2026 discovery scaffold.",
+      "flag": "🦊",
+      "color": "#e8a838",
+      "words": [
+        "sak",
+        "tahn",
+        "waax",
+        "xultun",
+        "maya",
+        "venus",
+        "mars",
+        "calendar",
+        "glyph",
+        "scribe",
+        "astronomer",
+        "fox",
+        "white",
+        "chested",
+        "formula",
+        "codex",
+        "dresden",
+        "mural"
+      ],
+      "wordCount": 18,
+      "meta": {
+        "entity_type": "named-scholar",
+        "culture": "maya",
+        "discoveryYear": 2026,
+        "projectId": "xultun-sak-tahn-waax",
+        "citation": "https://doi.org/10.15184/aqy.2026.10378",
+        "source": "antiquity-discovery-mesh",
+        "license": "kbatch-curated thin"
+      },
+      "geometryHooks": [
+        "path-geometry",
+        "cage-litmus",
+        "shadow-live"
+      ],
+      "skillHooks": [],
+      "drill": {
+        "mode": "name-path",
+        "evidence": [
+          "sak tahn waax white chested fox",
+          "xultun venus mars calendar"
+        ]
+      }
+    },
+    {
+      "id": "caps.antiquity.herculaneum",
+      "name": "Herculaneum · Vesuvius Challenge",
+      "cat": "ancient",
+      "rung": 4,
+      "age": "all",
+      "desc": "Carbonized papyri virtual unwrapping · Philodemus · 2024–2026 breakthroughs.",
+      "flag": "📜",
+      "color": "#8b6914",
+      "words": [
+        "herculaneum",
+        "vesuvius",
+        "papyrus",
+        "philodemus",
+        "scroll",
+        "unwrap",
+        "epicurean",
+        "greek",
+        "ink",
+        "carbonized"
+      ],
+      "wordCount": 10,
+      "meta": {
+        "entity_type": "corpus",
+        "projectId": "herculaneum-vesuvius-challenge",
+        "source": "antiquity-discovery-mesh"
+      },
+      "geometryHooks": [
+        "path-geometry",
+        "cage-litmus"
+      ],
+      "drill": {
+        "mode": "path-phrases",
+        "evidence": [
+          "philodemus herculaneum papyrus"
+        ]
+      }
+    },
+    {
+      "id": "caps.antiquity.declaration",
+      "name": "Declaration engrossed · live",
+      "cat": "research",
+      "rung": 4,
+      "age": "all",
+      "desc": "Live NARA parchment stack · Letter-Grid 6235 · Cage · multi-layer.",
+      "flag": "🇺🇸",
+      "color": "#3d5a80",
+      "words": [
+        "life",
+        "liberty",
+        "pursuit",
+        "happiness",
+        "declaration",
+        "independence",
+        "parchment",
+        "engrossed",
+        "matlack",
+        "scribe"
+      ],
+      "wordCount": 10,
+      "meta": {
+        "entity_type": "live-archive",
+        "projectId": "decl-independence-1776",
+        "surface": "/labs/declaration-digital-edition/"
+      },
+      "geometryHooks": [
+        "letter-grid",
+        "path-geometry",
+        "cage-litmus",
+        "paleography"
+      ]
+    },
+    {
+      "id": "caps.antiquity.codex-regius",
+      "name": "Codex Regius · Poetic Edda",
+      "cat": "research",
+      "rung": 4,
+      "age": "all",
+      "desc": "Live 144-folio Norse codex digital edition.",
+      "flag": "🪓",
+      "color": "#5c6b7a",
+      "words": [
+        "codex",
+        "regius",
+        "edda",
+        "havamal",
+        "voluspa",
+        "odin",
+        "vellum",
+        "folio",
+        "norse"
+      ],
+      "wordCount": 9,
+      "meta": {
+        "entity_type": "live-codex",
+        "projectId": "codex-regius-gks2365"
+      },
+      "geometryHooks": [
+        "deep-zoom",
+        "path-geometry",
+        "mythology-crosswalk"
+      ]
+    }
+  ]
+}

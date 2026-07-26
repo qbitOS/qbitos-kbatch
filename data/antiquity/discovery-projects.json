@@ -1,0 +1,1651 @@
+{
+  "schema": "kbatch-antiquity-discovery-mesh-v1",
+  "generated": "2026-07-26T01:09:27Z",
+  "claim": "Declaration-class antiquity projects: parchment/codex/wall streams that can grow glyph packs, path geometry, Cage gates, and open names. Not a museum replacement — geometry + research mesh.",
+  "doctrine": {
+    "rights": "PD / project-open / museum-permitted images only · never pirate commercial editions",
+    "honor": "Living languages and Indigenous knowledge stay opt-in; educational seeds only",
+    "cage": "Sensational decipherment and doomsday claims → Cage litmus (RAW vs STONE vs FICTION)",
+    "purity": "Geometry / SO / phon streams stay separate when calibration is applied",
+    "patternSiblings": {
+      "declaration": "public text · line/glyph stream · multi-layer imaging · Cage",
+      "codex": "folio/facsimile · deep-zoom · restoration layers · path on tokens"
+    }
+  },
+  "composePathDefault": [
+    "source object (parchment | codex | wall | tablet)",
+    "imaging layers (photo | UV | multi-spectral | CT)",
+    "token / glyph / line stream",
+    "path geometry + optional Letter-Grid",
+    "open names + scholar attribution",
+    "Cage RAW+STONE gate"
+  ],
+  "statusLegend": {
+    "live": "shipped surface in KBatch",
+    "scaffold": "catalog + restoration hooks; ready for next build cut",
+    "open": "watchlist / potential project; thin seed only",
+    "blocked": "do not ship (rights or doctrine)"
+  },
+  "counts": {
+    "projects": 41,
+    "live": 2,
+    "scaffold": 6,
+    "open": 33,
+    "tier1": 8
+  },
+  "headlineDiscoveries": [
+    {
+      "id": "xultun-sak-tahn-waax",
+      "year": 2026,
+      "oneLiner": "First named Maya astronomer-mathematician: Sak Tahn Waax (White-chested Fox)."
+    },
+    {
+      "id": "herculaneum-vesuvius-challenge",
+      "year": 2026,
+      "oneLiner": "Herculaneum scrolls virtually unwrapped end-to-end; new Philodemus texts."
+    }
+  ],
+  "indexByCulture": {
+    "american-founding": [
+      "decl-independence-1776"
+    ],
+    "norse": [
+      "codex-regius-gks2365",
+      "elder-futhark-runestones"
+    ],
+    "maya": [
+      "xultun-sak-tahn-waax",
+      "dresden-codex",
+      "madrid-codex",
+      "paris-codex",
+      "grolier-maya-codex",
+      "san-bartolo-murals"
+    ],
+    "kiche-maya": [
+      "popol-vuh"
+    ],
+    "greco-roman": [
+      "herculaneum-vesuvius-challenge"
+    ],
+    "jewish": [
+      "dead-sea-scrolls"
+    ],
+    "egyptian-hellenistic": [
+      "rosetta-stone"
+    ],
+    "unknown": [
+      "voynich-manuscript"
+    ],
+    "greek": [
+      "archimedes-palimpsest",
+      "antikythera-mechanism",
+      "iliad-venetus-a"
+    ],
+    "christian": [
+      "codex-sinaiticus"
+    ],
+    "mycenaean": [
+      "linear-b-tablets"
+    ],
+    "persian": [
+      "behistun-inscription"
+    ],
+    "greco-egyptian": [
+      "oxyrhynchus-papyri"
+    ],
+    "coptic-gnostic": [
+      "nag-hammadi"
+    ],
+    "sumerian-akkadian": [
+      "gilgamesh-tablets"
+    ],
+    "babylonian": [
+      "code-hammurabi"
+    ],
+    "egyptian": [
+      "pyramid-texts"
+    ],
+    "international-bronze-age": [
+      "amarna-letters"
+    ],
+    "eblaite": [
+      "ebla-tablets"
+    ],
+    "multi-script-silk-road": [
+      "dunhuang-manuscripts"
+    ],
+    "buddhist-chinese": [
+      "diamond-sutra"
+    ],
+    "turkic": [
+      "orkhon-inscriptions"
+    ],
+    "gaeilge": [
+      "ogham-stones"
+    ],
+    "anglo-norman": [
+      "magna-carta"
+    ],
+    "norman": [
+      "domesday-book",
+      "bayeux-tapestry"
+    ],
+    "minoan": [
+      "phaistos-disc"
+    ],
+    "rapa-nui": [
+      "rongorongo"
+    ],
+    "harappan": [
+      "indus-script-seals"
+    ],
+    "olmec": [
+      "cascajal-block"
+    ],
+    "nahua-spanish": [
+      "florentine-codex",
+      "codex-mendoza"
+    ],
+    "anglo-saxon": [
+      "beowulf-nowell"
+    ]
+  },
+  "indexByScript": {
+    "latin-copperplate": [
+      "decl-independence-1776"
+    ],
+    "medieval-icelandic": [
+      "codex-regius-gks2365"
+    ],
+    "maya-hieroglyphic": [
+      "xultun-sak-tahn-waax",
+      "dresden-codex",
+      "madrid-codex",
+      "paris-codex",
+      "grolier-maya-codex",
+      "san-bartolo-murals"
+    ],
+    "latin-transcription": [
+      "popol-vuh"
+    ],
+    "greek": [
+      "herculaneum-vesuvius-challenge",
+      "archimedes-palimpsest",
+      "antikythera-mechanism",
+      "iliad-venetus-a"
+    ],
+    "hebrew-aramaic": [
+      "dead-sea-scrolls"
+    ],
+    "hieroglyphic-demotic-greek": [
+      "rosetta-stone"
+    ],
+    "unknown-voynich": [
+      "voynich-manuscript"
+    ],
+    "greek-uncial": [
+      "codex-sinaiticus"
+    ],
+    "linear-b": [
+      "linear-b-tablets"
+    ],
+    "old-persian-elamite-akkadian": [
+      "behistun-inscription"
+    ],
+    "greek-coptic": [
+      "oxyrhynchus-papyri"
+    ],
+    "coptic": [
+      "nag-hammadi"
+    ],
+    "cuneiform": [
+      "gilgamesh-tablets",
+      "code-hammurabi",
+      "ebla-tablets"
+    ],
+    "hieroglyphic": [
+      "pyramid-texts"
+    ],
+    "akkadian-cuneiform": [
+      "amarna-letters"
+    ],
+    "chinese-sogdian-tibetan-etc": [
+      "dunhuang-manuscripts"
+    ],
+    "chinese": [
+      "diamond-sutra"
+    ],
+    "old-turkic-runiform": [
+      "orkhon-inscriptions"
+    ],
+    "ogham": [
+      "ogham-stones"
+    ],
+    "runic": [
+      "elder-futhark-runestones"
+    ],
+    "latin": [
+      "magna-carta",
+      "domesday-book"
+    ],
+    "latin-captions": [
+      "bayeux-tapestry"
+    ],
+    "unknown-phaistos": [
+      "phaistos-disc"
+    ],
+    "rongorongo": [
+      "rongorongo"
+    ],
+    "indus": [
+      "indus-script-seals"
+    ],
+    "possible-olmec": [
+      "cascajal-block"
+    ],
+    "nahuatl-spanish": [
+      "florentine-codex"
+    ],
+    "pictorial-nahuatl-spanish": [
+      "codex-mendoza"
+    ],
+    "old-english": [
+      "beowulf-nowell"
+    ]
+  },
+  "indexByStatus": {
+    "live": [
+      "decl-independence-1776",
+      "codex-regius-gks2365"
+    ],
+    "scaffold": [
+      "xultun-sak-tahn-waax",
+      "dresden-codex",
+      "herculaneum-vesuvius-challenge",
+      "dead-sea-scrolls",
+      "rosetta-stone",
+      "beowulf-nowell"
+    ],
+    "open": [
+      "madrid-codex",
+      "paris-codex",
+      "grolier-maya-codex",
+      "san-bartolo-murals",
+      "popol-vuh",
+      "voynich-manuscript",
+      "archimedes-palimpsest",
+      "codex-sinaiticus",
+      "linear-b-tablets",
+      "behistun-inscription",
+      "oxyrhynchus-papyri",
+      "nag-hammadi",
+      "gilgamesh-tablets",
+      "code-hammurabi",
+      "pyramid-texts",
+      "amarna-letters",
+      "ebla-tablets",
+      "dunhuang-manuscripts",
+      "diamond-sutra",
+      "orkhon-inscriptions",
+      "ogham-stones",
+      "elder-futhark-runestones",
+      "magna-carta",
+      "domesday-book",
+      "bayeux-tapestry",
+      "antikythera-mechanism",
+      "phaistos-disc",
+      "rongorongo",
+      "indus-script-seals",
+      "cascajal-block",
+      "florentine-codex",
+      "codex-mendoza",
+      "iliad-venetus-a"
+    ]
+  },
+  "projects": [
+    {
+      "id": "decl-independence-1776",
+      "title": "Declaration of Independence · engrossed parchment",
+      "status": "live",
+      "tier": 1,
+      "era": "early-modern",
+      "region": "north-america",
+      "culture": "american-founding",
+      "script": "latin-copperplate",
+      "media": [
+        "parchment",
+        "iron-gall-ink",
+        "multispectral"
+      ],
+      "yearHint": 1776,
+      "pattern": "declaration",
+      "summary": "NARA engrossed calligraphy · master glyph stream 6235 · Letter-Grid · Cage litmus · multi-layer archive workspace.",
+      "names": [
+        "Timothy Matlack",
+        "John Hancock"
+      ],
+      "composePath": [
+        "Rubik Focus",
+        "Letter-Grid stream",
+        "JAX rank",
+        "c(a,b)",
+        "Cage RAW+STONE"
+      ],
+      "surfaces": {
+        "lab": "/labs/declaration-digital-edition/",
+        "letterGrid": "/labs/declaration-digital-edition/letter-grid.html",
+        "pipe": "/labs/declaration-digital-edition/letter-grid-pipe.html",
+        "data": "/data/declaration/",
+        "museum": "/museum.html"
+      },
+      "kbatchHooks": [
+        "letter-grid",
+        "cage-litmus",
+        "paleography",
+        "path-geometry",
+        "restoration"
+      ],
+      "rights": "public-domain NARA scans",
+      "nextCuts": [
+        "session-token lettergrid step",
+        "higher multi-spectral layers"
+      ],
+      "citations": [
+        {
+          "label": "NARA transcript",
+          "url": "https://www.archives.gov/founding-docs/declaration-transcript"
+        }
+      ],
+      "tags": [
+        "declaration",
+        "live",
+        "parchment",
+        "us-history",
+        "glyph-stream"
+      ]
+    },
+    {
+      "id": "codex-regius-gks2365",
+      "title": "Codex Regius · GKS 2365 4to (Poetic Edda)",
+      "status": "live",
+      "tier": 1,
+      "era": "medieval",
+      "region": "iceland",
+      "culture": "norse",
+      "script": "medieval-icelandic",
+      "media": [
+        "vellum",
+        "facsimile",
+        "deep-zoom",
+        "restoration-layers"
+      ],
+      "yearHint": 1270,
+      "pattern": "codex",
+      "summary": "144-folio scholarly digital edition · multi-layer clean/vellum · paleography hub · living-books visual project.",
+      "names": [],
+      "composePath": [
+        "facsimile layers",
+        "deep-zoom",
+        "path on poem names",
+        "restoration notes"
+      ],
+      "surfaces": {
+        "externalViewer": "https://fornevercollective.github.io/codex-regius-digital/book-viewer.html",
+        "externalHub": "https://fornevercollective.github.io/codex-regius-digital/paleography-hub.html",
+        "visual": "/data/living-books/visual-projects.json#codex-regius-gks2365",
+        "livingBooks": "/labs/living-books.html"
+      },
+      "kbatchHooks": [
+        "deep-zoom",
+        "path-geometry",
+        "restoration",
+        "mythology-crosswalk"
+      ],
+      "rights": "project-open scholarly edition",
+      "nextCuts": [
+        "full LFS page pack on Pages/R2",
+        "line-glyph analysis parity with Declaration"
+      ],
+      "citations": [
+        {
+          "label": "codex-regius-digital",
+          "url": "https://github.com/fornevercollective/codex-regius-digital"
+        }
+      ],
+      "tags": [
+        "codex",
+        "edda",
+        "norse",
+        "live",
+        "facsimile"
+      ]
+    },
+    {
+      "id": "xultun-sak-tahn-waax",
+      "title": "Xultun structure 10K-2 · Sak Tahn Waax (White-chested Fox)",
+      "status": "scaffold",
+      "tier": 1,
+      "era": "classic-maya",
+      "region": "guatemala",
+      "culture": "maya",
+      "script": "maya-hieroglyphic",
+      "media": [
+        "mural",
+        "microtext",
+        "multispectral",
+        "wall-glyphs"
+      ],
+      "yearHint": 781,
+      "discoveryYear": 2026,
+      "pattern": "declaration",
+      "summary": "First named Classic Maya astronomer-mathematician. Attribution phrase che-he-na + name SAK-TAHN-wa-xi on wall calculations linking Venus, Mars, and Maya calendar (~AD 781). San Bartolo–Xultun Project; Antiquity 2026.",
+      "names": [
+        {
+          "name": "Sak Tahn Waax",
+          "gloss": "White-chested Fox",
+          "role": "astronomer-mathematician",
+          "orthography": "SAK-TAHN-wa-xi"
+        },
+        {
+          "name": "Franco Rossi",
+          "role": "lead author (modern)",
+          "note": "cite-out only"
+        },
+        {
+          "name": "David Stuart",
+          "role": "epigrapher (modern)",
+          "note": "cite-out only"
+        },
+        {
+          "name": "Heather Hurst",
+          "role": "project director (modern)",
+          "note": "cite-out only"
+        }
+      ],
+      "composePath": [
+        "glyph attribution stream (che-he-na + name)",
+        "calendar / Venus–Mars equation tables",
+        "multispectral wall layers",
+        "Cage RAW vs STONE (claim vs inscription)",
+        "path geometry on romanized Maya tokens"
+      ],
+      "surfaces": {
+        "restoration": "/data/living-books/restoration-projects.json#restore-xultun-sak-tahn-waax",
+        "visual": "/data/living-books/visual-projects.json#xultun-10k2-scaffold",
+        "names": "/data/antiquity/scholar-names.json",
+        "lexicon": "/data/antiquity/lexicon-seed.json"
+      },
+      "kbatchHooks": [
+        "paleography",
+        "path-geometry",
+        "cage-litmus",
+        "open-names",
+        "mythology-crosswalk",
+        "restoration"
+      ],
+      "rights": "scholarly publication + press; images cite Nat Geo / project — no pirate facsimile",
+      "nextCuts": [
+        "public-domain / licensed glyph drawings pack",
+        "line-section table for Text 19 microtexts",
+        "optional Maya calendar path capsule",
+        "museum kit for romanized Classic Maya tokens"
+      ],
+      "citations": [
+        {
+          "label": "Antiquity DOI",
+          "url": "https://doi.org/10.15184/aqy.2026.10378"
+        },
+        {
+          "label": "National Geographic",
+          "url": "https://www.nationalgeographic.com/history/article/first-maya-astronomer-mathematician-name"
+        },
+        {
+          "label": "Science News",
+          "url": "https://www.sciencenews.org/article/ancient-maya-astronomer-name-sak-tahn-waax"
+        }
+      ],
+      "relatedProjects": [
+        "dresden-codex",
+        "madrid-codex",
+        "paris-codex",
+        "grolier-maya-codex",
+        "san-bartolo-murals",
+        "popol-vuh"
+      ],
+      "tags": [
+        "maya",
+        "astronomy",
+        "named-scholar",
+        "2026-discovery",
+        "scaffold",
+        "xultun",
+        "venus",
+        "mars"
+      ]
+    },
+    {
+      "id": "dresden-codex",
+      "title": "Dresden Codex · Maya astronomical tables",
+      "status": "scaffold",
+      "tier": 1,
+      "era": "postclassic-maya",
+      "region": "mesoamerica",
+      "culture": "maya",
+      "script": "maya-hieroglyphic",
+      "media": [
+        "bark-paper-codex",
+        "facsimile",
+        "eclipse-tables"
+      ],
+      "yearHint": 1200,
+      "pattern": "codex",
+      "summary": "Best-preserved Maya codex; Venus tables, eclipse cycles, day counts. Natural sibling to Xultun workshop math.",
+      "names": [],
+      "composePath": [
+        "folio tables",
+        "day-name orthography",
+        "path on calendar tokens",
+        "Cage on sensational claims"
+      ],
+      "surfaces": {
+        "visual": "/data/living-books/visual-projects.json#dresden-codex-scaffold",
+        "restoration": "/data/living-books/restoration-projects.json#restore-dresden-codex"
+      },
+      "kbatchHooks": [
+        "deep-zoom",
+        "path-geometry",
+        "cage-litmus",
+        "restoration"
+      ],
+      "rights": "historical codex; use library/museum open images only",
+      "nextCuts": [
+        "IIIF folio pack",
+        "glyph-stream experiment (Declaration-class)"
+      ],
+      "citations": [
+        {
+          "label": "Wikipedia Dresden Codex",
+          "url": "https://en.wikipedia.org/wiki/Dresden_Codex"
+        }
+      ],
+      "tags": [
+        "maya",
+        "codex",
+        "astronomy",
+        "scaffold"
+      ]
+    },
+    {
+      "id": "madrid-codex",
+      "title": "Madrid Codex (Tro-Cortesianus)",
+      "status": "open",
+      "tier": 2,
+      "era": "postclassic-maya",
+      "region": "mesoamerica",
+      "culture": "maya",
+      "script": "maya-hieroglyphic",
+      "media": [
+        "bark-paper-codex"
+      ],
+      "yearHint": 1400,
+      "pattern": "codex",
+      "summary": "Longest surviving Maya codex — almanacs, ritual calendars.",
+      "kbatchHooks": [
+        "path-geometry",
+        "restoration"
+      ],
+      "rights": "museum holdings · open images when available",
+      "tags": [
+        "maya",
+        "codex",
+        "open"
+      ]
+    },
+    {
+      "id": "paris-codex",
+      "title": "Paris Codex (Peresianus)",
+      "status": "open",
+      "tier": 2,
+      "era": "postclassic-maya",
+      "region": "mesoamerica",
+      "culture": "maya",
+      "script": "maya-hieroglyphic",
+      "media": [
+        "bark-paper-codex"
+      ],
+      "yearHint": 1400,
+      "pattern": "codex",
+      "summary": "Fragmentary Maya codex with zodiac / katun pages.",
+      "kbatchHooks": [
+        "path-geometry",
+        "restoration"
+      ],
+      "rights": "BnF holdings · open images when available",
+      "tags": [
+        "maya",
+        "codex",
+        "open"
+      ]
+    },
+    {
+      "id": "grolier-maya-codex",
+      "title": "Maya Codex of Mexico (Grolier)",
+      "status": "open",
+      "tier": 2,
+      "era": "postclassic-maya",
+      "region": "mesoamerica",
+      "culture": "maya",
+      "script": "maya-hieroglyphic",
+      "media": [
+        "bark-paper-codex"
+      ],
+      "yearHint": 1100,
+      "pattern": "codex",
+      "summary": "Authenticated Venus almanac codex fragment — Cage-ready provenance history.",
+      "kbatchHooks": [
+        "cage-litmus",
+        "path-geometry"
+      ],
+      "rights": "museum · cite scholarly consensus",
+      "tags": [
+        "maya",
+        "codex",
+        "venus",
+        "open"
+      ]
+    },
+    {
+      "id": "san-bartolo-murals",
+      "title": "San Bartolo murals · preclassic Maya writing",
+      "status": "open",
+      "tier": 2,
+      "era": "preclassic-maya",
+      "region": "guatemala",
+      "culture": "maya",
+      "script": "maya-hieroglyphic",
+      "media": [
+        "mural"
+      ],
+      "yearHint": -100,
+      "pattern": "declaration",
+      "summary": "Early Maya mural writing at San Bartolo — same project landscape as Xultun.",
+      "relatedProjects": [
+        "xultun-sak-tahn-waax"
+      ],
+      "kbatchHooks": [
+        "paleography",
+        "path-geometry"
+      ],
+      "tags": [
+        "maya",
+        "mural",
+        "open"
+      ]
+    },
+    {
+      "id": "popol-vuh",
+      "title": "Popol Vuh manuscripts · K'iche' creation",
+      "status": "open",
+      "tier": 2,
+      "era": "colonial-mesoamerica",
+      "region": "guatemala",
+      "culture": "kiche-maya",
+      "script": "latin-transcription",
+      "media": [
+        "manuscript",
+        "pd-translation"
+      ],
+      "yearHint": 1550,
+      "pattern": "codex",
+      "summary": "Colonial-era transcription of K'iche' narrative; PD translations for path geometry + mythology crosswalk.",
+      "kbatchHooks": [
+        "mythology-crosswalk",
+        "path-geometry",
+        "restoration"
+      ],
+      "rights": "PD translations only; honor modern K'iche' communities",
+      "tags": [
+        "maya",
+        "mythology",
+        "open"
+      ]
+    },
+    {
+      "id": "herculaneum-vesuvius-challenge",
+      "title": "Herculaneum papyri · Vesuvius Challenge virtual unwrapping",
+      "status": "scaffold",
+      "tier": 1,
+      "era": "hellenistic-roman",
+      "region": "italy",
+      "culture": "greco-roman",
+      "script": "greek",
+      "media": [
+        "carbonized-papyrus",
+        "xray-ct",
+        "ml-ink-detection"
+      ],
+      "yearHint": -50,
+      "discoveryYear": 2026,
+      "pattern": "codex",
+      "summary": "Carbonized Villa of the Papyri scrolls. 2024–2026 breakthroughs: ink detection, full unwrapping of PHerc. 1667, new Philodemus books. Declaration-class: stream of recovered columns → path + Cage.",
+      "names": [
+        {
+          "name": "Philodemus of Gadara",
+          "role": "author (ancient)",
+          "note": "Epicurean texts recovered"
+        },
+        {
+          "name": "Brent Seales",
+          "role": "virtual unwrapping (modern)",
+          "note": "cite-out"
+        }
+      ],
+      "composePath": [
+        "CT volume",
+        "virtual unwrap columns",
+        "Greek orthography path",
+        "Cage on disputed readings"
+      ],
+      "surfaces": {
+        "restoration": "/data/living-books/restoration-projects.json#restore-herculaneum",
+        "visual": "/data/living-books/visual-projects.json#herculaneum-scaffold"
+      },
+      "kbatchHooks": [
+        "paleography",
+        "path-geometry",
+        "cage-litmus",
+        "restoration"
+      ],
+      "rights": "challenge open data + museum CT; no pirate commercial editions",
+      "nextCuts": [
+        "ingest open prize passages as living-book pages",
+        "Greek path capsule"
+      ],
+      "citations": [
+        {
+          "label": "Vesuvius Challenge",
+          "url": "https://scrollprize.org/"
+        },
+        {
+          "label": "UK 2026 breakthrough",
+          "url": "https://uknow.uky.edu/research/day-herculaneum-scrolls-began-speaking-again"
+        }
+      ],
+      "tags": [
+        "herculaneum",
+        "papyrus",
+        "greek",
+        "ml-restoration",
+        "2026-discovery",
+        "scaffold"
+      ]
+    },
+    {
+      "id": "dead-sea-scrolls",
+      "title": "Dead Sea Scrolls · Leon Levy Digital Library",
+      "status": "scaffold",
+      "tier": 1,
+      "era": "second-temple",
+      "region": "levant",
+      "culture": "jewish",
+      "script": "hebrew-aramaic",
+      "media": [
+        "parchment",
+        "papyrus",
+        "spectral-imaging"
+      ],
+      "yearHint": -200,
+      "discoveryYear": 1947,
+      "pattern": "codex",
+      "summary": "Qumran fragment corpus + Great Isaiah Scroll. Digital spectral library; 2025 AI dating refresh. Multi-layer zoom + path on Hebrew tokens.",
+      "composePath": [
+        "spectral layers",
+        "fragment assembly notes",
+        "path geometry",
+        "Cage on sensational finds"
+      ],
+      "kbatchHooks": [
+        "deep-zoom",
+        "path-geometry",
+        "cage-litmus",
+        "restoration"
+      ],
+      "rights": "IAA / museum digital library terms",
+      "citations": [
+        {
+          "label": "Leon Levy DSS Digital Library",
+          "url": "https://www.deadseascrolls.org.il/"
+        }
+      ],
+      "tags": [
+        "qumran",
+        "hebrew",
+        "scaffold",
+        "spectral"
+      ]
+    },
+    {
+      "id": "rosetta-stone",
+      "title": "Rosetta Stone · trilingual decree",
+      "status": "scaffold",
+      "tier": 1,
+      "era": "ptolemaic",
+      "region": "egypt",
+      "culture": "egyptian-hellenistic",
+      "script": "hieroglyphic-demotic-greek",
+      "media": [
+        "granodiorite-stele"
+      ],
+      "yearHint": -196,
+      "pattern": "declaration",
+      "summary": "Trilingual calibration object — KBatch Rosetta lab natural anchor + paleography + world-path languages.",
+      "surfaces": {
+        "lab": "/labs/rosetta.html"
+      },
+      "kbatchHooks": [
+        "rosetta",
+        "path-geometry",
+        "world-path",
+        "cage-litmus"
+      ],
+      "rights": "British Museum images under their terms · text PD",
+      "tags": [
+        "egypt",
+        "trilingual",
+        "scaffold",
+        "calibration"
+      ]
+    },
+    {
+      "id": "voynich-manuscript",
+      "title": "Voynich Manuscript · Beinecke MS 408",
+      "status": "open",
+      "tier": 2,
+      "era": "medieval-early-modern",
+      "region": "europe",
+      "culture": "unknown",
+      "script": "unknown-voynich",
+      "media": [
+        "vellum",
+        "cipher-or-unknown"
+      ],
+      "yearHint": 1420,
+      "pattern": "codex",
+      "summary": "Undeciphered codex — Cage litmus playground (FICTION traps vs RAW imaging). No auto-decipher claims.",
+      "kbatchHooks": [
+        "cage-litmus",
+        "deep-zoom",
+        "path-geometry"
+      ],
+      "rights": "Beinecke open images",
+      "tags": [
+        "undeciphered",
+        "cage",
+        "open"
+      ]
+    },
+    {
+      "id": "archimedes-palimpsest",
+      "title": "Archimedes Palimpsest",
+      "status": "open",
+      "tier": 2,
+      "era": "classical-medieval",
+      "region": "mediterranean",
+      "culture": "greek",
+      "script": "greek",
+      "media": [
+        "palimpsest",
+        "multispectral"
+      ],
+      "yearHint": 975,
+      "pattern": "codex",
+      "summary": "Undertext math recovered via multi-spectral imaging — sibling method to Declaration UV layers.",
+      "kbatchHooks": [
+        "paleography",
+        "deep-zoom",
+        "path-geometry"
+      ],
+      "tags": [
+        "greek",
+        "math",
+        "multispectral",
+        "open"
+      ]
+    },
+    {
+      "id": "codex-sinaiticus",
+      "title": "Codex Sinaiticus",
+      "status": "open",
+      "tier": 2,
+      "era": "late-antique",
+      "region": "mediterranean",
+      "culture": "christian",
+      "script": "greek-uncial",
+      "media": [
+        "parchment-codex"
+      ],
+      "yearHint": 350,
+      "pattern": "codex",
+      "summary": "4th-c. Greek biblical codex with multi-institution digital edition.",
+      "kbatchHooks": [
+        "deep-zoom",
+        "path-geometry",
+        "restoration"
+      ],
+      "citations": [
+        {
+          "label": "codexsinaiticus.org",
+          "url": "https://www.codexsinaiticus.org/"
+        }
+      ],
+      "tags": [
+        "greek",
+        "bible",
+        "open"
+      ]
+    },
+    {
+      "id": "linear-b-tablets",
+      "title": "Linear B tablets · Knossos / Pylos",
+      "status": "open",
+      "tier": 2,
+      "era": "bronze-age",
+      "region": "aegean",
+      "culture": "mycenaean",
+      "script": "linear-b",
+      "media": [
+        "clay-tablet"
+      ],
+      "yearHint": -1400,
+      "pattern": "declaration",
+      "summary": "Administrative syllabic script — name lists + commodity geometry. Ventris decipherment story as Cage/education.",
+      "names": [
+        {
+          "name": "Michael Ventris",
+          "role": "decipherer (modern)",
+          "note": "cite-out"
+        }
+      ],
+      "kbatchHooks": [
+        "path-geometry",
+        "open-names",
+        "rosetta"
+      ],
+      "tags": [
+        "bronze-age",
+        "syllabary",
+        "open"
+      ]
+    },
+    {
+      "id": "behistun-inscription",
+      "title": "Behistun Inscription · Darius trilingual",
+      "status": "open",
+      "tier": 2,
+      "era": "achaemenid",
+      "region": "iran",
+      "culture": "persian",
+      "script": "old-persian-elamite-akkadian",
+      "media": [
+        "rock-relief"
+      ],
+      "yearHint": -520,
+      "pattern": "declaration",
+      "summary": "Trilingual rock text that unlocked cuneiform — Rosetta-class calibration object.",
+      "kbatchHooks": [
+        "rosetta",
+        "path-geometry",
+        "world-path"
+      ],
+      "tags": [
+        "cuneiform",
+        "trilingual",
+        "open"
+      ]
+    },
+    {
+      "id": "oxyrhynchus-papyri",
+      "title": "Oxyrhynchus Papyri",
+      "status": "open",
+      "tier": 2,
+      "era": "greco-roman-egypt",
+      "region": "egypt",
+      "culture": "greco-egyptian",
+      "script": "greek-coptic",
+      "media": [
+        "papyrus-fragments"
+      ],
+      "yearHint": 200,
+      "pattern": "codex",
+      "summary": "Huge fragment corpus (literature, documents). Stream packing like Declaration lines.",
+      "kbatchHooks": [
+        "restoration",
+        "path-geometry"
+      ],
+      "tags": [
+        "papyrus",
+        "greek",
+        "open"
+      ]
+    },
+    {
+      "id": "nag-hammadi",
+      "title": "Nag Hammadi library",
+      "status": "open",
+      "tier": 2,
+      "era": "late-antique",
+      "region": "egypt",
+      "culture": "coptic-gnostic",
+      "script": "coptic",
+      "media": [
+        "codex"
+      ],
+      "yearHint": 350,
+      "pattern": "codex",
+      "summary": "Coptic codices (Gospel of Thomas etc.) — PD translations for path + mythology/philosophy crosswalk.",
+      "kbatchHooks": [
+        "restoration",
+        "path-geometry",
+        "mythology-crosswalk"
+      ],
+      "tags": [
+        "coptic",
+        "codex",
+        "open"
+      ]
+    },
+    {
+      "id": "gilgamesh-tablets",
+      "title": "Epic of Gilgamesh tablets",
+      "status": "open",
+      "tier": 2,
+      "era": "mesopotamian",
+      "region": "mesopotamia",
+      "culture": "sumerian-akkadian",
+      "script": "cuneiform",
+      "media": [
+        "clay-tablet"
+      ],
+      "yearHint": -1800,
+      "pattern": "codex",
+      "summary": "Standard Babylonian epic tablets — PD translations + name orthography.",
+      "kbatchHooks": [
+        "mythology-crosswalk",
+        "path-geometry",
+        "restoration"
+      ],
+      "tags": [
+        "cuneiform",
+        "epic",
+        "open"
+      ]
+    },
+    {
+      "id": "code-hammurabi",
+      "title": "Code of Hammurabi stele",
+      "status": "open",
+      "tier": 2,
+      "era": "old-babylonian",
+      "region": "mesopotamia",
+      "culture": "babylonian",
+      "script": "cuneiform",
+      "media": [
+        "basalt-stele"
+      ],
+      "yearHint": -1750,
+      "pattern": "declaration",
+      "summary": "Law stele as public orthography object — declaration-class public text.",
+      "kbatchHooks": [
+        "path-geometry",
+        "open-names"
+      ],
+      "tags": [
+        "law",
+        "cuneiform",
+        "open"
+      ]
+    },
+    {
+      "id": "pyramid-texts",
+      "title": "Pyramid Texts · Old Kingdom",
+      "status": "open",
+      "tier": 3,
+      "era": "old-kingdom",
+      "region": "egypt",
+      "culture": "egyptian",
+      "script": "hieroglyphic",
+      "media": [
+        "tomb-inscription"
+      ],
+      "yearHint": -2400,
+      "pattern": "declaration",
+      "summary": "Earliest extensive religious corpus on stone — line packs + deity names.",
+      "kbatchHooks": [
+        "mythology-crosswalk",
+        "path-geometry"
+      ],
+      "tags": [
+        "egypt",
+        "hieroglyph",
+        "open"
+      ]
+    },
+    {
+      "id": "amarna-letters",
+      "title": "Amarna letters",
+      "status": "open",
+      "tier": 3,
+      "era": "new-kingdom",
+      "region": "egypt-levant",
+      "culture": "international-bronze-age",
+      "script": "akkadian-cuneiform",
+      "media": [
+        "clay-tablet"
+      ],
+      "yearHint": -1350,
+      "pattern": "codex",
+      "summary": "Diplomatic archive — name network for AnCEstory antiquity layer.",
+      "kbatchHooks": [
+        "open-names",
+        "path-geometry",
+        "ancestory"
+      ],
+      "tags": [
+        "diplomacy",
+        "cuneiform",
+        "open"
+      ]
+    },
+    {
+      "id": "ebla-tablets",
+      "title": "Ebla tablets",
+      "status": "open",
+      "tier": 3,
+      "era": "bronze-age",
+      "region": "syria",
+      "culture": "eblaite",
+      "script": "cuneiform",
+      "media": [
+        "clay-tablet"
+      ],
+      "yearHint": -2500,
+      "pattern": "codex",
+      "summary": "Palace archive of early Syrian city-state — lexicon + name lists.",
+      "kbatchHooks": [
+        "open-names",
+        "path-geometry"
+      ],
+      "tags": [
+        "archive",
+        "cuneiform",
+        "open"
+      ]
+    },
+    {
+      "id": "dunhuang-manuscripts",
+      "title": "Dunhuang (Library Cave) manuscripts",
+      "status": "open",
+      "tier": 2,
+      "era": "medieval-central-asia",
+      "region": "china-silk-road",
+      "culture": "multi-script-silk-road",
+      "script": "chinese-sogdian-tibetan-etc",
+      "media": [
+        "paper-scroll",
+        "codex"
+      ],
+      "yearHint": 800,
+      "pattern": "codex",
+      "summary": "Multi-script Silk Road corpus — world-path + layout matrix fuel.",
+      "kbatchHooks": [
+        "world-path",
+        "path-geometry",
+        "deep-zoom"
+      ],
+      "tags": [
+        "silk-road",
+        "multi-script",
+        "open"
+      ]
+    },
+    {
+      "id": "diamond-sutra",
+      "title": "Diamond Sutra · dated 868 print",
+      "status": "open",
+      "tier": 2,
+      "era": "tang",
+      "region": "china",
+      "culture": "buddhist-chinese",
+      "script": "chinese",
+      "media": [
+        "woodblock-print"
+      ],
+      "yearHint": 868,
+      "pattern": "codex",
+      "summary": "World's earliest complete dated printed book (BL) — deep-zoom + path on Chinese tokens.",
+      "kbatchHooks": [
+        "deep-zoom",
+        "path-geometry"
+      ],
+      "tags": [
+        "print",
+        "chinese",
+        "open"
+      ]
+    },
+    {
+      "id": "orkhon-inscriptions",
+      "title": "Orkhon runic inscriptions",
+      "status": "open",
+      "tier": 3,
+      "era": "early-medieval",
+      "region": "mongolia",
+      "culture": "turkic",
+      "script": "old-turkic-runiform",
+      "media": [
+        "stone-stele"
+      ],
+      "yearHint": 720,
+      "pattern": "declaration",
+      "summary": "Old Turkic public inscriptions — rare script path geometry.",
+      "kbatchHooks": [
+        "path-geometry",
+        "world-path"
+      ],
+      "tags": [
+        "runiform",
+        "turkic",
+        "open"
+      ]
+    },
+    {
+      "id": "ogham-stones",
+      "title": "Ogham stones · early Irish",
+      "status": "open",
+      "tier": 3,
+      "era": "early-medieval",
+      "region": "ireland-britain",
+      "culture": "gaeilge",
+      "script": "ogham",
+      "media": [
+        "stone"
+      ],
+      "yearHint": 400,
+      "pattern": "declaration",
+      "summary": "Edge-cut name inscriptions — letter-atom / stroke geometry playground.",
+      "kbatchHooks": [
+        "letter-atom",
+        "path-geometry",
+        "open-names"
+      ],
+      "tags": [
+        "ogham",
+        "celtic",
+        "open"
+      ]
+    },
+    {
+      "id": "elder-futhark-runestones",
+      "title": "Elder Futhark / Viking runestones",
+      "status": "open",
+      "tier": 2,
+      "era": "migration-viking",
+      "region": "scandinavia",
+      "culture": "norse",
+      "script": "runic",
+      "media": [
+        "stone"
+      ],
+      "yearHint": 800,
+      "pattern": "declaration",
+      "summary": "Public name/memorial texts — Codex Regius sibling culture + path on runic romanization.",
+      "relatedProjects": [
+        "codex-regius-gks2365"
+      ],
+      "kbatchHooks": [
+        "path-geometry",
+        "mythology-crosswalk",
+        "open-names"
+      ],
+      "tags": [
+        "runes",
+        "norse",
+        "open"
+      ]
+    },
+    {
+      "id": "magna-carta",
+      "title": "Magna Carta 1215",
+      "status": "open",
+      "tier": 2,
+      "era": "medieval",
+      "region": "england",
+      "culture": "anglo-norman",
+      "script": "latin",
+      "media": [
+        "parchment"
+      ],
+      "yearHint": 1215,
+      "pattern": "declaration",
+      "summary": "Constitutional parchment — Declaration-class public law text with museum scans.",
+      "kbatchHooks": [
+        "paleography",
+        "path-geometry",
+        "restoration"
+      ],
+      "tags": [
+        "law",
+        "parchment",
+        "open"
+      ]
+    },
+    {
+      "id": "domesday-book",
+      "title": "Domesday Book",
+      "status": "open",
+      "tier": 3,
+      "era": "medieval",
+      "region": "england",
+      "culture": "norman",
+      "script": "latin",
+      "media": [
+        "parchment-codex"
+      ],
+      "yearHint": 1086,
+      "pattern": "codex",
+      "summary": "Survey codex — place-name orthography mesh for open-names + AnCEstory.",
+      "kbatchHooks": [
+        "open-names",
+        "path-geometry",
+        "ancestory"
+      ],
+      "tags": [
+        "survey",
+        "names",
+        "open"
+      ]
+    },
+    {
+      "id": "bayeux-tapestry",
+      "title": "Bayeux Tapestry",
+      "status": "open",
+      "tier": 2,
+      "era": "medieval",
+      "region": "normandy",
+      "culture": "norman",
+      "script": "latin-captions",
+      "media": [
+        "embroidery",
+        "caption-stream"
+      ],
+      "yearHint": 1070,
+      "pattern": "declaration",
+      "summary": "Narrative caption stream along embroidery — glyph/word stream like Declaration lines.",
+      "kbatchHooks": [
+        "path-geometry",
+        "deep-zoom"
+      ],
+      "tags": [
+        "visual",
+        "captions",
+        "open"
+      ]
+    },
+    {
+      "id": "antikythera-mechanism",
+      "title": "Antikythera mechanism inscriptions",
+      "status": "open",
+      "tier": 2,
+      "era": "hellenistic",
+      "region": "greece",
+      "culture": "greek",
+      "script": "greek",
+      "media": [
+        "bronze-inscription",
+        "xray"
+      ],
+      "yearHint": -100,
+      "pattern": "declaration",
+      "summary": "Astronomical device + recovered Greek inscriptions — science orthography + Cage on modern myths.",
+      "kbatchHooks": [
+        "cage-litmus",
+        "path-geometry"
+      ],
+      "tags": [
+        "astronomy",
+        "greek",
+        "open"
+      ]
+    },
+    {
+      "id": "phaistos-disc",
+      "title": "Phaistos Disc",
+      "status": "open",
+      "tier": 3,
+      "era": "minoan",
+      "region": "crete",
+      "culture": "minoan",
+      "script": "unknown-phaistos",
+      "media": [
+        "clay-disc"
+      ],
+      "yearHint": -1700,
+      "pattern": "codex",
+      "summary": "Undeciphered stamped spiral — Cage + letter-grid experimental geometry only; no decode claims.",
+      "kbatchHooks": [
+        "cage-litmus",
+        "letter-grid"
+      ],
+      "tags": [
+        "undeciphered",
+        "cage",
+        "open"
+      ]
+    },
+    {
+      "id": "rongorongo",
+      "title": "Rongorongo tablets · Rapa Nui",
+      "status": "open",
+      "tier": 3,
+      "era": "pre-contact-pacific",
+      "region": "rapa-nui",
+      "culture": "rapa-nui",
+      "script": "rongorongo",
+      "media": [
+        "wood-tablet"
+      ],
+      "yearHint": 1800,
+      "pattern": "codex",
+      "summary": "Undeciphered Pacific script — honor community; educational geometry only.",
+      "kbatchHooks": [
+        "cage-litmus",
+        "path-geometry"
+      ],
+      "rights": "cultural sensitivity · no commercial scrape",
+      "tags": [
+        "undeciphered",
+        "pacific",
+        "honor",
+        "open"
+      ]
+    },
+    {
+      "id": "indus-script-seals",
+      "title": "Indus Valley script seals",
+      "status": "open",
+      "tier": 3,
+      "era": "bronze-age",
+      "region": "south-asia",
+      "culture": "harappan",
+      "script": "indus",
+      "media": [
+        "seal"
+      ],
+      "yearHint": -2000,
+      "pattern": "declaration",
+      "summary": "Undeciphered seal corpus — Cage + short glyph path experiments; no auto-decipher.",
+      "kbatchHooks": [
+        "cage-litmus",
+        "path-geometry"
+      ],
+      "tags": [
+        "undeciphered",
+        "bronze-age",
+        "open"
+      ]
+    },
+    {
+      "id": "cascajal-block",
+      "title": "Cascajal Block · Olmec",
+      "status": "open",
+      "tier": 3,
+      "era": "formative-mesoamerica",
+      "region": "mexico",
+      "culture": "olmec",
+      "script": "possible-olmec",
+      "media": [
+        "serpentine-block"
+      ],
+      "yearHint": -900,
+      "pattern": "declaration",
+      "summary": "Possible earliest Mesoamerican writing block — Cage-heavy claims; sibling to Maya script lineage.",
+      "relatedProjects": [
+        "xultun-sak-tahn-waax",
+        "san-bartolo-murals"
+      ],
+      "kbatchHooks": [
+        "cage-litmus",
+        "path-geometry"
+      ],
+      "tags": [
+        "mesoamerica",
+        "early-writing",
+        "open"
+      ]
+    },
+    {
+      "id": "florentine-codex",
+      "title": "Florentine Codex · Sahagún",
+      "status": "open",
+      "tier": 2,
+      "era": "colonial-mesoamerica",
+      "region": "mexico",
+      "culture": "nahua-spanish",
+      "script": "nahuatl-spanish",
+      "media": [
+        "manuscript",
+        "illustration"
+      ],
+      "yearHint": 1577,
+      "pattern": "codex",
+      "summary": "Encyclopedic Nahua knowledge in bilingual manuscript — path + mythology; rights-careful images.",
+      "kbatchHooks": [
+        "mythology-crosswalk",
+        "path-geometry",
+        "world-path"
+      ],
+      "rights": "library open images when available · no pirate",
+      "tags": [
+        "nahua",
+        "colonial",
+        "open"
+      ]
+    },
+    {
+      "id": "codex-mendoza",
+      "title": "Codex Mendoza",
+      "status": "open",
+      "tier": 2,
+      "era": "colonial-mesoamerica",
+      "region": "mexico",
+      "culture": "nahua-spanish",
+      "script": "pictorial-nahuatl-spanish",
+      "media": [
+        "manuscript"
+      ],
+      "yearHint": 1541,
+      "pattern": "codex",
+      "summary": "Aztec tribute / daily life pictorial codex with Spanish glosses.",
+      "kbatchHooks": [
+        "deep-zoom",
+        "path-geometry"
+      ],
+      "tags": [
+        "nahua",
+        "pictorial",
+        "open"
+      ]
+    },
+    {
+      "id": "beowulf-nowell",
+      "title": "Beowulf · Nowell Codex (Cotton Vitellius A.xv)",
+      "status": "scaffold",
+      "tier": 1,
+      "era": "early-medieval",
+      "region": "england",
+      "culture": "anglo-saxon",
+      "script": "old-english",
+      "media": [
+        "parchment-codex",
+        "fire-damage"
+      ],
+      "yearHint": 1000,
+      "pattern": "codex",
+      "summary": "OE epic manuscript with fire damage — restoration track already open in living-books + PD text.",
+      "surfaces": {
+        "restoration": "/data/living-books/restoration-projects.json#restore-beowulf"
+      },
+      "kbatchHooks": [
+        "restoration",
+        "path-geometry",
+        "paleography"
+      ],
+      "tags": [
+        "old-english",
+        "epic",
+        "scaffold"
+      ]
+    },
+    {
+      "id": "iliad-venetus-a",
+      "title": "Iliad · Venetus A and Homeric tradition",
+      "status": "open",
+      "tier": 2,
+      "era": "classical-byzantine",
+      "region": "mediterranean",
+      "culture": "greek",
+      "script": "greek",
+      "media": [
+        "parchment-codex"
+      ],
+      "yearHint": 900,
+      "pattern": "codex",
+      "summary": "Primary medieval Iliad witness tradition + PD translations for path.",
+      "surfaces": {
+        "restoration": "/data/living-books/restoration-projects.json#restore-iliad"
+      },
+      "kbatchHooks": [
+        "restoration",
+        "mythology-crosswalk",
+        "path-geometry"
+      ],
+      "tags": [
+        "greek",
+        "epic",
+        "open"
+      ]
+    }
+  ],
+  "relatedData": {
+    "restoration": "data/living-books/restoration-projects.json",
+    "visual": "data/living-books/visual-projects.json",
+    "scholarNames": "data/antiquity/scholar-names.json",
+    "lexicon": "data/antiquity/lexicon-seed.json",
+    "antiquityOpen": "data/ancestory/antiquity-open.json",
+    "declaration": "data/declaration/",
+    "livingBooks": "labs/living-books.html",
+    "rosetta": "labs/rosetta.html",
+    "museum": "museum.html",
+    "forAi": "for-ai.html"
+  }
+}

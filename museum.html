@@ -1,0 +1,353 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>KBatch · Museum resource · exhibit kits</title>
+  <meta name="description" content="Embeddable script/path exhibit kits for museums and libraries — geometry resource, not a gallery replacement." />
+  <meta name="kbatch-data-base" content="https://data.ugrad.ai/kbatch/" />
+  <meta name="theme-color" content="#0d1117" />
+  <link rel="stylesheet" href="css/app.css?v=1.2.0+local+20260724080547" />
+  <link rel="stylesheet" href="css/docs-site.css?v=1.2.0+local+20260724080547" />
+  <script>
+    try {
+      var t = localStorage.getItem("kbatch-dict-theme");
+      if (t !== "light" && t !== "dark")
+        t = matchMedia("(prefers-color-scheme: light)").matches ? "light" : "dark";
+      document.documentElement.setAttribute("data-theme", t);
+    } catch (e) {
+      document.documentElement.setAttribute("data-theme", "dark");
+    }
+  </script>
+  <style>
+    .kit-grid { display: grid; gap: 12px; margin: 16px 0; }
+    .kit-card {
+      border: 1px solid var(--line, #30363d);
+      border-radius: 12px;
+      padding: 14px 16px;
+      background: var(--panel, var(--bg-elev, #161b22));
+      color: var(--ink);
+    }
+    .kit-card h2 { margin: 0 0 6px; font-size: 1rem; color: var(--ink); }
+    .kit-card pre {
+      font-size: 0.72rem; overflow: auto; padding: 10px;
+      background: var(--bg, #0d1117); color: var(--ink);
+      border-radius: 8px; border: 1px solid var(--line);
+    }
+    .kit-meta { font-size: 0.78rem; color: var(--faint, #8b949e); }
+    .kit-actions { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 10px; }
+    #mou-template {
+      font-size: 0.75rem; overflow: auto; padding: 10px;
+      background: var(--bg, #0d1117); color: var(--ink);
+      border-radius: 8px; border: 1px solid var(--line);
+    }
+    .museum-path-live {
+      margin: 14px 0 0;
+      padding: 12px;
+      border: 1px solid var(--line, #30363d);
+      border-radius: 12px;
+      background: var(--bg-elev, #161b22);
+      min-height: 120px;
+    }
+    .museum-path-live .path-geometry-panel,
+    .museum-path-live .dual-pane {
+      border: 0;
+      padding: 0;
+      background: transparent;
+    }
+    .museum-path-live .dual-h { margin: 0 0 8px; font-size: 0.9rem; }
+    .museum-path-live .dual-line { margin: 4px 0; font-size: 0.84rem; }
+    .museum-path-live .sense-k {
+      display: inline-block;
+      min-width: 5.5rem;
+      color: var(--faint, #8b949e);
+      font-size: 0.72rem;
+      text-transform: uppercase;
+      letter-spacing: 0.04em;
+    }
+    .embed-mode-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px 16px;
+      align-items: center;
+      margin: 10px 0 4px;
+      font-size: 0.85rem;
+    }
+  </style>
+</head>
+<body class="docs-site">
+  <header class="docs-top">
+    <div class="docs-top-inner">
+      <a class="docs-brand" href="./"><b>KBatch</b> · museum resource</a>
+      <nav class="docs-nav site-nav" aria-label="Site"></nav>
+    </div>
+  </header>
+  <main class="docs-main" style="max-width: 900px">
+    <p class="docs-kicker">Axis 3 · embeddable path layer for institutions</p>
+    <h1>Museum &amp; library exhibit kits</h1>
+    <p class="docs-lead">
+      KBatch is a <strong>geometry resource</strong> museums embed — not a gallery replacement.
+      Honor languages stay gated. Copy iframe + MCP for each kit.
+    </p>
+    <section class="kit-card" style="margin:14px 0">
+      <h2>Antiquity discovery mesh (scaffold kits)</h2>
+      <p class="docs-kicker" style="margin:0 0 10px">
+        Declaration-class projects beyond the engrossed parchment: Maya (Sak Tahn Waax · Dresden),
+        Herculaneum, Dead Sea Scrolls, Rosetta, cuneiform, runes — catalog + path seeds.
+        Full hieroglyph / honor languages stay partnership-gated.
+      </p>
+      <p style="display:flex;flex-wrap:wrap;gap:8px;margin:0 0 18px">
+        <a class="btn" href="data/antiquity/discovery-projects.json">discovery mesh JSON</a>
+        <a class="btn" href="docs/ANTIQUITY-DISCOVERY-MESH.md">mesh docs</a>
+        <a class="btn" href="labs/living-books.html">Living books restoration</a>
+      </p>
+      <h2>Declaration archival codex (partial museum-ready)</h2>
+      <p class="kit-meta">
+        NARA engrossed calligraphy + clean dual · UV multi-layer zoom · scribe sectioning ·
+        world through-lines hub. Multilingual full texts still scaffolded (en full · 87 slots planned).
+      </p>
+      <div class="kit-actions">
+        <a class="btn btn-primary" href="labs/declaration-digital-edition/">Open archive workspace</a>
+        <a class="btn" href="labs/declaration-digital-edition/world.html">World · multilingual</a>
+        <a class="btn" href="data/declaration/readiness.json">Readiness scorecard JSON</a>
+      </div>
+    </section>
+    <p id="museum-status" class="docs-kicker">Loading kits…</p>
+    <p class="docs-lead" style="font-size:0.88rem">
+      <strong>M3.5 embed-ready:</strong> copy iframe into any exhibit CMS · honor kits stay gated · MOU slots open (unsigned).
+      Partnership path = one live institutional embed or signed MOU (M4).
+    </p>
+    <div class="kit-grid" id="kit-grid"></div>
+    <section>
+      <h2>Builder</h2>
+      <p class="docs-lead" style="font-size:0.9rem">
+        Pick kit → sample word → live path panel (inline) → copy embed.
+        Default embed is the slim path panel — full Dictionary dual-pane is optional.
+      </p>
+      <label>Kit
+        <select id="kit-select"></select>
+      </label>
+      <label style="margin-left:12px">Sample word
+        <input id="kit-word" type="text" value="path" size="12" />
+      </label>
+      <div class="embed-mode-row" role="group" aria-label="Embed mode">
+        <label><input type="radio" name="embed-mode" value="path" checked /> Path panel (recommended)</label>
+        <label><input type="radio" name="embed-mode" value="dictionary" /> Full Dictionary dual-pane</label>
+      </div>
+      <button type="button" class="btn btn-primary" id="btn-copy-embed">Copy iframe</button>
+      <button type="button" class="btn" id="btn-open-preview">Open preview</button>
+      <button type="button" class="btn" id="btn-download-kit" title="Download kit JSON pack for CMS / offline">Download kit JSON</button>
+      <button type="button" class="btn" id="btn-download-all" title="Download full museum resource catalog">Download all kits</button>
+      <div class="museum-path-live" id="path-live" aria-live="polite">Loading path…</div>
+      <pre id="embed-out" style="margin-top:12px"></pre>
+    </section>
+    <section>
+      <h2>MOU / partnership slot (M4 path · human gate)</h2>
+      <p class="docs-lead" style="font-size:0.88rem">
+        Unsigned collaboration placeholders for BL · LOC · BnF · Smithsonian · Unicode.
+        Code prepared the pack — <strong>signed MOUs are a human CRM step</strong> and are not claimed as done.
+        Scores do not rise until status is pilot-embed or signed-mou.
+      </p>
+      <div class="kit-actions" style="margin-bottom:10px">
+        <button type="button" class="btn btn-primary" id="btn-download-mou" title="Download full MOU outreach pack JSON">Download MOU pack</button>
+        <button type="button" class="btn" id="btn-copy-letter" title="Copy outreach letter to clipboard">Copy outreach letter</button>
+        <a class="btn" href="data/human-gates/track-c.json">Track C board →</a>
+      </div>
+      <div id="mou-slots" class="kit-grid" aria-label="Institution slots"></div>
+      <pre id="mou-template"></pre>
+    </section>
+  </main>
+  <script type="importmap">
+{"imports":{"/js/analyze.js":"/js/analyze.js?v=1.2.0+local+20260724080547","js/analyze.js":"js/analyze.js?v=1.2.0+local+20260724080547","/js/ancestory-lab.js":"/js/ancestory-lab.js?v=1.2.0+local+20260724080547","js/ancestory-lab.js":"js/ancestory-lab.js?v=1.2.0+local+20260724080547","/js/app.js":"/js/app.js?v=1.2.0+local+20260724080547","js/app.js":"js/app.js?v=1.2.0+local+20260724080547","/js/archive-restoration-viewer.js":"/js/archive-restoration-viewer.js?v=1.2.0+local+20260724080547","js/archive-restoration-viewer.js":"js/archive-restoration-viewer.js?v=1.2.0+local+20260724080547","/js/billboard-2026.js":"/js/billboard-2026.js?v=1.2.0+local+20260724080547","js/billboard-2026.js":"js/billboard-2026.js?v=1.2.0+local+20260724080547","/js/blank-bridge.js":"/js/blank-bridge.js?v=1.2.0+local+20260724080547","js/blank-bridge.js":"js/blank-bridge.js?v=1.2.0+local+20260724080547","/js/cache-bust.js":"/js/cache-bust.js?v=1.2.0+local+20260724080547","js/cache-bust.js":"js/cache-bust.js?v=1.2.0+local+20260724080547","/js/cage-litmus-mcp.js":"/js/cage-litmus-mcp.js?v=1.2.0+local+20260724080547","js/cage-litmus-mcp.js":"js/cage-litmus-mcp.js?v=1.2.0+local+20260724080547","/js/capsule-analyzer.js":"/js/capsule-analyzer.js?v=1.2.0+local+20260724080547","js/capsule-analyzer.js":"js/capsule-analyzer.js?v=1.2.0+local+20260724080547","/js/capsules-canon.js":"/js/capsules-canon.js?v=1.2.0+local+20260724080547","js/capsules-canon.js":"js/capsules-canon.js?v=1.2.0+local+20260724080547","/js/collab-lab.js":"/js/collab-lab.js?v=1.2.0+local+20260724080547","js/collab-lab.js":"js/collab-lab.js?v=1.2.0+local+20260724080547","/js/contrails-viz.js":"/js/contrails-viz.js?v=1.2.0+local+20260724080547","js/contrails-viz.js":"js/contrails-viz.js?v=1.2.0+local+20260724080547","/js/corpus-sources.js":"/js/corpus-sources.js?v=1.2.0+local+20260724080547","js/corpus-sources.js":"js/corpus-sources.js?v=1.2.0+local+20260724080547","/js/corpus.js":"/js/corpus.js?v=1.2.0+local+20260724080547","js/corpus.js":"js/corpus.js?v=1.2.0+local+20260724080547","/js/cortical-loop.js":"/js/cortical-loop.js?v=1.2.0+local+20260724080547","js/cortical-loop.js":"js/cortical-loop.js?v=1.2.0+local+20260724080547","/js/declaration-cadence.js":"/js/declaration-cadence.js?v=1.2.0+local+20260724080547","js/declaration-cadence.js":"js/declaration-cadence.js?v=1.2.0+local+20260724080547","/js/declaration-cage-litmus.js":"/js/declaration-cage-litmus.js?v=1.2.0+local+20260724080547","js/declaration-cage-litmus.js":"js/declaration-cage-litmus.js?v=1.2.0+local+20260724080547","/js/declaration-edition-nav.js":"/js/declaration-edition-nav.js?v=1.2.0+local+20260724080547","js/declaration-edition-nav.js":"js/declaration-edition-nav.js?v=1.2.0+local+20260724080547","/js/declaration-letter-grid.js":"/js/declaration-letter-grid.js?v=1.2.0+local+20260724080547","js/declaration-letter-grid.js":"js/declaration-letter-grid.js?v=1.2.0+local+20260724080547","/js/declaration-symbology.js":"/js/declaration-symbology.js?v=1.2.0+local+20260724080547","js/declaration-symbology.js":"js/declaration-symbology.js?v=1.2.0+local+20260724080547","/js/declaration-world.js":"/js/declaration-world.js?v=1.2.0+local+20260724080547","js/declaration-world.js":"js/declaration-world.js?v=1.2.0+local+20260724080547","/js/deep-zoom-viewer.js":"/js/deep-zoom-viewer.js?v=1.2.0+local+20260724080547","js/deep-zoom-viewer.js":"js/deep-zoom-viewer.js?v=1.2.0+local+20260724080547","/js/dojo-app.js":"/js/dojo-app.js?v=1.2.0+local+20260724080547","js/dojo-app.js":"js/dojo-app.js?v=1.2.0+local+20260724080547","/js/education.js":"/js/education.js?v=1.2.0+local+20260724080547","js/education.js":"js/education.js?v=1.2.0+local+20260724080547","/js/encoder.js":"/js/encoder.js?v=1.2.0+local+20260724080547","js/encoder.js":"js/encoder.js?v=1.2.0+local+20260724080547","/js/export.js":"/js/export.js?v=1.2.0+local+20260724080547","js/export.js":"js/export.js?v=1.2.0+local+20260724080547","/js/freya-math.js":"/js/freya-math.js?v=1.2.0+local+20260724080547","js/freya-math.js":"js/freya-math.js?v=1.2.0+local+20260724080547","/js/gluelam-consumer.js":"/js/gluelam-consumer.js?v=1.2.0+local+20260724080547","js/gluelam-consumer.js":"js/gluelam-consumer.js?v=1.2.0+local+20260724080547","/js/glyph-steno.js":"/js/glyph-steno.js?v=1.2.0+local+20260724080547","js/glyph-steno.js":"js/glyph-steno.js?v=1.2.0+local+20260724080547","/js/historical.js":"/js/historical.js?v=1.2.0+local+20260724080547","js/historical.js":"js/historical.js?v=1.2.0+local+20260724080547","/js/history-harness.js":"/js/history-harness.js?v=1.2.0+local+20260724080547","js/history-harness.js":"js/history-harness.js?v=1.2.0+local+20260724080547","/js/history-sliderule.js":"/js/history-sliderule.js?v=1.2.0+local+20260724080547","js/history-sliderule.js":"js/history-sliderule.js?v=1.2.0+local+20260724080547","/js/i18n-desc.js":"/js/i18n-desc.js?v=1.2.0+local+20260724080547","js/i18n-desc.js":"js/i18n-desc.js?v=1.2.0+local+20260724080547","/js/inclusive-identity.js":"/js/inclusive-identity.js?v=1.2.0+local+20260724080547","js/inclusive-identity.js":"js/inclusive-identity.js?v=1.2.0+local+20260724080547","/js/ironline-bus.js":"/js/ironline-bus.js?v=1.2.0+local+20260724080547","js/ironline-bus.js":"js/ironline-bus.js?v=1.2.0+local+20260724080547","/js/keyboard-pattern-lab.js":"/js/keyboard-pattern-lab.js?v=1.2.0+local+20260724080547","js/keyboard-pattern-lab.js":"js/keyboard-pattern-lab.js?v=1.2.0+local+20260724080547","/js/language-alphabet-matrix.js":"/js/language-alphabet-matrix.js?v=1.2.0+local+20260724080547","js/language-alphabet-matrix.js":"js/language-alphabet-matrix.js?v=1.2.0+local+20260724080547","/js/language-catalog.js":"/js/language-catalog.js?v=1.2.0+local+20260724080547","js/language-catalog.js":"js/language-catalog.js?v=1.2.0+local+20260724080547","/js/language-stepping.js":"/js/language-stepping.js?v=1.2.0+local+20260724080547","js/language-stepping.js":"js/language-stepping.js?v=1.2.0+local+20260724080547","/js/layout-ring-lattice.js":"/js/layout-ring-lattice.js?v=1.2.0+local+20260724080547","js/layout-ring-lattice.js":"js/layout-ring-lattice.js?v=1.2.0+local+20260724080547","/js/layouts.js":"/js/layouts.js?v=1.2.0+local+20260724080547","js/layouts.js":"js/layouts.js?v=1.2.0+local+20260724080547","/js/lazy-loader.js":"/js/lazy-loader.js?v=1.2.0+local+20260724080547","js/lazy-loader.js":"js/lazy-loader.js?v=1.2.0+local+20260724080547","/js/learn-app.js":"/js/learn-app.js?v=1.2.0+local+20260724080547","js/learn-app.js":"js/learn-app.js?v=1.2.0+local+20260724080547","/js/letter-atom.js":"/js/letter-atom.js?v=1.2.0+local+20260724080547","js/letter-atom.js":"js/letter-atom.js?v=1.2.0+local+20260724080547","/js/letter-grid-lab.js":"/js/letter-grid-lab.js?v=1.2.0+local+20260724080547","js/letter-grid-lab.js":"js/letter-grid-lab.js?v=1.2.0+local+20260724080547","/js/letter-grid-mcp.js":"/js/letter-grid-mcp.js?v=1.2.0+local+20260724080547","js/letter-grid-mcp.js":"js/letter-grid-mcp.js?v=1.2.0+local+20260724080547","/js/live-dict.js":"/js/live-dict.js?v=1.2.0+local+20260724080547","js/live-dict.js":"js/live-dict.js?v=1.2.0+local+20260724080547","/js/living-book-reader.js":"/js/living-book-reader.js?v=1.2.0+local+20260724080547","js/living-book-reader.js":"js/living-book-reader.js?v=1.2.0+local+20260724080547","/js/living-books.js":"/js/living-books.js?v=1.2.0+local+20260724080547","js/living-books.js":"js/living-books.js?v=1.2.0+local+20260724080547","/js/llm-tool-calibrate.js":"/js/llm-tool-calibrate.js?v=1.2.0+local+20260724080547","js/llm-tool-calibrate.js":"js/llm-tool-calibrate.js?v=1.2.0+local+20260724080547","/js/local-identity.js":"/js/local-identity.js?v=1.2.0+local+20260724080547","js/local-identity.js":"js/local-identity.js?v=1.2.0+local+20260724080547","/js/lyrics-analyze.js":"/js/lyrics-analyze.js?v=1.2.0+local+20260724080547","js/lyrics-analyze.js":"js/lyrics-analyze.js?v=1.2.0+local+20260724080547","/js/lyrics-app.js":"/js/lyrics-app.js?v=1.2.0+local+20260724080547","js/lyrics-app.js":"js/lyrics-app.js?v=1.2.0+local+20260724080547","/js/mesh-bus.js":"/js/mesh-bus.js?v=1.2.0+local+20260724080547","js/mesh-bus.js":"js/mesh-bus.js?v=1.2.0+local+20260724080547","/js/mythology-open.js":"/js/mythology-open.js?v=1.2.0+local+20260724080547","js/mythology-open.js":"js/mythology-open.js?v=1.2.0+local+20260724080547","/js/names-glance.js":"/js/names-glance.js?v=1.2.0+local+20260724080547","js/names-glance.js":"js/names-glance.js?v=1.2.0+local+20260724080547","/js/open-reader-search.js":"/js/open-reader-search.js?v=1.2.0+local+20260724080547","js/open-reader-search.js":"js/open-reader-search.js?v=1.2.0+local+20260724080547","/js/open-senses.js":"/js/open-senses.js?v=1.2.0+local+20260724080547","js/open-senses.js":"js/open-senses.js?v=1.2.0+local+20260724080547","/js/order-analysis.js":"/js/order-analysis.js?v=1.2.0+local+20260724080547","js/order-analysis.js":"js/order-analysis.js?v=1.2.0+local+20260724080547","/js/overview-pipe.js":"/js/overview-pipe.js?v=1.2.0+local+20260724080547","js/overview-pipe.js":"js/overview-pipe.js?v=1.2.0+local+20260724080547","/js/paleography.js":"/js/paleography.js?v=1.2.0+local+20260724080547","js/paleography.js":"js/paleography.js?v=1.2.0+local+20260724080547","/js/path-geometry-panel.js":"/js/path-geometry-panel.js?v=1.2.0+local+20260724080547","js/path-geometry-panel.js":"js/path-geometry-panel.js?v=1.2.0+local+20260724080547","/js/pcap-image-bridge.js":"/js/pcap-image-bridge.js?v=1.2.0+local+20260724080547","js/pcap-image-bridge.js":"js/pcap-image-bridge.js?v=1.2.0+local+20260724080547","/js/persona-suggest.js":"/js/persona-suggest.js?v=1.2.0+local+20260724080547","js/persona-suggest.js":"js/persona-suggest.js?v=1.2.0+local+20260724080547","/js/phonation.js":"/js/phonation.js?v=1.2.0+local+20260724080547","js/phonation.js":"js/phonation.js?v=1.2.0+local+20260724080547","/js/phonetic-pattern.js":"/js/phonetic-pattern.js?v=1.2.0+local+20260724080547","js/phonetic-pattern.js":"js/phonetic-pattern.js?v=1.2.0+local+20260724080547","/js/pipeline.js":"/js/pipeline.js?v=1.2.0+local+20260724080547","js/pipeline.js":"js/pipeline.js?v=1.2.0+local+20260724080547","/js/pos.js":"/js/pos.js?v=1.2.0+local+20260724080547","js/pos.js":"js/pos.js?v=1.2.0+local+20260724080547","/js/probe-generator.js":"/js/probe-generator.js?v=1.2.0+local+20260724080547","js/probe-generator.js":"js/probe-generator.js?v=1.2.0+local+20260724080547","/js/qbpm-music.js":"/js/qbpm-music.js?v=1.2.0+local+20260724080547","js/qbpm-music.js":"js/qbpm-music.js?v=1.2.0+local+20260724080547","/js/quantum-bridge.js":"/js/quantum-bridge.js?v=1.2.0+local+20260724080547","js/quantum-bridge.js":"js/quantum-bridge.js?v=1.2.0+local+20260724080547","/js/quantum-gutter.js":"/js/quantum-gutter.js?v=1.2.0+local+20260724080547","js/quantum-gutter.js":"js/quantum-gutter.js?v=1.2.0+local+20260724080547","/js/registers.js":"/js/registers.js?v=1.2.0+local+20260724080547","js/registers.js":"js/registers.js?v=1.2.0+local+20260724080547","/js/research-app.js":"/js/research-app.js?v=1.2.0+local+20260724080547","js/research-app.js":"js/research-app.js?v=1.2.0+local+20260724080547","/js/research-corpus.js":"/js/research-corpus.js?v=1.2.0+local+20260724080547","js/research-corpus.js":"js/research-corpus.js?v=1.2.0+local+20260724080547","/js/rosetta-alphabets.js":"/js/rosetta-alphabets.js?v=1.2.0+local+20260724080547","js/rosetta-alphabets.js":"js/rosetta-alphabets.js?v=1.2.0+local+20260724080547","/js/rosetta-lab.js":"/js/rosetta-lab.js?v=1.2.0+local+20260724080547","js/rosetta-lab.js":"js/rosetta-lab.js?v=1.2.0+local+20260724080547","/js/rubik-language-map.js":"/js/rubik-language-map.js?v=1.2.0+local+20260724080547","js/rubik-language-map.js":"js/rubik-language-map.js?v=1.2.0+local+20260724080547","/js/saint-crypto-tumble.js":"/js/saint-crypto-tumble.js?v=1.2.0+local+20260724080547","js/saint-crypto-tumble.js":"js/saint-crypto-tumble.js?v=1.2.0+local+20260724080547","/js/schema.js":"/js/schema.js?v=1.2.0+local+20260724080547","js/schema.js":"js/schema.js?v=1.2.0+local+20260724080547","/js/scholar-linguistics.js":"/js/scholar-linguistics.js?v=1.2.0+local+20260724080547","js/scholar-linguistics.js":"js/scholar-linguistics.js?v=1.2.0+local+20260724080547","/js/scribe-forensics.js":"/js/scribe-forensics.js?v=1.2.0+local+20260724080547","js/scribe-forensics.js":"js/scribe-forensics.js?v=1.2.0+local+20260724080547","/js/scribe-live.js":"/js/scribe-live.js?v=1.2.0+local+20260724080547","js/scribe-live.js":"js/scribe-live.js?v=1.2.0+local+20260724080547","/js/shadow-live.js":"/js/shadow-live.js?v=1.2.0+local+20260724080547","js/shadow-live.js":"js/shadow-live.js?v=1.2.0+local+20260724080547","/js/shadow-search.js":"/js/shadow-search.js?v=1.2.0+local+20260724080547","js/shadow-search.js":"js/shadow-search.js?v=1.2.0+local+20260724080547","/js/site-nav.js":"/js/site-nav.js?v=1.2.0+local+20260724080547","js/site-nav.js":"js/site-nav.js?v=1.2.0+local+20260724080547","/js/spatial-hooks.js":"/js/spatial-hooks.js?v=1.2.0+local+20260724080547","js/spatial-hooks.js":"js/spatial-hooks.js?v=1.2.0+local+20260724080547","/js/staff-catalogue.js":"/js/staff-catalogue.js?v=1.2.0+local+20260724080547","js/staff-catalogue.js":"js/staff-catalogue.js?v=1.2.0+local+20260724080547","/js/steno-space-letter-grid.js":"/js/steno-space-letter-grid.js?v=1.2.0+local+20260724080547","js/steno-space-letter-grid.js":"js/steno-space-letter-grid.js?v=1.2.0+local+20260724080547","/js/steno-strip.js":"/js/steno-strip.js?v=1.2.0+local+20260724080547","js/steno-strip.js":"js/steno-strip.js?v=1.2.0+local+20260724080547","/js/terminal-lane.js":"/js/terminal-lane.js?v=1.2.0+local+20260724080547","js/terminal-lane.js":"js/terminal-lane.js?v=1.2.0+local+20260724080547","/js/tool-stack.js":"/js/tool-stack.js?v=1.2.0+local+20260724080547","js/tool-stack.js":"js/tool-stack.js?v=1.2.0+local+20260724080547","/js/typing-practice.js":"/js/typing-practice.js?v=1.2.0+local+20260724080547","js/typing-practice.js":"js/typing-practice.js?v=1.2.0+local+20260724080547","/js/ugrad-live-bus.js":"/js/ugrad-live-bus.js?v=1.2.0+local+20260724080547","js/ugrad-live-bus.js":"js/ugrad-live-bus.js?v=1.2.0+local+20260724080547","/js/ui-i18n.js":"/js/ui-i18n.js?v=1.2.0+local+20260724080547","js/ui-i18n.js":"js/ui-i18n.js?v=1.2.0+local+20260724080547","/js/version.js":"/js/version.js?v=1.2.0+local+20260724080547","js/version.js":"js/version.js?v=1.2.0+local+20260724080547","/js/waveform-letters.js":"/js/waveform-letters.js?v=1.2.0+local+20260724080547","js/waveform-letters.js":"js/waveform-letters.js?v=1.2.0+local+20260724080547","/js/words-seed.js":"/js/words-seed.js?v=1.2.0+local+20260724080547","js/words-seed.js":"js/words-seed.js?v=1.2.0+local+20260724080547","/js/world-path.js":"/js/world-path.js?v=1.2.0+local+20260724080547","js/world-path.js":"js/world-path.js?v=1.2.0+local+20260724080547","/js/writing-systems-catalog.js":"/js/writing-systems-catalog.js?v=1.2.0+local+20260724080547","js/writing-systems-catalog.js":"js/writing-systems-catalog.js?v=1.2.0+local+20260724080547","/js/x-article.js":"/js/x-article.js?v=1.2.0+local+20260724080547","js/x-article.js":"js/x-article.js?v=1.2.0+local+20260724080547"}}
+</script>
+  <script type="module">
+    import {
+      mountPathPanel,
+      pushPathTrail,
+      dictionaryCardHref,
+    } from "/js/path-geometry-panel.js";
+
+    const bases = ["./data/", "https://data.ugrad.ai/kbatch/", "https://kbatch.ugrad.ai/data/"];
+    async function load(rel) {
+      for (const b of bases) {
+        try {
+          const r = await fetch(b + rel, { cache: "default" });
+          if (r.ok) return r.json();
+        } catch { /* */ }
+      }
+      return null;
+    }
+    function esc(s) {
+      return String(s ?? "").replace(/&/g,"&amp;").replace(/</g,"&lt;");
+    }
+    function embedMode() {
+      return document.querySelector('input[name="embed-mode"]:checked')?.value || "path";
+    }
+    function embedFor(kit, word) {
+      const lang = kit?.lang || "en";
+      const w = word || (kit?.sampleWords && kit.sampleWords[0]) || "path";
+      const layout = kit?.layout || "qwerty";
+      const title = esc(kit?.title || "path");
+      if (embedMode() === "dictionary") {
+        return `<iframe src="https://kbatch.ugrad.ai/?lang=${encodeURIComponent(lang)}&q=${encodeURIComponent(w)}" title="KBatch Dictionary card · ${title}" loading="lazy" style="width:100%;min-height:420px;border:1px solid #30363d;border-radius:8px"></iframe>`;
+      }
+      // Slim path panel — preferred museum embed (no full Dictionary bounce)
+      return `<iframe src="https://kbatch.ugrad.ai/embed/path?q=${encodeURIComponent(w)}&layout=${encodeURIComponent(layout)}&compact=1" title="KBatch path geometry · ${title}" loading="lazy" style="width:100%;min-height:280px;border:1px solid #30363d;border-radius:8px"></iframe>`;
+    }
+    let pathTimer = null;
+    function refreshLivePath() {
+      const w = document.getElementById("kit-word")?.value?.trim() || "path";
+      const el = document.getElementById("path-live");
+      if (!el) return;
+      clearTimeout(pathTimer);
+      pathTimer = setTimeout(() => {
+        const layout = currentKit()?.layout || "qwerty";
+        pushPathTrail(w, { lab: "museum", layout });
+        void mountPathPanel(el, w, {
+          title: "Live path · exhibit sample",
+          compact: true,
+          layout,
+        });
+      }, 120);
+    }
+    const doc = await load("museum-resource/index.json");
+    const status = document.getElementById("museum-status");
+    const kits = doc?.kits || [];
+    status.textContent = `${kits.length} kits · status ${doc?.status || "—"} · ${doc?.partnershipStatus || ""}`;
+    const grid = document.getElementById("kit-grid");
+    grid.innerHTML = kits.map((k) => `
+      <article class="kit-card" data-kit="${esc(k.id)}">
+        <h2>${esc(k.title)}</h2>
+        <p class="kit-meta">lang <code>${esc(k.lang)}</code> · layout <code>${esc(k.layout)}</code>
+          ${k.sampleWords?.length ? ` · samples ${k.sampleWords.map(esc).join(", ")}` : ""}</p>
+        <p class="kit-meta">${esc(k.note || doc?.offer?.ethics || "")}</p>
+        <div class="kit-actions">
+          <button type="button" class="btn" data-use-kit="${esc(k.id)}">Use in builder</button>
+          <a class="btn" href="dojo/">DOJO geometry →</a>
+        </div>
+      </article>`).join("");
+    const sel = document.getElementById("kit-select");
+    sel.innerHTML = kits.map((k) => `<option value="${esc(k.id)}">${esc(k.title)}</option>`).join("");
+    function currentKit() {
+      return kits.find((k) => k.id === sel.value) || kits[0];
+    }
+    function refreshEmbed() {
+      const k = currentKit();
+      const w = document.getElementById("kit-word").value.trim() || "path";
+      document.getElementById("embed-out").textContent = embedFor(k, w);
+      refreshLivePath();
+    }
+    sel.addEventListener("change", () => {
+      const k = currentKit();
+      if (k?.sampleWords?.[0]) document.getElementById("kit-word").value = k.sampleWords[0];
+      refreshEmbed();
+    });
+    document.getElementById("kit-word").addEventListener("input", refreshEmbed);
+    document.querySelectorAll('input[name="embed-mode"]').forEach((r) => {
+      r.addEventListener("change", refreshEmbed);
+    });
+    document.getElementById("btn-copy-embed").addEventListener("click", async () => {
+      refreshEmbed();
+      try {
+        await navigator.clipboard.writeText(document.getElementById("embed-out").textContent);
+        status.textContent =
+          embedMode() === "path"
+            ? "Path-panel embed copied · paste into exhibit CMS"
+            : "Dictionary dual-pane embed copied · optional full workspace";
+      } catch {
+        status.textContent = "Copy failed — select the pre text manually";
+      }
+    });
+    document.getElementById("btn-open-preview").addEventListener("click", () => {
+      const k = currentKit();
+      const w = document.getElementById("kit-word").value.trim() || "path";
+      if (embedMode() === "path") {
+        location.href = `./embed/path?q=${encodeURIComponent(w)}&layout=${encodeURIComponent(k?.layout || "qwerty")}`;
+        return;
+      }
+      location.href = dictionaryCardHref(w) + (k?.lang ? `&lang=${encodeURIComponent(k.lang)}` : "");
+    });
+    grid.addEventListener("click", (ev) => {
+      const b = ev.target.closest("[data-use-kit]");
+      if (!b) return;
+      sel.value = b.getAttribute("data-use-kit");
+      sel.dispatchEvent(new Event("change"));
+    });
+    if (kits[0]?.sampleWords?.[0]) document.getElementById("kit-word").value = kits[0].sampleWords[0];
+    refreshEmbed();
+
+    function downloadJson(filename, obj) {
+      const blob = new Blob([JSON.stringify(obj, null, 2)], { type: "application/json" });
+      const a = document.createElement("a");
+      a.href = URL.createObjectURL(blob);
+      a.download = filename;
+      a.click();
+      setTimeout(() => URL.revokeObjectURL(a.href), 2000);
+    }
+    document.getElementById("btn-download-kit")?.addEventListener("click", () => {
+      const k = currentKit();
+      if (!k) return;
+      const pack = {
+        schema: "kbatch-museum-kit-pack-v1",
+        generated: new Date().toISOString(),
+        kit: k,
+        embed: embedFor(k, document.getElementById("kit-word").value.trim() || "path"),
+        mcp: doc?.offer?.mcpTools || [],
+        ethics: doc?.offer?.ethics || "",
+      };
+      downloadJson(`kbatch-kit-${k.id}.json`, pack);
+      status.textContent = `Downloaded kit pack · ${k.id}`;
+    });
+    document.getElementById("btn-download-all")?.addEventListener("click", () => {
+      downloadJson("kbatch-museum-resource.json", doc || { kits });
+      status.textContent = "Downloaded full museum catalog";
+    });
+    const mouPack = await load("museum-resource/mou-pack.json");
+    const mou = document.getElementById("mou-template");
+    const slotsEl = document.getElementById("mou-slots");
+    if (slotsEl && mouPack?.slots) {
+      slotsEl.innerHTML = mouPack.slots
+        .map(
+          (s) => `
+        <article class="kit-card">
+          <h2>${esc(s.name)}</h2>
+          <p class="kit-meta">status <code>${esc(s.status)}</code> · priority ${esc(s.priority)} · ${esc(s.contactHint || "")}</p>
+          <p class="kit-meta">Human gate · not signed</p>
+        </article>`
+        )
+        .join("");
+    }
+    if (mou) {
+      mou.textContent = JSON.stringify(
+        mouPack || {
+          schema: "kbatch-museum-mou-slot-v1",
+          status: "unsigned-placeholder",
+          offer: "Embeddable path geometry resource · not a gallery replacement",
+          nextStep: "Human CRM · signed MOU or live institutional embed (M4)",
+        },
+        null,
+        2
+      );
+    }
+    document.getElementById("btn-download-mou")?.addEventListener("click", () => {
+      downloadJson(
+        "kbatch-museum-mou-pack.json",
+        mouPack || { schema: "kbatch-museum-mou-pack-v1", status: "missing-load" }
+      );
+      status.textContent = "MOU pack downloaded · still unsigned · human CRM next";
+    });
+    document.getElementById("btn-copy-letter")?.addEventListener("click", async () => {
+      const letter = mouPack?.letterTemplate?.body || "";
+      const subject = mouPack?.letterTemplate?.subject || "KBatch museum path embed";
+      const text = `Subject: ${subject}\n\n${letter}`;
+      try {
+        await navigator.clipboard.writeText(text);
+        status.textContent = "Outreach letter copied · fill {institution}/{contact} · send human-to-human";
+      } catch {
+        status.textContent = "Copy failed — select letter from MOU pack JSON";
+      }
+    });
+  </script>
+  <script src="/js/site-nav.js?v=1.2.0+local+20260724080547" defer></script>
+</body>
+</html>

@@ -1,0 +1,57 @@
+{
+  "schema": "kbatch-living-books-catalogue-v1",
+  "generated": "2026-07-26T01:11:39Z",
+  "claim": "Living books catalogue = PD / Gutenberg / cited literature as orthography fuel — never pirate commercial books.",
+  "page": "https://kbatch.ugrad.ai/labs/living-books.html",
+  "entryCount": 285,
+  "withGutenberg": 278,
+  "kinds": {
+    "classic": 97,
+    "adventure": 25,
+    "drama": 15,
+    "mystery": 6,
+    "fable": 4,
+    "philosophy": 33,
+    "epic": 11,
+    "fairy": 8,
+    "visual-project": 9,
+    "scripture": 26,
+    "mythology": 16,
+    "science-fiction": 9,
+    "memoir": 4,
+    "esoteric": 5,
+    "poetry": 6,
+    "modern": 2,
+    "science": 4,
+    "history": 2,
+    "nursery": 1,
+    "essay": 1,
+    "gothic": 1
+  },
+  "doctrine": {
+    "rights": "public-domain-and-cited-only",
+    "noLocalDisk": true,
+    "geometry": "sample phrases for path/shadow; full text via Gutenberg when available",
+    "contrail": "optional MG exportStoryBeats paste for overnight → beats",
+    "noPlaceholders": true
+  },
+  "packs": [
+    {
+      "id": "core",
+      "file": "entries.json",
+      "count": 285
+    }
+  ],
+  "related": {
+    "mythology": "labs/mythology.html",
+    "names": "labs/open-names.html",
+    "waves": "labs/waveform-letters.html",
+    "antiquityMesh": "data/antiquity/discovery-projects.json",
+    "restoration": "data/living-books/restoration-projects.json",
+    "visual": "data/living-books/visual-projects.json",
+    "scholarNames": "data/antiquity/scholar-names.json",
+    "declaration": "labs/declaration-digital-edition/",
+    "rosetta": "labs/rosetta.html"
+  },
+  "antiquityNote": "Antiquity discovery mesh expands restoration + visual scaffolds (Maya Sak Tahn Waax 2026, Herculaneum, DSS, Rosetta, …)."
+}
