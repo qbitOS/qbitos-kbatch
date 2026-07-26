@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>404 · not found · KBatch</title>
+  <meta name="robots" content="noindex" />
+  <meta name="description" content="Page not found on kbatch.ugrad.ai — not the Shadow home shell." />
+  <link rel="canonical" href="https://kbatch.ugrad.ai/404" />
+  <link rel="stylesheet" href="/css/app.css" />
+  <style>
+    .nf-wrap {
+      max-width: 40rem;
+      margin: 12vh auto 4rem;
+      padding: 0 1.25rem;
+    }
+    .nf-code {
+      font-size: 3.5rem;
+      font-weight: 700;
+      letter-spacing: 0.06em;
+      color: var(--accent, #58a6ff);
+      margin: 0 0 0.35rem;
+      line-height: 1;
+    }
+    .nf-lead { font-size: 1.15rem; margin: 0 0 1rem; }
+    .nf-note {
+      font-size: 0.88rem;
+      color: var(--faint, #8b949e);
+      margin: 1.25rem 0 1.5rem;
+      line-height: 1.45;
+    }
+    .nf-actions { display: flex; flex-wrap: wrap; gap: 0.5rem; }
+    .nf-path {
+      font-family: ui-monospace, monospace;
+      font-size: 0.8rem;
+      opacity: 0.75;
+      word-break: break-all;
+    }
+  </style>
+</head>
+<body class="docs-body" data-page="404">
+  <nav class="site-nav" aria-label="Site"></nav>
+  <main class="nf-wrap" id="not-found" data-section="not-found">
+    <p class="nf-code" aria-hidden="true">404</p>
+    <h1 class="nf-lead">Not found</h1>
+    <p class="nf-note">
+      This path is not a KBatch page. You are <strong>not</strong> on Shadow home —
+      crawlers and Memory Glass should treat this as a real miss.
+    </p>
+    <p class="nf-path" id="nf-path">—</p>
+    <div class="nf-actions">
+      <a class="btn btn-primary" href="/">Shadow · home</a>
+      <a class="btn" href="/for-ai">For AI</a>
+      <a class="btn" href="/dojo/">DOJO</a>
+      <a class="btn" href="/labs/declaration-digital-edition/">Declaration</a>
+      <a class="btn" href="/docs">Docs</a>
+      <a class="btn" href="/mesh/">Mesh (external) ↗</a>
+    </div>
+  </main>
+  <script src="/js/site-nav.js" defer></script>
+  <script>
+    (function () {
+      var el = document.getElementById("nf-path");
+      if (el) el.textContent = "requested: " + location.pathname + location.search;
+    })();
+  </script>
+</body>
+</html>

@@ -1,0 +1,59 @@
+# Cloudflare Pages redirects — NEVER add a catch-all SPA fallback like:
+#   /*  /index.html  200
+# That breaks /js/*.js, /labs/**, and /data/** (returns HTML shell as "200").
+# Unknown paths use /404.html (real 404, not Shadow home).
+#
+# Pretty URLs: Pages auto-serves foo.html at /foo.
+# Directory indexes: /dojo/ → dojo/index.html.
+# Canonical policy: prefer extensionless (/for-ai, /dojo/).
+
+# P0 — wrong SPA doors / legacy shells
+/dojo.html              /dojo/          301
+/dojo.html/             /dojo/          301
+/shadow.html            /shadow         302
+/for-ai.html            /for-ai         302
+/learn.html             /learn          302
+/lyrics.html            /lyrics         302
+/research.html          /research       302
+/museum.html            /museum         302
+/install.html           /install        302
+/docs.html              /docs           302
+/world-ranking.html     /world-ranking  302
+/catalog.html           /catalog        302
+
+# Fake internal mesh paths → hub or real external (stop crawl pollution)
+/quantum-gutter.html    /mesh/          302
+/quantum-gutter         /mesh/          302
+/GrokYtalkY             /mesh/          302
+/GrokYtalkY/            /mesh/          302
+/GrokYtalkY/*           /mesh/          302
+/qbitOS                 /mesh/          302
+/qbitOS/                /mesh/          302
+/qbitos                 /mesh/          302
+
+/dictionary   /             302
+/colossus     /dojo/         302
+/colossus/    /dojo/         302
+/live         /shadow        302
+/typing       /labs/typing   302
+/collab       /labs/collab   302
+/music-staff  /labs/music-staff  302
+/staff        /labs/music-staff  302
+/living-books /labs/living-books  302
+/books        /labs/living-books  302
+/mythology    /labs/myth-names?track=myth   302
+/myth         /labs/myth-names?track=myth   302
+/names        /labs/myth-names?track=names  302
+/open-names   /labs/myth-names?track=names  302
+/myth-names   /labs/myth-names  302
+/path-embed   /embed/path    302
+/declaration  /labs/declaration-digital-edition/  302
+/declaration/ /labs/declaration-digital-edition/  302
+
+# CF analytics saw /docs/*.md as raw pages (poor INP + wrong surface)
+/docs/*       /docs          302
+/ancestory   /labs/ancestory  302
+/lineage     /labs/ancestory  302
+# Catalog: do NOT rewrite /catalog → /catalog.html
+# CF Pages pretty-URLs already serve catalog.html at /catalog (same as /learn).
+# A 200 rewrite (or 302) loops with CF’s 308 .html → pretty canonical and blanks the page.

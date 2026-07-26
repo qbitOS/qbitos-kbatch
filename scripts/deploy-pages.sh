@@ -22,11 +22,13 @@ mkdir -p "$DIST"
 
 # --- SPA shell ---
 for f in index.html shadow.html docs.html install.html lyrics.html learn.html research.html \
-  for-ai.html museum.html world-ranking.html catalog.html \
+  for-ai.html museum.html world-ranking.html catalog.html 404.html \
   sw.js manifest.webmanifest version.json package.json \
   _headers _redirects wrangler.toml README.md; do
   [[ -f "$ROOT/$f" ]] && cp -f "$ROOT/$f" "$DIST/$f"
 done
+# Mesh hub (sister products — external, not SPA fake routes)
+[[ -d "$ROOT/mesh" ]] && rsync -a "$ROOT/mesh/" "$DIST/mesh/"
 
 rsync -a "$ROOT/js/" "$DIST/js/"
 rsync -a "$ROOT/css/" "$DIST/css/"
@@ -237,9 +239,10 @@ echo "→ stamp version (root) + sync shells into dist"
 (cd "$ROOT" && node scripts/stamp-version.mjs) || true
 cp -f "$ROOT/version.json" "$DIST/version.json" 2>/dev/null || true
 for f in index.html shadow.html docs.html install.html lyrics.html learn.html research.html for-ai.html \
-  museum.html world-ranking.html sw.js _headers _redirects; do
+  museum.html world-ranking.html catalog.html 404.html sw.js _headers _redirects; do
   [[ -f "$ROOT/$f" ]] && cp -f "$ROOT/$f" "$DIST/$f"
 done
+[[ -d "$ROOT/mesh" ]] && rsync -a "$ROOT/mesh/" "$DIST/mesh/"
 # PD cited lyrics seeds (small) for full-song scrub
 if [[ -d "$ROOT/data/lyrics/cited" ]]; then
   mkdir -p "$DIST/data/lyrics/cited"
