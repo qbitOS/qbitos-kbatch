@@ -204,7 +204,7 @@ export const MCP_TOOLS = [
   {
     name: "kbatch_colossus",
     description:
-      "Colossus snapshot: alphabet atoms + pattern matrix + sample word analyses + MCP tool list",
+      "Colossus snapshot: alphabet + pattern matrix + samples. full:true = AI start pack (axes + pure-C speed path + Rubik stair concept demos).",
     inputSchema: {
       type: "object",
       properties: {
@@ -214,6 +214,30 @@ export const MCP_TOOLS = [
           description: "Sample words to analyze (default quantum/kbatch set)",
         },
         layout: { type: "string" },
+        full: {
+          type: "boolean",
+          description: "true = axes + Rubik language solve pack for AI start",
+        },
+        from: { type: "string", description: "Origin lang for path + stair (default en)" },
+        concepts: {
+          type: "array",
+          items: { type: "string" },
+          description: "Concepts for stair demos (default liberty water path…)",
+        },
+      },
+    },
+  },
+  {
+    name: "kbatch_rubik_language_solve",
+    description:
+      "AI start pack: full Rubik all-language pure-C speed path + instant mode=stair concept demos (liberty·water·path…). One call to begin solving off KBatch DOJO.",
+    inputSchema: {
+      type: "object",
+      properties: {
+        from: { type: "string" },
+        concepts: { type: "array", items: { type: "string" } },
+        includePaths: { type: "boolean" },
+        limit: { type: "number" },
       },
     },
   },
@@ -454,8 +478,18 @@ export const MCP_TOOLS = [
   {
     name: "kbatch_world_axes",
     description:
-      "World-ranking five axes scores, pathway dial state (D3–R3), and Colossus pipe metadata.",
-    inputSchema: { type: "object", properties: {} },
+      "World-ranking five axes scores, pathway dial state (D3–R3), Colossus pipe metadata, plus languageSolve (Rubik pure-C speed path + stair concept demos) for AI start.",
+    inputSchema: {
+      type: "object",
+      properties: {
+        from: { type: "string" },
+        concepts: { type: "array", items: { type: "string" } },
+        includeSolve: {
+          type: "boolean",
+          description: "Include Rubik language solve pack (default true)",
+        },
+      },
+    },
   },
   {
     name: "kbatch_freya_convert",

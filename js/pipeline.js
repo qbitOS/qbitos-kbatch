@@ -478,14 +478,26 @@ export function mcpCall(name, args = {}) {
         Array.isArray(args.words) ? args.words : undefined,
         args.layout || BASE_LAYOUT_ID
       );
-      if (args.full === true || args.full === "true") {
+      if (args.full === true || args.full === "true" || args.aiStart === true) {
         return colossusSnapshotFull(
           Array.isArray(args.words) ? args.words : undefined,
-          args.layout || BASE_LAYOUT_ID
+          args.layout || BASE_LAYOUT_ID,
+          {
+            from: args.from || args.lang || "en",
+            concepts: args.concepts,
+            includePaths: args.includePaths !== false,
+          }
         );
       }
       return snap;
     }
+    case "kbatch_rubik_language_solve":
+      return fetchRubikLanguageSolveBundle({
+        from: args.from || args.lang || "en",
+        concepts: args.concepts || args.words || args.q,
+        includePaths: args.includePaths !== false,
+        limit: args.limit,
+      });
     case "kbatch_declaration_cadence":
       return import("./declaration-cadence.js").then(({ declarationCadenceMcp }) =>
         declarationCadenceMcp(args)
@@ -526,7 +538,12 @@ export function mcpCall(name, args = {}) {
         })
       );
     case "kbatch_world_axes":
-      return fetchWorldAxesBundle();
+      return fetchWorldAxesBundle({
+        from: args.from || args.lang || "en",
+        concepts: args.concepts,
+        includeSolve: args.includeSolve !== false,
+        includePaths: args.includePaths !== false,
+      });
     case "kbatch_shadows":
     case "kbatch_path_rank": {
       const text = args.text || "";
@@ -955,6 +972,10 @@ export function colossusSnapshot(words = [], layout = BASE_LAYOUT_ID) {
     pipe: {
       axes: "kbatch_world_axes",
       worldPath: "kbatch_world_path",
+      languageSolve: "kbatch_rubik_language_solve",
+      conceptSolve: "kbatch_concept_solve",
+      conceptStairWalk: "kbatch_concept_stair_walk",
+      lettergridRubik: "kbatch_lettergrid_rubik",
       collaborators: "HTTP /api/mcp kbatch_collaborators",
       senses: "HTTP /api/mcp kbatch_sense_lookup",
       music: "HTTP /api/mcp kbatch_music_rights",
@@ -994,14 +1015,207 @@ async function fetchDataJson(rel) {
   return null;
 }
 
-/** Axes + pathway dial state for MCP / Colossus full pipe */
-export async function fetchWorldAxesBundle() {
+/** Default concepts for AI Rubik all-language solve start */
+export const RUBIK_SOLVE_DEMO_CONCEPTS = Object.freeze([
+  "liberty",
+  "water",
+  "path",
+  "language",
+  "sun",
+  "earth",
+]);
+
+/**
+ * Full Rubik all-language path + instant concept solve pack for AI/DOJO start.
+ * Speed path (pure C) + stair meaning solve (mode=stair) in one envelope.
+ * @param {{ from?: string, concepts?: string[], includePaths?: boolean, limit?: number }} [opts]
+ */
+export async function fetchRubikLanguageSolveBundle(opts = {}) {
+  const from = String(opts.from || "en").toLowerCase();
+  const concepts = Array.isArray(opts.concepts) && opts.concepts.length
+    ? opts.concepts
+    : [...RUBIK_SOLVE_DEMO_CONCEPTS];
+  const includePaths = opts.includePaths !== false;
+  const limit = Math.min(24, Math.max(1, Number(opts.limit) || concepts.length));
+
+  const [{ conceptStairWalk, RUBIK_STAIR_ORDER }, stairInstant, costMatrix] =
+    await Promise.all([
+      import("./concept-solve.js"),
+      fetchDataJson("concepts/stair-instant.json"),
+      fetchDataJson("world-path/cost-matrix.json"),
+    ]);
+
+  let walk = null;
+  try {
+    walk = await conceptStairWalk({
+      concepts: concepts.slice(0, limit),
+      from,
+      includePaths,
+      limit,
+    });
+  } catch (e) {
+    walk = { ok: false, error: String(e?.message || e), rows: [] };
+  }
+
+  let worldPath = null;
+  try {
+    worldPath = worldPathSnapshot({ from });
+  } catch {
+    worldPath = { error: "world-path unavailable" };
+  }
+
+  const ready = worldPath?.ready || null;
+  const demos =
+    walk?.rows ||
+    (stairInstant?.demos || []).map((d) => ({
+      q: d.slug,
+      ok: true,
+      concept: {
+        id: d.conceptId,
+        slug: d.slug,
+        gloss_en: d.gloss_en,
+      },
+      stair: d.stair,
+      filled: d.filled,
+      of: d.of || 13,
+      fillPct:
+        d.of && d.filled != null
+          ? Math.round((d.filled / d.of) * 1000) / 10
+          : null,
+    }));
+
+  const okRows = demos.filter((r) => r.ok !== false);
+  const avgFilled =
+    walk?.avgFilled ??
+    (okRows.length
+      ? Math.round(
+          (okRows.reduce((s, r) => s + (r.filled || 0), 0) / okRows.length) * 10
+        ) / 10
+      : 0);
+
+  return {
+    schema: "kbatch-rubik-language-solve-v1",
+    tool: "kbatch_rubik_language_solve",
+    ok: true,
+    instant: true,
+    allLanguage: true,
+    claim:
+      "Full Rubik all-language path (pure C speed) + instant concept solve (mode=stair). AI start pack off KBatch DOJO.",
+    from,
+    stairOrder: walk?.stairOrder || RUBIK_STAIR_ORDER || stairInstant?.stairOrder,
+    pureC: {
+      tourDirectHopSumC: 83.5,
+      tourVisitOrder:
+        "en → is → de → fr → it → es → nav → oj → ar → hi → el → zh → chr",
+      readyFromEn: ready?.totalTransferCost ?? 121.6,
+      readySteps: ready?.stepCount ?? null,
+      ready: ready
+        ? {
+            stepCount: ready.stepCount,
+            totalTransferCost: ready.totalTransferCost,
+            steps: (ready.steps || []).slice(0, 24).map((s) => ({
+              lang: s.lang || s.id,
+              cost: s.cost ?? s.cFromPrev ?? s.transferCost,
+              cumulative: s.cumulative ?? s.cumulativeCost,
+            })),
+          }
+        : null,
+      costMatrix: costMatrix
+        ? {
+            schema: costMatrix.schema,
+            langCount: costMatrix.langCount || costMatrix.n || null,
+            url: "/data/world-path/cost-matrix.json",
+          }
+        : null,
+    },
+    stairFill: walk?.stairFill || stairInstant?.stairFill || null,
+    demos: demos.map((r) => ({
+      q: r.q,
+      ok: r.ok !== false,
+      concept: r.concept || null,
+      filled: r.filled,
+      of: r.of || 13,
+      fillPct:
+        r.fillPct ??
+        (r.of && r.filled != null
+          ? Math.round((r.filled / r.of) * 1000) / 10
+          : null),
+      transferOrder: r.transferOrder,
+      // compact stair for AI: lang:form or ·
+      stairLine: (r.stair || [])
+        .map((s) =>
+          s.missing || !s.form ? `${s.lang}:·` : `${s.lang}:${s.form}`
+        )
+        .join(" | "),
+      stair: r.stair,
+    })),
+    metrics: {
+      conceptCount: demos.length,
+      hits: okRows.length,
+      avgFilled,
+      of: 13,
+      full13: okRows.filter((r) => r.filled === 13).length,
+    },
+    agent: {
+      solveStair:
+        'await kbatchDict.mcp("kbatch_concept_solve", { q: "liberty", mode: "stair", from: "en" })',
+      walk:
+        'await kbatchDict.mcp("kbatch_concept_stair_walk", { concepts: ["liberty","water","path","language"] })',
+      path:
+        'await kbatchDict.mcp("kbatch_world_path", { from: "en", mode: "ready" })',
+      axes: 'await kbatchDict.mcp("kbatch_world_axes")',
+      colossusFull: 'await kbatchDict.colossusFull()',
+      rubikSolve: 'await kbatchDict.rubikLanguageSolve()',
+      start: [
+        'await kbatchDict.colossusFull()  // axes + speed path + stair demos',
+        'await kbatchDict.mcp("kbatch_concept_solve", { q: "liberty", mode: "stair" })',
+        'await kbatchDict.mcp("kbatch_world_path", { from: "en", mode: "ready" })',
+        'await kbatchDict.mcp("kbatch_lettergrid_rubik")  // 13 cubes · Σc 83.5',
+      ],
+    },
+    doctrine: {
+      purity: "path geometry ≠ gloss ≠ SO ≠ phon",
+      cost: "pure C / langTransferCost — DOJO-true; no tilde_c on this rail",
+      honor: "nav/oj/chr educational seeds; mode=stair always includes them when present",
+      missing: "missing stair step = educational gap, not error",
+      cage: "no universal-translator claim without mesh hit",
+    },
+    urls: {
+      dojo: "https://kbatch.ugrad.ai/dojo/",
+      mesh: "/data/concepts/mesh.json",
+      stairInstant: "/data/concepts/stair-instant.json",
+      stair: "/data/world-path/rubik-stair-next.json",
+      tour: "/data/declaration/rubik-all-language-path.json",
+      costMatrix: "/data/world-path/cost-matrix.json",
+      doc: "/docs/CONCEPT-MESH-SOLVE.md",
+      stairDoc: "/docs/RUBIK-STAIR-NEXT.md",
+    },
+  };
+}
+
+/** Axes + pathway dial state for MCP / Colossus full pipe (+ Rubik language solve) */
+export async function fetchWorldAxesBundle(opts = {}) {
+  const includeSolve = opts.includeSolve !== false;
   const axes = await fetchDataJson("world-ranking/axes.json");
   const pathways = {};
   for (const key of ["dictionaries", "schools", "museums", "typing", "music"]) {
     pathways[key] = await fetchDataJson(`world-ranking/pathways/${key}.json`);
   }
   const outreach = await fetchDataJson("world-ranking/pathways/r3-outreach.json");
+
+  let languageSolve = null;
+  if (includeSolve) {
+    try {
+      languageSolve = await fetchRubikLanguageSolveBundle({
+        from: opts.from || "en",
+        concepts: opts.concepts,
+        includePaths: opts.includePaths !== false,
+      });
+    } catch (e) {
+      languageSolve = { ok: false, error: String(e?.message || e) };
+    }
+  }
+
   return {
     tool: "kbatch_world_axes",
     rung: axes?.rung || "R3-scaffold",
@@ -1014,34 +1228,61 @@ export async function fetchWorldAxesBundle() {
           doctrine: outreach.doctrine,
         }
       : null,
+    languageSolve,
     page: "https://kbatch.ugrad.ai/world-ranking.html",
+    dojo: "https://kbatch.ugrad.ai/dojo/#world-axes",
     strategy: "https://kbatch.ugrad.ai/docs/WORLD-AXIS-DOMINANCE.md",
   };
 }
 
 /**
- * Colossus full pipe: geometry + world axes + collaborators + senses + music + world-path + glyph.
+ * Colossus full pipe: geometry + world axes + Rubik language solve + collaborators + senses + music + world-path + glyph.
  * @param {string[]} [words]
  * @param {string} [layout]
+ * @param {{ from?: string, concepts?: string[], includePaths?: boolean }} [opts]
  */
-export async function colossusSnapshotFull(words = [], layout = BASE_LAYOUT_ID) {
+export async function colossusSnapshotFull(words = [], layout = BASE_LAYOUT_ID, opts = {}) {
   const base = colossusSnapshot(words, layout);
-  const [axesBundle, collaborators, senses, music, museum] = await Promise.all([
-    fetchWorldAxesBundle(),
-    fetchDataJson("world-ranking/collaborators.json"),
-    fetchDataJson("senses/index.json"),
-    fetchDataJson("music-rights/index.json"),
-    fetchDataJson("museum-resource/index.json"),
-  ]);
+  const [axesBundle, languageSolve, collaborators, senses, music, museum] =
+    await Promise.all([
+      fetchWorldAxesBundle({
+        includeSolve: false,
+        from: opts.from,
+        concepts: opts.concepts,
+      }),
+      fetchRubikLanguageSolveBundle({
+        from: opts.from || "en",
+        concepts: opts.concepts || (words?.length ? words : undefined),
+        includePaths: opts.includePaths !== false,
+      }),
+      fetchDataJson("world-ranking/collaborators.json"),
+      fetchDataJson("senses/index.json"),
+      fetchDataJson("music-rights/index.json"),
+      fetchDataJson("museum-resource/index.json"),
+    ]);
+
+  // attach solve onto axes so axes AI consumers see one tree
+  axesBundle.languageSolve = languageSolve;
 
   if (!base.worldPath || base.worldPath.error) {
-    base.worldPath = worldPathSnapshot({ from: "en" });
+    base.worldPath = worldPathSnapshot({ from: opts.from || "en" });
   }
+
+  base.pipe = {
+    ...base.pipe,
+    languageSolve: "kbatch_rubik_language_solve",
+    conceptSolve: "kbatch_concept_solve",
+    conceptStairWalk: "kbatch_concept_stair_walk",
+    lettergridRubik: "kbatch_lettergrid_rubik",
+  };
 
   return {
     ...base,
     full: true,
+    aiStart: true,
     axes: axesBundle,
+    languageSolve,
+    rubikLanguageSolve: languageSolve,
     collaborators: collaborators
       ? {
           schema: collaborators.schema,
@@ -1081,7 +1322,8 @@ export async function colossusSnapshotFull(words = [], layout = BASE_LAYOUT_ID) 
               : null,
         }
       : null,
-    note: "R3 scaffold pipe — pathways dialed; outreach human-gated via r3-outreach CRM.",
+    note:
+      "R3 scaffold pipe + full Rubik language solve — speed path (pure C) + stair meaning demos. AI start: languageSolve.agent.start",
   };
 }
 
@@ -1103,12 +1345,15 @@ export function installGlobalAPI() {
     alphabet: alphabetAtoms,
     languageAlphabetMatrix: null, // filled if module loaded
     colossus: colossusSnapshot,
-    colossusFull: colossusSnapshotFull,
+    colossusFull: (words, layout, opts) => colossusSnapshotFull(words, layout, opts),
+    rubikLanguageSolve: (opts = {}) => fetchRubikLanguageSolveBundle(opts),
+    conceptSolve: (args = {}) => mcpCall("kbatch_concept_solve", args),
+    conceptStairWalk: (args = {}) => mcpCall("kbatch_concept_stair_walk", args),
     worldPath: (opts = {}) =>
       import("./world-path.js").then(({ computeWorldPath }) => computeWorldPath(opts)),
     worldPathSnapshot: (opts = {}) =>
       import("./world-path.js").then(({ worldPathSnapshot }) => worldPathSnapshot(opts)),
-    worldAxes: () => fetchWorldAxesBundle(),
+    worldAxes: (opts = {}) => fetchWorldAxesBundle(opts),
     order: analyzeOrder,
     historical: analyzeHistorical,
     pos: analyzeSentenceUse,

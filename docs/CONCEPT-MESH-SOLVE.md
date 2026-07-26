@@ -3,8 +3,9 @@
 **Status:** live  
 **Mesh:** [`/data/concepts/mesh.json`](../data/concepts/mesh.json)  
 **Stair pack:** [`/data/concepts/stair-instant.json`](../data/concepts/stair-instant.json)  
-**MCP:** `kbatch_concept_solve` · `kbatch_concept_stair_walk`  
-**Runtime:** [`js/concept-solve.js`](../js/concept-solve.js)
+**MCP:** `kbatch_concept_solve` · `kbatch_concept_stair_walk` · `kbatch_rubik_language_solve`  
+**DOJO AI start:** [`/dojo/#world-axes`](../dojo/index.html) · `colossusFull()` · `rubikLanguageSolve()`  
+**Runtime:** [`js/concept-solve.js`](../js/concept-solve.js) · [`js/pipeline.js`](../js/pipeline.js)
 
 ## Claim
 
@@ -42,8 +43,13 @@ await kbatchDict.mcp("kbatch_concept_stair_walk", {
   concepts: ["liberty", "water", "path", "language"],
 })
 
+// AI one-shot start pack (speed path + stair demos) — DOJO axes / Colossus full
+await kbatchDict.mcp("kbatch_rubik_language_solve")
+await kbatchDict.colossusFull()
+await kbatchDict.worldAxes()  // includes languageSolve
+
 // HTTP
-// POST /api/mcp  tools/call  kbatch_concept_solve | kbatch_concept_stair_walk
+// POST /api/mcp  tools/call  kbatch_concept_solve | kbatch_concept_stair_walk | kbatch_rubik_language_solve
 ```
 
 ### Return (sketch · mode=stair)

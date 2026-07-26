@@ -103,8 +103,29 @@ const TOOLS = [
   },
   {
     name: "kbatch_world_axes",
-    description: "World-ranking five axes scores, targets, and pathways (dominance plan).",
-    inputSchema: { type: "object", properties: {} },
+    description:
+      "World-ranking five axes scores, targets, pathways, plus languageSolve (Rubik pure-C speed path + stair concept demos) for AI start on DOJO.",
+    inputSchema: {
+      type: "object",
+      properties: {
+        from: { type: "string" },
+        concepts: { type: "array", items: { type: "string" } },
+        includeSolve: { type: "boolean" },
+      },
+    },
+  },
+  {
+    name: "kbatch_rubik_language_solve",
+    description:
+      "AI start pack: full Rubik all-language pure-C speed path + instant mode=stair concept demos. One call to begin solving off KBatch.",
+    inputSchema: {
+      type: "object",
+      properties: {
+        from: { type: "string" },
+        concepts: { type: "array", items: { type: "string" } },
+        limit: { type: "number" },
+      },
+    },
   },
   {
     name: "kbatch_collaborators",
@@ -1193,8 +1214,179 @@ async function toolAnalyzeLite(request, args) {
   };
 }
 
-async function toolWorldAxes(request) {
+/** Static AI start pack: pure-C ready path + stair demos (HTTP mesh) */
+async function toolRubikLanguageSolve(request, args = {}) {
+  const from = String(args.from || args.lang || "en").toLowerCase();
+  let concepts = args.concepts || args.words || args.q || [
+    "liberty",
+    "water",
+    "path",
+    "language",
+    "sun",
+    "earth",
+  ];
+  if (typeof concepts === "string") concepts = concepts.split(/[\s,]+/).filter(Boolean);
+  const limit = Math.min(24, Math.max(1, Number(args.limit) || concepts.length));
+  concepts = concepts.slice(0, limit);
+
+  const [stairInstant, costMatrix, mesh] = await Promise.all([
+    fetchJson(request, "concepts/stair-instant.json"),
+    fetchJson(request, "world-path/cost-matrix.json"),
+    fetchJson(request, "concepts/mesh.json"),
+  ]);
+
+  const C = costMatrix;
+  const cCost = (a, b) => meshCCost(C, a, b, true, "stair");
+
+  const demos = [];
+  for (const key of concepts) {
+    const q = String(key).trim().toLowerCase();
+    // Prefer prebuilt stair-instant demos when available
+    const pre = (stairInstant?.demos || []).find(
+      (d) => d.slug === q || d.conceptId === `concept:${q}`
+    );
+    if (pre) {
+      demos.push({
+        q: key,
+        ok: true,
+        concept: {
+          id: pre.conceptId,
+          slug: pre.slug,
+          gloss_en: pre.gloss_en,
+        },
+        filled: pre.filled,
+        of: pre.of || 13,
+        fillPct:
+          pre.of && pre.filled != null
+            ? Math.round((pre.filled / pre.of) * 1000) / 10
+            : null,
+        stair: pre.stair,
+        stairLine: (pre.stair || [])
+          .map((s) => (s.missing || !s.form ? `${s.lang}:·` : `${s.lang}:${s.form}`))
+          .join(" | "),
+      });
+      continue;
+    }
+    if (!mesh?.concepts?.length) {
+      demos.push({ q: key, ok: false, note: "no mesh", filled: 0, of: 13 });
+      continue;
+    }
+    const primary = resolveConceptFromMesh(mesh, q, "");
+    if (!primary) {
+      demos.push({ q: key, ok: false, note: "no mesh hit", filled: 0, of: 13 });
+      continue;
+    }
+    const pack = buildHttpStair(primary, from, cCost);
+    demos.push({
+      q: key,
+      ok: true,
+      concept: {
+        id: primary.id,
+        slug: primary.slug,
+        gloss_en: primary.gloss_en,
+        pos: primary.pos,
+      },
+      filled: pack.filled,
+      of: pack.of,
+      fillPct: pack.fillPct,
+      transferOrder: pack.transferOrder,
+      stair: pack.stair,
+      stairLine: pack.stair
+        .map((s) => (s.missing || !s.form ? `${s.lang}:·` : `${s.lang}:${s.form}`))
+        .join(" | "),
+    });
+  }
+
+  const okRows = demos.filter((r) => r.ok);
+  const avgFilled = okRows.length
+    ? Math.round((okRows.reduce((s, r) => s + r.filled, 0) / okRows.length) * 10) / 10
+    : 0;
+
+  // ready path summary from cost matrix if present
+  let readyFromEn = 121.6;
+  let readySteps = 23;
+  if (costMatrix?.readyFromEn) {
+    readyFromEn = costMatrix.readyFromEn.totalTransferCost ?? readyFromEn;
+    readySteps = costMatrix.readyFromEn.stepCount ?? readySteps;
+  } else if (costMatrix?.summary?.readyFromEn) {
+    readyFromEn = costMatrix.summary.readyFromEn.totalTransferCost ?? readyFromEn;
+    readySteps = costMatrix.summary.readyFromEn.stepCount ?? readySteps;
+  }
+
+  return {
+    schema: "kbatch-rubik-language-solve-v1",
+    tool: "kbatch_rubik_language_solve",
+    ok: true,
+    instant: true,
+    allLanguage: true,
+    claim:
+      "Full Rubik all-language path (pure C speed) + instant concept solve (mode=stair). AI start pack off KBatch DOJO.",
+    from,
+    stairOrder: stairInstant?.stairOrder || [...RUBIK_STAIR_ORDER],
+    pureC: {
+      tourDirectHopSumC: 83.5,
+      tourVisitOrder:
+        "en → is → de → fr → it → es → nav → oj → ar → hi → el → zh → chr",
+      readyFromEn,
+      readySteps,
+      costMatrix: costMatrix
+        ? {
+            schema: costMatrix.schema,
+            url: "/data/world-path/cost-matrix.json",
+          }
+        : null,
+    },
+    stairFill: stairInstant?.stairFill || null,
+    demos,
+    metrics: {
+      conceptCount: demos.length,
+      hits: okRows.length,
+      avgFilled,
+      of: 13,
+      full13: okRows.filter((r) => r.filled === 13).length,
+    },
+    agent: {
+      solveStair:
+        'await kbatchDict.mcp("kbatch_concept_solve", { q: "liberty", mode: "stair", from: "en" })',
+      walk:
+        'await kbatchDict.mcp("kbatch_concept_stair_walk", { concepts: ["liberty","water","path"] })',
+      path:
+        'await kbatchDict.mcp("kbatch_world_path", { from: "en", mode: "ready" })',
+      axes: 'await kbatchDict.mcp("kbatch_world_axes")',
+      colossusFull: 'await kbatchDict.colossusFull()',
+      rubikSolve: 'await kbatchDict.mcp("kbatch_rubik_language_solve")',
+      start: [
+        'await kbatchDict.mcp("kbatch_rubik_language_solve")',
+        'await kbatchDict.mcp("kbatch_concept_solve", { q: "liberty", mode: "stair" })',
+        'await kbatchDict.mcp("kbatch_world_path", { from: "en", mode: "ready" })',
+        'await kbatchDict.mcp("kbatch_lettergrid_rubik")',
+      ],
+      dojo: "https://kbatch.ugrad.ai/dojo/#world-axes",
+    },
+    doctrine: {
+      purity: "path geometry ≠ gloss ≠ SO ≠ phon",
+      cost: "pure C — DOJO-true; no tilde_c",
+      honor: "nav/oj/chr educational seeds on stair",
+      missing: "missing step = educational gap, not error",
+    },
+    urls: {
+      dojo: "https://kbatch.ugrad.ai/dojo/",
+      mesh: "/data/concepts/mesh.json",
+      stairInstant: "/data/concepts/stair-instant.json",
+      stair: "/data/world-path/rubik-stair-next.json",
+      tour: "/data/declaration/rubik-all-language-path.json",
+      doc: "/docs/CONCEPT-MESH-SOLVE.md",
+    },
+  };
+}
+
+async function toolWorldAxes(request, args = {}) {
   const doc = await fetchJson(request, "world-ranking/axes.json");
+  const includeSolve = args.includeSolve !== false;
+  let languageSolve = null;
+  if (includeSolve) {
+    languageSolve = await toolRubikLanguageSolve(request, args);
+  }
   return {
     tool: "kbatch_world_axes",
     axesDoc: doc,
@@ -1204,8 +1396,11 @@ async function toolWorldAxes(request) {
     typicalProductBars: doc?.typicalProductBars,
     colossusPipe: doc?.colossusPipe,
     doctrine: doc?.doctrine,
+    languageSolve,
     strategy: "https://kbatch.ugrad.ai/docs/WORLD-AXIS-DOMINANCE.md",
     page: "https://kbatch.ugrad.ai/world-ranking.html",
+    dojo: "https://kbatch.ugrad.ai/dojo/#world-axes",
+    agent: languageSolve?.agent || null,
   };
 }
 
@@ -2619,7 +2814,9 @@ async function dispatch(request, name, args) {
     case "kbatch_analyze_lite":
       return toolAnalyzeLite(request, args || {});
     case "kbatch_world_axes":
-      return toolWorldAxes(request);
+      return toolWorldAxes(request, args || {});
+    case "kbatch_rubik_language_solve":
+      return toolRubikLanguageSolve(request, args || {});
     case "kbatch_collaborators":
       return toolCollaborators(request, args || {});
     case "kbatch_sense_lookup":

@@ -74,6 +74,7 @@
     "kbatch_world_path",
     "kbatch_concept_solve",
     "kbatch_concept_stair_walk",
+    "kbatch_rubik_language_solve",
     "kbatch_r3_outreach",
     "kbatch_collaborators",
     "kbatch_sense_lookup",
