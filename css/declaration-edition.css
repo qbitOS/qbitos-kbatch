@@ -255,3 +255,49 @@
   grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
   gap: 1rem;
 }
+
+/* Declaration lab hub cards (P1) */
+.dec-hub-cards {
+  margin: 0 0 1rem;
+  padding: 0.75rem 0.25rem 0.25rem;
+}
+.dec-hub-title {
+  margin: 0 0 0.35rem;
+  font-size: 1.05rem;
+}
+.dec-hub-lead {
+  margin: 0 0 0.75rem;
+  font-size: 0.85rem;
+  color: var(--muted, #8b949e);
+  line-height: 1.4;
+}
+.dec-hub-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
+  gap: 8px;
+  margin-bottom: 0.75rem;
+}
+.dec-hub-card {
+  display: block;
+  border: 1px solid var(--border, #30363d);
+  border-radius: 10px;
+  padding: 10px 12px;
+  text-decoration: none;
+  color: inherit;
+  background: color-mix(in srgb, var(--panel, #161b22) 90%, transparent);
+  transition: border-color 0.12s ease;
+}
+.dec-hub-card:hover {
+  border-color: var(--accent, #58a6ff);
+}
+.dec-hub-card strong {
+  display: block;
+  font-size: 0.9rem;
+  margin-bottom: 4px;
+  color: var(--accent, #58a6ff);
+}
+.dec-hub-card span {
+  font-size: 0.75rem;
+  line-height: 1.35;
+  color: var(--faint, #8b949e);
+}

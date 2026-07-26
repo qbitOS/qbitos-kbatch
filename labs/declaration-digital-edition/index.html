@@ -10,7 +10,7 @@
   <link rel="stylesheet" href="/css/labs.css" />
   <link rel="stylesheet" href="/css/history-sliderule.css" />
   <link rel="stylesheet" href="/css/archive-restoration.css" />
-  <link rel="stylesheet" href="/css/declaration-edition.css" />
+  <link rel="stylesheet" href="/css/declaration-edition.css?v=nav-v4" />
   <script>
     (function () {
       try {
@@ -44,33 +44,51 @@
     </div>
   </header>
 
-  <nav class="dec-version-nav" aria-label="Edition surfaces">
-    <a href="index.html" class="active-link">Archive workspace</a>
-    <a href="letter-grid.html">Letter-Grid</a>
-    <a href="cage-litmus.html">Cage litmus</a>
-    <a href="world.html">World · multilingual</a>
-    <a href="paleography-hub.html">Paleography</a>
-    <a href="versions.html">All layers</a>
-    <a href="stroke-player.html">Stroke player</a>
-    <a href="keyboard.html">Path metrics</a>
-    <a href="scribe-glyphs.html">Scribe glyphs</a>
-    <a href="/labs/living-books.html">Living books</a>
-    <a href="/labs/rosetta.html">Rosetta</a>
-    <a href="/dojo/">DOJO</a>
-    <a href="/research.html">Research</a>
-    <a href="/museum.html">Museum</a>
-  </nav>
+  <nav class="dec-version-nav" data-dec-nav data-active="workspace" aria-label="Declaration edition toolbox"></nav>
 
-  <main class="labs-main" style="max-width: min(1600px, 100%)">
-    <div id="arc-mount"></div>
+<main class="labs-main" style="max-width: min(1600px, 100%)">
+    <section class="dec-hub-cards" id="declaration-hub" data-section="declaration-hub" aria-label="Declaration lab hub">
+      <h2 class="dec-hub-title" id="hub-title">Declaration lab · cards</h2>
+      <p class="dec-hub-lead">
+        Playable archive: motor grid · epistemic cage · pipe · paleography.
+        Agents: <a href="/for-ai#declaration-lab">for-ai#declaration-lab</a>
+      </p>
+      <div class="dec-hub-grid">
+        <a class="dec-hub-card" id="hub-letter-grid" data-section="hub-letter-grid" href="/labs/declaration-digital-edition/letter-grid.html">
+          <strong>Letter-Grid</strong>
+          <span>6235 glyphs · 12×12 layers · WebGrid score</span>
+        </a>
+        <a class="dec-hub-card" id="hub-pipe" data-section="hub-pipe" href="/labs/declaration-digital-edition/letter-grid-pipe.html">
+          <strong>Pipe</strong>
+          <span>Agent smoke · v8-pipe · Colossus</span>
+        </a>
+        <a class="dec-hub-card" id="hub-cage" data-section="hub-cage" href="/labs/declaration-digital-edition/cage-litmus.html">
+          <strong>Cage litmus</strong>
+          <span>FACT · FICTION · STONE_TRAP</span>
+        </a>
+        <a class="dec-hub-card" id="hub-paleography" data-section="hub-paleography" href="/labs/declaration-digital-edition/paleography-hub.html">
+          <strong>Paleography</strong>
+          <span>Scribe · ink · multi-layer notes</span>
+        </a>
+        <a class="dec-hub-card" id="hub-world" data-section="hub-world" href="/labs/declaration-digital-edition/world.html">
+          <strong>World</strong>
+          <span>Multilingual lines · layouts</span>
+        </a>
+        <a class="dec-hub-card" id="hub-agents" data-section="hub-agents" href="/for-ai#declaration-lab">
+          <strong>For AI</strong>
+          <span>MCP ping · rubik · concept solve</span>
+        </a>
+      </div>
+    </section>
+    <div id="arc-mount" data-section="archive-mount"></div>
   </main>
 
   <footer class="app-footer">
     Archival restoration · lift past media to present speed ·
     <a href="https://www.archives.gov/founding-docs/declaration-transcript" target="_blank" rel="noopener">NARA transcript</a> ·
     <a href="/data/declaration/archive-manifest.json">manifest</a> ·
-    qbit-codec / Memory Glass ready ·
-    <a href="/">Dictionary ↗</a>
+    <a href="/for-ai#declaration-lab">For AI · Declaration lab</a> ·
+    <a href="/">Shadow ↗</a>
   </footer>
 
   <script type="module">
@@ -96,6 +114,7 @@
       }
     });
   </script>
+    <script src="/js/declaration-edition-nav.js?v=nav-v4" defer></script>
   <script src="/js/site-nav.js" defer></script>
 </body>
 </html>

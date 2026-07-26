@@ -2,6 +2,9 @@
 
 **When:** 2026-07-26 · **Crawler:** MG-SiteAtlas / offline BFS  
 **Origins:** `https://kbatch.ugrad.ai` + `http://127.0.0.1:8899`  
+**P0 status (2026-07-26):** shipped — real `404.html`, `/dojo.html`→`/dojo/`, `/mesh/` hub, absolute nav v12, declaration footers.
+**P1 status:** front-door 3 beats + MCP badge + Declaration hub cards + letter-grid section ids.
+
 **Raw data:** `crawl.json` (177 unique URL nodes, 3305 edges, 85 filesystem HTML files)
 
 ---
@@ -43,7 +46,7 @@ After de-pollution (drop `.pages-dist`, nested `/labs/labs/…` link explosions)
 | Agent play / pipe | few | weak | partial | Several **no h1** / no outbound links |
 | `/labs/collab` | 2 | thin | claimed | Looks unfinished vs DOJO |
 
-### Critical crawl defects (fix now)
+### Critical crawl defects (pre-P0; most fixed)
 
 1. **SPA fallback pollution** — Extensionless or mis-routed URLs return the **home Shadow shell** with title “type once, understand everywhere” (e.g. `/dojo.html`). Crawlers and MG think “page loaded” when it’s the wrong product.  
 2. **Relative-link explosion** — From deep labs, relative `docs` / `install` links create `/labs/.../labs/labs/...` ghosts (crawl saw nested paths; all shells).  
@@ -238,9 +241,9 @@ kbatch.ugrad.ai
 
 - [x] 404 page + `/dojo.html` → `/dojo/` · **shipped 2026-07-26 P0**  
 - [x] Absolute nav links site-wide (site-nav v12 + DOJO root-absolute)  
-- [ ] Home hero 3-beat + MCP ping badge  
+- [x] Home hero 3-beat + MCP ping badge  
 - [x] for-ai#declaration-lab links from letter-grid / cage footers  
-- [ ] Section ids on letter-grid shell  
+- [x] Section ids on letter-grid shell + Declaration hub cards  
 - [x] External mesh hub `/mesh/` + redirects for fake internal mesh paths  
 - [ ] Collab lab: ship or hide  
 - [ ] Manifest JSON real URL (not SPA HTML)  

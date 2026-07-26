@@ -1,0 +1,815 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+  <meta name="theme-color" content="#0d1117" media="(prefers-color-scheme: dark)" />
+  <meta name="theme-color" content="#f6f8fa" media="(prefers-color-scheme: light)" />
+  <meta name="mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+  <title>KBatch · Shadow Live — type once, understand everywhere</title>
+  <meta name="description" content="Shadow Live: type once → 15-layout geometric shadows · mesh multi-device · quantum gutter · cortical loop · 1.6M+ spellings." />
+  <meta name="kbatch-product" content="ugrad.kbatch.shadow" />
+  <meta name="kbatch-region" content="global" />
+  <meta name="kbatch-version" content="1.2.0" />
+  <meta name="kbatch-build" content="1.2.0+local+20260726021200" />
+  <!-- GlueLam: local vendor first, then mueee -->
+  <meta name="kbatch-gluelam-base" content="./vendor/gluelam/" />
+  <!--
+    Data host for analyzed packs (R2/CDN).
+    Empty = local ./data/ only.
+    Production: https://data.ugrad.ai/kbatch/  (after ./scripts/upload-r2.sh)
+    Loader always falls back to ./data/analyzed/ if remote 404.
+  -->
+  <!-- Local-first corpus; R2 optional for fat analyzed packs (see js/corpus.js dataUrls) -->
+  <meta name="kbatch-data-base" content="" />
+  <meta name="kbatch-data-base-remote" content="https://data.ugrad.ai/kbatch/" />
+  <link rel="manifest" href="manifest.webmanifest" />
+  <link rel="stylesheet" href="css/app.css?v=1.2.0+local+20260726021200" />
+  <link rel="stylesheet" href="css/labs.css?v=1.2.0+local+20260726021200" />
+  <link rel="stylesheet" href="css/docs-site.css?v=1.2.0+local+20260726021200" />
+  <script>
+    (function () {
+      try {
+        var t = localStorage.getItem("kbatch-dict-theme");
+        if (t !== "light" && t !== "dark") {
+          t = window.matchMedia("(prefers-color-scheme: light)").matches ? "light" : "dark";
+        }
+        document.documentElement.setAttribute("data-theme", t);
+      } catch (e) {
+        document.documentElement.setAttribute("data-theme", "dark");
+      }
+    })();
+  </script>
+</head>
+<body>
+  <header class="app-header">
+    <div class="header-inner">
+      <div class="brand-row">
+        <div class="brand">
+          <button
+            type="button"
+            class="theme-toggle"
+            id="theme-toggle"
+            title="Toggle light / dark mode"
+            aria-label="Toggle light and dark mode"
+          >
+            <span class="theme-icon theme-icon--sun" aria-hidden="true">☀</span>
+            <span class="theme-icon theme-icon--moon" aria-hidden="true">☾</span>
+          </button>
+          <h1><span>KBatch</span> Shadow Live</h1>
+          <span class="brand-sub" data-i18n="brandSub">type once → path → shadows → strain · 15 layouts · 1141 chart geometry packs</span>
+        </div>
+        <nav class="site-nav" aria-label="Site"></nav>
+        <div class="export-bar" role="toolbar" aria-label="Export formats">
+          <button type="button" class="btn" id="export-json">JSON</button>
+          <button type="button" class="btn" id="export-jax">JAX</button>
+          <button type="button" class="btn" id="export-csv">CSV</button>
+          <button type="button" class="btn" id="export-md">MD</button>
+          <button type="button" class="btn btn-primary" id="export-x" data-i18n="exportX" data-i18n-title="exportX">X article</button>
+          <button type="button" class="btn" id="export-overview" data-i18n="exportOverview" data-i18n-title="exportOverviewTitle" title="Pin current text → Overview">Overview</button>
+        </div>
+      </div>
+      <form class="search-row" id="search-form" role="search" onsubmit="return false;">
+        <div class="search-wrap">
+          <span class="search-icon" aria-hidden="true">⌕</span>
+          <input
+            type="search"
+            id="search-input"
+            data-i18n-ph="searchPh"
+            placeholder="Search spellings… paste text for Shadow Live"
+            autocomplete="off"
+            spellcheck="false"
+            enterkeyhint="search"
+          />
+          <button type="button" class="search-clear" id="btn-clear-search" title="Clear search" aria-label="Clear search" hidden>×</button>
+        </div>
+        <label class="layout-select-wrap">
+          <span class="sr-only" data-i18n="layoutLabel">Keyboard layout</span>
+          <select id="layout-select" class="layout-select" data-i18n-title="layoutLabel" title="Analyze geometry on this layout"></select>
+        </label>
+        <button type="button" class="btn" id="btn-toggle-writer" data-i18n="btnWriter" data-i18n-title="btnWriter">Writer</button>
+        <button type="button" class="btn btn-ghost" id="btn-clear-all" data-i18n="btnClear" data-i18n-title="btnClear">Clear</button>
+        <button type="button" class="btn btn-primary" id="btn-analyze" data-i18n="btnAnalyze">Analyze</button>
+      </form>
+      <div class="meta-row">
+        <span><span data-i18n="statIndex">Spellings</span> <strong id="stat-count">0</strong> / <strong id="stat-total">0</strong></span>
+        <span class="stat-world" id="stat-world" title="Sum of all ready language packs (not deduped across langs)">World · —</span>
+        <span class="vocab-hurdle" id="vocab-hurdle" title="Public dictionary-scale benchmarks">hurdle · —</span>
+        <span class="status-line" id="status-line" role="status">Loading…</span>
+        <span class="status-line mcp-ping-badge" id="mcp-ping-badge" title="Letter-Grid MCP health" aria-live="polite">MCP · …</span>
+        <span class="corpus-error" id="corpus-error" hidden role="alert"></span>
+        <div
+          class="lang-load-bar"
+          id="lang-load-bar"
+          role="progressbar"
+          aria-valuemin="0"
+          aria-valuemax="100"
+          aria-valuenow="0"
+          aria-label="Language load progress"
+          hidden
+        >
+          <div class="lang-load-fill" id="lang-load-fill"></div>
+          <span class="lang-load-pct" id="lang-load-pct"></span>
+        </div>
+      </div>
+      <section class="door-beats" id="door-beats" data-section="door-beats" aria-label="Three beats">
+        <ol class="door-beats-list">
+          <li class="door-beat" data-section="beat-type">
+            <strong>1 · Type</strong>
+            <span>Paste a word above → 15 layout shadows on the same path</span>
+          </li>
+          <li class="door-beat" data-section="beat-rank">
+            <strong>2 · Rank</strong>
+            <span>Analyze → path rank / strain · DOJO matrices when you need depth</span>
+          </li>
+          <li class="door-beat" data-section="beat-agents">
+            <strong>3 · Agents</strong>
+            <span
+              ><a href="/for-ai#declaration-lab">For AI</a> · MCP live ·
+              <a href="/dojo/">DOJO</a> ·
+              <a href="/labs/declaration-digital-edition/">Declaration</a></span
+            >
+          </li>
+        </ol>
+      </section>
+    </div>
+  </header>
+
+  <!-- Presentation / X Article composer (all analysis · blocks · i18n) -->
+  <div class="pres-overlay" id="pres-overlay" hidden>
+    <div class="pres-modal" role="dialog" aria-labelledby="pres-title">
+      <header class="pres-head">
+        <h2 id="pres-title">X Article · presentation composer</h2>
+        <button type="button" class="btn btn-ghost" id="pres-close" aria-label="Close">✕</button>
+      </header>
+      <div class="pres-controls">
+        <label>
+          Language
+          <select id="pres-lang"></select>
+        </label>
+        <label class="pres-source-label">
+          Source text
+          <textarea id="pres-source" rows="3" placeholder="Word, sentence, or paragraph for full analysis…"></textarea>
+        </label>
+        <div class="pres-blocks" id="pres-blocks" role="group" aria-label="Block types"></div>
+        <div class="pres-actions">
+          <button type="button" class="btn btn-primary" id="pres-compose">Compose</button>
+          <button type="button" class="btn" id="pres-copy">Copy article</button>
+          <button type="button" class="btn" id="pres-copy-md">Copy MD</button>
+          <button type="button" class="btn" id="pres-copy-latex">Copy LaTeX</button>
+          <button type="button" class="btn" id="pres-download">Download .md</button>
+          <button type="button" class="btn" id="pres-overview">→ Overview</button>
+          <button type="button" class="btn btn-ghost" id="pres-clear" title="Clear source and preview">Clear</button>
+        </div>
+      </div>
+      <div class="pres-preview-wrap">
+        <div class="pres-tabs" role="tablist">
+          <button type="button" class="pres-tab is-active" data-pres-tab="article">Article</button>
+          <button type="button" class="pres-tab" data-pres-tab="hub">All analysis</button>
+          <button type="button" class="pres-tab" data-pres-tab="i18n">Languages</button>
+        </div>
+        <pre class="pres-preview" id="pres-preview" tabindex="0"></pre>
+      </div>
+    </div>
+  </div>
+
+  <div class="app-shell">
+    <aside class="side-rail" id="side-rail" aria-label="Section and alphabet navigation">
+      <nav class="section-rail" id="section-rail" aria-label="Page sections">
+        <button type="button" class="section-rail-btn" data-goto="lang-section" title="Mother tongue">L</button>
+        <button type="button" class="section-rail-btn" data-goto="geo-panel" title="KBatch visualization">V</button>
+        <button type="button" class="section-rail-btn" data-goto="shadow-live" title="Shadow Live">S</button>
+        <button type="button" class="section-rail-btn is-active" data-goto="dict-section" data-mode="alpha" title="Dictionary A–Z">A</button>
+        <button type="button" class="section-rail-btn" data-goto="skills-section" title="School skills">K</button>
+      </nav>
+      <div class="alpha-rails" id="alpha-rails" aria-label="Alphabet scrubber">
+        <nav class="alpha-rail" id="alpha-rail" aria-label="Letters · click to open or close cards"></nav>
+        <nav class="alpha-sub-rail" id="alpha-sub-rail" hidden></nav>
+      </div>
+    </aside>
+
+    <main class="main-col">
+      <details class="main-collapse lang-section" id="lang-section" open aria-label="Language sections">
+        <summary class="main-collapse-sum">
+          <span class="lang-section-title" data-i18n="langSection">Language · mother tongue</span>
+          <span class="lang-section-meta" id="lang-section-meta">English · QWERTY · Latin · LTR</span>
+        </summary>
+        <div class="main-collapse-body">
+        <p class="lang-section-lead" id="lang-section-lead" data-i18n="langLead">
+          Communication sounds → mother tongue → slang · First Nations (AnCEstory) · world pack placeholders · Latin → Spanish / German → English stepping
+        </p>
+        <div class="lang-tier-row" id="lang-tier-row" role="tablist" aria-label="Language tiers: Core, First Nations, Classical, World"></div>
+        <div class="step-origin-row" id="lang-origin-row" aria-label="Origin of communication sounds"></div>
+        <div class="lang-chip-row" id="lang-chip-row" role="tablist" aria-label="Languages for selected tier"></div>
+        <div class="step-register-row" id="lang-register-row" role="tablist" aria-label="Register spectrum"></div>
+        <div class="step-path-block">
+          <div class="step-path-head">
+            <span class="step-path-title" id="lang-path-title">Language stepping</span>
+            <select id="lang-path-select" class="step-path-select" title="Choose historical pathway" aria-label="Language stepping pathway"></select>
+          </div>
+          <div class="step-path-row" id="lang-path-row" aria-label="Historical language steps"></div>
+          <p class="lang-path-note" id="lang-path-note">Select a mother tongue or analyze text in SMART Writer to light the pathway.</p>
+        </div>
+        <div class="lang-alpha-bar" id="lang-alpha-bar" aria-label="Script alphabet for selected language"></div>
+        </div>
+      </details>
+
+      <details class="main-collapse geo-panel" id="geo-panel" open aria-label="KBatch visualization">
+        <summary class="main-collapse-sum" data-i18n="geoTitle">KBatch visualization</summary>
+        <div class="main-collapse-body geo-panel-inner">
+        <div class="geo-main">
+          <div class="mode-bar" id="mode-bar" role="tablist" aria-label="Visualization mode"></div>
+          <div class="geo-canvas-wrap">
+            <canvas id="geo-canvas" width="720" height="200" aria-label="Keyboard visualization"></canvas>
+          </div>
+          <div class="ct-stats-bar" id="ct-stats" role="status">
+            Keys: 0 | Eff: 0% | Cpx: 0% | Trails: 0 | 0mm | 0.000000 cal
+          </div>
+        </div>
+        <div class="geo-side">
+          <div>
+            <h2 data-i18n="focusTitle">Focus</h2>
+            <div id="geo-label" class="geo-label">—</div>
+            <p class="geo-hint">Click a word card · switch layout · switch mode (Contrails / Heatmap / Rhythm / Flow / Ergo / Finger / Dance).</p>
+            <p class="focus-word" id="focus-word">—</p>
+            <div class="geo-kb-actions">
+              <button type="button" class="btn btn-primary" id="btn-kb-refresh-geo" title="Re-analyze focused word geometry without loading every language pack">Refresh keyboards</button>
+            </div>
+            <div class="focus-sense" id="focus-sense" aria-live="polite">
+              <div class="focus-meaning"><em>Meaning &amp; etymology appear here</em></div>
+            </div>
+          </div>
+          <div>
+            <h2 data-i18n="ergoTitle">Ergonomics</h2>
+            <div class="ergo-grid" id="ergo-grid"></div>
+          </div>
+          <div>
+            <h2 data-i18n="fingerTitle">Fingers</h2>
+            <div class="finger-grid" id="finger-grid"></div>
+          </div>
+          <div>
+            <h2 data-i18n="healthTitle">Health</h2>
+            <div class="health-risks" id="health-risks"></div>
+          </div>
+        </div>
+        </div>
+      </details>
+
+      <details class="main-collapse shadow-live" id="shadow-live" aria-label="Shadow Live">
+        <summary class="main-collapse-sum">
+          <span class="shadow-live-title" data-i18n="shadowTitle">Shadow Live</span>
+          <span class="shadow-live-tag" data-i18n="shadowTag">type once → understand everywhere · same path · 15 boards · live RSI</span>
+        </summary>
+        <div class="main-collapse-body">
+        <div class="shadow-live-head">
+          <div class="shadow-live-titles"></div>
+          <div class="shadow-live-actions">
+            <button type="button" class="btn btn-primary" id="btn-shadow-run" data-i18n="shadowRun">Run</button>
+            <button type="button" class="btn" id="btn-shadow-copy" data-i18n="shadowCopy">Copy</button>
+            <button type="button" class="btn" id="btn-shadow-blank" data-i18n="shadowBlank">blank →</button>
+            <button type="button" class="btn" id="btn-shadow-writer" data-i18n="shadowWriter">Writer →</button>
+            <button type="button" class="btn btn-ghost" id="btn-shadow-clear" data-i18n="shadowClear">Clear</button>
+          </div>
+        </div>
+        <label class="shadow-input-label" for="shadow-input">
+          <span class="sr-only">Type or paste any phrase</span>
+          <textarea
+            id="shadow-input"
+            class="shadow-input"
+            rows="3"
+            data-i18n-ph="shadowInputPh"
+            placeholder="Type or paste — phrase, caption, lyric…&#10;Paths drive shadows · compare all language descriptions below"
+            spellcheck="true"
+            autocomplete="off"
+          ></textarea>
+        </label>
+        <div class="shadow-strip" id="shadow-strip" role="status" title="Contrails / ergonomics strip">
+          Keys: 0 | Eff: 0% | Cpx: 0% | Trails: 0 | 0mm | 0.000000 cal
+        </div>
+        <div class="shadow-metrics" id="shadow-metrics" aria-label="Live ergonomics"></div>
+        <div class="shadow-copilot" id="shadow-copilot" aria-live="polite">
+          <p class="shadow-copilot-idle" data-i18n="copilotIdle">Copilot waits for text — strain spikes, layout switches, home-row tips.</p>
+        </div>
+        <details class="sub-collapse" open>
+          <summary class="sub-collapse-sum" data-i18n="spatialTitle">Spatial / gsplat control surface</summary>
+          <div class="spatial-canvas-wrap">
+            <div class="shadow-ring-head">
+              <span class="shadow-ring-meta" data-i18n="spatialMeta">typing → camera · density · path cloud</span>
+            </div>
+            <canvas id="spatial-canvas" width="720" height="200" aria-label="Spatial path control surface"></canvas>
+          </div>
+        </details>
+        <details class="sub-collapse" open>
+          <summary class="sub-collapse-sum" data-i18n="ringTitle">Layout shadow ring</summary>
+          <div class="shadow-ring-wrap">
+            <div class="shadow-ring-head">
+              <span class="shadow-ring-meta" id="shadow-ring-meta" data-i18n="ringMeta">15 boards · same physical path</span>
+            </div>
+            <div class="shadow-ring" id="shadow-ring" role="list" aria-label="15-layout geometric shadows"></div>
+          </div>
+        </details>
+        <details class="sub-collapse" open>
+          <summary class="sub-collapse-sum" data-i18n="rankTitle">Layout lab · strain rank</summary>
+          <div class="shadow-rank-wrap">
+            <div class="shadow-ring-head">
+              <span class="shadow-ring-meta" data-i18n="rankMeta">lower strain index is easier on hands for this path</span>
+            </div>
+            <div class="shadow-rank" id="shadow-rank" role="list" aria-label="Layouts ranked by strain"></div>
+          </div>
+        </details>
+        <details class="sub-collapse" open>
+          <summary class="sub-collapse-sum">Register · slang · age capsules · dialects · extension</summary>
+          <div class="register-layer-panel">
+            <p class="shadow-ring-meta">Open/curated layers on 1.69M spellings · age + region capsules (mueee-style) · UD-style gloss + cite · <code>npm run grow-registers:fetch</code></p>
+            <div class="reg-filter-row" id="shadow-register-filters" role="group" aria-label="Register layer"></div>
+            <p class="shadow-ring-meta">Age capsules</p>
+            <div class="reg-filter-row" id="capsule-age-filters" role="group" aria-label="Age capsules"></div>
+            <p class="shadow-ring-meta">Regional dialects · city Mandarin vs formal</p>
+            <div class="reg-filter-row" id="capsule-region-filters" role="group" aria-label="Region capsules"></div>
+            <p class="shadow-ring-meta">Themes</p>
+            <div class="reg-filter-row" id="capsule-theme-filters" role="group" aria-label="Theme capsules"></div>
+            <div class="reg-tag-row" id="shadow-register-tags" aria-label="Tags for current word"></div>
+          </div>
+        </details>
+        <details class="sub-collapse" open>
+          <summary class="sub-collapse-sum">Cortical loop · tool stack · persona / SpaceXAI</summary>
+          <div class="cortical-panel">
+            <p class="shadow-ring-meta" id="cortical-status">cortical idle · budget 3500ms · L0–L7</p>
+            <p class="shadow-ring-meta">Persona patterns · auto-suggest (registers · speech packs · shadows)</p>
+            <div class="reg-filter-row" id="persona-filters" role="group" aria-label="Persona"></div>
+            <div id="persona-suggest-body" class="persona-suggest-body">
+              <p class="writer-muted">Type — suggestions fill after heavy cortical tick.</p>
+            </div>
+            <p class="shadow-ring-meta">Stack: Prefixes · DAC · GlueLam · stenoSTRIP · IronLine · t5+ · WASM · runtimes</p>
+            <div id="tool-stack-body" class="tool-stack-body">
+              <p class="writer-muted">Heavy idle builds full stack envelope for LLM/MCP/tensor bulk cross-ref.</p>
+            </div>
+            <div class="shadow-live-actions" style="margin-top:8px">
+              <button type="button" class="btn" id="btn-export-runtimes" title="Download multi-runtime pack">Export JSON/JAX/Python/…</button>
+              <button type="button" class="btn" id="btn-copy-python" title="Copy Python adapter">Copy Python</button>
+              <button type="button" class="btn btn-ghost" id="btn-cortical-force">Force full loop</button>
+            </div>
+          </div>
+        </details>
+        <details class="sub-collapse" open id="quantum-gutter-section">
+          <summary class="sub-collapse-sum">Quantum gutter · 11-symbol fold-through</summary>
+          <div class="qg-wrap">
+            <p class="shadow-ring-meta">n: +1: -n: +0: 0: -1: +n: +2: -0: +3: 1: · code + speech rails · GlueLam vendor</p>
+            <div id="quantum-gutter-body" class="quantum-gutter-body">
+              <p class="writer-muted">Type — gutter classifies every line for quantum-speed path.</p>
+            </div>
+          </div>
+        </details>
+        <details class="sub-collapse" open id="terminal">
+          <summary class="sub-collapse-sum">Terminal · Freya / GY mesh · NFC</summary>
+          <div class="terminal-mesh-panel">
+            <p class="shadow-ring-meta" id="mesh-status">mesh idle · multi-device knowledge · not locked to one client</p>
+            <div class="shadow-live-actions" style="margin-bottom:8px">
+              <button type="button" class="btn btn-primary" id="btn-mesh-join">Join mesh</button>
+              <button type="button" class="btn" id="btn-mesh-pub">Publish knowledge</button>
+              <button type="button" class="btn" id="btn-nfc-share" title="Android Chrome HTTPS">NFC share</button>
+              <button type="button" class="btn btn-ghost" id="btn-nfc-scan">NFC scan</button>
+              <a class="btn" href="https://freya.qbitos.ai/" target="_blank" rel="noopener">Freya ↗</a>
+              <a class="btn" href="https://mueee.qbitos.ai/quantum-gutter.html" target="_blank" rel="noopener">Gutter ↗</a>
+            </div>
+            <div id="term-mount" class="term-mount"></div>
+          </div>
+        </details>
+        <details class="sub-collapse" open>
+          <summary class="sub-collapse-sum">Pattern lab · flow · cross-language similarity</summary>
+          <div class="pattern-lab-wrap">
+            <p class="shadow-ring-meta">Path as unit of work · readable vs cipher shadows · density + strain · flow bigrams across 15 boards</p>
+            <div id="pattern-lab-body" class="pattern-lab-body">
+              <p class="writer-muted">Type text — patterns and similarities appear here.</p>
+            </div>
+          </div>
+        </details>
+        <details class="sub-collapse" open>
+          <summary class="sub-collapse-sum">Rubik · origin tree cube (active pathway)</summary>
+          <div class="rubik-wrap">
+            <p class="shadow-ring-meta">One cube per origin language tree · faces = Written / Spoken / Movement / Digital / Analog / Thought · stickers = tree steps</p>
+            <div id="rubik-map-body" class="rubik-map-body">
+              <p class="writer-muted">Cube binds to active mother tongue pathway…</p>
+            </div>
+          </div>
+        </details>
+        <details class="sub-collapse" open>
+          <summary class="sub-collapse-sum">All origin Rubiks map · every language tree</summary>
+          <div class="rubik-wrap rubik-wrap-atlas">
+            <p class="shadow-ring-meta">Large atlas — PIE→English, Latin→Romance, Algic→Anishinaabe, Na-Dené→Diné… Focus a tree to bind pathway + Shadow Live</p>
+            <div id="rubik-all-map-body" class="rubik-all-map-body">
+              <p class="writer-muted">Building origin atlas…</p>
+            </div>
+          </div>
+        </details>
+        <details class="sub-collapse" open>
+          <summary class="sub-collapse-sum">A11y</summary>
+          <div class="shadow-a11y" id="shadow-a11y" aria-label="Accessibility encodings">
+            <div class="shadow-a11y-row"><span class="sense-k" data-i18n="a11yBraille">Braille</span> <span id="sl-braille">—</span></div>
+            <div class="shadow-a11y-row"><span class="sense-k" data-i18n="a11yMorse">Morse</span> <span id="sl-morse">—</span></div>
+            <div class="shadow-a11y-row"><span class="sense-k" data-i18n="a11yNato">NATO</span> <span id="sl-nato">—</span></div>
+            <div class="shadow-a11y-row"><span class="sense-k" data-i18n="a11yDdr">DDR / flow</span> <span id="sl-flow">—</span></div>
+          </div>
+        </details>
+        <div class="shadow-stack-bar" id="shadow-stack-bar" aria-label="Stack status">
+          <span class="stack-chip" id="chip-gluelam" title="GlueLam">GlueLam · —</span>
+          <span class="stack-chip" id="chip-iron" title="IronLine L4">IronLine L4</span>
+          <span class="stack-chip" id="chip-q" title="Quantum bridge">Q · —</span>
+          <span class="stack-chip" id="chip-spatial" title="Spatial hooks">Spatial · —</span>
+          <span class="stack-chip" id="chip-steno-coins" title="Write vs blank coins (stenoSTRIP)">Coins · —</span>
+          <span class="stack-chip is-ok" id="chip-ugrad-live" title="ugrad-live bus → Overview">ugrad-live · free</span>
+          <span class="stack-chip stack-chip-live" id="chip-lives" title="Where this lives">kbatch.ugrad.ai · GitHub · X batch</span>
+        </div>
+        <details class="sub-collapse" open>
+          <summary class="sub-collapse-sum" data-i18n="liveDocs">Live documents (Overview)</summary>
+          <div class="ugrad-live-panel" id="ugrad-live-panel">
+            <div class="shadow-ring-head">
+              <span class="shadow-ring-meta" id="ugrad-live-meta" data-i18n="liveMeta">same browser · free · Ollama on Overview</span>
+            </div>
+            <p class="ugrad-live-status" id="ugrad-live-status" data-i18n="liveStatus">Open Overview in another tab to sync workspace.</p>
+            <div class="shadow-live-actions">
+              <button type="button" class="btn btn-primary" id="btn-pin-overview" data-i18n="pinOverview">Pin → Overview</button>
+              <a class="btn" id="link-overview" href="https://ugrad-overview.pages.dev/" target="_blank" rel="noopener" data-i18n="openOverview">Open Overview</a>
+              <a class="btn" href="https://kbatch.ugrad.ai/shadow" target="_blank" rel="noopener">/shadow</a>
+            </div>
+          </div>
+        </details>
+        <details class="sub-collapse" open>
+          <summary class="sub-collapse-sum" data-i18n="langCompareTitle">Language descriptions · evolution · all UI langs</summary>
+          <div class="lang-compare-panel" id="lang-compare-panel">
+            <p class="shadow-ring-meta" data-i18n="langCompareMeta">verify structure &amp; wording · geometric dialect · origin tree · timeline</p>
+            <div class="lang-compare-views" role="toolbar" aria-label="Compare view mode">
+              <button type="button" class="btn is-active" data-lang-view="grid" title="All language description cards">Grid</button>
+              <button type="button" class="btn" data-lang-view="origin" title="Group by language family / origin">By origin</button>
+              <button type="button" class="btn" data-lang-view="timeline" title="Evolution paths · historical timeline">Evolution tree</button>
+            </div>
+            <div id="lang-compare-body" class="lang-compare-body">
+              <p class="writer-muted" data-i18n="langCompareHint">Run Shadow Live to fill cross-language description matrix (22 UI · 24 mother tongues).</p>
+            </div>
+          </div>
+        </details>
+        <details class="sub-collapse" open>
+          <summary class="sub-collapse-sum">stenoSTRIP · GY glyph pixels · blank coins · pcap</summary>
+          <div class="steno-pcap-wrap">
+            <p class="shadow-ring-meta">Write spends coins · blank space allotable for steno · GrokYtalkY 13²/25² glyph matrix embeds in whitespace · mesh/gy-stream broadcast</p>
+            <div class="steno-pcap-actions">
+              <button type="button" class="btn btn-primary" id="btn-steno-analyze">Analyze space</button>
+              <button type="button" class="btn" id="btn-pcap-path">Mint pcap path</button>
+              <button type="button" class="btn" id="btn-steno-embed" title="Embed payload in blank/steno spaces">Embed payload</button>
+              <button type="button" class="btn" id="btn-glyph-steno" title="Pack GY glyph pixels into steno whitespace + mesh broadcast">Glyph → steno</button>
+              <button type="button" class="btn" id="btn-glyph-broadcast" title="Broadcast glyph frame on gy-stream / mesh">Broadcast glyph</button>
+              <button type="button" class="btn btn-ghost" id="btn-steno-copy">Copy strip</button>
+            </div>
+            <label class="steno-payload-label">
+              Payload (other use) · glyph size
+              <span class="steno-payload-row">
+                <input type="text" id="steno-payload" class="steno-payload-input" placeholder="routing · weight · watermark · glyph bits…" autocomplete="off" />
+                <select id="glyph-n" class="layout-select" title="GY glyph matrix size" aria-label="Glyph matrix N">
+                  <option value="13" selected>13²</option>
+                  <option value="25">25²</option>
+                  <option value="37">37²</option>
+                  <option value="49">49²</option>
+                </select>
+              </span>
+            </label>
+            <div id="glyph-steno-preview" class="glyph-steno-preview" aria-label="Glyph matrix preview"></div>
+            <div id="steno-space-body" class="steno-space-body">
+              <p class="writer-muted">Type in Shadow Live — blank coins + tool totals appear here. Glyph → steno packs GY pixels into whitespace.</p>
+            </div>
+            <div id="pcap-image-body" class="pcap-image-body"></div>
+          </div>
+        </details>
+        <div class="shadow-extra-grid">
+          <div class="shadow-extra-card">
+            <div class="shadow-ring-head">
+              <span class="shadow-ring-title" data-i18n="searchMedia">Shadow Search · media</span>
+              <span class="shadow-ring-meta" data-i18n="searchMediaMeta">words · phrases · lyrics · captions · code</span>
+            </div>
+            <div class="shadow-search-row">
+              <input type="search" id="shadow-search-input" class="shadow-search-input" data-i18n-ph="searchPh2" placeholder="Same keys as… (geometry across media)" autocomplete="off" />
+              <button type="button" class="btn" id="btn-shadow-search" data-i18n="searchBtn">Search</button>
+            </div>
+            <div class="shadow-kind-filters" id="shadow-kind-filters" role="group" aria-label="Media kinds">
+              <button type="button" class="shadow-kind is-on" data-kind="word">word</button>
+              <button type="button" class="shadow-kind is-on" data-kind="phrase">phrase</button>
+              <button type="button" class="shadow-kind is-on" data-kind="lyric">lyric</button>
+              <button type="button" class="shadow-kind is-on" data-kind="caption">caption</button>
+              <button type="button" class="shadow-kind is-on" data-kind="code">code</button>
+            </div>
+            <div class="shadow-search-hits" id="shadow-search-hits" role="list"></div>
+          </div>
+          <div class="shadow-extra-card">
+            <div class="shadow-ring-head">
+              <span class="shadow-ring-title" data-i18n="quantumTitle">Quantum bridge · preflight</span>
+              <span class="shadow-ring-meta" id="shadow-q-meta" data-i18n="quantumMeta">path → QASM</span>
+            </div>
+            <pre class="shadow-qasm" id="shadow-qasm" tabindex="0">// type to build circuit</pre>
+            <p class="shadow-q-verdict" id="shadow-q-verdict">preflight: —</p>
+          </div>
+        </div>
+        </div>
+      </details>
+
+      <details class="main-collapse writer-panel" id="writer-panel" hidden>
+        <summary class="main-collapse-sum">
+          <span class="writer-title" data-i18n="writerTitle">SMART Writer</span>
+          <span class="writer-hint" data-i18n="writerHint">DDR · Braille · Dance · Notes · Flow · Metrics · layouts · meaning · phonation · scholar</span>
+        </summary>
+        <div class="main-collapse-body">
+        <div class="writer-head">
+          <button type="button" class="btn btn-ghost" id="btn-writer-close" aria-label="Close writer">✕</button>
+        </div>
+        <textarea
+          id="writer-input"
+          class="writer-input"
+          rows="5"
+          placeholder="Write or paste anything — sentence, paragraph, caption, research note…&#10;Full keyboard stack updates below without covering A–Z / language sections."
+          spellcheck="true"
+        ></textarea>
+        <div class="writer-actions">
+          <button type="button" class="btn btn-primary" id="btn-writer-analyze">Analyze text</button>
+          <button type="button" class="btn" id="btn-writer-live" title="Re-analyze as you type (debounced)">Live</button>
+          <button type="button" class="btn" id="btn-writer-overview" title="Export Overview workspace JSON">→ Overview</button>
+          <button type="button" class="btn" id="btn-writer-x" title="Open X Article presentation">X article</button>
+          <button type="button" class="btn" id="btn-writer-copy-caption">Copy caption_out</button>
+          <button type="button" class="btn btn-ghost" id="btn-writer-clear" title="Clear writer">Clear</button>
+          <span class="writer-level" id="writer-level">level: —</span>
+        </div>
+        <div class="writer-results" id="writer-results" hidden>
+          <div class="writer-strip" id="writer-strip" title="Contrails stats strip">Keys: 0 | Eff: 0% | Cpx: 0% | Trails: 0 | 0mm | 0.000000 cal</div>
+          <div class="writer-kb-stack" id="writer-kb-stack">
+            <div class="writer-meta-row">
+              <div class="meta-cell meta-ddr"><span class="meta-k">DDR</span><span class="meta-v ddr-flow" id="w-ddr">·</span></div>
+              <div class="meta-cell meta-braille"><span class="meta-k">Braille</span><span class="meta-v braille" id="w-braille">—</span></div>
+              <div class="meta-cell meta-dance"><span class="meta-k">Dance</span><span class="meta-v" id="w-dance">—</span></div>
+              <div class="meta-cell meta-music"><span class="meta-k">Notes</span><span class="meta-v mono" id="w-notes">—</span></div>
+              <div class="meta-cell meta-flow"><span class="meta-k">Flow</span><span class="meta-v flow-arrows" id="w-flow">·</span></div>
+            </div>
+            <div class="writer-metrics-row" id="w-metrics-pills"></div>
+            <div class="writer-encodings" id="w-encodings"></div>
+            <div class="writer-layouts-scroll" id="w-layouts" role="list" aria-label="Layout shadows"></div>
+          </div>
+          <div class="writer-card writer-card-wide" id="w-meaning-card">
+            <h3>Meaning · synonyms · antonyms · etymology · agency</h3>
+            <p id="w-meaning">—</p>
+            <p class="writer-muted" id="w-etym-full">—</p>
+            <p class="writer-muted" id="w-pos-gloss">—</p>
+            <div id="w-lex-graph" class="w-lex-graph" aria-label="Lexical relations and adoption"></div>
+          </div>
+          <div class="writer-grid">
+            <div class="writer-card">
+              <h3>Order (S/O)</h3>
+              <p class="writer-so" id="writer-so">—</p>
+              <p class="writer-muted" id="writer-patterns">—</p>
+            </div>
+            <div class="writer-card">
+              <h3>Historical / scribe</h3>
+              <p id="writer-era">—</p>
+              <p class="writer-muted" id="writer-etym">—</p>
+              <p class="writer-muted" id="writer-scribe">—</p>
+            </div>
+            <div class="writer-card">
+              <h3>Chant · paleography</h3>
+              <p id="writer-chant">—</p>
+              <p class="writer-muted"><a id="writer-paleo-link" href="https://fornevercollective.github.io/codex-regius-digital/paleography-hub.html#scribe" target="_blank" rel="noopener">Paleography hub</a></p>
+            </div>
+            <div class="writer-card">
+              <h3>Mouth · tone</h3>
+              <p id="w-mouth">—</p>
+              <p class="writer-muted" id="w-tone">—</p>
+            </div>
+            <div class="writer-card">
+              <h3>Registers</h3>
+              <p class="writer-muted" id="w-registers">Soprano · Mezzo · Alto · Tenor · Bass</p>
+            </div>
+            <div class="writer-card">
+              <h3>Placement</h3>
+              <p id="w-place">—</p>
+              <p class="writer-muted" id="w-coach">—</p>
+            </div>
+          </div>
+          <div class="writer-card writer-card-wide" id="w-stepping-card">
+            <h3>Sound → language · stepping · register</h3>
+            <p id="w-origin">—</p>
+            <p class="writer-muted" id="w-pathway">—</p>
+            <p class="writer-muted" id="w-register">—</p>
+            <p class="writer-muted" id="w-derivatives">—</p>
+            <p class="writer-muted" id="w-mother">—</p>
+            <div class="step-origin-row" id="w-origin-row" aria-label="Communication origin stages"></div>
+            <div class="step-register-row" id="w-register-row" aria-label="Register spectrum"></div>
+            <div class="step-path-row" id="w-path-row" aria-label="Language stepping path"></div>
+          </div>
+          <div class="writer-card writer-card-wide">
+            <h3>Leipzig gloss · typology</h3>
+            <pre class="writer-pre" id="w-gloss">—</pre>
+            <p class="writer-muted" id="w-typology">—</p>
+          </div>
+          <div class="writer-card writer-card-wide">
+            <h3>Scholar · sound-change · citations</h3>
+            <p class="writer-muted" id="w-sound">—</p>
+            <details class="writer-details"><summary>APA</summary><pre class="writer-pre" id="w-apa">—</pre></details>
+            <details class="writer-details"><summary>BibTeX</summary><pre class="writer-pre" id="w-bibtex">—</pre></details>
+            <details class="writer-details"><summary>TEI</summary><pre class="writer-pre" id="w-tei">—</pre></details>
+          </div>
+          <div class="writer-card writer-card-wide">
+            <h3>Token stream</h3>
+            <div class="writer-tokens" id="w-tokens"></div>
+          </div>
+          <details class="writer-details writer-json-details">
+            <summary>Full machine envelope (JSON)</summary>
+            <pre class="writer-json" id="writer-json">{}</pre>
+          </details>
+        </div>
+        </div>
+      </details>
+
+      <details class="main-collapse dict-section" id="dict-section" open aria-label="Dictionary A–Z">
+        <summary class="main-collapse-sum dict-section-sum" id="dict-section-sum">
+          <span class="dict-sum-main">
+            <span class="list-toolbar-title" id="list-toolbar-title" data-i18n="listTitle">Dictionary · A–Z</span>
+            <span class="dict-sum-badge" id="dict-sum-badge" aria-hidden="true">open</span>
+          </span>
+          <span class="list-toolbar-hint" id="dict-section-meta" data-i18n="listHint">1.69M spellings · click header to collapse · open a letter for ba/bb… sub-search</span>
+        </summary>
+        <div class="main-collapse-body dict-section-body">
+          <div class="list-toolbar" role="toolbar" aria-label="Letter sections">
+            <div class="list-toolbar-left">
+              <span class="list-toolbar-hint" id="list-count-hint">Click A–Z on the side rail · expands ba/bb… under each letter · click Dictionary header to fold this whole section</span>
+              <div class="reg-filter-row" id="dict-register-filters" role="group" aria-label="Register filter"></div>
+            </div>
+            <div class="list-toolbar-actions">
+              <button type="button" class="btn btn-primary" id="btn-kb-refresh" title="Re-analyze current word · load layout ring (not all languages)">Refresh keyboards</button>
+              <button type="button" class="btn" id="btn-analyze-all" data-i18n="analyzeAll">Analyze all letters</button>
+              <button type="button" class="btn" id="btn-expand-all" data-i18n="expandAll">Expand letters</button>
+              <button type="button" class="btn" id="btn-collapse-all" data-i18n="collapseAll" title="Collapse all letter cards">Collapse letters</button>
+              <button type="button" class="btn" id="btn-collapse-dict" title="Fold the whole Dictionary section">Fold dictionary</button>
+              <a class="btn" href="/dojo/">DOJO →</a>
+            </div>
+          </div>
+          <div id="word-list" class="word-list" aria-live="polite">
+            <p class="empty-state" data-i18n="emptyCorpus">Processing alphabet…</p>
+          </div>
+        </div>
+      </details>
+
+      <details class="main-collapse skills-section" id="skills-section" open aria-label="School skills and knowledge capsules">
+        <summary class="main-collapse-sum">
+          <span>School skills · curriculum graph</span>
+          <span class="list-toolbar-hint">CEFR rungs · subjects · Shadow Live · typing · school capsule · device progress</span>
+        </summary>
+        <div class="main-collapse-body skills-collapse-body">
+          <div id="school-concepts-mount" class="labs-card skills-mount" role="region" aria-label="School skills dashboard"></div>
+        </div>
+      </details>
+
+    </main>
+  </div>
+
+    <footer class="app-footer">
+    <strong>kbatch.ugrad.ai</strong> · mother tongue · path geometry · shadows ·
+    <a href="labs/typing.html">Typing</a> ·
+    <a href="labs/myth-names.html">Myth · Names</a> ·
+    <a href="labs/waveform-letters.html">Waves</a> ·
+    <a href="labs/music-staff.html">Staff catalogue</a> ·
+    <a href="lyrics.html">Lyrics</a> ·
+    <a href="install.html">Install <code>kb</code></a> ·
+    <a href="docs.html">Docs</a>
+  </footer>
+
+  <script>
+    (function () {
+      window.__KBATCH_BOOT__ = { ok: false, phase: "html", at: Date.now() };
+      function paint(total, errMsg) {
+        var c = document.getElementById("stat-count");
+        var t = document.getElementById("stat-total");
+        var err = document.getElementById("corpus-error");
+        var line = document.getElementById("status-line");
+        if (total > 0) {
+          if (c) c.textContent = total.toLocaleString();
+          if (t) t.textContent = total.toLocaleString();
+          window.__KBATCH_BOOT__ = { ok: true, total: total, phase: "html-prefetch", at: Date.now() };
+          if (line && (!line.textContent || line.textContent === "Loading…")) {
+            line.textContent = "Index · " + total.toLocaleString() + " spellings";
+          }
+          var hurdle = document.getElementById("vocab-hurdle");
+          if (hurdle && (!hurdle.textContent || hurdle.textContent.indexOf("—") !== -1)) {
+            hurdle.textContent = total.toLocaleString() + " indexed";
+          }
+          if (err) { err.hidden = true; err.textContent = ""; }
+        } else if (errMsg) {
+          if (err) {
+            err.hidden = false;
+            err.className = "corpus-error is-error";
+            err.textContent = errMsg;
+          }
+          if (line && (!line.textContent || line.textContent === "Loading…")) {
+            line.textContent = errMsg;
+          }
+        }
+      }
+      // Emergency: paint totals without waiting for app.js module graph
+      fetch("./data/word-index.json", { cache: "no-cache" })
+        .then(function (r) {
+          if (!r.ok) throw new Error("word-index HTTP " + r.status);
+          return r.json();
+        })
+        .then(function (j) {
+          var n = (j && j.total) || 0;
+          paint(n, n ? null : "word-index total=0");
+        })
+        .catch(function (e) {
+          // do not paint fatal yet — app may still recover
+          window.__KBATCH_BOOT__.prefetchError = String(e && e.message || e);
+        });
+      // Kill stale service workers that can freeze boot on cached empty shell
+      if ("serviceWorker" in navigator) {
+        navigator.serviceWorker.getRegistrations().then(function (regs) {
+          regs.forEach(function (reg) {
+            // keep registration but force update
+            try { reg.update(); } catch (e) {}
+          });
+        });
+      }
+      window.addEventListener("error", function (e) {
+        if (e && e.filename && String(e.filename).indexOf("/js/") !== -1) {
+          var b = window.__KBATCH_BOOT__ || {};
+          if (b.ok && b.total > 0) return; // corpus already painted
+          paint(0, "JS error: " + (e.message || "module failed") + " — hard-refresh / unregister SW");
+        }
+      });
+      window.addEventListener("unhandledrejection", function (e) {
+        var r = e && e.reason;
+        var m = (r && r.message) || String(r || "");
+        if (/word-index|corpus|fetch|Failed to fetch|Load failed/i.test(m)) {
+          var b = window.__KBATCH_BOOT__ || {};
+          if (b.ok && b.total > 0) return;
+          paint(0, "Corpus: " + m);
+        }
+      });
+      setTimeout(function () {
+        var b = window.__KBATCH_BOOT__ || {};
+        if (b.ok || (b.total && b.total > 0)) return;
+        if (b.phase === "ready" || b.phase === "error" || b.phase === "index" || b.phase === "letter-a") return;
+        paint(
+          0,
+          "Spellings 0/0 still Loading — app boot stalled. Hard-refresh · Application → Service Workers → Unregister → reload · check /data/word-index.json"
+        );
+      }, 12000);
+    })();
+  </script>
+  <script type="importmap">
+{"imports":{"/js/analyze.js":"/js/analyze.js?v=1.2.0+local+20260726021200","js/analyze.js":"js/analyze.js?v=1.2.0+local+20260726021200","/js/ancestory-lab.js":"/js/ancestory-lab.js?v=1.2.0+local+20260726021200","js/ancestory-lab.js":"js/ancestory-lab.js?v=1.2.0+local+20260726021200","/js/app.js":"/js/app.js?v=1.2.0+local+20260726021200","js/app.js":"js/app.js?v=1.2.0+local+20260726021200","/js/archive-restoration-viewer.js":"/js/archive-restoration-viewer.js?v=1.2.0+local+20260726021200","js/archive-restoration-viewer.js":"js/archive-restoration-viewer.js?v=1.2.0+local+20260726021200","/js/billboard-2026.js":"/js/billboard-2026.js?v=1.2.0+local+20260726021200","js/billboard-2026.js":"js/billboard-2026.js?v=1.2.0+local+20260726021200","/js/blank-bridge.js":"/js/blank-bridge.js?v=1.2.0+local+20260726021200","js/blank-bridge.js":"js/blank-bridge.js?v=1.2.0+local+20260726021200","/js/cache-bust.js":"/js/cache-bust.js?v=1.2.0+local+20260726021200","js/cache-bust.js":"js/cache-bust.js?v=1.2.0+local+20260726021200","/js/cage-litmus-mcp.js":"/js/cage-litmus-mcp.js?v=1.2.0+local+20260726021200","js/cage-litmus-mcp.js":"js/cage-litmus-mcp.js?v=1.2.0+local+20260726021200","/js/capsule-analyzer.js":"/js/capsule-analyzer.js?v=1.2.0+local+20260726021200","js/capsule-analyzer.js":"js/capsule-analyzer.js?v=1.2.0+local+20260726021200","/js/capsules-canon.js":"/js/capsules-canon.js?v=1.2.0+local+20260726021200","js/capsules-canon.js":"js/capsules-canon.js?v=1.2.0+local+20260726021200","/js/collab-lab.js":"/js/collab-lab.js?v=1.2.0+local+20260726021200","js/collab-lab.js":"js/collab-lab.js?v=1.2.0+local+20260726021200","/js/concept-solve.js":"/js/concept-solve.js?v=1.2.0+local+20260726021200","js/concept-solve.js":"js/concept-solve.js?v=1.2.0+local+20260726021200","/js/contrails-viz.js":"/js/contrails-viz.js?v=1.2.0+local+20260726021200","js/contrails-viz.js":"js/contrails-viz.js?v=1.2.0+local+20260726021200","/js/corpus-sources.js":"/js/corpus-sources.js?v=1.2.0+local+20260726021200","js/corpus-sources.js":"js/corpus-sources.js?v=1.2.0+local+20260726021200","/js/corpus.js":"/js/corpus.js?v=1.2.0+local+20260726021200","js/corpus.js":"js/corpus.js?v=1.2.0+local+20260726021200","/js/cortical-loop.js":"/js/cortical-loop.js?v=1.2.0+local+20260726021200","js/cortical-loop.js":"js/cortical-loop.js?v=1.2.0+local+20260726021200","/js/declaration-cadence.js":"/js/declaration-cadence.js?v=1.2.0+local+20260726021200","js/declaration-cadence.js":"js/declaration-cadence.js?v=1.2.0+local+20260726021200","/js/declaration-cage-litmus.js":"/js/declaration-cage-litmus.js?v=1.2.0+local+20260726021200","js/declaration-cage-litmus.js":"js/declaration-cage-litmus.js?v=1.2.0+local+20260726021200","/js/declaration-edition-nav.js":"/js/declaration-edition-nav.js?v=1.2.0+local+20260726021200","js/declaration-edition-nav.js":"js/declaration-edition-nav.js?v=1.2.0+local+20260726021200","/js/declaration-letter-grid.js":"/js/declaration-letter-grid.js?v=1.2.0+local+20260726021200","js/declaration-letter-grid.js":"js/declaration-letter-grid.js?v=1.2.0+local+20260726021200","/js/declaration-symbology.js":"/js/declaration-symbology.js?v=1.2.0+local+20260726021200","js/declaration-symbology.js":"js/declaration-symbology.js?v=1.2.0+local+20260726021200","/js/declaration-world.js":"/js/declaration-world.js?v=1.2.0+local+20260726021200","js/declaration-world.js":"js/declaration-world.js?v=1.2.0+local+20260726021200","/js/deep-zoom-viewer.js":"/js/deep-zoom-viewer.js?v=1.2.0+local+20260726021200","js/deep-zoom-viewer.js":"js/deep-zoom-viewer.js?v=1.2.0+local+20260726021200","/js/dojo-app.js":"/js/dojo-app.js?v=1.2.0+local+20260726021200","js/dojo-app.js":"js/dojo-app.js?v=1.2.0+local+20260726021200","/js/education.js":"/js/education.js?v=1.2.0+local+20260726021200","js/education.js":"js/education.js?v=1.2.0+local+20260726021200","/js/encoder.js":"/js/encoder.js?v=1.2.0+local+20260726021200","js/encoder.js":"js/encoder.js?v=1.2.0+local+20260726021200","/js/export.js":"/js/export.js?v=1.2.0+local+20260726021200","js/export.js":"js/export.js?v=1.2.0+local+20260726021200","/js/freya-math.js":"/js/freya-math.js?v=1.2.0+local+20260726021200","js/freya-math.js":"js/freya-math.js?v=1.2.0+local+20260726021200","/js/gluelam-consumer.js":"/js/gluelam-consumer.js?v=1.2.0+local+20260726021200","js/gluelam-consumer.js":"js/gluelam-consumer.js?v=1.2.0+local+20260726021200","/js/glyph-steno.js":"/js/glyph-steno.js?v=1.2.0+local+20260726021200","js/glyph-steno.js":"js/glyph-steno.js?v=1.2.0+local+20260726021200","/js/historical.js":"/js/historical.js?v=1.2.0+local+20260726021200","js/historical.js":"js/historical.js?v=1.2.0+local+20260726021200","/js/history-harness.js":"/js/history-harness.js?v=1.2.0+local+20260726021200","js/history-harness.js":"js/history-harness.js?v=1.2.0+local+20260726021200","/js/history-sliderule.js":"/js/history-sliderule.js?v=1.2.0+local+20260726021200","js/history-sliderule.js":"js/history-sliderule.js?v=1.2.0+local+20260726021200","/js/i18n-desc.js":"/js/i18n-desc.js?v=1.2.0+local+20260726021200","js/i18n-desc.js":"js/i18n-desc.js?v=1.2.0+local+20260726021200","/js/inclusive-identity.js":"/js/inclusive-identity.js?v=1.2.0+local+20260726021200","js/inclusive-identity.js":"js/inclusive-identity.js?v=1.2.0+local+20260726021200","/js/ironline-bus.js":"/js/ironline-bus.js?v=1.2.0+local+20260726021200","js/ironline-bus.js":"js/ironline-bus.js?v=1.2.0+local+20260726021200","/js/keyboard-pattern-lab.js":"/js/keyboard-pattern-lab.js?v=1.2.0+local+20260726021200","js/keyboard-pattern-lab.js":"js/keyboard-pattern-lab.js?v=1.2.0+local+20260726021200","/js/language-alphabet-matrix.js":"/js/language-alphabet-matrix.js?v=1.2.0+local+20260726021200","js/language-alphabet-matrix.js":"js/language-alphabet-matrix.js?v=1.2.0+local+20260726021200","/js/language-catalog.js":"/js/language-catalog.js?v=1.2.0+local+20260726021200","js/language-catalog.js":"js/language-catalog.js?v=1.2.0+local+20260726021200","/js/language-stepping.js":"/js/language-stepping.js?v=1.2.0+local+20260726021200","js/language-stepping.js":"js/language-stepping.js?v=1.2.0+local+20260726021200","/js/layout-ring-lattice.js":"/js/layout-ring-lattice.js?v=1.2.0+local+20260726021200","js/layout-ring-lattice.js":"js/layout-ring-lattice.js?v=1.2.0+local+20260726021200","/js/layouts.js":"/js/layouts.js?v=1.2.0+local+20260726021200","js/layouts.js":"js/layouts.js?v=1.2.0+local+20260726021200","/js/lazy-loader.js":"/js/lazy-loader.js?v=1.2.0+local+20260726021200","js/lazy-loader.js":"js/lazy-loader.js?v=1.2.0+local+20260726021200","/js/learn-app.js":"/js/learn-app.js?v=1.2.0+local+20260726021200","js/learn-app.js":"js/learn-app.js?v=1.2.0+local+20260726021200","/js/letter-atom.js":"/js/letter-atom.js?v=1.2.0+local+20260726021200","js/letter-atom.js":"js/letter-atom.js?v=1.2.0+local+20260726021200","/js/letter-grid-lab.js":"/js/letter-grid-lab.js?v=1.2.0+local+20260726021200","js/letter-grid-lab.js":"js/letter-grid-lab.js?v=1.2.0+local+20260726021200","/js/letter-grid-mcp.js":"/js/letter-grid-mcp.js?v=1.2.0+local+20260726021200","js/letter-grid-mcp.js":"js/letter-grid-mcp.js?v=1.2.0+local+20260726021200","/js/live-dict.js":"/js/live-dict.js?v=1.2.0+local+20260726021200","js/live-dict.js":"js/live-dict.js?v=1.2.0+local+20260726021200","/js/living-book-reader.js":"/js/living-book-reader.js?v=1.2.0+local+20260726021200","js/living-book-reader.js":"js/living-book-reader.js?v=1.2.0+local+20260726021200","/js/living-books.js":"/js/living-books.js?v=1.2.0+local+20260726021200","js/living-books.js":"js/living-books.js?v=1.2.0+local+20260726021200","/js/llm-tool-calibrate.js":"/js/llm-tool-calibrate.js?v=1.2.0+local+20260726021200","js/llm-tool-calibrate.js":"js/llm-tool-calibrate.js?v=1.2.0+local+20260726021200","/js/local-identity.js":"/js/local-identity.js?v=1.2.0+local+20260726021200","js/local-identity.js":"js/local-identity.js?v=1.2.0+local+20260726021200","/js/lyrics-analyze.js":"/js/lyrics-analyze.js?v=1.2.0+local+20260726021200","js/lyrics-analyze.js":"js/lyrics-analyze.js?v=1.2.0+local+20260726021200","/js/lyrics-app.js":"/js/lyrics-app.js?v=1.2.0+local+20260726021200","js/lyrics-app.js":"js/lyrics-app.js?v=1.2.0+local+20260726021200","/js/mesh-bus.js":"/js/mesh-bus.js?v=1.2.0+local+20260726021200","js/mesh-bus.js":"js/mesh-bus.js?v=1.2.0+local+20260726021200","/js/mythology-open.js":"/js/mythology-open.js?v=1.2.0+local+20260726021200","js/mythology-open.js":"js/mythology-open.js?v=1.2.0+local+20260726021200","/js/names-glance.js":"/js/names-glance.js?v=1.2.0+local+20260726021200","js/names-glance.js":"js/names-glance.js?v=1.2.0+local+20260726021200","/js/open-reader-search.js":"/js/open-reader-search.js?v=1.2.0+local+20260726021200","js/open-reader-search.js":"js/open-reader-search.js?v=1.2.0+local+20260726021200","/js/open-senses.js":"/js/open-senses.js?v=1.2.0+local+20260726021200","js/open-senses.js":"js/open-senses.js?v=1.2.0+local+20260726021200","/js/order-analysis.js":"/js/order-analysis.js?v=1.2.0+local+20260726021200","js/order-analysis.js":"js/order-analysis.js?v=1.2.0+local+20260726021200","/js/overview-pipe.js":"/js/overview-pipe.js?v=1.2.0+local+20260726021200","js/overview-pipe.js":"js/overview-pipe.js?v=1.2.0+local+20260726021200","/js/paleography.js":"/js/paleography.js?v=1.2.0+local+20260726021200","js/paleography.js":"js/paleography.js?v=1.2.0+local+20260726021200","/js/path-geometry-panel.js":"/js/path-geometry-panel.js?v=1.2.0+local+20260726021200","js/path-geometry-panel.js":"js/path-geometry-panel.js?v=1.2.0+local+20260726021200","/js/pcap-image-bridge.js":"/js/pcap-image-bridge.js?v=1.2.0+local+20260726021200","js/pcap-image-bridge.js":"js/pcap-image-bridge.js?v=1.2.0+local+20260726021200","/js/persona-suggest.js":"/js/persona-suggest.js?v=1.2.0+local+20260726021200","js/persona-suggest.js":"js/persona-suggest.js?v=1.2.0+local+20260726021200","/js/phonation.js":"/js/phonation.js?v=1.2.0+local+20260726021200","js/phonation.js":"js/phonation.js?v=1.2.0+local+20260726021200","/js/phonetic-pattern.js":"/js/phonetic-pattern.js?v=1.2.0+local+20260726021200","js/phonetic-pattern.js":"js/phonetic-pattern.js?v=1.2.0+local+20260726021200","/js/pipeline.js":"/js/pipeline.js?v=1.2.0+local+20260726021200","js/pipeline.js":"js/pipeline.js?v=1.2.0+local+20260726021200","/js/pos.js":"/js/pos.js?v=1.2.0+local+20260726021200","js/pos.js":"js/pos.js?v=1.2.0+local+20260726021200","/js/probe-generator.js":"/js/probe-generator.js?v=1.2.0+local+20260726021200","js/probe-generator.js":"js/probe-generator.js?v=1.2.0+local+20260726021200","/js/qbpm-music.js":"/js/qbpm-music.js?v=1.2.0+local+20260726021200","js/qbpm-music.js":"js/qbpm-music.js?v=1.2.0+local+20260726021200","/js/quantum-bridge.js":"/js/quantum-bridge.js?v=1.2.0+local+20260726021200","js/quantum-bridge.js":"js/quantum-bridge.js?v=1.2.0+local+20260726021200","/js/quantum-gutter.js":"/js/quantum-gutter.js?v=1.2.0+local+20260726021200","js/quantum-gutter.js":"js/quantum-gutter.js?v=1.2.0+local+20260726021200","/js/registers.js":"/js/registers.js?v=1.2.0+local+20260726021200","js/registers.js":"js/registers.js?v=1.2.0+local+20260726021200","/js/research-app.js":"/js/research-app.js?v=1.2.0+local+20260726021200","js/research-app.js":"js/research-app.js?v=1.2.0+local+20260726021200","/js/research-corpus.js":"/js/research-corpus.js?v=1.2.0+local+20260726021200","js/research-corpus.js":"js/research-corpus.js?v=1.2.0+local+20260726021200","/js/rosetta-alphabets.js":"/js/rosetta-alphabets.js?v=1.2.0+local+20260726021200","js/rosetta-alphabets.js":"js/rosetta-alphabets.js?v=1.2.0+local+20260726021200","/js/rosetta-lab.js":"/js/rosetta-lab.js?v=1.2.0+local+20260726021200","js/rosetta-lab.js":"js/rosetta-lab.js?v=1.2.0+local+20260726021200","/js/rubik-language-map.js":"/js/rubik-language-map.js?v=1.2.0+local+20260726021200","js/rubik-language-map.js":"js/rubik-language-map.js?v=1.2.0+local+20260726021200","/js/saint-crypto-tumble.js":"/js/saint-crypto-tumble.js?v=1.2.0+local+20260726021200","js/saint-crypto-tumble.js":"js/saint-crypto-tumble.js?v=1.2.0+local+20260726021200","/js/schema.js":"/js/schema.js?v=1.2.0+local+20260726021200","js/schema.js":"js/schema.js?v=1.2.0+local+20260726021200","/js/scholar-linguistics.js":"/js/scholar-linguistics.js?v=1.2.0+local+20260726021200","js/scholar-linguistics.js":"js/scholar-linguistics.js?v=1.2.0+local+20260726021200","/js/scribe-forensics.js":"/js/scribe-forensics.js?v=1.2.0+local+20260726021200","js/scribe-forensics.js":"js/scribe-forensics.js?v=1.2.0+local+20260726021200","/js/scribe-live.js":"/js/scribe-live.js?v=1.2.0+local+20260726021200","js/scribe-live.js":"js/scribe-live.js?v=1.2.0+local+20260726021200","/js/shadow-live.js":"/js/shadow-live.js?v=1.2.0+local+20260726021200","js/shadow-live.js":"js/shadow-live.js?v=1.2.0+local+20260726021200","/js/shadow-search.js":"/js/shadow-search.js?v=1.2.0+local+20260726021200","js/shadow-search.js":"js/shadow-search.js?v=1.2.0+local+20260726021200","/js/site-nav.js":"/js/site-nav.js?v=1.2.0+local+20260726021200","js/site-nav.js":"js/site-nav.js?v=1.2.0+local+20260726021200","/js/spatial-hooks.js":"/js/spatial-hooks.js?v=1.2.0+local+20260726021200","js/spatial-hooks.js":"js/spatial-hooks.js?v=1.2.0+local+20260726021200","/js/staff-catalogue.js":"/js/staff-catalogue.js?v=1.2.0+local+20260726021200","js/staff-catalogue.js":"js/staff-catalogue.js?v=1.2.0+local+20260726021200","/js/steno-space-letter-grid.js":"/js/steno-space-letter-grid.js?v=1.2.0+local+20260726021200","js/steno-space-letter-grid.js":"js/steno-space-letter-grid.js?v=1.2.0+local+20260726021200","/js/steno-strip.js":"/js/steno-strip.js?v=1.2.0+local+20260726021200","js/steno-strip.js":"js/steno-strip.js?v=1.2.0+local+20260726021200","/js/terminal-lane.js":"/js/terminal-lane.js?v=1.2.0+local+20260726021200","js/terminal-lane.js":"js/terminal-lane.js?v=1.2.0+local+20260726021200","/js/tool-stack.js":"/js/tool-stack.js?v=1.2.0+local+20260726021200","js/tool-stack.js":"js/tool-stack.js?v=1.2.0+local+20260726021200","/js/typing-practice.js":"/js/typing-practice.js?v=1.2.0+local+20260726021200","js/typing-practice.js":"js/typing-practice.js?v=1.2.0+local+20260726021200","/js/ugrad-live-bus.js":"/js/ugrad-live-bus.js?v=1.2.0+local+20260726021200","js/ugrad-live-bus.js":"js/ugrad-live-bus.js?v=1.2.0+local+20260726021200","/js/ui-i18n.js":"/js/ui-i18n.js?v=1.2.0+local+20260726021200","js/ui-i18n.js":"js/ui-i18n.js?v=1.2.0+local+20260726021200","/js/version.js":"/js/version.js?v=1.2.0+local+20260726021200","js/version.js":"js/version.js?v=1.2.0+local+20260726021200","/js/waveform-letters.js":"/js/waveform-letters.js?v=1.2.0+local+20260726021200","js/waveform-letters.js":"js/waveform-letters.js?v=1.2.0+local+20260726021200","/js/words-seed.js":"/js/words-seed.js?v=1.2.0+local+20260726021200","js/words-seed.js":"js/words-seed.js?v=1.2.0+local+20260726021200","/js/world-path.js":"/js/world-path.js?v=1.2.0+local+20260726021200","js/world-path.js":"js/world-path.js?v=1.2.0+local+20260726021200","/js/writing-systems-catalog.js":"/js/writing-systems-catalog.js?v=1.2.0+local+20260726021200","js/writing-systems-catalog.js":"js/writing-systems-catalog.js?v=1.2.0+local+20260726021200","/js/x-article.js":"/js/x-article.js?v=1.2.0+local+20260726021200","js/x-article.js":"js/x-article.js?v=1.2.0+local+20260726021200"}}
+</script>
+  <script type="module" src="js/app.js?v=1.2.0+local+20260726021200"></script>
+  <script src="/js/site-nav.js?v=1.2.0+local+20260726021200" defer></script>
+  <script>
+    /* P1 — live MCP health on home (lettergrid_ping) */
+    (function () {
+      var el = document.getElementById("mcp-ping-badge");
+      if (!el) return;
+      var ctrl = typeof AbortController !== "undefined" ? new AbortController() : null;
+      var t = setTimeout(function () {
+        try {
+          ctrl && ctrl.abort();
+        } catch (e) {}
+        el.textContent = "MCP · …";
+      }, 8000);
+      fetch("/api/mcp", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          jsonrpc: "2.0",
+          id: 1,
+          method: "tools/call",
+          params: { name: "kbatch_lettergrid_ping", arguments: {} },
+        }),
+        signal: ctrl ? ctrl.signal : undefined,
+      })
+        .then(function (r) {
+          return r.json();
+        })
+        .then(function (d) {
+          clearTimeout(t);
+          var res = (d && d.result) || d || {};
+          var n = res.masterGlyphs || (res.result && res.result.masterGlyphs);
+          var ok = res.ok === true || n > 0;
+          if (ok) {
+            el.textContent = "MCP · " + (n || "ok") + " glyphs";
+            el.classList.add("is-ok");
+            el.title = "kbatch_lettergrid_ping ok · /for-ai#declaration-lab";
+          } else {
+            el.textContent = "MCP · check";
+            el.classList.add("is-bad");
+          }
+        })
+        .catch(function () {
+          clearTimeout(t);
+          el.textContent = "MCP · offline";
+          el.classList.add("is-bad");
+        });
+    })();
+  </script>
+</body>
+</html>
