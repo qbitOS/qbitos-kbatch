@@ -1,9 +1,9 @@
 {
   "schema": "kbatch-living-books-catalogue-v1",
-  "generated": "2026-07-26T01:11:39Z",
+  "generated": "2026-07-26T01:23:50Z",
   "claim": "Living books catalogue = PD / Gutenberg / cited literature as orthography fuel — never pirate commercial books.",
   "page": "https://kbatch.ugrad.ai/labs/living-books.html",
-  "entryCount": 285,
+  "entryCount": 300,
   "withGutenberg": 278,
   "kinds": {
     "classic": 97,
@@ -26,7 +26,8 @@
     "history": 2,
     "nursery": 1,
     "essay": 1,
-    "gothic": 1
+    "gothic": 1,
+    "unsolved-manuscript": 15
   },
   "doctrine": {
     "rights": "public-domain-and-cited-only",
@@ -51,7 +52,15 @@
     "visual": "data/living-books/visual-projects.json",
     "scholarNames": "data/antiquity/scholar-names.json",
     "declaration": "labs/declaration-digital-edition/",
-    "rosetta": "labs/rosetta.html"
+    "rosetta": "labs/rosetta.html",
+    "unsolvedManuscripts": "data/living-books/unsolved-manuscripts.json",
+    "memoryGlass": "docs/MEMORY-GLASS-KBATCH.md"
   },
-  "antiquityNote": "Antiquity discovery mesh expands restoration + visual scaffolds (Maya Sak Tahn Waax 2026, Herculaneum, DSS, Rosetta, …)."
+  "antiquityNote": "Antiquity discovery mesh expands restoration + visual scaffolds (Maya Sak Tahn Waax 2026, Herculaneum, DSS, Rosetta, …).",
+  "unsolvedManuscripts": {
+    "file": "unsolved-manuscripts.json",
+    "count": 15,
+    "batchJobs": 53,
+    "pagesWithImages": 40
+  }
 }

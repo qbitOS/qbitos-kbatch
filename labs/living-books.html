@@ -1,0 +1,2291 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>KBatch · Living books catalogue</title>
+  <meta name="description" content="Public-domain living books + sacred/wisdom + visual projects — comics, graphic novels, Codex Regius facsimiles, large PDF infinite zoom. Gutenberg read-through · Snapdragon-class deep zoom · path geometry." />
+  <meta name="kbatch-data-base" content="https://data.ugrad.ai/kbatch/" />
+  <meta name="kbatch-version" content="1.2.0" />
+  <meta name="kbatch-build" content="1.2.0+local+20260726011336" />
+  <link rel="stylesheet" href="/css/app.css?v=1.2.0+local+20260726011336" />
+  <link rel="stylesheet" href="/css/docs-site.css?v=1.2.0+local+20260726011336" />
+  <style>
+    .lb-toolbar {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px 12px;
+      align-items: flex-end;
+      margin: 0 0 16px;
+    }
+    .lb-toolbar label {
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+      font-size: 0.72rem;
+      font-weight: 700;
+      letter-spacing: 0.04em;
+      text-transform: uppercase;
+      color: var(--faint, #8b949e);
+    }
+    .lb-toolbar input[type="search"],
+    .lb-toolbar select {
+      min-width: 180px;
+      padding: 8px 10px;
+      border-radius: 8px;
+      border: 1px solid var(--line, #30363d);
+      background: var(--bg-elev, var(--panel, #161b22));
+      color: var(--ink, #e6edf3);
+      font: 500 0.88rem/1.2 system-ui;
+      text-transform: none;
+      letter-spacing: 0;
+    }
+    .lb-toolbar input[type="search"] { min-width: min(280px, 70vw); }
+    .lb-chips {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+      margin: 0 0 16px;
+    }
+    .lb-chip {
+      appearance: none;
+      cursor: pointer;
+      font-size: 0.68rem;
+      font-weight: 650;
+      padding: 4px 10px;
+      border-radius: 999px;
+      border: 1px solid var(--line);
+      color: var(--muted, #c9d1d9);
+      background: var(--bg-elev, #161b22);
+    }
+    .lb-chip:hover, .lb-chip.on {
+      border-color: var(--accent, #58a6ff);
+      color: var(--accent, #58a6ff);
+    }
+    /* Dual-pane: 1 card column | 3 viewer columns */
+    .lb-workspace {
+      display: grid;
+      grid-template-columns: minmax(240px, 1fr) minmax(0, 3fr);
+      gap: 14px 16px;
+      align-items: start;
+      margin: 0 0 28px;
+      min-height: min(78vh, 920px);
+    }
+    .lb-col-list {
+      position: sticky;
+      top: 12px;
+      max-height: calc(100vh - 24px);
+      display: flex;
+      flex-direction: column;
+      min-width: 0;
+      min-width: 260px;
+    }
+    .lb-col-scroll {
+      flex: 1;
+      overflow: auto;
+      padding-right: 4px;
+      scrollbar-gutter: stable;
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+      min-height: 0;
+    }
+    .lb-fold {
+      border: 1px solid var(--line, #30363d);
+      border-radius: 10px;
+      background: var(--panel, var(--bg-elev, #161b22));
+      overflow: hidden;
+      flex-shrink: 0;
+    }
+    .lb-fold > summary {
+      list-style: none;
+      cursor: pointer;
+      user-select: none;
+      padding: 10px 12px;
+      font: 700 0.72rem/1.25 system-ui;
+      letter-spacing: 0.04em;
+      text-transform: uppercase;
+      color: var(--muted, #c9d1d9);
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      background: color-mix(in srgb, var(--bg, #0d1117) 35%, var(--panel, #161b22));
+      border-bottom: 1px solid transparent;
+    }
+    .lb-fold > summary::-webkit-details-marker { display: none; }
+    .lb-fold > summary::before {
+      content: "▸";
+      font-size: 0.7rem;
+      color: var(--faint, #8b949e);
+      transition: transform 0.12s;
+      flex-shrink: 0;
+    }
+    .lb-fold[open] > summary::before { transform: rotate(90deg); }
+    .lb-fold[open] > summary {
+      border-bottom-color: var(--line, #30363d);
+      color: var(--accent, #58a6ff);
+    }
+    .lb-fold > summary .lb-fold-count {
+      margin-left: auto;
+      font-weight: 650;
+      font-size: 0.68rem;
+      letter-spacing: 0;
+      text-transform: none;
+      color: var(--faint, #8b949e);
+      background: var(--bg, #0d1117);
+      border: 1px solid var(--line);
+      border-radius: 999px;
+      padding: 2px 7px;
+    }
+    .lb-fold-body {
+      padding: 8px 8px 10px;
+    }
+    .lb-fold-hint {
+      margin: 0 0 8px;
+      font-size: 0.68rem;
+      line-height: 1.4;
+      color: var(--faint, #8b949e);
+    }
+    .lb-fold-hint code {
+      font-size: 0.64rem;
+    }
+    .lb-col-list .lb-view-label {
+      margin: 0 0 8px;
+    }
+    .lb-col-list .lb-grid {
+      margin: 0;
+      grid-template-columns: 1fr;
+      gap: 8px;
+      align-content: start;
+    }
+    .lb-fold .lb-beat-in {
+      min-height: 64px;
+      font-size: 11px;
+    }
+    .lb-fold .lb-beat-out {
+      max-height: 120px;
+      font-size: 11px;
+    }
+    .lb-fold .lb-actions {
+      margin: 0 0 8px;
+    }
+    .lb-fold .docs-lead,
+    .lb-fold-doctrine {
+      margin: 0;
+      font-size: 0.72rem !important;
+      line-height: 1.45;
+      color: var(--muted, #c9d1d9);
+    }
+    .lb-col-stage {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      min-width: 0;
+      min-height: min(78vh, 920px);
+      position: sticky;
+      top: 12px;
+    }
+    .lb-col-stage .lb-detail {
+      margin: 0;
+      flex-shrink: 0;
+    }
+    .lb-col-stage .lb-zoom,
+    .lb-col-stage .lb-reader {
+      margin: 0;
+      flex: 1 1 auto;
+      display: none;
+      min-height: 0;
+    }
+    .lb-col-stage .lb-zoom.is-open,
+    .lb-col-stage .lb-reader.is-open {
+      display: flex;
+      flex-direction: column;
+    }
+    .lb-col-stage .lb-zoom.is-open #dz-mount,
+    .lb-col-stage .lb-zoom.is-open .dz-root {
+      flex: 1 1 auto;
+      min-height: min(62vh, 720px);
+    }
+    .lb-col-stage .lb-reader.is-open .lb-spread {
+      flex: 1 1 auto;
+    }
+    .lb-stage-empty {
+      border: 1px dashed var(--line, #30363d);
+      border-radius: 12px;
+      padding: 28px 22px;
+      color: var(--faint, #8b949e);
+      font-size: 0.88rem;
+      line-height: 1.5;
+      background: color-mix(in srgb, var(--panel, #161b22) 70%, transparent);
+      flex: 1;
+    }
+    .lb-workspace.has-viewer .lb-stage-empty { display: none; }
+    .lb-grid {
+      display: grid;
+      gap: 12px;
+      margin: 0 0 28px;
+      grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+    }
+    .lb-card {
+      border: 1px solid var(--line, #30363d);
+      border-radius: 12px;
+      padding: 12px 14px;
+      background: var(--panel, var(--bg-elev, #161b22));
+      cursor: pointer;
+      text-align: left;
+      color: inherit;
+      font: inherit;
+      width: 100%;
+      transition: border-color 0.12s, background 0.12s;
+    }
+    .lb-col-list .lb-card {
+      padding: 10px 12px;
+      border-radius: 10px;
+    }
+    .lb-col-list .lb-card h2 {
+      font-size: 0.92rem;
+    }
+    .lb-col-list .lb-sample {
+      font-size: 0.72rem;
+      display: -webkit-box;
+      -webkit-line-clamp: 2;
+      -webkit-box-orient: vertical;
+      overflow: hidden;
+    }
+    .lb-col-list .chips { margin-top: 4px; }
+    .lb-col-list .chip { font-size: 0.62rem; padding: 2px 6px; }
+    .lb-card:hover, .lb-card.is-active {
+      border-color: color-mix(in srgb, var(--accent, #58a6ff) 45%, var(--line));
+      background: color-mix(in srgb, var(--accent, #58a6ff) 8%, var(--panel, var(--bg-elev)));
+    }
+    .lb-card h2 {
+      margin: 0 0 6px;
+      font-size: 1.02rem;
+      letter-spacing: -0.02em;
+      line-height: 1.25;
+    }
+    @media (max-width: 960px) {
+      .lb-workspace {
+        grid-template-columns: 1fr;
+        min-height: 0;
+      }
+      .lb-col-list,
+      .lb-col-stage {
+        position: static;
+        max-height: none;
+        min-height: 0;
+      }
+      .lb-col-list {
+        max-height: min(50vh, 440px);
+      }
+      .lb-col-stage .lb-zoom.is-open #dz-mount,
+      .lb-col-stage .lb-zoom.is-open .dz-root {
+        min-height: min(55vh, 520px);
+      }
+    }
+    .lb-meta {
+      font-size: 0.78rem;
+      color: var(--faint, #8b949e);
+      margin-bottom: 8px;
+      line-height: 1.4;
+    }
+    .lb-sample {
+      font-size: 0.8rem;
+      font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
+      color: var(--muted, #c9d1d9);
+      line-height: 1.4;
+      margin: 0 0 8px;
+    }
+    .chips { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 8px; }
+    .chip {
+      font-size: 0.68rem; padding: 3px 8px; border-radius: 999px;
+      border: 1px solid var(--line); color: var(--muted, #c9d1d9);
+    }
+    .lb-detail {
+      border: 1px solid var(--line, #30363d);
+      border-radius: 12px;
+      padding: 14px 16px;
+      background: var(--panel, var(--bg-elev, #161b22));
+      margin: 0 0 28px;
+    }
+    .lb-detail.lb-detail-compact .lb-path,
+    .lb-detail.lb-detail-compact #detail-sample {
+      display: none;
+    }
+    .lb-detail h2 {
+      margin: 0 0 6px;
+      font-size: 1.15rem;
+      letter-spacing: -0.02em;
+    }
+    .lb-actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin: 12px 0;
+    }
+    .lb-actions .btn {
+      appearance: none;
+      cursor: pointer;
+      font: 650 0.75rem/1 system-ui;
+      padding: 8px 12px;
+      border-radius: 8px;
+      border: 1px solid var(--line);
+      background: var(--bg-elev, var(--bg));
+      color: var(--ink);
+      text-decoration: none;
+      display: inline-block;
+    }
+    .lb-actions .btn:hover {
+      border-color: var(--accent);
+      color: var(--accent);
+    }
+    .lb-actions .btn-primary {
+      background: color-mix(in srgb, var(--accent) 16%, var(--bg-elev));
+      border-color: color-mix(in srgb, var(--accent) 45%, var(--line));
+      color: var(--accent-text, var(--accent));
+    }
+    .lb-path {
+      font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
+      font-size: 0.78rem;
+      line-height: 1.45;
+      color: var(--ink);
+      white-space: pre-wrap;
+      word-break: break-word;
+      padding: 10px 12px;
+      border-radius: 8px;
+      border: 1px solid var(--line);
+      background: var(--bg, #0d1117);
+      margin: 0 0 10px;
+    }
+    .lb-beat-in {
+      width: 100%;
+      box-sizing: border-box;
+      min-height: 88px;
+      margin: 0 0 8px;
+      padding: 10px 12px;
+      border-radius: 8px;
+      border: 1px solid var(--line);
+      background: var(--bg, #0d1117);
+      color: var(--ink);
+      font: 12px/1.4 ui-monospace, Menlo, monospace;
+      resize: vertical;
+    }
+    .lb-beat-out {
+      margin: 0;
+      padding: 10px 12px;
+      min-height: 64px;
+      border-radius: 8px;
+      border: 1px solid var(--line);
+      background: var(--bg, #0d1117);
+      color: var(--ink);
+      font: 12px/1.45 ui-monospace, Menlo, monospace;
+      white-space: pre-wrap;
+      overflow: auto;
+      max-height: 180px;
+    }
+    /* Codex-style read-through (Codex Regius book-viewer pattern) */
+    .lb-reader {
+      border: 1px solid var(--line);
+      border-radius: 12px;
+      padding: 12px 14px 14px;
+      background: var(--panel, var(--bg-elev));
+      margin: 0 0 28px;
+      display: none;
+    }
+    .lb-reader.is-open { display: flex; flex-direction: column; }
+    .lb-reader-toolbar {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px 10px;
+      align-items: center;
+      margin: 0 0 12px;
+    }
+    .lb-reader-toolbar button,
+    .lb-reader-toolbar .btn {
+      appearance: none;
+      cursor: pointer;
+      font: 650 0.75rem/1 system-ui;
+      padding: 8px 12px;
+      border-radius: 8px;
+      border: 1px solid var(--line);
+      background: var(--bg-elev);
+      color: var(--ink);
+    }
+    .lb-reader-toolbar button:disabled {
+      opacity: 0.4;
+      cursor: default;
+    }
+    .lb-reader-toolbar button:hover:not(:disabled),
+    .lb-reader-toolbar .btn:hover {
+      border-color: var(--accent);
+      color: var(--accent);
+    }
+    .lb-reader-toolbar input[type="number"] {
+      width: 4rem;
+      padding: 6px 8px;
+      border-radius: 6px;
+      border: 1px solid var(--line);
+      background: var(--bg);
+      color: var(--ink);
+      font: 600 0.85rem/1 system-ui;
+    }
+    .lb-spread {
+      display: grid;
+      gap: 12px;
+      grid-template-columns: 1.4fr 1fr;
+      align-items: start;
+    }
+    @media (max-width: 820px) {
+      .lb-spread { grid-template-columns: 1fr; }
+    }
+    .lb-folio--lines {
+      display: flex;
+      flex-direction: column;
+      gap: 14px;
+      white-space: normal;
+    }
+    .lb-line-label {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      gap: 8px 12px;
+      font: 700 0.72rem/1.2 ui-monospace, Menlo, monospace;
+      letter-spacing: 0.04em;
+      text-transform: uppercase;
+      color: var(--faint, #8b949e);
+      border-bottom: 1px solid var(--line, #30363d);
+      padding-bottom: 8px;
+    }
+    .lb-line-id {
+      color: var(--accent, #f97316);
+      font-size: 0.85rem;
+    }
+    .lb-line-kind {
+      padding: 2px 8px;
+      border-radius: 999px;
+      border: 1px solid var(--line);
+      color: var(--muted);
+      font-weight: 650;
+      text-transform: none;
+      letter-spacing: 0.02em;
+    }
+    .lb-line-n { margin-left: auto; opacity: 0.75; }
+    .lb-line-parent {
+      padding: 2px 8px;
+      border-radius: 999px;
+      border: 1px solid color-mix(in srgb, #c9a227 40%, var(--line));
+      color: #c9a227;
+      font-weight: 650;
+      text-transform: none;
+      letter-spacing: 0.02em;
+    }
+    .lb-line-text {
+      font: 500 1.15rem/1.55 "Iowan Old Style", "Palatino Linotype", Palatino, Georgia, serif;
+      color: var(--ink, #e6edf3);
+      max-width: 48rem;
+    }
+    .lb-line-research {
+      margin-top: 4px;
+      padding: 10px 12px;
+      border-radius: 10px;
+      border: 1px solid var(--line, #30363d);
+      background: color-mix(in srgb, var(--panel, #161b22) 88%, #c9a227 5%);
+      font-size: 0.78rem;
+      line-height: 1.4;
+      color: var(--muted, #8b949e);
+    }
+    .lb-research-stats {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px 10px;
+      margin-bottom: 6px;
+    }
+    .lb-research-stats span {
+      border: 1px solid var(--line);
+      border-radius: 6px;
+      padding: 3px 7px;
+      background: var(--bg, #0d1117);
+      font: 650 0.68rem/1.2 ui-monospace, Menlo, monospace;
+    }
+    .lb-research-stats em {
+      font-style: normal;
+      color: var(--faint, #8b949e);
+      margin-right: 4px;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.03em;
+      font-size: 0.58rem;
+    }
+    .lb-research-words {
+      margin: 4px 0;
+      font-size: 0.75rem;
+    }
+    .lb-folio {
+      min-height: min(48vh, 520px);
+      max-height: min(68vh, 760px);
+      overflow: auto;
+      padding: 18px 20px;
+      border-radius: 10px;
+      border: 1px solid color-mix(in srgb, var(--line) 80%, #8b7355);
+      background:
+        linear-gradient(180deg, color-mix(in srgb, #f4ecd8 8%, var(--bg-elev)), var(--bg-elev));
+      color: var(--ink);
+      font: 400 0.95rem/1.65 Georgia, "Times New Roman", serif;
+      white-space: pre-wrap;
+      word-break: break-word;
+    }
+    html[data-theme="light"] .lb-folio {
+      background: linear-gradient(180deg, #f7f1e3, #f0e6d2);
+      color: #1a1410;
+      border-color: #c4b59a;
+    }
+    .lb-side {
+      border: 1px solid var(--line);
+      border-radius: 10px;
+      padding: 12px 14px;
+      background: var(--bg);
+      font-size: 0.82rem;
+      line-height: 1.45;
+    }
+    .lb-side h3 {
+      margin: 0 0 8px;
+      font-size: 0.78rem;
+      letter-spacing: 0.04em;
+      text-transform: uppercase;
+      color: var(--faint);
+    }
+    .lb-side ul {
+      margin: 0;
+      padding-left: 1.1rem;
+    }
+    .lb-layer-chip {
+      display: inline-block;
+      font-size: 0.68rem;
+      font-weight: 650;
+      padding: 3px 8px;
+      border-radius: 999px;
+      border: 1px solid var(--line);
+      margin: 0 4px 4px 0;
+      color: var(--muted);
+    }
+    .lb-layer-chip.on {
+      border-color: var(--accent);
+      color: var(--accent);
+    }
+    .lb-progress {
+      height: 4px;
+      border-radius: 99px;
+      background: var(--line);
+      overflow: hidden;
+      margin: 0 0 12px;
+    }
+    .lb-progress > i {
+      display: block;
+      height: 100%;
+      background: linear-gradient(90deg, var(--accent), #3fb950);
+      width: 0%;
+    }
+    .docs-footer {
+      max-width: 1480px;
+      margin: 0 auto;
+      padding: 0 16px 48px;
+      font-size: 0.72rem;
+      color: var(--faint);
+      line-height: 1.5;
+    }
+    .docs-main.lb-main {
+      max-width: 1480px;
+    }
+    .docs-footer a { color: var(--muted); }
+    .docs-footer a:hover { color: var(--accent); }
+    .docs-nav a.is-active { color: var(--accent); font-weight: 650; }
+    /* Deep zoom · Snapdragon-class pan/zoom (comics · codex · large PDF plates) */
+    .lb-zoom {
+      border: 1px solid var(--line);
+      border-radius: 12px;
+      padding: 12px 14px 14px;
+      background: var(--panel, var(--bg-elev));
+      margin: 0 0 28px;
+      display: none;
+    }
+    .lb-zoom.is-open { display: flex; flex-direction: column; }
+    .lb-zoom-meta {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px 12px;
+      align-items: center;
+      margin: 0 0 10px;
+      font-size: 0.78rem;
+      color: var(--faint);
+    }
+    .lb-zoom-meta a { color: var(--accent); }
+    .dz-root {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+      flex: 1 1 auto;
+      min-height: min(58vh, 640px);
+    }
+    .dz-toolbar {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px 8px;
+      align-items: center;
+    }
+    .dz-toolbar button {
+      appearance: none;
+      cursor: pointer;
+      font: 650 0.75rem/1 system-ui;
+      padding: 7px 11px;
+      border-radius: 8px;
+      border: 1px solid var(--line);
+      background: var(--bg-elev);
+      color: var(--ink);
+    }
+    .dz-toolbar button:hover {
+      border-color: var(--accent);
+      color: var(--accent);
+    }
+    .dz-page-label, .dz-scale {
+      font: 600 0.78rem/1 ui-monospace, Menlo, monospace;
+      color: var(--muted);
+    }
+    .dz-sep { opacity: 0.35; margin: 0 2px; }
+    .dz-viewport {
+      flex: 1 1 auto;
+      min-height: min(52vh, 560px);
+      height: 100%;
+      border-radius: 10px;
+      border: 1px solid color-mix(in srgb, var(--line) 80%, #8b7355);
+      background: #0a0c10;
+      overflow: hidden;
+      touch-action: none;
+      cursor: grab;
+      position: relative;
+    }
+    .dz-viewport:active { cursor: grabbing; }
+    .dz-viewport:focus { outline: 2px solid color-mix(in srgb, var(--accent) 55%, transparent); outline-offset: 1px; }
+    .dz-stage {
+      transform-origin: 0 0;
+      will-change: transform;
+      position: absolute;
+      left: 0; top: 0;
+    }
+    .dz-stage img {
+      display: block;
+      max-width: none;
+      user-select: none;
+      -webkit-user-drag: none;
+      pointer-events: none;
+    }
+    .dz-status {
+      margin: 0;
+      font-size: 0.72rem;
+      color: var(--faint);
+      line-height: 1.4;
+    }
+    .dz-layout-label {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      font: 650 0.72rem/1 system-ui;
+      color: var(--faint);
+      text-transform: uppercase;
+      letter-spacing: 0.04em;
+    }
+    .dz-layout-label select {
+      font: 600 0.78rem/1.2 system-ui;
+      text-transform: none;
+      letter-spacing: 0;
+      padding: 6px 8px;
+      border-radius: 8px;
+      border: 1px solid var(--line);
+      background: var(--bg-elev);
+      color: var(--ink);
+      max-width: 11rem;
+    }
+    .dz-glyph-broadcast {
+      display: none;
+      gap: 8px;
+      flex-wrap: wrap;
+      font: 700 0.85rem/1 ui-monospace, Menlo, monospace;
+      letter-spacing: 0.12em;
+      color: var(--accent, #58a6ff);
+      opacity: 0.85;
+      padding: 2px 0;
+    }
+    .dz-layout-glyph-broadcast .dz-glyph-broadcast { display: flex; }
+    .dz-layout-glyph-broadcast .dz-glyph-broadcast span {
+      padding: 4px 8px;
+      border: 1px solid color-mix(in srgb, var(--accent) 35%, var(--line));
+      border-radius: 4px;
+      background: color-mix(in srgb, var(--accent) 8%, transparent);
+    }
+    /* Frame modes — aspect / treatment; zoom engine unchanged */
+    .dz-layout-newspaper .dz-viewport { min-height: min(48vh, 520px); }
+    .dz-layout-archive-slides .dz-viewport {
+      aspect-ratio: 4 / 3;
+      max-height: min(56vh, 580px);
+    }
+    .dz-layout-side-by-side .dz-viewport {
+      border-style: double;
+      border-width: 3px;
+    }
+    .dz-layout-a4 .dz-viewport {
+      aspect-ratio: 1 / 1.414;
+      max-width: min(100%, 520px);
+      margin-inline: auto;
+    }
+    .dz-layout-comic .dz-viewport {
+      border-color: color-mix(in srgb, #ffa657 50%, var(--line));
+      background: #111;
+    }
+    .dz-layout-poster .dz-viewport {
+      min-height: min(70vh, 780px);
+      border-radius: 4px;
+    }
+    .dz-layout-widescreen .dz-viewport {
+      aspect-ratio: 16 / 9;
+      max-height: min(58vh, 560px);
+    }
+    .dz-layout-eink .dz-viewport {
+      background: #e8e4d9;
+      border-color: #8a8478;
+      filter: grayscale(1) contrast(1.12);
+    }
+    .dz-layout-eink .dz-stage img { mix-blend-mode: multiply; }
+    .dz-layout-glyph-broadcast .dz-viewport {
+      background: #05070c;
+      border-color: color-mix(in srgb, var(--accent) 45%, #30363d);
+      image-rendering: pixelated;
+    }
+    .lb-media-badge {
+      display: inline-block;
+      font-size: 0.65rem;
+      font-weight: 700;
+      letter-spacing: 0.04em;
+      text-transform: uppercase;
+      padding: 2px 7px;
+      border-radius: 999px;
+      border: 1px solid color-mix(in srgb, #d2a8ff 40%, var(--line));
+      color: #d2a8ff;
+      margin-left: 6px;
+      vertical-align: middle;
+    }
+  </style>
+  <script>
+    try {
+      var t = localStorage.getItem("kbatch-dict-theme");
+      if (t !== "light" && t !== "dark") {
+        t = matchMedia("(prefers-color-scheme: light)").matches ? "light" : "dark";
+      }
+      document.documentElement.setAttribute("data-theme", t);
+    } catch (e) {
+      document.documentElement.setAttribute("data-theme", "dark");
+    }
+  </script>
+</head>
+<body class="docs-site">
+  <header class="docs-top">
+    <div class="docs-top-inner">
+      <a class="docs-brand" href="../"><b>KBatch</b> · living books</a>
+      <nav class="docs-nav site-nav" aria-label="Site"></nav>
+    </div>
+  </header>
+
+  <main class="docs-main lb-main">
+    <p class="docs-kicker">ugrad · PD + sacred + visual · Snapdragon zoom · never pirate · never scrape sacred-texts.com</p>
+    <h1>Living books · PD, sacred &amp; visual</h1>
+    <p class="docs-lead">
+      Public-domain literature, sacred/wisdom corpus, <strong>graphic novels &amp; comics</strong>, and
+      <strong>large PDF / infinite-zoom</strong> projects (Codex Regius facsimiles · Doré · Audubon · Blake plates).
+      Full text from <strong>Project Gutenberg</strong>; images from PD Commons / open project hosts.
+      Layout: <strong>collapsible shelves left</strong> · <strong>viewer right (3×)</strong>. Sibling:
+      <a href="myth-names.html">myth · names</a> ·
+      <a href="https://fornevercollective.github.io/codex-regius-digital/book-viewer.html" target="_blank" rel="noopener">Codex Regius</a>.
+    </p>
+    <p id="lb-status" class="docs-kicker">Loading catalogue…</p>
+
+    <div class="lb-toolbar">
+      <label>Search
+        <input type="search" id="q" placeholder="bible · gita · edda · upanishad · alice…" autocomplete="off" />
+      </label>
+      <label>Kind
+        <select id="kind">
+          <option value="">All kinds</option>
+        </select>
+      </label>
+      <label>Tradition
+        <select id="tradition">
+          <option value="">All traditions</option>
+        </select>
+      </label>
+    </div>
+    <div class="lb-chips" id="kind-chips"></div>
+    <div class="lb-chips" id="tradition-chips" aria-label="Sacred traditions"></div>
+    <div class="lb-chips" id="letter-chips" aria-label="Browse by title letter A–Z" style="margin-top:0"></div>
+
+    <div class="lb-workspace" id="lb-workspace">
+      <aside class="lb-col-list" aria-label="Book catalogue and sections">
+        <div class="lb-col-scroll">
+          <details class="lb-fold" id="fold-books" open>
+            <summary>
+              Books · catalogue
+              <span class="lb-fold-count" id="fold-books-n">—</span>
+            </summary>
+            <div class="lb-fold-body">
+              <p id="lb-view" class="docs-kicker lb-view-label"></p>
+              <div class="lb-grid" id="grid" role="list"></div>
+            </div>
+          </details>
+
+          <details class="lb-fold" id="fold-visual" open>
+            <summary>
+              Visual · comics · codex · zoom
+              <span class="lb-fold-count" id="fold-visual-n">—</span>
+            </summary>
+            <div class="lb-fold-body">
+              <p class="lb-fold-hint">
+                Graphic novels, PD comics, Codex Regius facsimiles, large PDF plates.
+                Deep zoom · max ~64×. Full codex:
+                <a href="https://fornevercollective.github.io/codex-regius-digital/book-viewer.html" target="_blank" rel="noopener">project viewer</a>.
+              </p>
+              <div class="lb-grid" id="visual-grid" role="list"></div>
+            </div>
+          </details>
+
+          <details class="lb-fold" id="fold-unsolved" open>
+            <summary>
+              Unsolved manuscripts · hi-res · MG batch
+              <span class="lb-fold-count" id="fold-unsolved-n">—</span>
+            </summary>
+            <div class="lb-fold-body">
+              <p class="lb-fold-hint">
+                High-res documentation for unsolved / hard scripts (Voynich · Phaistos · Indus ·
+                Rongorongo · Linear A · Dresden · Herculaneum · DSS …). Solved controls: Rosetta · Linear B.
+                Memory Glass: deep-zoom survey · path · Cage · independent study · story beats.
+                Pack: <code>unsolved-manuscripts.json</code> · never pirate · Cage decipherment hype.
+              </p>
+              <div class="lb-actions" style="margin-bottom:8px">
+                <button type="button" class="btn" id="btn-mg-batch">Export MG batch JSON</button>
+                <a class="btn" href="/data/living-books/unsolved-manuscripts.json">Pack JSON →</a>
+                <a class="btn" href="/docs/UNSOLVED-MANUSCRIPTS-MG.md">MG study docs →</a>
+              </div>
+              <pre class="lb-beat-out" id="mg-batch-out" style="max-height:120px;overflow:auto;display:none">—</pre>
+              <div class="lb-grid" id="unsolved-grid" role="list"></div>
+            </div>
+          </details>
+
+          <details class="lb-fold" id="fold-restore">
+            <summary>
+              Antiquity restoration
+              <span class="lb-fold-count" id="fold-restore-n">—</span>
+            </summary>
+            <div class="lb-fold-body">
+              <p class="lb-fold-hint">
+                Long-form PD read-throughs (Beowulf · Homer · Bulfinch · Dante …).
+                Open a project to jump into the reader.
+              </p>
+              <div class="lb-grid" id="restore-grid" role="list"></div>
+            </div>
+          </details>
+
+          <details class="lb-fold" id="fold-beats">
+            <summary>Contrail → story beats</summary>
+            <div class="lb-fold-body">
+              <p class="lb-fold-hint">
+                Optional. Paste Memory Glass <code>exportStoryBeats()</code> JSON, or load a sample.
+                Unsolved manuscript batches feed the same paste path after zoom sessions.
+              </p>
+              <div class="lb-actions">
+                <button type="button" class="btn" id="btn-sample-beats">Sample beats</button>
+                <button type="button" class="btn" id="btn-parse-beats">Parse</button>
+              </div>
+              <textarea id="beat-in" class="lb-beat-in" placeholder='{"beats":[{"mood":"wonder","glyph":"E2S3","hint":"…"}]}'></textarea>
+              <pre class="lb-beat-out" id="beat-out">—</pre>
+            </div>
+          </details>
+
+          <details class="lb-fold" id="fold-doctrine">
+            <summary>Doctrine</summary>
+            <div class="lb-fold-body">
+              <p class="lb-fold-doctrine docs-lead">
+                Public domain / cited only. <strong>Read through</strong> · Gutenberg via
+                <code>/api/gutenberg</code>. <strong>Deep zoom</strong> ·
+                <code>js/deep-zoom-viewer.js</code> (wheel/pinch/drag · maxScale 64).
+                Pack: <code>visual-projects.json</code> · Codex:
+                <code>codex-regius-digital</code>. Never pirate · never scrape sacred-texts.com.
+                API: <code>window.__kbatchLivingBooks</code>.
+              </p>
+            </div>
+          </details>
+        </div>
+      </aside>
+
+      <div class="lb-col-stage" aria-label="Reader and deep zoom stage">
+        <section class="lb-detail" id="detail" aria-live="polite">
+          <p class="docs-kicker">Selected</p>
+          <h2 id="detail-title">Pick a book</h2>
+          <p class="lb-meta" id="detail-meta">PD catalogue · sample phrase → orthography path</p>
+          <div class="chips" id="detail-tags"></div>
+          <div class="lb-actions">
+            <button type="button" class="btn btn-primary" id="btn-read">Read through →</button>
+            <button type="button" class="btn btn-primary" id="btn-zoom" style="display:none">Deep zoom →</button>
+            <button type="button" class="btn" id="btn-path">Sample path</button>
+            <button type="button" class="btn" id="btn-pg">Gutenberg ↗</button>
+            <a class="btn" id="btn-external" href="#" target="_blank" rel="noopener" style="display:none">External viewer ↗</a>
+            <a class="btn" id="btn-dict" href="../">Dictionary card ↗</a>
+            <a class="btn" id="btn-shadow" href="../shadow.html">Shadow Live</a>
+            <a class="btn" href="myth-names.html">Myth · Names</a>
+            <a class="btn" href="../learn.html">Learn</a>
+          </div>
+          <div class="lb-path" id="path-out">Path idle · select a title</div>
+          <p class="lb-sample" id="detail-sample"></p>
+          <div id="restore-banner" class="chips" style="margin-top:10px"></div>
+          <div id="unsolved-docs" class="lb-path" style="margin-top:10px;display:none;max-height:220px;overflow:auto"></div>
+          <div id="mg-jobs" class="chips" style="margin-top:8px"></div>
+        </section>
+
+        <div class="lb-stage-empty" id="stage-empty">
+          Select a title in the left column, then <strong>Read through</strong> or <strong>Deep zoom</strong>.
+          Viewer fills this stage (3 card columns wide).
+        </div>
+
+        <section class="lb-zoom" id="zoom" aria-label="Deep zoom visual reader">
+          <p class="docs-kicker">deep zoom · layout frames · comics · codex · Snapdragon pan/zoom · tested zoom OK · frames: newspaper · archive · side-by-side · A4 · comic · poster · widescreen · e-ink · glyph-broadcast</p>
+          <h2 id="zoom-title" style="margin:0 0 6px;font-size:1.1rem">Visual project</h2>
+          <div class="lb-zoom-meta" id="zoom-meta">—</div>
+          <div class="lb-actions" style="margin-top:0">
+            <button type="button" class="btn" id="btn-close-zoom">Close zoom</button>
+            <button type="button" class="btn" id="btn-zoom-path">Path on label</button>
+            <a class="btn" id="btn-zoom-external" href="#" target="_blank" rel="noopener" style="display:none">Full project viewer ↗</a>
+            <a class="btn" id="btn-zoom-hub" href="#" target="_blank" rel="noopener" style="display:none">Paleography hub ↗</a>
+            <a class="btn" href="/data/living-books/viewer-layouts.json">Layouts JSON →</a>
+          </div>
+          <div id="dz-mount"></div>
+        </section>
+
+        <section class="lb-reader" id="reader" aria-label="Codex-style book reader">
+          <p class="docs-kicker">read-through · codex folio pattern · PD text via Gutenberg proxy</p>
+          <h2 id="reader-title" style="margin:0 0 8px;font-size:1.1rem">Reader</h2>
+          <div class="lb-progress" aria-hidden="true"><i id="reader-progress"></i></div>
+          <div class="lb-reader-toolbar">
+            <button type="button" id="prev-page" aria-label="Previous page">← Prev</button>
+            <label style="font-size:0.75rem;color:var(--faint)">
+              Page
+              <input type="number" id="page-input" min="1" value="1" />
+              <span id="page-total">/ —</span>
+            </label>
+            <button type="button" id="next-page" aria-label="Next page">Next →</button>
+            <span style="opacity:0.45">|</span>
+            <button type="button" id="btn-page-path" class="btn">Path this page</button>
+            <button type="button" id="btn-close-reader" class="btn">Close reader</button>
+            <span style="flex:1"></span>
+            <span id="reader-status" style="font-size:0.72rem;color:var(--faint)">Idle</span>
+          </div>
+          <div class="lb-spread">
+            <div class="lb-folio" id="folio" tabindex="0">Select a book and press <strong>Read through</strong>. Arrow keys turn pages.</div>
+            <aside class="lb-side">
+              <h3>Layers · restoration</h3>
+              <div id="layer-chips"></div>
+              <h3 style="margin-top:14px">Antiquity project</h3>
+              <div id="restore-panel">
+                <p class="docs-kicker" style="margin:0">No restoration project on this title yet — open epics/mythology or add one in <code>restoration-projects.json</code>.</p>
+              </div>
+              <h3 style="margin-top:14px">Page path</h3>
+              <pre class="lb-path" id="page-path-out" style="margin:0;max-height:160px;overflow:auto">—</pre>
+              <p style="margin:10px 0 0;font-size:0.72rem;color:var(--faint)">
+                Sibling: <a href="https://fornevercollective.github.io/codex-regius-digital/book-viewer.html" target="_blank" rel="noopener">Codex Regius book viewer</a>
+                · folio pattern adapted for PD text.
+              </p>
+            </aside>
+          </div>
+        </section>
+      </div>
+    </div>
+  </main>
+
+  <footer class="docs-footer">
+    Living books · PD catalogue · world data lake D1 scaffolds ·
+    <a href="../handoff/WORLD-DATA-LAKE.md">World data lake</a> ·
+    <a href="../data/lake/manifest.json">Lake manifest</a> ·
+    <a href="myth-names.html">Myth · Names</a> ·
+    <a href="../world-ranking.html">World ranking</a> ·
+    <a href="music-staff.html">Staff</a> ·
+    <a href="../">Dictionary card ↗</a>
+  </footer>
+
+  <script type="importmap">
+{"imports":{"/js/analyze.js":"/js/analyze.js?v=1.2.0+local+20260726011336","js/analyze.js":"js/analyze.js?v=1.2.0+local+20260726011336","/js/ancestory-lab.js":"/js/ancestory-lab.js?v=1.2.0+local+20260726011336","js/ancestory-lab.js":"js/ancestory-lab.js?v=1.2.0+local+20260726011336","/js/app.js":"/js/app.js?v=1.2.0+local+20260726011336","js/app.js":"js/app.js?v=1.2.0+local+20260726011336","/js/archive-restoration-viewer.js":"/js/archive-restoration-viewer.js?v=1.2.0+local+20260726011336","js/archive-restoration-viewer.js":"js/archive-restoration-viewer.js?v=1.2.0+local+20260726011336","/js/billboard-2026.js":"/js/billboard-2026.js?v=1.2.0+local+20260726011336","js/billboard-2026.js":"js/billboard-2026.js?v=1.2.0+local+20260726011336","/js/blank-bridge.js":"/js/blank-bridge.js?v=1.2.0+local+20260726011336","js/blank-bridge.js":"js/blank-bridge.js?v=1.2.0+local+20260726011336","/js/cache-bust.js":"/js/cache-bust.js?v=1.2.0+local+20260726011336","js/cache-bust.js":"js/cache-bust.js?v=1.2.0+local+20260726011336","/js/cage-litmus-mcp.js":"/js/cage-litmus-mcp.js?v=1.2.0+local+20260726011336","js/cage-litmus-mcp.js":"js/cage-litmus-mcp.js?v=1.2.0+local+20260726011336","/js/capsule-analyzer.js":"/js/capsule-analyzer.js?v=1.2.0+local+20260726011336","js/capsule-analyzer.js":"js/capsule-analyzer.js?v=1.2.0+local+20260726011336","/js/capsules-canon.js":"/js/capsules-canon.js?v=1.2.0+local+20260726011336","js/capsules-canon.js":"js/capsules-canon.js?v=1.2.0+local+20260726011336","/js/collab-lab.js":"/js/collab-lab.js?v=1.2.0+local+20260726011336","js/collab-lab.js":"js/collab-lab.js?v=1.2.0+local+20260726011336","/js/contrails-viz.js":"/js/contrails-viz.js?v=1.2.0+local+20260726011336","js/contrails-viz.js":"js/contrails-viz.js?v=1.2.0+local+20260726011336","/js/corpus-sources.js":"/js/corpus-sources.js?v=1.2.0+local+20260726011336","js/corpus-sources.js":"js/corpus-sources.js?v=1.2.0+local+20260726011336","/js/corpus.js":"/js/corpus.js?v=1.2.0+local+20260726011336","js/corpus.js":"js/corpus.js?v=1.2.0+local+20260726011336","/js/cortical-loop.js":"/js/cortical-loop.js?v=1.2.0+local+20260726011336","js/cortical-loop.js":"js/cortical-loop.js?v=1.2.0+local+20260726011336","/js/declaration-cadence.js":"/js/declaration-cadence.js?v=1.2.0+local+20260726011336","js/declaration-cadence.js":"js/declaration-cadence.js?v=1.2.0+local+20260726011336","/js/declaration-cage-litmus.js":"/js/declaration-cage-litmus.js?v=1.2.0+local+20260726011336","js/declaration-cage-litmus.js":"js/declaration-cage-litmus.js?v=1.2.0+local+20260726011336","/js/declaration-edition-nav.js":"/js/declaration-edition-nav.js?v=1.2.0+local+20260726011336","js/declaration-edition-nav.js":"js/declaration-edition-nav.js?v=1.2.0+local+20260726011336","/js/declaration-letter-grid.js":"/js/declaration-letter-grid.js?v=1.2.0+local+20260726011336","js/declaration-letter-grid.js":"js/declaration-letter-grid.js?v=1.2.0+local+20260726011336","/js/declaration-symbology.js":"/js/declaration-symbology.js?v=1.2.0+local+20260726011336","js/declaration-symbology.js":"js/declaration-symbology.js?v=1.2.0+local+20260726011336","/js/declaration-world.js":"/js/declaration-world.js?v=1.2.0+local+20260726011336","js/declaration-world.js":"js/declaration-world.js?v=1.2.0+local+20260726011336","/js/deep-zoom-viewer.js":"/js/deep-zoom-viewer.js?v=1.2.0+local+20260726011336","js/deep-zoom-viewer.js":"js/deep-zoom-viewer.js?v=1.2.0+local+20260726011336","/js/dojo-app.js":"/js/dojo-app.js?v=1.2.0+local+20260726011336","js/dojo-app.js":"js/dojo-app.js?v=1.2.0+local+20260726011336","/js/education.js":"/js/education.js?v=1.2.0+local+20260726011336","js/education.js":"js/education.js?v=1.2.0+local+20260726011336","/js/encoder.js":"/js/encoder.js?v=1.2.0+local+20260726011336","js/encoder.js":"js/encoder.js?v=1.2.0+local+20260726011336","/js/export.js":"/js/export.js?v=1.2.0+local+20260726011336","js/export.js":"js/export.js?v=1.2.0+local+20260726011336","/js/freya-math.js":"/js/freya-math.js?v=1.2.0+local+20260726011336","js/freya-math.js":"js/freya-math.js?v=1.2.0+local+20260726011336","/js/gluelam-consumer.js":"/js/gluelam-consumer.js?v=1.2.0+local+20260726011336","js/gluelam-consumer.js":"js/gluelam-consumer.js?v=1.2.0+local+20260726011336","/js/glyph-steno.js":"/js/glyph-steno.js?v=1.2.0+local+20260726011336","js/glyph-steno.js":"js/glyph-steno.js?v=1.2.0+local+20260726011336","/js/historical.js":"/js/historical.js?v=1.2.0+local+20260726011336","js/historical.js":"js/historical.js?v=1.2.0+local+20260726011336","/js/history-harness.js":"/js/history-harness.js?v=1.2.0+local+20260726011336","js/history-harness.js":"js/history-harness.js?v=1.2.0+local+20260726011336","/js/history-sliderule.js":"/js/history-sliderule.js?v=1.2.0+local+20260726011336","js/history-sliderule.js":"js/history-sliderule.js?v=1.2.0+local+20260726011336","/js/i18n-desc.js":"/js/i18n-desc.js?v=1.2.0+local+20260726011336","js/i18n-desc.js":"js/i18n-desc.js?v=1.2.0+local+20260726011336","/js/inclusive-identity.js":"/js/inclusive-identity.js?v=1.2.0+local+20260726011336","js/inclusive-identity.js":"js/inclusive-identity.js?v=1.2.0+local+20260726011336","/js/ironline-bus.js":"/js/ironline-bus.js?v=1.2.0+local+20260726011336","js/ironline-bus.js":"js/ironline-bus.js?v=1.2.0+local+20260726011336","/js/keyboard-pattern-lab.js":"/js/keyboard-pattern-lab.js?v=1.2.0+local+20260726011336","js/keyboard-pattern-lab.js":"js/keyboard-pattern-lab.js?v=1.2.0+local+20260726011336","/js/language-alphabet-matrix.js":"/js/language-alphabet-matrix.js?v=1.2.0+local+20260726011336","js/language-alphabet-matrix.js":"js/language-alphabet-matrix.js?v=1.2.0+local+20260726011336","/js/language-catalog.js":"/js/language-catalog.js?v=1.2.0+local+20260726011336","js/language-catalog.js":"js/language-catalog.js?v=1.2.0+local+20260726011336","/js/language-stepping.js":"/js/language-stepping.js?v=1.2.0+local+20260726011336","js/language-stepping.js":"js/language-stepping.js?v=1.2.0+local+20260726011336","/js/layout-ring-lattice.js":"/js/layout-ring-lattice.js?v=1.2.0+local+20260726011336","js/layout-ring-lattice.js":"js/layout-ring-lattice.js?v=1.2.0+local+20260726011336","/js/layouts.js":"/js/layouts.js?v=1.2.0+local+20260726011336","js/layouts.js":"js/layouts.js?v=1.2.0+local+20260726011336","/js/lazy-loader.js":"/js/lazy-loader.js?v=1.2.0+local+20260726011336","js/lazy-loader.js":"js/lazy-loader.js?v=1.2.0+local+20260726011336","/js/learn-app.js":"/js/learn-app.js?v=1.2.0+local+20260726011336","js/learn-app.js":"js/learn-app.js?v=1.2.0+local+20260726011336","/js/letter-atom.js":"/js/letter-atom.js?v=1.2.0+local+20260726011336","js/letter-atom.js":"js/letter-atom.js?v=1.2.0+local+20260726011336","/js/letter-grid-lab.js":"/js/letter-grid-lab.js?v=1.2.0+local+20260726011336","js/letter-grid-lab.js":"js/letter-grid-lab.js?v=1.2.0+local+20260726011336","/js/letter-grid-mcp.js":"/js/letter-grid-mcp.js?v=1.2.0+local+20260726011336","js/letter-grid-mcp.js":"js/letter-grid-mcp.js?v=1.2.0+local+20260726011336","/js/live-dict.js":"/js/live-dict.js?v=1.2.0+local+20260726011336","js/live-dict.js":"js/live-dict.js?v=1.2.0+local+20260726011336","/js/living-book-reader.js":"/js/living-book-reader.js?v=1.2.0+local+20260726011336","js/living-book-reader.js":"js/living-book-reader.js?v=1.2.0+local+20260726011336","/js/living-books.js":"/js/living-books.js?v=1.2.0+local+20260726011336","js/living-books.js":"js/living-books.js?v=1.2.0+local+20260726011336","/js/llm-tool-calibrate.js":"/js/llm-tool-calibrate.js?v=1.2.0+local+20260726011336","js/llm-tool-calibrate.js":"js/llm-tool-calibrate.js?v=1.2.0+local+20260726011336","/js/local-identity.js":"/js/local-identity.js?v=1.2.0+local+20260726011336","js/local-identity.js":"js/local-identity.js?v=1.2.0+local+20260726011336","/js/lyrics-analyze.js":"/js/lyrics-analyze.js?v=1.2.0+local+20260726011336","js/lyrics-analyze.js":"js/lyrics-analyze.js?v=1.2.0+local+20260726011336","/js/lyrics-app.js":"/js/lyrics-app.js?v=1.2.0+local+20260726011336","js/lyrics-app.js":"js/lyrics-app.js?v=1.2.0+local+20260726011336","/js/mesh-bus.js":"/js/mesh-bus.js?v=1.2.0+local+20260726011336","js/mesh-bus.js":"js/mesh-bus.js?v=1.2.0+local+20260726011336","/js/mythology-open.js":"/js/mythology-open.js?v=1.2.0+local+20260726011336","js/mythology-open.js":"js/mythology-open.js?v=1.2.0+local+20260726011336","/js/names-glance.js":"/js/names-glance.js?v=1.2.0+local+20260726011336","js/names-glance.js":"js/names-glance.js?v=1.2.0+local+20260726011336","/js/open-reader-search.js":"/js/open-reader-search.js?v=1.2.0+local+20260726011336","js/open-reader-search.js":"js/open-reader-search.js?v=1.2.0+local+20260726011336","/js/open-senses.js":"/js/open-senses.js?v=1.2.0+local+20260726011336","js/open-senses.js":"js/open-senses.js?v=1.2.0+local+20260726011336","/js/order-analysis.js":"/js/order-analysis.js?v=1.2.0+local+20260726011336","js/order-analysis.js":"js/order-analysis.js?v=1.2.0+local+20260726011336","/js/overview-pipe.js":"/js/overview-pipe.js?v=1.2.0+local+20260726011336","js/overview-pipe.js":"js/overview-pipe.js?v=1.2.0+local+20260726011336","/js/paleography.js":"/js/paleography.js?v=1.2.0+local+20260726011336","js/paleography.js":"js/paleography.js?v=1.2.0+local+20260726011336","/js/path-geometry-panel.js":"/js/path-geometry-panel.js?v=1.2.0+local+20260726011336","js/path-geometry-panel.js":"js/path-geometry-panel.js?v=1.2.0+local+20260726011336","/js/pcap-image-bridge.js":"/js/pcap-image-bridge.js?v=1.2.0+local+20260726011336","js/pcap-image-bridge.js":"js/pcap-image-bridge.js?v=1.2.0+local+20260726011336","/js/persona-suggest.js":"/js/persona-suggest.js?v=1.2.0+local+20260726011336","js/persona-suggest.js":"js/persona-suggest.js?v=1.2.0+local+20260726011336","/js/phonation.js":"/js/phonation.js?v=1.2.0+local+20260726011336","js/phonation.js":"js/phonation.js?v=1.2.0+local+20260726011336","/js/phonetic-pattern.js":"/js/phonetic-pattern.js?v=1.2.0+local+20260726011336","js/phonetic-pattern.js":"js/phonetic-pattern.js?v=1.2.0+local+20260726011336","/js/pipeline.js":"/js/pipeline.js?v=1.2.0+local+20260726011336","js/pipeline.js":"js/pipeline.js?v=1.2.0+local+20260726011336","/js/pos.js":"/js/pos.js?v=1.2.0+local+20260726011336","js/pos.js":"js/pos.js?v=1.2.0+local+20260726011336","/js/probe-generator.js":"/js/probe-generator.js?v=1.2.0+local+20260726011336","js/probe-generator.js":"js/probe-generator.js?v=1.2.0+local+20260726011336","/js/qbpm-music.js":"/js/qbpm-music.js?v=1.2.0+local+20260726011336","js/qbpm-music.js":"js/qbpm-music.js?v=1.2.0+local+20260726011336","/js/quantum-bridge.js":"/js/quantum-bridge.js?v=1.2.0+local+20260726011336","js/quantum-bridge.js":"js/quantum-bridge.js?v=1.2.0+local+20260726011336","/js/quantum-gutter.js":"/js/quantum-gutter.js?v=1.2.0+local+20260726011336","js/quantum-gutter.js":"js/quantum-gutter.js?v=1.2.0+local+20260726011336","/js/registers.js":"/js/registers.js?v=1.2.0+local+20260726011336","js/registers.js":"js/registers.js?v=1.2.0+local+20260726011336","/js/research-app.js":"/js/research-app.js?v=1.2.0+local+20260726011336","js/research-app.js":"js/research-app.js?v=1.2.0+local+20260726011336","/js/research-corpus.js":"/js/research-corpus.js?v=1.2.0+local+20260726011336","js/research-corpus.js":"js/research-corpus.js?v=1.2.0+local+20260726011336","/js/rosetta-alphabets.js":"/js/rosetta-alphabets.js?v=1.2.0+local+20260726011336","js/rosetta-alphabets.js":"js/rosetta-alphabets.js?v=1.2.0+local+20260726011336","/js/rosetta-lab.js":"/js/rosetta-lab.js?v=1.2.0+local+20260726011336","js/rosetta-lab.js":"js/rosetta-lab.js?v=1.2.0+local+20260726011336","/js/rubik-language-map.js":"/js/rubik-language-map.js?v=1.2.0+local+20260726011336","js/rubik-language-map.js":"js/rubik-language-map.js?v=1.2.0+local+20260726011336","/js/saint-crypto-tumble.js":"/js/saint-crypto-tumble.js?v=1.2.0+local+20260726011336","js/saint-crypto-tumble.js":"js/saint-crypto-tumble.js?v=1.2.0+local+20260726011336","/js/schema.js":"/js/schema.js?v=1.2.0+local+20260726011336","js/schema.js":"js/schema.js?v=1.2.0+local+20260726011336","/js/scholar-linguistics.js":"/js/scholar-linguistics.js?v=1.2.0+local+20260726011336","js/scholar-linguistics.js":"js/scholar-linguistics.js?v=1.2.0+local+20260726011336","/js/scribe-forensics.js":"/js/scribe-forensics.js?v=1.2.0+local+20260726011336","js/scribe-forensics.js":"js/scribe-forensics.js?v=1.2.0+local+20260726011336","/js/scribe-live.js":"/js/scribe-live.js?v=1.2.0+local+20260726011336","js/scribe-live.js":"js/scribe-live.js?v=1.2.0+local+20260726011336","/js/shadow-live.js":"/js/shadow-live.js?v=1.2.0+local+20260726011336","js/shadow-live.js":"js/shadow-live.js?v=1.2.0+local+20260726011336","/js/shadow-search.js":"/js/shadow-search.js?v=1.2.0+local+20260726011336","js/shadow-search.js":"js/shadow-search.js?v=1.2.0+local+20260726011336","/js/site-nav.js":"/js/site-nav.js?v=1.2.0+local+20260726011336","js/site-nav.js":"js/site-nav.js?v=1.2.0+local+20260726011336","/js/spatial-hooks.js":"/js/spatial-hooks.js?v=1.2.0+local+20260726011336","js/spatial-hooks.js":"js/spatial-hooks.js?v=1.2.0+local+20260726011336","/js/staff-catalogue.js":"/js/staff-catalogue.js?v=1.2.0+local+20260726011336","js/staff-catalogue.js":"js/staff-catalogue.js?v=1.2.0+local+20260726011336","/js/steno-space-letter-grid.js":"/js/steno-space-letter-grid.js?v=1.2.0+local+20260726011336","js/steno-space-letter-grid.js":"js/steno-space-letter-grid.js?v=1.2.0+local+20260726011336","/js/steno-strip.js":"/js/steno-strip.js?v=1.2.0+local+20260726011336","js/steno-strip.js":"js/steno-strip.js?v=1.2.0+local+20260726011336","/js/terminal-lane.js":"/js/terminal-lane.js?v=1.2.0+local+20260726011336","js/terminal-lane.js":"js/terminal-lane.js?v=1.2.0+local+20260726011336","/js/tool-stack.js":"/js/tool-stack.js?v=1.2.0+local+20260726011336","js/tool-stack.js":"js/tool-stack.js?v=1.2.0+local+20260726011336","/js/typing-practice.js":"/js/typing-practice.js?v=1.2.0+local+20260726011336","js/typing-practice.js":"js/typing-practice.js?v=1.2.0+local+20260726011336","/js/ugrad-live-bus.js":"/js/ugrad-live-bus.js?v=1.2.0+local+20260726011336","js/ugrad-live-bus.js":"js/ugrad-live-bus.js?v=1.2.0+local+20260726011336","/js/ui-i18n.js":"/js/ui-i18n.js?v=1.2.0+local+20260726011336","js/ui-i18n.js":"js/ui-i18n.js?v=1.2.0+local+20260726011336","/js/version.js":"/js/version.js?v=1.2.0+local+20260726011336","js/version.js":"js/version.js?v=1.2.0+local+20260726011336","/js/waveform-letters.js":"/js/waveform-letters.js?v=1.2.0+local+20260726011336","js/waveform-letters.js":"js/waveform-letters.js?v=1.2.0+local+20260726011336","/js/words-seed.js":"/js/words-seed.js?v=1.2.0+local+20260726011336","js/words-seed.js":"js/words-seed.js?v=1.2.0+local+20260726011336","/js/world-path.js":"/js/world-path.js?v=1.2.0+local+20260726011336","js/world-path.js":"js/world-path.js?v=1.2.0+local+20260726011336","/js/writing-systems-catalog.js":"/js/writing-systems-catalog.js?v=1.2.0+local+20260726011336","js/writing-systems-catalog.js":"js/writing-systems-catalog.js?v=1.2.0+local+20260726011336","/js/x-article.js":"/js/x-article.js?v=1.2.0+local+20260726011336","js/x-article.js":"js/x-article.js?v=1.2.0+local+20260726011336"}}
+</script>
+  <script type="module">
+    import {
+      loadLivingIndex,
+      loadLivingEntries,
+      loadVisualProjects,
+      getVisualProject,
+      listVisualProjects,
+      loadUnsolvedManuscripts,
+      listUnsolvedManuscripts,
+      getUnsolvedManuscript,
+      batchManifest,
+      searchBooks,
+      getBook,
+      isVisualBook,
+      bookToPathGeometry,
+      sampleStoryBeats,
+      formatStoryBeats,
+      livingStats,
+    } from "/js/living-books.js";
+    import {
+      fetchGutenbergText,
+      paginateText,
+      pageSlice,
+      pagePathPhrase,
+      loadRestorationProjects,
+      projectsForBook,
+      isDeclarationLineViewer,
+      loadDeclarationTranscript,
+      paginateDeclarationLines,
+      loadDeclarationLineSection,
+    } from "/js/living-book-reader.js";
+    import {
+      pathGeometryFor,
+      pathPlainText,
+    } from "/js/path-geometry-panel.js";
+    import { DeepZoomViewer } from "/js/deep-zoom-viewer.js";
+
+    const $ = (id) => document.getElementById(id);
+    let current = null;
+    let activeKind = "";
+    let activeTradition = "";
+    let activeLetter = "A";
+    let totalCorpus = 0;
+    /** @type {object[]} */
+    let allProjects = [];
+    /** @type {object[]} */
+    let visualProjects = [];
+    /** @type {object[]} */
+    let unsolvedManuscripts = [];
+    /** @type {DeepZoomViewer | null} */
+    let dz = null;
+
+    /** Resolve visual pack for book or unsolved id (entries use visualProjectId unsolved-ms-*). */
+    function resolveVisualProject(id) {
+      if (!id) return null;
+      const book = getBook(id);
+      const candidates = [
+        id,
+        book?.visualProjectId,
+        book?.id && `unsolved-${book.id}`,
+        id.startsWith("unsolved-") ? id : `unsolved-${id}`,
+        id.replace(/^unsolved-/, ""),
+      ].filter(Boolean);
+      for (const c of candidates) {
+        const p = getVisualProject(c);
+        if (p) return p;
+      }
+      // Build ephemeral project from unsolved pack pages
+      const ms =
+        getUnsolvedManuscript(id) ||
+        getUnsolvedManuscript(String(id).replace(/^unsolved-/, "")) ||
+        getUnsolvedManuscript(book?.manuscriptId);
+      if (ms && (ms.pages || []).length) {
+        return {
+          id: `unsolved-${ms.id}`,
+          title: ms.title,
+          mediaType: ms.mediaType,
+          rights: ms.rights,
+          pages: ms.pages,
+          zoom: ms.zoom,
+          externalViewer: ms.externalViewer,
+          externalHub: ms.externalHub,
+          samplePhrase: ms.samplePhrase,
+          documentation: ms.documentation,
+          batchJobs: ms.batchJobs,
+        };
+      }
+      return null;
+    }
+    /** Reader state (codex folio pattern · optional declaration line-by-line) */
+    const reader = {
+      open: false,
+      pages: [],
+      /** @type {Array<{id:string,kind:string,label:string}>} */
+      lineMeta: [],
+      mode: "folio", // folio | declaration-lines
+      page: 1,
+      loading: false,
+      gid: null,
+      bookId: null,
+    };
+    const zoomState = { open: false, projectId: null };
+
+    function esc(s) {
+      return String(s ?? "")
+        .replace(/&/g, "&amp;")
+        .replace(/</g, "&lt;")
+        .replace(/>/g, "&gt;");
+    }
+
+    function leadingLetter(title) {
+      const s = String(title || "")
+        .normalize("NFD")
+        .replace(/\p{M}/gu, "")
+        .replace(/^(the|a|an)\s+/i, "")
+        .replace(/^[^a-zA-Z]+/, "");
+      const ch = (s[0] || "").toUpperCase();
+      return ch >= "A" && ch <= "Z" ? ch : "#";
+    }
+
+    function paintLetters(all) {
+      const m = new Map();
+      for (const e of all) {
+        const L = leadingLetter(e.title);
+        m.set(L, (m.get(L) || 0) + 1);
+      }
+      const lettersEl = $("letter-chips");
+      if (!lettersEl) return;
+      const letters = "ABCDEFGHIJKLMNOPQRSTUVWXYZ".split("");
+      lettersEl.innerHTML =
+        `<button type="button" class="lb-chip${
+          activeLetter === "ALL" ? " on" : ""
+        }" data-letter="ALL">All</button>` +
+        letters
+          .map((L) => {
+            const n = m.get(L) || 0;
+            return `<button type="button" class="lb-chip${
+              activeLetter === L ? " on" : ""
+            }" data-letter="${L}" ${n ? "" : "disabled"} style="${
+              n ? "" : "opacity:0.35"
+            }">${L}${n ? " · " + n : ""}</button>`;
+          })
+          .join("");
+      lettersEl.onclick = (ev) => {
+        const b = ev.target.closest("[data-letter]");
+        if (!b || b.disabled) return;
+        activeLetter = b.dataset.letter || "A";
+        [...lettersEl.children].forEach((c) =>
+          c.classList.toggle("on", c.dataset.letter === activeLetter)
+        );
+        refresh();
+      };
+    }
+
+    function paintGrid(items) {
+      const grid = $("grid");
+      grid.innerHTML = items
+        .map((e) => {
+          const active = current?.id === e.id ? " is-active" : "";
+          const vis = isVisualBook(e);
+          const badge = vis
+            ? `<span class="lb-media-badge">${esc(e.mediaType || "zoom")}</span>`
+            : "";
+          const metaExtra = vis
+            ? ` · ${esc(e.mediaType || "visual")}${e.pageCount ? " · " + e.pageCount + "p" : ""}`
+            : ` · PG ${esc(e.gutenbergId ?? "—")}`;
+          return `<button type="button" class="lb-card${active}" data-id="${esc(e.id)}" role="listitem">
+            <h2>${esc(e.title)}${badge}</h2>
+            <div class="lb-meta">${esc(e.author)}${e.year != null ? " · " + e.year : ""} · ${esc(e.kind)}${e.tradition ? " · " + esc(e.tradition) : ""}${metaExtra}</div>
+            <p class="lb-sample">${esc(e.samplePhrase || e.note || "")}</p>
+            <div class="chips">${(e.tags || []).slice(0, 4).map((t) => `<span class="chip">${esc(t)}</span>`).join("")}</div>
+          </button>`;
+        })
+        .join("");
+      if (!items.length) {
+        grid.innerHTML = `<p class="docs-kicker">No matches · pick another letter or clear search</p>`;
+      }
+      const nEl = $("fold-books-n");
+      if (nEl) nEl.textContent = String(items.length);
+    }
+
+    function paintVisualGrid() {
+      const grid = $("visual-grid");
+      if (!grid) return;
+      const list = visualProjects.filter((p) => p.id !== "project-template-infinite-zoom");
+      const nEl = $("fold-visual-n");
+      if (nEl) nEl.textContent = String(list.length);
+      if (!list.length) {
+        grid.innerHTML = `<p class="docs-kicker">No visual projects · run <code>npm run books:visual</code></p>`;
+        return;
+      }
+      grid.innerHTML = list
+        .map(
+          (p) => `<button type="button" class="lb-card${
+            current?.id === p.id ? " is-active" : ""
+          }" data-visual="${esc(p.id)}">
+          <h2>${esc(p.title)}<span class="lb-media-badge">${esc(p.mediaType || "zoom")}</span></h2>
+          <div class="lb-meta">${esc(p.author)} · ${esc(p.year ?? "—")} · ${(p.pages || []).length} sample page(s)${p.pageCount ? " · " + p.pageCount + " folios" : ""}</div>
+          <p class="lb-sample">${esc(p.note || p.samplePhrase || "")}</p>
+          <div class="chips">${(p.tags || [])
+            .slice(0, 5)
+            .map((t) => `<span class="chip">${esc(t)}</span>`)
+            .join("")}</div>
+        </button>`
+        )
+        .join("");
+      // template card
+      const tmpl = visualProjects.find((p) => p.id === "project-template-infinite-zoom");
+      if (tmpl) {
+        grid.insertAdjacentHTML(
+          "beforeend",
+          `<div class="lb-card" style="cursor:default">
+            <h2>${esc(tmpl.title)}<span class="lb-media-badge">template</span></h2>
+            <div class="lb-meta">Snapdragon infinite zoom scaffold</div>
+            <p class="lb-sample">${esc((tmpl.howTo || []).join(" · ") || tmpl.note || "")}</p>
+          </div>`
+        );
+      }
+      grid.onclick = (ev) => {
+        const card = ev.target.closest("[data-visual]");
+        if (!card) return;
+        const id = card.getAttribute("data-visual");
+        const fold = $("fold-visual");
+        if (fold) fold.open = true;
+        if (getBook(id)) select(id);
+        void openDeepZoom(id);
+      };
+    }
+
+    function paintUnsolvedGrid() {
+      const grid = $("unsolved-grid");
+      if (!grid) return;
+      const list = unsolvedManuscripts.length
+        ? unsolvedManuscripts
+        : listUnsolvedManuscripts();
+      const nEl = $("fold-unsolved-n");
+      if (nEl) nEl.textContent = String(list.length);
+      if (!list.length) {
+        grid.innerHTML = `<p class="docs-kicker">No unsolved pack · fetch <code>unsolved-manuscripts.json</code></p>`;
+        return;
+      }
+      grid.innerHTML = list
+        .map((m) => {
+          const pages = (m.pages || []).length;
+          const jobs = (m.batchJobs || []).length;
+          const badge = m.status || m.decipherment || "unsolved";
+          return `<button type="button" class="lb-card${
+            current?.id === m.id || current?.manuscriptId === m.id ? " is-active" : ""
+          }" data-unsolved="${esc(m.id)}">
+          <h2>${esc(m.shortTitle || m.title)}<span class="lb-media-badge">${esc(badge)}</span></h2>
+          <div class="lb-meta">${esc(m.script)} · ${esc(m.era || "")} · ${pages} hi-res · ${jobs} MG jobs</div>
+          <p class="lb-sample">${esc(m.documentation?.summary || m.samplePhrase || "")}</p>
+          <div class="chips">${(m.tags || [])
+            .slice(0, 5)
+            .map((t) => `<span class="chip">${esc(t)}</span>`)
+            .join("")}</div>
+        </button>`;
+        })
+        .join("");
+      grid.onclick = (ev) => {
+        const card = ev.target.closest("[data-unsolved]");
+        if (!card) return;
+        const id = card.getAttribute("data-unsolved");
+        const fold = $("fold-unsolved");
+        if (fold) fold.open = true;
+        if (getBook(id)) select(id);
+        else {
+          // soft select via synthetic book
+          const m = getUnsolvedManuscript(id);
+          if (m) {
+            current = {
+              id: m.id,
+              title: m.title,
+              author: m.holding,
+              kind: "unsolved-manuscript",
+              tags: m.tags,
+              samplePhrase: m.samplePhrase,
+              corpus: "visual",
+              viewer: m.viewer || "deep-zoom",
+              mediaType: m.mediaType,
+              visualProjectId: `unsolved-${m.id}`,
+              manuscriptId: m.id,
+              links: { externalViewer: m.externalViewer },
+              note: m.documentation?.summary,
+            };
+            paintUnsolvedDetail(m);
+            $("detail-title").textContent = m.title;
+            $("detail-meta").textContent = `${m.script} · ${m.status} · ${m.era || ""}`;
+            $("detail-sample").textContent = m.samplePhrase || "";
+            $("btn-zoom").style.display = "";
+            $("btn-read").style.display = "none";
+            const btnExt = $("btn-external");
+            if (m.externalViewer) {
+              btnExt.style.display = "";
+              btnExt.href = m.externalViewer;
+              btnExt.textContent = "Hi-res library ↗";
+            }
+          }
+        }
+        void openDeepZoom(id);
+      };
+    }
+
+    function paintUnsolvedDetail(m) {
+      const box = $("unsolved-docs");
+      const jobsEl = $("mg-jobs");
+      if (!box) return;
+      if (!m) {
+        box.style.display = "none";
+        if (jobsEl) jobsEl.innerHTML = "";
+        return;
+      }
+      const doc = m.documentation || {};
+      box.style.display = "";
+      box.innerHTML = [
+        `<strong>Study docs</strong> · ${esc(m.decipherment || m.status)}`,
+        doc.summary ? `\n${esc(doc.summary)}` : "",
+        (doc.whatIsKnown || []).length
+          ? `\n\nKnown:\n- ${(doc.whatIsKnown || []).map(esc).join("\n- ")}`
+          : "",
+        (doc.whatIsUnsolved || []).length
+          ? `\n\nUnsolved:\n- ${(doc.whatIsUnsolved || []).map(esc).join("\n- ")}`
+          : "",
+        (doc.studyTracks || []).length
+          ? `\n\nTracks:\n- ${(doc.studyTracks || []).map(esc).join("\n- ")}`
+          : "",
+        (doc.cageRules || []).length
+          ? `\n\nCage:\n- ${(doc.cageRules || []).map(esc).join("\n- ")}`
+          : "",
+        (doc.hiResSources || []).length
+          ? `\n\nHi-res: ${(doc.hiResSources || [])
+              .map((s) => `<a href="${esc(s.url)}" target="_blank" rel="noopener">${esc(s.label)}</a>`)
+              .join(" · ")}`
+          : "",
+        doc.mgNotes ? `\n\nMG: ${esc(doc.mgNotes)}` : "",
+      ].join("");
+      if (jobsEl) {
+        const jobs = m.batchJobs || [];
+        jobsEl.innerHTML = jobs.length
+          ? `<span class="chip">MG batch · ${jobs.length}</span>` +
+            jobs
+              .map(
+                (j) =>
+                  `<span class="chip" title="${esc(j.prompt || "")}">${esc(j.type)} · ${esc(j.id)}</span>`
+              )
+              .join("")
+          : "";
+      }
+    }
+
+    function ensureDz() {
+      if (dz) return dz;
+      const mount = $("dz-mount");
+      if (!mount) return null;
+      dz = new DeepZoomViewer(mount, {
+        minScale: 0.1,
+        maxScale: 64,
+        onStatus: (s) => {
+          if (zoomState.open) $("lb-status").textContent = s;
+        },
+      });
+      return dz;
+    }
+
+    function syncStageLayout() {
+      const ws = $("lb-workspace");
+      const detail = $("detail");
+      const open = !!(zoomState.open || reader.open);
+      ws?.classList.toggle("has-viewer", open);
+      detail?.classList.toggle("lb-detail-compact", open);
+      // Re-fit deep zoom after stage gains width
+      if (zoomState.open && dz) {
+        requestAnimationFrame(() => {
+          try {
+            dz.fit();
+          } catch {
+            /* */
+          }
+        });
+      }
+    }
+
+    function openDeepZoom(projectId) {
+      const id = projectId || current?.id;
+      const project =
+        resolveVisualProject(id) ||
+        getVisualProject(id) ||
+        (current && isVisualBook(current) ? resolveVisualProject(current.id) : null);
+      if (!project) {
+        $("lb-status").textContent =
+          "No visual project pack for this title · pick unsolved / comic / codex card";
+        return;
+      }
+      closeReader();
+      const panel = $("zoom");
+      panel.classList.add("is-open");
+      zoomState.open = true;
+      zoomState.projectId = project.id;
+      $("zoom-title").textContent = project.title;
+      const pages = (project.pages || []).filter((p) => p?.url);
+      $("zoom-meta").innerHTML = [
+        project.mediaType ? `<span>${esc(project.mediaType)}</span>` : "",
+        project.rights ? `<span>${esc(project.rights)}</span>` : "",
+        pages.length ? `<span>${pages.length} sample page(s)</span>` : "",
+        project.pageCount ? `<span>${project.pageCount} folios in full edition</span>` : "",
+        project.localPath
+          ? `<span title="${esc(project.localPath)}">local codex-regius-digital</span>`
+          : "",
+        project.licenseNote ? `<span>${esc(project.licenseNote)}</span>` : "",
+      ]
+        .filter(Boolean)
+        .join(" · ");
+      const ext = $("btn-zoom-external");
+      const hub = $("btn-zoom-hub");
+      if (project.externalViewer) {
+        ext.style.display = "";
+        ext.href = project.externalViewer;
+      } else {
+        ext.style.display = "none";
+      }
+      if (project.externalHub) {
+        hub.style.display = "";
+        hub.href = project.externalHub;
+      } else {
+        hub.style.display = "none";
+      }
+      const viewer = ensureDz();
+      if (!viewer) return;
+      if (project.zoom) {
+        viewer.minScale = project.zoom.min ?? 0.1;
+        viewer.maxScale = project.zoom.max ?? 64;
+      } else {
+        viewer.minScale = 0.1;
+        viewer.maxScale = 64;
+      }
+      if (!pages.length) {
+        viewer.loadProject({ pages: [] });
+        $("lb-status").textContent =
+          `${project.title} · no sample pages yet · use external viewer (library hi-res) · docs in pack`;
+        return;
+      }
+      // Prefer hub folio (page 10 Hávamál) when present; else first page
+      let start = 1;
+      const hubIdx = pages.findIndex((p) => Number(p.n) === 10);
+      if (hubIdx >= 0) start = hubIdx + 1;
+      viewer.loadProject({ pages, start });
+      $("lb-status").textContent = `Deep zoom · ${project.title} · ${pages.length} page(s) · wheel/pinch · max ${viewer.maxScale}×`;
+      try {
+        const params = new URLSearchParams(location.search);
+        params.set("id", project.id);
+        params.set("zoom", "1");
+        history.replaceState(null, "", `?${params.toString()}`);
+      } catch {
+        /* */
+      }
+      syncStageLayout();
+      // Fit after layout settles (right stage is 3× wide)
+      setTimeout(() => {
+        try {
+          viewer.fit();
+        } catch {
+          /* */
+        }
+      }, 60);
+    }
+
+    function closeDeepZoom() {
+      zoomState.open = false;
+      zoomState.projectId = null;
+      $("zoom")?.classList.remove("is-open");
+      try {
+        const params = new URLSearchParams(location.search);
+        params.delete("zoom");
+        history.replaceState(null, "", params.toString() ? `?${params}` : location.pathname);
+      } catch {
+        /* */
+      }
+      // closeDeepZoom is also called from openReader — don't clobber reader.open
+      if (!reader.open) syncStageLayout();
+      else {
+        $("lb-workspace")?.classList.add("has-viewer");
+        $("detail")?.classList.add("lb-detail-compact");
+      }
+    }
+
+    async function pathZoomLabel() {
+      const project =
+        resolveVisualProject(zoomState.projectId) ||
+        resolveVisualProject(current?.id) ||
+        getVisualProject(zoomState.projectId) ||
+        getVisualProject(current?.id);
+      const p = project?.pages?.[dz?.pageIndex || 0];
+      const phrase = p?.label || project?.samplePhrase || project?.title || current?.title || "";
+      try {
+        const pack = await pathGeometryFor(phrase);
+        $("path-out").textContent = pathPlainText(pack);
+      } catch {
+        $("path-out").textContent = phrase;
+      }
+    }
+
+    function paintRestoreBanner(book) {
+      const el = $("restore-banner");
+      if (!el) return;
+      const projs = projectsForBook(allProjects, book?.id);
+      if (!projs.length) {
+        el.innerHTML = "";
+        return;
+      }
+      el.innerHTML = projs
+        .map(
+          (p) =>
+            `<span class="chip" title="${esc(p.summary || "")}">⚒ ${esc(p.title)} · ${esc(
+              p.status
+            )}</span>`
+        )
+        .join("");
+    }
+
+    function paintRestorePanel(book) {
+      const el = $("restore-panel");
+      const chips = $("layer-chips");
+      if (!el) return;
+      const projs = projectsForBook(allProjects, book?.id);
+      if (!projs.length) {
+        el.innerHTML =
+          '<p class="docs-kicker" style="margin:0">No restoration project on this title. Epics &amp; Bulfinch have open tracks — or add one in <code>data/living-books/restoration-projects.json</code>.</p>';
+        if (chips) chips.innerHTML = "";
+        return;
+      }
+      const p = projs[0];
+      el.innerHTML = `
+        <p style="margin:0 0 6px"><strong>${esc(p.title)}</strong></p>
+        <p style="margin:0 0 8px;color:var(--muted)">${esc(p.summary || "")}</p>
+        <p style="margin:0 0 4px;font-size:0.72rem;color:var(--faint)">Era · ${esc(
+          p.era || "—"
+        )} · status <b>${esc(p.status)}</b></p>
+        <ul>${(p.tasks || [])
+          .map((t) => `<li>${esc(t)}</li>`)
+          .join("")}</ul>`;
+      if (chips) {
+        chips.innerHTML = (p.layers || ["source-text", "path-geometry"])
+          .map(
+            (L, i) =>
+              `<span class="lb-layer-chip${i === 0 ? " on" : ""}">${esc(L)}</span>`
+          )
+          .join("");
+      }
+    }
+
+    function paintRestoreGrid() {
+      const grid = $("restore-grid");
+      if (!grid) return;
+      const nEl = $("fold-restore-n");
+      if (nEl) nEl.textContent = String(allProjects.length);
+      if (!allProjects.length) {
+        grid.innerHTML = `<p class="docs-kicker">No restoration projects loaded</p>`;
+        return;
+      }
+      grid.innerHTML = allProjects
+        .map(
+          (p) => `<button type="button" class="lb-card" data-restore="${esc(p.bookId)}">
+          <h2>${esc(p.title)}</h2>
+          <div class="lb-meta">${esc(p.era)} · ${esc(p.status)} · PG ${esc(
+            p.gutenbergId ?? "—"
+          )}</div>
+          <p class="lb-sample">${esc(p.summary || "")}</p>
+          <div class="chips">${(p.layers || [])
+            .slice(0, 4)
+            .map((t) => `<span class="chip">${esc(t)}</span>`)
+            .join("")}</div>
+        </button>`
+        )
+        .join("");
+      grid.onclick = (ev) => {
+        const card = ev.target.closest("[data-restore]");
+        if (!card) return;
+        const id = card.getAttribute("data-restore");
+        const fold = $("fold-restore");
+        if (fold) fold.open = true;
+        select(id);
+        void openReader();
+      };
+    }
+
+    function setReaderPage(n) {
+      if (!reader.pages.length) return;
+      const slice = pageSlice(reader.pages, n);
+      reader.page = slice.page;
+      const meta = reader.lineMeta[slice.page - 1] || null;
+      const folio = $("folio");
+      if (reader.mode === "declaration-lines" && meta) {
+        folio.innerHTML = `<div class="lb-line-label"><span class="lb-line-id">${esc(
+          meta.id
+        )}</span><span class="lb-line-kind">${esc(
+          meta.kind
+        )}</span>${
+          meta.parentEngrossed
+            ? `<span class="lb-line-parent" title="Original engrossed band">band ${esc(
+                meta.parentEngrossed
+              )}${
+                meta.researchOf > 1
+                  ? ` · ${meta.researchUnit}/${meta.researchOf}`
+                  : ""
+              }</span>`
+            : ""
+        }<span class="lb-line-n">${slice.page} / ${
+          slice.total
+        }</span></div><div class="lb-line-text">${esc(
+          slice.text
+        )}</div><div class="lb-line-research" id="lb-line-research">Loading research breakdown…</div>`;
+        folio.classList.add("lb-folio--lines");
+        // Async full research pack (glyphs · words · sentences) for this L##
+        void loadDeclarationLineSection(meta.id).then((sec) => {
+          const host = $("lb-line-research");
+          if (!host || reader.page !== slice.page) return;
+          if (!sec) {
+            host.textContent = "Research pack not found for this line.";
+            return;
+          }
+          const topWords = (sec.words || [])
+            .slice(0, 12)
+            .map((w) => esc(w.text))
+            .join(" · ");
+          host.innerHTML = `
+            <div class="lb-research-stats">
+              <span><em>chars</em> ${sec.charCount ?? "—"}</span>
+              <span><em>letters</em> ${sec.letterCount ?? "—"}</span>
+              <span><em>words</em> ${sec.wordCount ?? "—"}</span>
+              <span><em>sentences</em> ${sec.sentenceCount ?? "—"}</span>
+              <span><em>glyphs</em> ${(sec.glyphs || []).length}</span>
+              <span><em>runs</em> ${(sec.runs || []).length}</span>
+              <span><em>hand</em> ${esc(sec.metrics?.lineHeightHint || "—")}</span>
+            </div>
+            ${
+              topWords
+                ? `<p class="lb-research-words"><strong>Words</strong> · ${topWords}${(
+                    sec.words || []
+                  ).length > 12 ? "…" : ""}</p>`
+                : ""
+            }
+            <p class="docs-kicker">${esc(
+              sec.epistemic || "transcript research breakdown"
+            )}</p>`;
+        });
+      } else {
+        folio.classList.remove("lb-folio--lines");
+        folio.textContent = slice.text;
+      }
+      $("page-input").value = String(slice.page);
+      $("page-input").max = String(slice.total);
+      $("page-total").textContent = `/ ${slice.total}`;
+      $("prev-page").disabled = !slice.hasPrev;
+      $("next-page").disabled = !slice.hasNext;
+      const pct = Math.round((slice.page / slice.total) * 100);
+      $("reader-progress").style.width = `${pct}%`;
+      if (reader.mode === "declaration-lines" && meta) {
+        $("reader-status").textContent = `${meta.label} · ${slice.text.length} chars · full research pack · NARA PD`;
+      } else {
+        $("reader-status").textContent = `Folio ${slice.page} / ${slice.total} · ${slice.text.length} chars · PD`;
+      }
+      // URL state
+      try {
+        const params = new URLSearchParams(location.search);
+        if (reader.bookId) params.set("id", reader.bookId);
+        params.set("page", String(slice.page));
+        if (reader.mode === "declaration-lines") params.set("viewer", "lines");
+        else params.delete("viewer");
+        history.replaceState(null, "", `?${params.toString()}`);
+      } catch {
+        /* */
+      }
+    }
+
+    async function openDeclarationLineReader() {
+      closeDeepZoom();
+      const panel = $("reader");
+      panel.classList.add("is-open");
+      reader.open = true;
+      reader.bookId = current.id;
+      reader.gid = current.gutenbergId || null;
+      reader.mode = "declaration-lines";
+      $("reader-title").textContent = `${current.title} · dense research lines`;
+      const kick = panel.querySelector(".docs-kicker");
+      if (kick) {
+        kick.innerHTML =
+          `dense research lines · every L## has glyph/word breakdown · NARA-aligned · ` +
+          `<a href="/labs/declaration-digital-edition/">Declaration edition ↗</a> · plates by engrossed band`;
+      }
+      paintRestorePanel(current);
+      $("folio").textContent = "Loading Declaration transcript lines…";
+      $("reader-status").textContent = "Loading full-transcript-lines.json…";
+      reader.loading = true;
+      syncStageLayout();
+      try {
+        const doc = await loadDeclarationTranscript();
+        const pack = paginateDeclarationLines(doc.lines || []);
+        reader.pages = pack.pages;
+        reader.lineMeta = pack.meta;
+        const want =
+          Number(new URLSearchParams(location.search).get("page")) || 1;
+        setReaderPage(want);
+        $("lb-status").textContent = `Declaration research lines · ${
+          reader.pages.length
+        } L-units · every line full breakdown · ${
+          doc.parentEngrossedCount || 35
+        } engrossed bands · ${doc.rights || "public domain"}`;
+        // Side panel: edition link
+        const restore = $("restore-panel");
+        if (restore) {
+          restore.innerHTML = `
+            <p class="docs-kicker" style="margin:0 0 6px">Dense research lines ready</p>
+            <p style="margin:0 0 8px;font-size:0.8rem;line-height:1.4;color:var(--muted)">
+              Each step is one research L## with glyph · word · sentence packs (same schema as archive line-sections).
+              Long engrossed bands (e.g. “We hold these truths…”) are split into middle L units so <strong>every</strong> line has a breakdown.
+              <code>parentEngrossed</code> maps back to the original plate band.
+            </p>
+            <div class="lb-actions" style="margin:0">
+              <a class="btn btn-primary" href="/labs/declaration-digital-edition/">Archive workspace →</a>
+              <a class="btn" href="/labs/declaration-digital-edition/versions.html">All layers</a>
+              <a class="btn" href="/data/declaration/full-transcript-lines.json">Transcript JSON</a>
+              <a class="btn" href="/data/declaration/line-sections/index.json">Line sections index</a>
+              <a class="btn" href="/data/declaration/research-line-map.json">Band → L map</a>
+            </div>
+            <p class="docs-kicker" style="margin:8px 0 0">${esc(
+              current.lineByLine?.note ||
+                `L01–L${String(reader.pages.length).padStart(2, "0")} dense research · not Gutenberg paginate`
+            )}</p>`;
+        }
+        $("folio").focus?.();
+      } catch (e) {
+        // Fall back to Gutenberg if line pack missing
+        $("reader-status").textContent = `Line pack miss · ${
+          e?.message || e
+        } · falling back to Gutenberg`;
+        reader.mode = "folio";
+        reader.lineMeta = [];
+        if (current.gutenbergId) {
+          try {
+            const doc = await fetchGutenbergText(current.gutenbergId);
+            reader.pages = paginateText(doc.text, { targetChars: 1500 });
+            setReaderPage(1);
+          } catch (e2) {
+            $("folio").textContent = `Could not load Declaration lines or Gutenberg (${
+              e2?.message || e2
+            }).`;
+            reader.pages = [current.samplePhrase || current.title || ""];
+            setReaderPage(1);
+          }
+        } else {
+          $("folio").textContent = `Could not load Declaration lines (${
+            e?.message || e
+          }).`;
+          reader.pages = [current.samplePhrase || current.title || ""];
+          setReaderPage(1);
+        }
+      } finally {
+        reader.loading = false;
+      }
+    }
+
+    async function openReader() {
+      if (isDeclarationLineViewer(current) && current?.lineByLine?.ready !== false) {
+        await openDeclarationLineReader();
+        return;
+      }
+      if (isVisualBook(current) && !current?.gutenbergId) {
+        openDeepZoom(current.id);
+        return;
+      }
+      if (!current?.gutenbergId) {
+        if (isVisualBook(current)) {
+          openDeepZoom(current.id);
+          return;
+        }
+        $("lb-status").textContent = "No Gutenberg id on this title";
+        return;
+      }
+      closeDeepZoom();
+      const panel = $("reader");
+      panel.classList.add("is-open");
+      reader.open = true;
+      reader.bookId = current.id;
+      reader.gid = current.gutenbergId;
+      reader.mode = "folio";
+      reader.lineMeta = [];
+      $("reader-title").textContent = `${current.title} · read-through`;
+      const kick = panel.querySelector(".docs-kicker");
+      if (kick) {
+        kick.textContent =
+          "read-through · codex folio pattern · PD text via Gutenberg proxy";
+      }
+      paintRestorePanel(current);
+      $("folio").classList.remove("lb-folio--lines");
+      $("folio").textContent = "Loading Project Gutenberg text…";
+      $("reader-status").textContent = "Fetching PD text…";
+      reader.loading = true;
+      syncStageLayout();
+      try {
+        const doc = await fetchGutenbergText(current.gutenbergId);
+        reader.pages = paginateText(doc.text, { targetChars: 1500 });
+        const want = Number(new URLSearchParams(location.search).get("page")) || 1;
+        setReaderPage(want);
+        $("lb-status").textContent = `Reading · ${current.title} · ${reader.pages.length} folios · Gutenberg #${current.gutenbergId}`;
+        $("folio").focus?.();
+      } catch (e) {
+        $("folio").textContent =
+          `Could not load text (${e?.message || e}). Open Gutenberg ↗ or retry.\n\nFallback sample:\n\n${current.samplePhrase || current.title}`;
+        reader.pages = [current.samplePhrase || current.title || ""];
+        setReaderPage(1);
+        $("reader-status").textContent = "Proxy miss · sample fallback";
+      } finally {
+        reader.loading = false;
+      }
+    }
+
+    function closeReader() {
+      reader.open = false;
+      $("reader").classList.remove("is-open");
+      try {
+        const params = new URLSearchParams(location.search);
+        params.delete("page");
+        history.replaceState(null, "", params.toString() ? `?${params}` : location.pathname);
+      } catch {
+        /* */
+      }
+      syncStageLayout();
+    }
+
+    async function pathThisPage() {
+      if (!reader.pages.length) return;
+      const slice = pageSlice(reader.pages, reader.page);
+      const phrase = pagePathPhrase(slice.text, 14);
+      try {
+        const pack = await pathGeometryFor(phrase);
+        $("page-path-out").textContent = pathPlainText(pack);
+      } catch {
+        const geo = bookToPathGeometry(phrase);
+        $("page-path-out").textContent = [
+          phrase,
+          `${geo.pathLen} keys · ${geo.layout}`,
+          geo.arrows ? `flow ${geo.arrows}` : "",
+        ]
+          .filter(Boolean)
+          .join("\n");
+      }
+      $("btn-dict").href = `../?q=${encodeURIComponent(phrase.slice(0, 80))}`;
+      $("btn-shadow").href = `../shadow.html?q=${encodeURIComponent(phrase.slice(0, 200))}`;
+    }
+
+    function select(id) {
+      current = getBook(id);
+      if (!current) return;
+      const vis = isVisualBook(current);
+      const vp = resolveVisualProject(current.id) || getVisualProject(current.id);
+      $("detail-title").textContent = current.title;
+      $("detail-meta").textContent = [
+        current.author,
+        current.year != null ? current.year : null,
+        current.kind,
+        current.mediaType || null,
+        current.gutenbergId != null ? `Gutenberg #${current.gutenbergId}` : null,
+        current.rights || "public-domain",
+      ]
+        .filter(Boolean)
+        .join(" · ");
+      $("detail-tags").innerHTML = (current.tags || [])
+        .map((t) => `<span class="chip">${esc(t)}</span>`)
+        .join("");
+      $("detail-sample").textContent = current.samplePhrase
+        ? `Sample · ${current.samplePhrase}`
+        : current.note || "";
+      const declLines = isDeclarationLineViewer(current);
+      $("path-out").textContent =
+        current.note ||
+        (declLines
+          ? "Ready · Line-by-line engrossed L01–L35 · Path on current line · Declaration edition for plates"
+          : vis
+            ? "Ready · Deep zoom for plates/panels · Sample path for geometry"
+            : "Ready · Read through for full PD text · Sample path for short geometry");
+      $("btn-dict").href = `../?shadow=${encodeURIComponent((current.samplePhrase || current.title).slice(0, 200))}`;
+      $("btn-shadow").href = `../shadow.html?q=${encodeURIComponent((current.samplePhrase || "").slice(0, 200))}`;
+      const btnZoom = $("btn-zoom");
+      const btnRead = $("btn-read");
+      const btnExt = $("btn-external");
+      if (declLines) {
+        btnZoom.style.display = "none";
+        btnRead.style.display = "";
+        btnRead.classList.add("btn-primary");
+        btnRead.textContent = `Read L01–L${String(
+          current.lineByLine?.lineCount || "…"
+        ).padStart(2, "0")} research lines →`;
+        btnExt.style.display = "";
+        btnExt.href =
+          current.links?.declarationEdition ||
+          "/labs/declaration-digital-edition/";
+        btnExt.textContent = "Declaration edition ↗";
+      } else if (vis || vp) {
+        btnZoom.style.display = "";
+        btnZoom.classList.add("btn-primary");
+        if (!current.gutenbergId) {
+          btnRead.style.display = "none";
+        } else {
+          btnRead.style.display = "";
+          btnRead.classList.remove("btn-primary");
+          btnRead.textContent = "Read text →";
+        }
+        if (vp?.externalViewer || current.externalViewer) {
+          btnExt.style.display = "";
+          btnExt.href = vp?.externalViewer || current.externalViewer;
+          btnExt.textContent =
+            current.id === "codex-regius-gks2365"
+              ? "Codex Regius viewer ↗"
+              : "External viewer ↗";
+        } else {
+          btnExt.style.display = "none";
+        }
+      } else {
+        btnZoom.style.display = "none";
+        btnRead.style.display = "";
+        btnRead.classList.add("btn-primary");
+        btnRead.textContent = "Read through →";
+        btnExt.style.display = "none";
+      }
+      if (!declLines && (vp?.externalViewer || current.externalViewer) && !vis) {
+        btnExt.style.display = "";
+        btnExt.href = vp?.externalViewer || current.externalViewer;
+      }
+      $("lb-status").textContent = declLines
+        ? `Selected · ${current.title} · dense research lines ready · L01–L${String(
+            current.lineByLine?.lineCount || "?"
+          ).padStart(2, "0")} · every line breakdown · NARA PD`
+        : vis
+          ? `Selected · ${current.title} · visual · ${current.mediaType || "deep-zoom"} · ${
+              (vp?.pages || []).length
+            } sample page(s)`
+          : `Selected · ${current.title} · PD · Gutenberg #${current.gutenbergId ?? "—"}`;
+      paintRestoreBanner(current);
+      paintRestorePanel(current);
+      const ms =
+        getUnsolvedManuscript(current.manuscriptId || current.id) ||
+        getUnsolvedManuscript(String(current.id || "").replace(/^unsolved-/, ""));
+      paintUnsolvedDetail(ms);
+      refresh();
+    }
+
+    function refresh() {
+      const q = $("q").value;
+      const kind = activeKind || $("kind")?.value || undefined;
+      const tradition =
+        activeTradition || $("tradition")?.value || undefined;
+      // Search scans full catalogue; letter filter when not searching
+      let items = searchBooks({
+        kind: kind || undefined,
+        tradition: tradition || undefined,
+        q,
+        limit: 5000,
+      });
+      // Visual / unsolved live in their own folds — keep catalogue text-first
+      // unless user filters those kinds or searches
+      const wantVisual =
+        kind === "visual-project" ||
+        kind === "unsolved-manuscript" ||
+        /comic|codex|zoom|nemo|dore|audubon|blake|graphic|voynich|phaistos|indus|rongorongo|unsolved|herculaneum|dresden|qumran/i.test(
+          String(q || "")
+        );
+      if (!wantVisual) {
+        items = items.filter(
+          (e) =>
+            e.kind !== "visual-project" &&
+            e.kind !== "unsolved-manuscript" &&
+            e.corpus !== "visual" &&
+            e.viewer !== "deep-zoom"
+        );
+      }
+      if (!String(q || "").trim() && activeLetter && activeLetter !== "ALL") {
+        items = items.filter((e) => leadingLetter(e.title) === activeLetter);
+      }
+      const show = items.slice(0, activeLetter === "ALL" && !q ? 80 : 500);
+      paintGrid(show);
+      // Keep visual fold highlight in sync with selection
+      if ($("visual-grid")) {
+        [...$("visual-grid").querySelectorAll("[data-visual]")].forEach((el) => {
+          el.classList.toggle("is-active", el.getAttribute("data-visual") === current?.id);
+        });
+      }
+      const view = $("lb-view");
+      if (view) {
+        const letterLabel =
+          q?.trim() || activeLetter === "ALL"
+            ? "all letters"
+            : `letter ${activeLetter}`;
+        view.textContent = items.length
+          ? `Showing ${show.length} of ${items.length} · ${letterLabel}${
+              kind ? " · " + kind : ""
+            }${tradition ? " · " + tradition : ""}`
+          : `No matches · ${letterLabel}`;
+      }
+    }
+
+    function paintTraditions(idx) {
+      const sel = $("tradition");
+      const chips = $("tradition-chips");
+      if (!sel || !chips) return;
+      const trads = Object.keys(idx.traditions || {})
+        .filter((t) => t && t !== "general")
+        .sort((a, b) => (idx.traditions[b] || 0) - (idx.traditions[a] || 0));
+      // quick sacred filters first
+      const quick = [
+        { id: "scripture", label: "Scripture", mode: "kind" },
+        { id: "mythology", label: "Mythology", mode: "kind" },
+        { id: "esoteric", label: "Esoteric", mode: "kind" },
+        { id: "fairy", label: "Folklore", mode: "kind" },
+        { id: "visual-project", label: "Comics · Zoom", mode: "kind" },
+      ];
+      chips.innerHTML =
+        `<button type="button" class="lb-chip on" data-tradition="">All traditions</button>` +
+        quick
+          .map(
+            (q) =>
+              `<button type="button" class="lb-chip" data-kind-quick="${q.id}">${q.label}</button>`
+          )
+          .join("") +
+        trads
+          .slice(0, 16)
+          .map(
+            (t) =>
+              `<button type="button" class="lb-chip" data-tradition="${t}">${t} · ${idx.traditions[t]}</button>`
+          )
+          .join("");
+      for (const t of trads) {
+        const o = document.createElement("option");
+        o.value = t;
+        o.textContent = `${t} (${idx.traditions[t]})`;
+        sel.appendChild(o);
+      }
+      chips.onclick = (ev) => {
+        const b = ev.target.closest("[data-tradition], [data-kind-quick]");
+        if (!b) return;
+        if (b.dataset.kindQuick) {
+          activeKind = b.dataset.kindQuick;
+          activeTradition = "";
+          if ($("kind")) $("kind").value = activeKind;
+          if ($("tradition")) $("tradition").value = "";
+          if (activeKind === "visual-project") {
+            const fv = $("fold-visual");
+            if (fv) fv.open = true;
+          }
+        } else {
+          activeTradition = b.dataset.tradition || "";
+          activeKind = "";
+          if ($("kind")) $("kind").value = "";
+          if ($("tradition")) $("tradition").value = activeTradition;
+        }
+        [...chips.children].forEach((c) => {
+          const on =
+            (c.dataset.tradition === activeTradition && !activeKind) ||
+            (c.dataset.kindQuick && c.dataset.kindQuick === activeKind) ||
+            (c.dataset.tradition === "" && !activeTradition && !activeKind);
+          c.classList.toggle("on", !!on);
+        });
+        refresh();
+      };
+      sel.onchange = () => {
+        activeTradition = sel.value;
+        activeKind = "";
+        if ($("kind")) $("kind").value = "";
+        refresh();
+      };
+    }
+
+    async function runPath() {
+      if (!current) {
+        $("lb-status").textContent = "Pick a book first";
+        return;
+      }
+      const phrase = current.samplePhrase || current.title || "";
+      try {
+        const pack = await pathGeometryFor(phrase);
+        $("path-out").textContent = pathPlainText(pack);
+        $("lb-status").textContent = `Path · ${current.title} · ${pack.pathLen} keys · live geometry`;
+        $("btn-dict").href = `../?q=${encodeURIComponent(phrase.slice(0, 80))}`;
+        $("btn-shadow").href = `../shadow.html?q=${encodeURIComponent(phrase.slice(0, 200))}`;
+      } catch {
+        const geo = bookToPathGeometry(current);
+        $("path-out").textContent = [
+          geo.text,
+          `${geo.pathLen} keys · layout ${geo.layout}`,
+          geo.arrows ? `flow ${geo.arrows}` : null,
+        ]
+          .filter(Boolean)
+          .join("\n");
+        $("lb-status").textContent = `Path · ${current.title} · ${geo.pathLen} keys`;
+      }
+    }
+
+    $("grid").addEventListener("click", (ev) => {
+      const card = ev.target.closest?.("[data-id]");
+      if (!card) return;
+      select(card.getAttribute("data-id"));
+    });
+    $("q").addEventListener("input", refresh);
+    $("kind").addEventListener("change", () => {
+      activeKind = $("kind").value;
+      [...$("kind-chips").children].forEach((c) =>
+        c.classList.toggle("on", c.dataset.kind === activeKind)
+      );
+      refresh();
+    });
+    $("btn-path").onclick = () => void runPath();
+    $("btn-read").onclick = () => void openReader();
+    $("btn-zoom").onclick = () => openDeepZoom(current?.id);
+    $("btn-close-zoom").onclick = closeDeepZoom;
+    $("btn-zoom-path").onclick = () => void pathZoomLabel();
+    $("btn-close-reader").onclick = closeReader;
+    $("prev-page").onclick = () => setReaderPage(reader.page - 1);
+    $("next-page").onclick = () => setReaderPage(reader.page + 1);
+    $("page-input").onchange = () => setReaderPage(Number($("page-input").value) || 1);
+    $("btn-page-path").onclick = () => void pathThisPage();
+    document.addEventListener("keydown", (ev) => {
+      if (zoomState.open && ev.key === "Escape") {
+        closeDeepZoom();
+        return;
+      }
+      if (!reader.open) return;
+      const tag = (ev.target && ev.target.tagName) || "";
+      if (tag === "INPUT" || tag === "TEXTAREA") return;
+      if (ev.key === "ArrowLeft") {
+        ev.preventDefault();
+        setReaderPage(reader.page - 1);
+      } else if (ev.key === "ArrowRight") {
+        ev.preventDefault();
+        setReaderPage(reader.page + 1);
+      } else if (ev.key === "Escape") {
+        closeReader();
+      }
+    });
+    $("btn-pg").onclick = () => {
+      const href =
+        current?.links?.gutenbergHtml ||
+        (current?.gutenbergId
+          ? `https://www.gutenberg.org/ebooks/${current.gutenbergId}`
+          : null);
+      if (!href) {
+        $("lb-status").textContent = "No Gutenberg link · try Deep zoom for visual titles";
+        return;
+      }
+      window.open(href, "_blank", "noopener");
+    };
+    $("btn-sample-beats").onclick = () => {
+      const s = sampleStoryBeats();
+      $("beat-in").value = JSON.stringify(s, null, 2);
+      $("beat-out").textContent = formatStoryBeats(s);
+    };
+    $("btn-parse-beats").onclick = () => {
+      try {
+        $("beat-out").textContent = formatStoryBeats(JSON.parse($("beat-in").value || "{}"));
+      } catch (e) {
+        $("beat-out").textContent = "parse error: " + e;
+      }
+    };
+    const btnMg = $("btn-mg-batch");
+    if (btnMg) {
+      btnMg.onclick = () => {
+        const mid = current?.manuscriptId || current?.id;
+        const man = batchManifest(
+          mid && getUnsolvedManuscript(mid) ? { manuscriptId: mid } : { priority: 1 }
+        );
+        const out = $("mg-batch-out");
+        if (out) {
+          out.style.display = "";
+          out.textContent = JSON.stringify(man, null, 2);
+        }
+        try {
+          navigator.clipboard?.writeText(JSON.stringify(man, null, 2));
+          $("lb-status").textContent = `MG batch · ${man.count} jobs${mid ? " · " + mid : " · priority≤1"} · copied`;
+        } catch {
+          $("lb-status").textContent = `MG batch · ${man.count} jobs · see panel`;
+        }
+      };
+    }
+
+    (async () => {
+      try {
+        const idx = await loadLivingIndex();
+        await loadLivingEntries();
+        const visPack = await loadVisualProjects();
+        visualProjects = visPack.projects || [];
+        paintVisualGrid();
+        const unPack = await loadUnsolvedManuscripts();
+        unsolvedManuscripts = unPack.manuscripts || [];
+        paintUnsolvedGrid();
+        const rest = await loadRestorationProjects();
+        allProjects = rest.projects || [];
+        paintRestoreGrid();
+        const st = livingStats();
+        totalCorpus = st.entryCount || idx.entryCount || 0;
+        const sacredN = idx.sacredWisdomCount || "—";
+        const visualN = visualProjects.length || idx.visualProjects || 0;
+        const unN = unsolvedManuscripts.length || st.unsolvedManuscripts || 0;
+        const jobN = st.batchJobs || unPack.counts?.batchJobs || 0;
+        $("lb-status").textContent =
+          `${totalCorpus} titles · ${visualN} visual · ${unN} unsolved/hi-res · ${jobN} MG jobs · ${allProjects.length} restoration · never pirate`;
+        const kinds = Object.keys(idx.kinds || st.kinds || {}).sort();
+        const sel = $("kind");
+        const chips = $("kind-chips");
+        const allBooks = searchBooks({ limit: 5000 });
+        paintLetters(allBooks);
+        paintTraditions(idx);
+        // Deep-link ?id=&page= · ?zoom=1 for visual
+        const params = new URLSearchParams(location.search);
+        const deepId = params.get("id") || params.get("book");
+        if (deepId && getBook(deepId)) {
+          select(deepId);
+          if (getBook(deepId)?.kind === "unsolved-manuscript") {
+            const fu = $("fold-unsolved");
+            if (fu) fu.open = true;
+          } else if (isVisualBook(getBook(deepId))) {
+            const fv = $("fold-visual");
+            if (fv) fv.open = true;
+          }
+          if (params.get("zoom") === "1" || params.get("viewer") === "zoom") {
+            openDeepZoom(deepId);
+          } else if (
+            params.get("read") === "1" ||
+            params.get("page") ||
+            params.get("viewer") === "lines" ||
+            isDeclarationLineViewer(getBook(deepId))
+          ) {
+            // Declaration engrossed lines open in line-by-line mode when ready
+            void openReader();
+          } else if (isVisualBook(getBook(deepId)) && !getBook(deepId)?.gutenbergId) {
+            openDeepZoom(deepId);
+          }
+        }
+        kinds.forEach((k) => {
+          const o = document.createElement("option");
+          o.value = k;
+          o.textContent = `${k} (${idx.kinds[k]})`;
+          sel.appendChild(o);
+          const c = document.createElement("button");
+          c.type = "button";
+          c.className = "lb-chip";
+          c.dataset.kind = k;
+          c.textContent = `${k} · ${idx.kinds[k]}`;
+          c.onclick = () => {
+            activeKind = activeKind === k ? "" : k;
+            sel.value = activeKind;
+            [...chips.children].forEach((x) =>
+              x.classList.toggle("on", x.dataset.kind === activeKind)
+            );
+            refresh();
+          };
+          chips.appendChild(c);
+        });
+        refresh();
+        if (!deepId) {
+          select("alice-wonderland");
+          if (!current) {
+            const first = searchBooks({ limit: 1 })[0];
+            if (first) select(first.id);
+          }
+        }
+      } catch (e) {
+        $("lb-status").textContent = "Could not load catalogue · " + e;
+      }
+    })();
+  </script>
+  <script src="/js/site-nav.js?v=1.2.0+local+20260726011336" defer></script>
+</body>
+</html>

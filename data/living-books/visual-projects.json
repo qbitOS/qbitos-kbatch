@@ -1,6 +1,6 @@
 {
   "schema": "kbatch-living-books-visual-v1",
-  "generated": "2026-07-26T01:11:04Z",
+  "generated": "2026-07-26T01:23:50Z",
   "claim": "Graphic novels · comics · codex facsimiles · large PDF/deep-zoom projects. PD or project-open only. Snapdragon-class pan/zoom · Codex folio pattern.",
   "doctrine": {
     "rights": "public-domain images or explicitly open project facsimiles",
@@ -9,7 +9,7 @@
     "codex": "/Volumes/qbitOS/00.dev/projects/codex-regius-digital",
     "pdf": "Rasterize large PDFs to high-res page images; optional IIIF later"
   },
-  "count": 17,
+  "count": 32,
   "projects": [
     {
       "id": "codex-regius-gks2365",
@@ -661,7 +661,1673 @@
       },
       "note": "Cage-first: no STONE decipher claims.",
       "geometryHint": "Experimental path only"
+    },
+    {
+      "id": "unsolved-ms-voynich",
+      "kind": "visual-project",
+      "mediaType": "codex-facsimile",
+      "title": "Voynich Manuscript · Beinecke MS 408",
+      "author": "Beinecke Rare Book & Manuscript Library, Yale",
+      "year": null,
+      "rights": "beinecke-open-digital · cite Yale Beinecke",
+      "licenseNote": "High-res scans open for research via Beinecke digital library. Facsimile books are commercial — use open scans only.",
+      "samplePhrase": "voynich manuscript unknown script herbal",
+      "tags": [
+        "unsolved",
+        "manuscript",
+        "cipher",
+        "voynich",
+        "deep-zoom",
+        "mg-batch",
+        "cage",
+        "high-res"
+      ],
+      "tradition": "unknown",
+      "corpus": "visual",
+      "viewer": "deep-zoom",
+      "zoom": {
+        "min": 0.12,
+        "max": 64
+      },
+      "pages": [
+        {
+          "n": 1,
+          "label": "Voynich · f1r (Commons)",
+          "url": "https://commons.wikimedia.org/wiki/Special:FilePath/Voynich_Manuscript_%281%29.jpg?width=2400",
+          "section": "herbal"
+        },
+        {
+          "n": 2,
+          "label": "Voynich · herbal plate",
+          "url": "https://commons.wikimedia.org/wiki/Special:FilePath/Voynich_Manuscript_%289%29.jpg?width=2400",
+          "section": "herbal"
+        },
+        {
+          "n": 3,
+          "label": "Voynich · botanical",
+          "url": "https://commons.wikimedia.org/wiki/Special:FilePath/Voynich_Manuscript_%2816%29.jpg?width=2400",
+          "section": "herbal"
+        },
+        {
+          "n": 4,
+          "label": "Voynich · foldout / diagram",
+          "url": "https://commons.wikimedia.org/wiki/Special:FilePath/Voynich_Manuscript_%2870%29.jpg?width=2400",
+          "section": "cosmological"
+        },
+        {
+          "n": 5,
+          "label": "Voynich · astronomical",
+          "url": "https://commons.wikimedia.org/wiki/Special:FilePath/Voynich_Manuscript_%2868%29.jpg?width=2400",
+          "section": "astronomical"
+        },
+        {
+          "n": 6,
+          "label": "Voynich · text-dense",
+          "url": "https://commons.wikimedia.org/wiki/Special:FilePath/Voynich_Manuscript_%2878%29.jpg?width=2400",
+          "section": "recipes"
+        },
+        {
+          "n": 7,
+          "label": "Voynich · biological section",
+          "url": "https://commons.wikimedia.org/wiki/Special:FilePath/Voynich_Manuscript_%2875%29.jpg?width=2400",
+          "section": "biological"
+        },
+        {
+          "n": 8,
+          "label": "Voynich · late folio",
+          "url": "https://commons.wikimedia.org/wiki/Special:FilePath/Voynich_Manuscript_%28111%29.jpg?width=2400",
+          "section": "recipes"
+        }
+      ],
+      "externalViewer": "https://collections.library.yale.edu/catalog/2002046",
+      "externalHub": "https://beinecke.library.yale.edu/collections/highlights/voynich-manuscript",
+      "meshId": "voynich-manuscript",
+      "manuscriptId": "ms-voynich",
+      "decipherment": "unsolved",
+      "status": "unsolved",
+      "documentation": {
+        "summary": "Undeciphered illustrated codex (~240 vellum leaves). Herbal, astronomical, biological, cosmological, and recipe sections. No accepted decipherment. Ideal Cage + path practice surface for Memory Glass independent study.",
+        "whatIsKnown": [
+          "Radiocarbon dates parchment to early 15th century",
+          "Unknown script with structured glyph inventory",
+          "Illustrations suggest herbal / zodiac / bathing / recipes",
+          "Full high-res digitization by Beinecke (2014 campaign widely used)"
+        ],
+        "whatIsUnsolved": [
+          "Language / cipher system (if any)",
+          "Authorship and place of production",
+          "Meaning of botanical plates (many non-identifiable)"
+        ],
+        "studyTracks": [
+          "Glyph inventory counting (no translate claims)",
+          "Section typology (herbal vs astronomical folios)",
+          "Path geometry on romanized labels only",
+          "Cage: reject STONE decipherment claims without peer consensus"
+        ],
+        "cageRules": [
+          "Any full decipherment claim → Cage FICTION/STONE_TRAP until peer-reviewed consensus",
+          "RAW = open images + catalog metadata",
+          "STONE = popular media 'solved' headlines"
+        ],
+        "hiResSources": [
+          {
+            "label": "Beinecke digital library (full MS)",
+            "url": "https://collections.library.yale.edu/catalog/2002046"
+          },
+          {
+            "label": "Beinecke highlight",
+            "url": "https://beinecke.library.yale.edu/collections/highlights/voynich-manuscript"
+          },
+          {
+            "label": "Wikimedia category",
+            "url": "https://commons.wikimedia.org/wiki/Category:Voynich_manuscript"
+          }
+        ],
+        "mgNotes": "Batch: deep-zoom each folio label → path → exportStoryBeats. Never auto-decode."
+      },
+      "batchJobs": [
+        {
+          "id": "voynich-zoom-survey",
+          "type": "deep-zoom-survey",
+          "priority": 1,
+          "pages": "all",
+          "prompt": "Survey each sample folio at max zoom. Note glyph density and illustration type. No translation."
+        },
+        {
+          "id": "voynich-path-labels",
+          "type": "path-geometry",
+          "priority": 1,
+          "phrases": [
+            "voynich manuscript",
+            "unknown script",
+            "herbal folio",
+            "cipher manuscript"
+          ],
+          "prompt": "Run KBatch path on each phrase; record strain/flow."
+        },
+        {
+          "id": "voynich-cage-decipher",
+          "type": "cage-litmus",
+          "priority": 1,
+          "prompt": "Grade 5 viral 'Voynich solved' claims as FACT/FICTION/STONE_TRAP. Zero STONE_TRAP catch → fail."
+        },
+        {
+          "id": "voynich-beats",
+          "type": "story-beats",
+          "priority": 2,
+          "prompt": "exportStoryBeats from contrail while zooming herbal plates → living-books paste."
+        },
+        {
+          "id": "voynich-independent-study",
+          "type": "independent-study",
+          "priority": 2,
+          "prompt": "Write a one-page study note: known vs unsolved; cite Beinecke only; no decipherment claim."
+        }
+      ],
+      "note": "Unsolved/hard manuscript high-res documentation for Memory Glass batch study",
+      "geometryHint": "Path on romanized labels · Cage decipherment claims · deep-zoom survey"
+    },
+    {
+      "id": "unsolved-ms-phaistos",
+      "kind": "visual-project",
+      "mediaType": "artifact-facsimile",
+      "title": "Phaistos Disc · undeciphered stamped spiral",
+      "author": "Heraklion Archaeological Museum",
+      "year": null,
+      "rights": "museum-photos · Commons where available",
+      "licenseNote": "museum-photos · Commons where available",
+      "samplePhrase": "phaistos disc minoan spiral stamps",
+      "tags": [
+        "unsolved",
+        "minoan",
+        "clay",
+        "deep-zoom",
+        "mg-batch",
+        "cage",
+        "high-res"
+      ],
+      "tradition": "minoan",
+      "corpus": "visual",
+      "viewer": "deep-zoom",
+      "zoom": {
+        "min": 0.2,
+        "max": 48
+      },
+      "pages": [
+        {
+          "n": 1,
+          "label": "Phaistos · side A",
+          "url": "https://commons.wikimedia.org/wiki/Special:FilePath/PhaistosDisc-A.svg?width=2400",
+          "section": "side-A"
+        },
+        {
+          "n": 2,
+          "label": "Phaistos · side A photo",
+          "url": "https://commons.wikimedia.org/wiki/Special:FilePath/Crete_-_Phaistos_disc_-_side_A.JPG?width=2400",
+          "section": "side-A"
+        },
+        {
+          "n": 3,
+          "label": "Phaistos · side B photo",
+          "url": "https://commons.wikimedia.org/wiki/Special:FilePath/Crete_-_Phaistos_disc_-_side_B.JPG?width=2400",
+          "section": "side-B"
+        },
+        {
+          "n": 4,
+          "label": "Phaistos · detail",
+          "url": "https://commons.wikimedia.org/wiki/Special:FilePath/Phaistos_Disc.jpg?width=2400",
+          "section": "detail"
+        }
+      ],
+      "externalViewer": "https://en.wikipedia.org/wiki/Phaistos_Disc",
+      "externalHub": null,
+      "meshId": "phaistos-disc",
+      "manuscriptId": "ms-phaistos",
+      "decipherment": "unsolved",
+      "status": "unsolved",
+      "documentation": {
+        "summary": "Fired clay disc with spiral stamped signs on both sides. Unique artifact; script undeciphered. Small surface — high zoom essential.",
+        "whatIsKnown": [
+          "Two sides A/B with stamped signs in spiral",
+          "Likely Minoan Crete context",
+          "Sign inventory repeatedly catalogued"
+        ],
+        "whatIsUnsolved": [
+          "Language",
+          "Function (document vs object)",
+          "Direction of reading debates"
+        ],
+        "studyTracks": [
+          "Sign typology",
+          "Spiral path as Letter-Grid metaphor",
+          "Cage on crackpot decipherments"
+        ],
+        "cageRules": [
+          "Full language claims → STONE_TRAP without consensus",
+          "RAW = museum photos + catalogs"
+        ],
+        "hiResSources": [
+          {
+            "label": "Commons Phaistos disc",
+            "url": "https://commons.wikimedia.org/wiki/Category:Phaistos_disc"
+          },
+          {
+            "label": "Wikipedia",
+            "url": "https://en.wikipedia.org/wiki/Phaistos_Disc"
+          }
+        ],
+        "mgNotes": "Batch both sides at high zoom; path on romanized labels only."
+      },
+      "batchJobs": [
+        {
+          "id": "phaistos-zoom-sides",
+          "type": "deep-zoom-survey",
+          "priority": 1,
+          "pages": "all",
+          "prompt": "Zoom both sides; count visible stamp groups; no language claim."
+        },
+        {
+          "id": "phaistos-path",
+          "type": "path-geometry",
+          "priority": 1,
+          "phrases": [
+            "phaistos disc",
+            "minoan spiral",
+            "stamped clay"
+          ],
+          "prompt": "Path geometry on labels."
+        },
+        {
+          "id": "phaistos-cage",
+          "type": "cage-litmus",
+          "priority": 1,
+          "prompt": "Cage three popular Phaistos 'translations'."
+        },
+        {
+          "id": "phaistos-study",
+          "type": "independent-study",
+          "priority": 2,
+          "prompt": "Compare Phaistos uniqueness vs Linear A/B context in one short note."
+        }
+      ],
+      "note": "Unsolved/hard manuscript high-res documentation for Memory Glass batch study",
+      "geometryHint": "Path on romanized labels · Cage decipherment claims · deep-zoom survey"
+    },
+    {
+      "id": "unsolved-ms-rongorongo",
+      "kind": "visual-project",
+      "mediaType": "tablet-facsimile",
+      "title": "Rongorongo tablets · Rapa Nui",
+      "author": "Multiple museums (Santiago, Rome, London, …)",
+      "year": null,
+      "rights": "museum · cultural sensitivity · honor community",
+      "licenseNote": "Educational images only. Living Rapa Nui community interests come first — no commercial scrape, no false decipherment.",
+      "samplePhrase": "rongorongo tablet rapa nui script",
+      "tags": [
+        "unsolved",
+        "pacific",
+        "honor",
+        "deep-zoom",
+        "mg-batch",
+        "cage",
+        "high-res"
+      ],
+      "tradition": "rapa-nui",
+      "corpus": "visual",
+      "viewer": "deep-zoom",
+      "zoom": {
+        "min": 0.2,
+        "max": 48
+      },
+      "pages": [
+        {
+          "n": 1,
+          "label": "Rongorongo · tablet sample",
+          "url": "https://commons.wikimedia.org/wiki/Special:FilePath/Rongorongo_B-Aruku-Kurenga.jpg?width=2400",
+          "section": "tablet"
+        },
+        {
+          "n": 2,
+          "label": "Rongorongo · glyphs detail",
+          "url": "https://commons.wikimedia.org/wiki/Special:FilePath/Rongorongo_text_B_Aruku_Kurenga_recto.jpg?width=2400",
+          "section": "detail"
+        },
+        {
+          "n": 3,
+          "label": "Rongorongo · another tablet",
+          "url": "https://commons.wikimedia.org/wiki/Special:FilePath/Rongorongo_tablet_Mamari.jpg?width=2400",
+          "section": "tablet"
+        }
+      ],
+      "externalViewer": "https://commons.wikimedia.org/wiki/Category:Rongorongo",
+      "externalHub": null,
+      "meshId": "rongorongo",
+      "manuscriptId": "ms-rongorongo",
+      "decipherment": "unsolved",
+      "status": "unsolved",
+      "documentation": {
+        "summary": "Undeciphered glyph system on wooden tablets from Rapa Nui. Few surviving objects. Honor doctrine applies.",
+        "whatIsKnown": [
+          "Glyph sequences on wood",
+          "Limited corpus",
+          "Direction/reading order debated"
+        ],
+        "whatIsUnsolved": [
+          "Language mapping",
+          "Full reading",
+          "Origin timing"
+        ],
+        "studyTracks": [
+          "Corpus inventory",
+          "Geometry on romanized tablet names",
+          "Honor-first ethics review"
+        ],
+        "cageRules": [
+          "Decipherment marketing → STONE_TRAP",
+          "Honor: no mass scrape of living cultural materials"
+        ],
+        "hiResSources": [
+          {
+            "label": "Commons Rongorongo",
+            "url": "https://commons.wikimedia.org/wiki/Category:Rongorongo"
+          },
+          {
+            "label": "Wikipedia",
+            "url": "https://en.wikipedia.org/wiki/Rongorongo"
+          }
+        ],
+        "mgNotes": "Independent study only; batch path on English labels; skip if honor gate unclear."
+      },
+      "batchJobs": [
+        {
+          "id": "rongo-honor-check",
+          "type": "independent-study",
+          "priority": 1,
+          "prompt": "Write honor checklist before any analysis. Educational seed only."
+        },
+        {
+          "id": "rongo-zoom",
+          "type": "deep-zoom-survey",
+          "priority": 2,
+          "pages": "all",
+          "prompt": "Survey open tablet photos; describe glyph density only."
+        },
+        {
+          "id": "rongo-path",
+          "type": "path-geometry",
+          "priority": 2,
+          "phrases": [
+            "rongorongo",
+            "rapa nui",
+            "tablet script"
+          ],
+          "prompt": "Path on English labels only."
+        },
+        {
+          "id": "rongo-cage",
+          "type": "cage-litmus",
+          "priority": 1,
+          "prompt": "Cage commercial 'deciphered Rongorongo' claims."
+        }
+      ],
+      "note": "Unsolved/hard manuscript high-res documentation for Memory Glass batch study",
+      "geometryHint": "Path on romanized labels · Cage decipherment claims · deep-zoom survey"
+    },
+    {
+      "id": "unsolved-ms-indus",
+      "kind": "visual-project",
+      "mediaType": "seal-corpus",
+      "title": "Indus Valley script seals",
+      "author": "Multiple (ASI, museums worldwide)",
+      "year": null,
+      "rights": "museum · Commons seal photos",
+      "licenseNote": "museum · Commons seal photos",
+      "samplePhrase": "indus valley seal script harappa",
+      "tags": [
+        "unsolved",
+        "bronze-age",
+        "seals",
+        "deep-zoom",
+        "mg-batch",
+        "cage",
+        "high-res"
+      ],
+      "tradition": "harappan",
+      "corpus": "visual",
+      "viewer": "deep-zoom",
+      "zoom": {
+        "min": 0.25,
+        "max": 48
+      },
+      "pages": [
+        {
+          "n": 1,
+          "label": "Indus seal · unicorn type",
+          "url": "https://commons.wikimedia.org/wiki/Special:FilePath/IndusValleySeals.JPG?width=2400",
+          "section": "seal"
+        },
+        {
+          "n": 2,
+          "label": "Indus seal · impression",
+          "url": "https://commons.wikimedia.org/wiki/Special:FilePath/Indus_seal.jpg?width=2400",
+          "section": "seal"
+        },
+        {
+          "n": 3,
+          "label": "Indus script signs chart (ref)",
+          "url": "https://commons.wikimedia.org/wiki/Special:FilePath/Indus_script.svg?width=2400",
+          "section": "chart"
+        },
+        {
+          "n": 4,
+          "label": "Harappan seal",
+          "url": "https://commons.wikimedia.org/wiki/Special:FilePath/Seal_of_the_Indus_valley.jpg?width=2400",
+          "section": "seal"
+        }
+      ],
+      "externalViewer": "https://commons.wikimedia.org/wiki/Category:Indus_script",
+      "externalHub": null,
+      "meshId": "indus-script-seals",
+      "manuscriptId": "ms-indus",
+      "decipherment": "unsolved",
+      "status": "unsolved",
+      "documentation": {
+        "summary": "Short seal inscriptions of the Indus civilization. No accepted decipherment. Corpus of short texts — batch-friendly for pattern study without language claims.",
+        "whatIsKnown": [
+          "Short sign sequences on seals/pottery",
+          "Standardized seal craft",
+          "Trade connections"
+        ],
+        "whatIsUnsolved": [
+          "Language family",
+          "Full reading",
+          "Whether logosyllabic or other"
+        ],
+        "studyTracks": [
+          "Sign length histograms",
+          "Seal iconography vs text",
+          "Cage crackpot decipherments"
+        ],
+        "cageRules": [
+          "Any full bilingual claim without peer consensus → STONE_TRAP"
+        ],
+        "hiResSources": [
+          {
+            "label": "Commons Indus seals",
+            "url": "https://commons.wikimedia.org/wiki/Category:Indus_script"
+          },
+          {
+            "label": "Wikipedia",
+            "url": "https://en.wikipedia.org/wiki/Indus_script"
+          }
+        ],
+        "mgNotes": "Batch many seals at high zoom; path on English captions."
+      },
+      "batchJobs": [
+        {
+          "id": "indus-zoom-seals",
+          "type": "deep-zoom-survey",
+          "priority": 1,
+          "pages": "all",
+          "prompt": "Zoom seals; note sign count per seal; no language claim."
+        },
+        {
+          "id": "indus-path",
+          "type": "path-geometry",
+          "priority": 1,
+          "phrases": [
+            "indus script",
+            "harappa seal",
+            "mohenjo daro"
+          ],
+          "prompt": "Path geometry."
+        },
+        {
+          "id": "indus-cage",
+          "type": "cage-litmus",
+          "priority": 1,
+          "prompt": "Cage three Indus decipherment press releases."
+        },
+        {
+          "id": "indus-study",
+          "type": "independent-study",
+          "priority": 2,
+          "prompt": "Summarize corpus size problem (short texts) for ML/decipherment attempts."
+        }
+      ],
+      "note": "Unsolved/hard manuscript high-res documentation for Memory Glass batch study",
+      "geometryHint": "Path on romanized labels · Cage decipherment claims · deep-zoom survey"
+    },
+    {
+      "id": "unsolved-ms-linear-a",
+      "kind": "visual-project",
+      "mediaType": "tablet-facsimile",
+      "title": "Linear A tablets · Minoan (undeciphered)",
+      "author": "Heraklion and other museums",
+      "year": null,
+      "rights": "museum · Commons",
+      "licenseNote": "museum · Commons",
+      "samplePhrase": "linear a minoan tablet crete",
+      "tags": [
+        "unsolved",
+        "minoan",
+        "tablet",
+        "deep-zoom",
+        "mg-batch",
+        "high-res"
+      ],
+      "tradition": "minoan",
+      "corpus": "visual",
+      "viewer": "deep-zoom",
+      "zoom": {
+        "min": 0.2,
+        "max": 48
+      },
+      "pages": [
+        {
+          "n": 1,
+          "label": "Linear A tablet",
+          "url": "https://commons.wikimedia.org/wiki/Special:FilePath/Linear_A_tablet.jpg?width=2400",
+          "section": "tablet"
+        },
+        {
+          "n": 2,
+          "label": "Linear A signs",
+          "url": "https://commons.wikimedia.org/wiki/Special:FilePath/Linear_A_GORILA.png?width=2400",
+          "section": "chart"
+        }
+      ],
+      "externalViewer": "https://commons.wikimedia.org/wiki/Category:Linear_A",
+      "externalHub": null,
+      "meshId": null,
+      "manuscriptId": "ms-linear-a",
+      "decipherment": "unsolved",
+      "status": "unsolved",
+      "documentation": {
+        "summary": "Minoan administrative script related to Linear B but language not securely read. Contrast with deciphered Linear B for study.",
+        "whatIsKnown": [
+          "Syllabic-looking signs",
+          "Administrative contexts",
+          "Some sign values hypothesized via Linear B"
+        ],
+        "whatIsUnsolved": [
+          "Underlying language",
+          "Secure full readings"
+        ],
+        "studyTracks": [
+          "Compare to Linear B tablets",
+          "Path on catalog numbers",
+          "Cage overclaims"
+        ],
+        "hiResSources": [
+          {
+            "label": "Commons Linear A",
+            "url": "https://commons.wikimedia.org/wiki/Category:Linear_A"
+          },
+          {
+            "label": "Wikipedia",
+            "url": "https://en.wikipedia.org/wiki/Linear_A"
+          }
+        ],
+        "mgNotes": "Pair with Linear B (deciphered) for contrast batch."
+      },
+      "batchJobs": [
+        {
+          "id": "linA-zoom",
+          "type": "deep-zoom-survey",
+          "priority": 1,
+          "pages": "all",
+          "prompt": "Survey Linear A tablets; contrast with Linear B."
+        },
+        {
+          "id": "linA-path",
+          "type": "path-geometry",
+          "priority": 1,
+          "phrases": [
+            "linear a",
+            "minoan tablet",
+            "crete script"
+          ],
+          "prompt": "Path on labels."
+        },
+        {
+          "id": "linA-study",
+          "type": "independent-study",
+          "priority": 1,
+          "prompt": "One page: why Linear B success does not auto-solve Linear A."
+        }
+      ],
+      "note": "Unsolved/hard manuscript high-res documentation for Memory Glass batch study",
+      "geometryHint": "Path on romanized labels · Cage decipherment claims · deep-zoom survey"
+    },
+    {
+      "id": "unsolved-ms-linear-b",
+      "kind": "visual-project",
+      "mediaType": "tablet-facsimile",
+      "title": "Linear B tablets · Mycenaean Greek (deciphered)",
+      "author": "Athens, Heraklion, etc.",
+      "year": null,
+      "rights": "museum · Commons",
+      "licenseNote": "museum · Commons",
+      "samplePhrase": "linear b pylos tablet mycenaean",
+      "tags": [
+        "deciphered",
+        "mycenaean",
+        "control",
+        "deep-zoom",
+        "mg-batch",
+        "high-res",
+        "tablet"
+      ],
+      "tradition": "mycenaean",
+      "corpus": "visual",
+      "viewer": "deep-zoom",
+      "zoom": {
+        "min": 0.2,
+        "max": 48
+      },
+      "pages": [
+        {
+          "n": 1,
+          "label": "Linear B tablet Pylos",
+          "url": "https://commons.wikimedia.org/wiki/Special:FilePath/Linear_B_tablet_Pylos.jpg?width=2400",
+          "section": "tablet"
+        },
+        {
+          "n": 2,
+          "label": "Linear B tablet",
+          "url": "https://commons.wikimedia.org/wiki/Special:FilePath/Linear_B_tablet.jpg?width=2400",
+          "section": "tablet"
+        },
+        {
+          "n": 3,
+          "label": "Linear B syllabary",
+          "url": "https://commons.wikimedia.org/wiki/Special:FilePath/Linear_B_Syllabary.svg?width=2400",
+          "section": "chart"
+        }
+      ],
+      "externalViewer": "https://commons.wikimedia.org/wiki/Category:Linear_B",
+      "externalHub": null,
+      "meshId": "linear-b-tablets",
+      "manuscriptId": "ms-linear-b",
+      "decipherment": "solved",
+      "status": "solved-control",
+      "documentation": {
+        "summary": "Deciphered Mycenaean Greek administrative tablets (Ventris). Control set for MG: practice reading claims that *are* STONE vs unsolved siblings.",
+        "whatIsKnown": [
+          "Syllabic script for early Greek",
+          "Palace inventories",
+          "Ventris decipherment 1950s"
+        ],
+        "whatIsUnsolved": [
+          "Some rare signs / place names still debated"
+        ],
+        "studyTracks": [
+          "Contrast batch with Linear A / Phaistos",
+          "Path on Greek romanizations",
+          "Cage: do not treat all tablets as unsolved"
+        ],
+        "hiResSources": [
+          {
+            "label": "Commons Linear B",
+            "url": "https://commons.wikimedia.org/wiki/Category:Linear_B"
+          },
+          {
+            "label": "Wikipedia",
+            "url": "https://en.wikipedia.org/wiki/Linear_B"
+          }
+        ],
+        "mgNotes": "Use as positive control in batch runs."
+      },
+      "batchJobs": [
+        {
+          "id": "linB-control",
+          "type": "independent-study",
+          "priority": 1,
+          "prompt": "Document what 'solved' means for Linear B vs unsolved Linear A."
+        },
+        {
+          "id": "linB-path",
+          "type": "path-geometry",
+          "priority": 2,
+          "phrases": [
+            "linear b",
+            "pylos tablet",
+            "mycenaean greek"
+          ],
+          "prompt": "Path practice."
+        },
+        {
+          "id": "linB-zoom",
+          "type": "deep-zoom-survey",
+          "priority": 2,
+          "pages": "all",
+          "prompt": "Zoom tablets; note administrative layout."
+        }
+      ],
+      "note": "Unsolved/hard manuscript high-res documentation for Memory Glass batch study",
+      "geometryHint": "Path on romanized labels · Cage decipherment claims · deep-zoom survey"
+    },
+    {
+      "id": "unsolved-ms-cascajal",
+      "kind": "visual-project",
+      "mediaType": "block-inscription",
+      "title": "Cascajal Block · possible Olmec writing",
+      "author": "Mexico (research collections)",
+      "year": null,
+      "rights": "research photos · cite scholarship",
+      "licenseNote": "research photos · cite scholarship",
+      "samplePhrase": "cascajal block olmec writing",
+      "tags": [
+        "unsolved",
+        "olmec",
+        "mesoamerica",
+        "cage",
+        "mg-batch",
+        "high-res"
+      ],
+      "tradition": "olmec",
+      "corpus": "visual",
+      "viewer": "deep-zoom",
+      "zoom": {
+        "min": 0.25,
+        "max": 48
+      },
+      "pages": [
+        {
+          "n": 1,
+          "label": "Cascajal Block drawing/ref",
+          "url": "https://commons.wikimedia.org/wiki/Special:FilePath/Cascajal_block.svg?width=2400",
+          "section": "drawing"
+        }
+      ],
+      "externalViewer": "https://en.wikipedia.org/wiki/Cascajal_Block",
+      "externalHub": null,
+      "meshId": "cascajal-block",
+      "manuscriptId": "ms-cascajal",
+      "decipherment": "unsolved-contested",
+      "status": "unsolved",
+      "documentation": {
+        "summary": "Serpentine block with possible early Mesoamerican signs. Authenticity/function debated — Cage-heavy.",
+        "whatIsKnown": [
+          "62 signs reported",
+          "Olmec-period context claimed"
+        ],
+        "whatIsUnsolved": [
+          "Whether true writing system",
+          "Reading",
+          "Authenticity debates in literature"
+        ],
+        "studyTracks": [
+          "Compare to later Maya script lineage",
+          "Cage authenticity hype",
+          "Path on English labels"
+        ],
+        "cageRules": [
+          "Treat sensational 'oldest writing' headlines carefully",
+          "RAW vs contested claims"
+        ],
+        "hiResSources": [
+          {
+            "label": "Wikipedia Cascajal Block",
+            "url": "https://en.wikipedia.org/wiki/Cascajal_Block"
+          }
+        ],
+        "mgNotes": "Documentation-first; images may be limited — use available Commons/research figures."
+      },
+      "batchJobs": [
+        {
+          "id": "casc-study",
+          "type": "independent-study",
+          "priority": 1,
+          "prompt": "Summarize authenticity debate in 5 bullets; no decipherment."
+        },
+        {
+          "id": "casc-cage",
+          "type": "cage-litmus",
+          "priority": 1,
+          "prompt": "Cage 'oldest American writing' headlines."
+        },
+        {
+          "id": "casc-path",
+          "type": "path-geometry",
+          "priority": 2,
+          "phrases": [
+            "cascajal block",
+            "olmec script"
+          ],
+          "prompt": "Path on labels."
+        }
+      ],
+      "note": "Unsolved/hard manuscript high-res documentation for Memory Glass batch study",
+      "geometryHint": "Path on romanized labels · Cage decipherment claims · deep-zoom survey"
+    },
+    {
+      "id": "unsolved-ms-dresden",
+      "kind": "visual-project",
+      "mediaType": "codex-facsimile",
+      "title": "Dresden Codex · Maya astronomical tables",
+      "author": "SLUB Dresden",
+      "year": null,
+      "rights": "library open images where available · SLUB",
+      "licenseNote": "library open images where available · SLUB",
+      "samplePhrase": "dresden codex venus table eclipse maya",
+      "tags": [
+        "maya",
+        "codex",
+        "astronomy",
+        "deep-zoom",
+        "mg-batch",
+        "high-res",
+        "partial"
+      ],
+      "tradition": "maya",
+      "corpus": "visual",
+      "viewer": "deep-zoom",
+      "zoom": {
+        "min": 0.15,
+        "max": 64
+      },
+      "pages": [
+        {
+          "n": 1,
+          "label": "Dresden Codex · pages sample",
+          "url": "https://commons.wikimedia.org/wiki/Special:FilePath/Dresden_Codex_pp.58-59_52-53.jpg?width=2400",
+          "section": "tables"
+        },
+        {
+          "n": 2,
+          "label": "Dresden Codex · Venus",
+          "url": "https://commons.wikimedia.org/wiki/Special:FilePath/Dresden_Codex_pp.46-47.jpg?width=2400",
+          "section": "venus"
+        },
+        {
+          "n": 3,
+          "label": "Dresden Codex · fragment view",
+          "url": "https://commons.wikimedia.org/wiki/Special:FilePath/Codex_Dresdensis_-_Mscr.Dresd.R.310a_-_1.jpg?width=2400",
+          "section": "folio"
+        }
+      ],
+      "externalViewer": "https://commons.wikimedia.org/wiki/Category:Dresden_Codex",
+      "externalHub": null,
+      "meshId": "dresden-codex",
+      "manuscriptId": "ms-dresden",
+      "decipherment": "partially-solved",
+      "status": "partially-readable",
+      "documentation": {
+        "summary": "Best-preserved Maya codex. Venus and eclipse tables partially readable via modern epigraphy. Sibling to Xultun Sak Tahn Waax workshop math.",
+        "whatIsKnown": [
+          "Venus tables",
+          "Eclipse possibilities",
+          "Day counts",
+          "Many glyphs readable"
+        ],
+        "whatIsUnsolved": [
+          "Some damaged sections",
+          "Full cultural context of every almanac"
+        ],
+        "studyTracks": [
+          "Link to Sak Tahn Waax mesh",
+          "Path on day names romanized",
+          "Deep-zoom table structure"
+        ],
+        "hiResSources": [
+          {
+            "label": "Wikipedia Dresden Codex",
+            "url": "https://en.wikipedia.org/wiki/Dresden_Codex"
+          },
+          {
+            "label": "Commons",
+            "url": "https://commons.wikimedia.org/wiki/Category:Dresden_Codex"
+          }
+        ],
+        "mgNotes": "Batch Venus pages; path romanized tokens; cite SLUB."
+      },
+      "batchJobs": [
+        {
+          "id": "dresden-zoom",
+          "type": "deep-zoom-survey",
+          "priority": 1,
+          "pages": "all",
+          "prompt": "Zoom table structure; note bars/dots numerals."
+        },
+        {
+          "id": "dresden-path",
+          "type": "path-geometry",
+          "priority": 1,
+          "phrases": [
+            "dresden codex",
+            "venus table",
+            "maya calendar"
+          ],
+          "prompt": "Path practice."
+        },
+        {
+          "id": "dresden-link-sak",
+          "type": "independent-study",
+          "priority": 1,
+          "prompt": "Write link note: Dresden tables vs Xultun Sak Tahn Waax wall math."
+        },
+        {
+          "id": "dresden-beats",
+          "type": "story-beats",
+          "priority": 2,
+          "prompt": "Contrail beats while surveying Venus pages."
+        }
+      ],
+      "note": "Unsolved/hard manuscript high-res documentation for Memory Glass batch study",
+      "geometryHint": "Path on romanized labels · Cage decipherment claims · deep-zoom survey"
+    },
+    {
+      "id": "unsolved-ms-xultun-sak",
+      "kind": "visual-project",
+      "mediaType": "wall-inscription",
+      "title": "Xultun 10K-2 · Sak Tahn Waax wall microtexts",
+      "author": "Xultun, Guatemala (in situ / project)",
+      "year": null,
+      "rights": "cite Antiquity 2026 · Nat Geo press · no pirate",
+      "licenseNote": "cite Antiquity 2026 · Nat Geo press · no pirate",
+      "samplePhrase": "sak tahn waax white chested fox xultun",
+      "tags": [
+        "maya",
+        "2026-discovery",
+        "named-scholar",
+        "mg-batch",
+        "scaffold",
+        "high-res-docs"
+      ],
+      "tradition": "maya",
+      "corpus": "visual",
+      "viewer": "external",
+      "zoom": {
+        "min": 0.15,
+        "max": 48
+      },
+      "pages": [],
+      "externalViewer": "https://doi.org/10.15184/aqy.2026.10378",
+      "externalHub": null,
+      "meshId": "xultun-sak-tahn-waax",
+      "manuscriptId": "ms-xultun-sak",
+      "decipherment": "name-solved-2026",
+      "status": "partially-readable",
+      "documentation": {
+        "summary": "First named Classic Maya astronomer-mathematician. Wall microtexts + Venus/Mars calendar equations. High-res documentation pack for MG study; images cite project/press until open pack.",
+        "whatIsKnown": [
+          "Name Sak Tahn Waax / White-chested Fox",
+          "che-he-na attribution",
+          "Venus–Mars–calendar formula dated ~781",
+          "Structure 10K-2 workshop context"
+        ],
+        "whatIsUnsolved": [
+          "Full microtext corpus transcription for public mesh",
+          "Whether he wrote vs was attributed"
+        ],
+        "studyTracks": [
+          "Name orthography path",
+          "Cage press vs paper",
+          "Link Dresden"
+        ],
+        "hiResSources": [
+          {
+            "label": "Antiquity DOI",
+            "url": "https://doi.org/10.15184/aqy.2026.10378"
+          },
+          {
+            "label": "National Geographic",
+            "url": "https://www.nationalgeographic.com/history/article/first-maya-astronomer-mathematician-name"
+          },
+          {
+            "label": "Science News",
+            "url": "https://www.sciencenews.org/article/ancient-maya-astronomer-name-sak-tahn-waax"
+          }
+        ],
+        "mgNotes": "Documentation batch primary; path on name tokens; Cage media claims."
+      },
+      "batchJobs": [
+        {
+          "id": "sak-name-path",
+          "type": "path-geometry",
+          "priority": 1,
+          "phrases": [
+            "sak tahn waax",
+            "white chested fox",
+            "xultun venus mars"
+          ],
+          "prompt": "Path on name and science tokens."
+        },
+        {
+          "id": "sak-study",
+          "type": "independent-study",
+          "priority": 1,
+          "prompt": "Study note from DOI abstract + Nat Geo: what is RAW vs media gloss."
+        },
+        {
+          "id": "sak-cage",
+          "type": "cage-litmus",
+          "priority": 1,
+          "prompt": "Cage oversimplified 'Maya Newton' headlines vs paper claims."
+        },
+        {
+          "id": "sak-dresden-link",
+          "type": "independent-study",
+          "priority": 2,
+          "prompt": "Compare workshop wall math to Dresden codex tables."
+        }
+      ],
+      "note": "Unsolved/hard manuscript high-res documentation for Memory Glass batch study",
+      "geometryHint": "Path on romanized labels · Cage decipherment claims · deep-zoom survey"
+    },
+    {
+      "id": "unsolved-ms-herculaneum",
+      "kind": "visual-project",
+      "mediaType": "papyrus-ct",
+      "title": "Herculaneum papyri · Vesuvius Challenge",
+      "author": "Naples · Bodleian · Institut de France · …",
+      "year": null,
+      "rights": "challenge open data + museum CT terms",
+      "licenseNote": "challenge open data + museum CT terms",
+      "samplePhrase": "herculaneum papyrus philodemus unwrap",
+      "tags": [
+        "herculaneum",
+        "ml-restoration",
+        "greek",
+        "mg-batch",
+        "2026-discovery",
+        "high-res"
+      ],
+      "tradition": "greco-roman",
+      "corpus": "visual",
+      "viewer": "external",
+      "zoom": {
+        "min": 0.15,
+        "max": 48
+      },
+      "pages": [
+        {
+          "n": 1,
+          "label": "Herculaneum scroll appearance (Commons)",
+          "url": "https://commons.wikimedia.org/wiki/Special:FilePath/Herculaneum_papyrus_scroll.jpg?width=2400",
+          "section": "object"
+        },
+        {
+          "n": 2,
+          "label": "Villa of the Papyri context",
+          "url": "https://commons.wikimedia.org/wiki/Special:FilePath/Villa_of_the_Papyri.jpg?width=2400",
+          "section": "context"
+        }
+      ],
+      "externalViewer": "https://scrollprize.org/",
+      "externalHub": null,
+      "meshId": "herculaneum-vesuvius-challenge",
+      "manuscriptId": "ms-herculaneum",
+      "decipherment": "in-progress-ml",
+      "status": "partially-readable",
+      "documentation": {
+        "summary": "Carbonized scrolls virtually unwrapped via CT + ML. 2024–2026: passages, full unwraps, new Philodemus texts. Living batch surface for open prize releases.",
+        "whatIsKnown": [
+          "Ink detection works on some scrolls",
+          "Philodemus authorship for several texts",
+          "PHerc. 1667 / 172 milestones"
+        ],
+        "whatIsUnsolved": [
+          "Many scrolls still unreadable",
+          "Ink/carbon contrast hard cases"
+        ],
+        "studyTracks": [
+          "Ingest open prize text → path Greek",
+          "Cage overclaim 'all library read'",
+          "Independent study of method"
+        ],
+        "hiResSources": [
+          {
+            "label": "Vesuvius Challenge",
+            "url": "https://scrollprize.org/"
+          },
+          {
+            "label": "UK 2026 breakthrough",
+            "url": "https://uknow.uky.edu/research/day-herculaneum-scrolls-began-speaking-again"
+          }
+        ],
+        "mgNotes": "Prefer open challenge segments; batch Greek path on released text."
+      },
+      "batchJobs": [
+        {
+          "id": "herc-open-text",
+          "type": "path-geometry",
+          "priority": 1,
+          "phrases": [
+            "philodemus",
+            "herculaneum",
+            "porphyras purple",
+            "epicurean pleasure"
+          ],
+          "prompt": "Path on known open words/phrases from challenge press."
+        },
+        {
+          "id": "herc-study",
+          "type": "independent-study",
+          "priority": 1,
+          "prompt": "Summarize virtual unwrapping pipeline; cite scrollprize.org."
+        },
+        {
+          "id": "herc-cage",
+          "type": "cage-litmus",
+          "priority": 1,
+          "prompt": "Cage 'entire library decoded' claims vs actual column counts."
+        },
+        {
+          "id": "herc-zoom",
+          "type": "deep-zoom-survey",
+          "priority": 2,
+          "pages": "all",
+          "prompt": "Survey object photos; note carbonization."
+        }
+      ],
+      "note": "Unsolved/hard manuscript high-res documentation for Memory Glass batch study",
+      "geometryHint": "Path on romanized labels · Cage decipherment claims · deep-zoom survey"
+    },
+    {
+      "id": "unsolved-ms-dss",
+      "kind": "visual-project",
+      "mediaType": "spectral-scroll",
+      "title": "Dead Sea Scrolls · spectral digital library",
+      "author": "IAA · Shrine of the Book · etc.",
+      "year": null,
+      "rights": "IAA Leon Levy Digital Library terms",
+      "licenseNote": "IAA Leon Levy Digital Library terms",
+      "samplePhrase": "dead sea scroll isaiah qumran parchment",
+      "tags": [
+        "qumran",
+        "hebrew",
+        "spectral",
+        "mg-batch",
+        "high-res",
+        "partial"
+      ],
+      "tradition": "jewish",
+      "corpus": "visual",
+      "viewer": "external",
+      "zoom": {
+        "min": 0.15,
+        "max": 48
+      },
+      "pages": [
+        {
+          "n": 1,
+          "label": "Great Isaiah Scroll segment (Commons)",
+          "url": "https://commons.wikimedia.org/wiki/Special:FilePath/Great_Isaiah_Scroll.jpg?width=2400",
+          "section": "isaiah"
+        },
+        {
+          "n": 2,
+          "label": "Qumran caves context",
+          "url": "https://commons.wikimedia.org/wiki/Special:FilePath/Qumran.jpeg?width=2400",
+          "section": "context"
+        }
+      ],
+      "externalViewer": "https://www.deadseascrolls.org.il/",
+      "externalHub": null,
+      "meshId": "dead-sea-scrolls",
+      "manuscriptId": "ms-dss",
+      "decipherment": "mostly-readable",
+      "status": "partially-readable",
+      "documentation": {
+        "summary": "Large fragment corpus with advanced spectral imaging. Most literary texts readable; some fragments and joins remain research-active. 2025 AI dating work is citation, not KBatch claim.",
+        "whatIsKnown": [
+          "Major biblical and sectarian texts",
+          "Spectral multi-layer imaging",
+          "Digital library public access"
+        ],
+        "whatIsUnsolved": [
+          "Some fragment identification/joins",
+          "Precise dating of subsets (active research)"
+        ],
+        "studyTracks": [
+          "External spectral viewer",
+          "Path on English/Hebrew romanization samples",
+          "Cage forgery scandals"
+        ],
+        "hiResSources": [
+          {
+            "label": "Leon Levy DSS Digital Library",
+            "url": "https://www.deadseascrolls.org.il/"
+          },
+          {
+            "label": "IMJ Digital DSS",
+            "url": "http://dss.collections.imj.org.il/"
+          }
+        ],
+        "mgNotes": "Use external library for hi-res; local pages for path samples."
+      },
+      "batchJobs": [
+        {
+          "id": "dss-external",
+          "type": "independent-study",
+          "priority": 1,
+          "prompt": "Open Leon Levy library; note spectral layers available."
+        },
+        {
+          "id": "dss-path",
+          "type": "path-geometry",
+          "priority": 1,
+          "phrases": [
+            "isaiah scroll",
+            "qumran",
+            "dead sea parchment"
+          ],
+          "prompt": "Path practice."
+        },
+        {
+          "id": "dss-cage",
+          "type": "cage-litmus",
+          "priority": 1,
+          "prompt": "Cage DSS forgery / Museum of the Bible fragment scandals (FACT vs FICTION)."
+        }
+      ],
+      "note": "Unsolved/hard manuscript high-res documentation for Memory Glass batch study",
+      "geometryHint": "Path on romanized labels · Cage decipherment claims · deep-zoom survey"
+    },
+    {
+      "id": "unsolved-ms-archimedes-palimpsest",
+      "kind": "visual-project",
+      "mediaType": "palimpsest",
+      "title": "Archimedes Palimpsest · multi-spectral undertext",
+      "author": "Private collection / Walters imaging project (historic)",
+      "year": null,
+      "rights": "project open images where published",
+      "licenseNote": "project open images where published",
+      "samplePhrase": "archimedes palimpsest method greek math",
+      "tags": [
+        "palimpsest",
+        "greek",
+        "multispectral",
+        "mg-batch",
+        "high-res",
+        "math"
+      ],
+      "tradition": "greek",
+      "corpus": "visual",
+      "viewer": "deep-zoom",
+      "zoom": {
+        "min": 0.15,
+        "max": 64
+      },
+      "pages": [
+        {
+          "n": 1,
+          "label": "Archimedes Palimpsest page",
+          "url": "https://commons.wikimedia.org/wiki/Special:FilePath/Archimedes_Palimpsest.jpg?width=2400",
+          "section": "folio"
+        },
+        {
+          "n": 2,
+          "label": "Palimpsest detail",
+          "url": "https://commons.wikimedia.org/wiki/Special:FilePath/ArchimedesPalimpsestFol147v-148r.jpg?width=2400",
+          "section": "detail"
+        }
+      ],
+      "externalViewer": "https://en.wikipedia.org/wiki/Archimedes_Palimpsest",
+      "externalHub": null,
+      "meshId": "archimedes-palimpsest",
+      "manuscriptId": "ms-archimedes-palimpsest",
+      "decipherment": "partially-recovered",
+      "status": "partially-readable",
+      "documentation": {
+        "summary": "Medieval prayer book over erased Archimedes treatises recovered via multi-spectral imaging — sibling method to Declaration UV layers.",
+        "whatIsKnown": [
+          "Method of Mechanical Theorems etc. recovered",
+          "Imaging science landmark"
+        ],
+        "whatIsUnsolved": [
+          "Some undertext still difficult"
+        ],
+        "studyTracks": [
+          "Layer comparison (overtext vs undertext)",
+          "Path on Greek math terms",
+          "Method notes for KBatch paleography"
+        ],
+        "hiResSources": [
+          {
+            "label": "Wikipedia",
+            "url": "https://en.wikipedia.org/wiki/Archimedes_Palimpsest"
+          },
+          {
+            "label": "Commons",
+            "url": "https://commons.wikimedia.org/wiki/Category:Archimedes_Palimpsest"
+          }
+        ],
+        "mgNotes": "Batch multi-layer story; path math tokens."
+      },
+      "batchJobs": [
+        {
+          "id": "arch-zoom",
+          "type": "deep-zoom-survey",
+          "priority": 1,
+          "pages": "all",
+          "prompt": "Note overtext vs undertext visibility."
+        },
+        {
+          "id": "arch-path",
+          "type": "path-geometry",
+          "priority": 1,
+          "phrases": [
+            "archimedes",
+            "palimpsest",
+            "method of mechanical theorems"
+          ],
+          "prompt": "Path."
+        },
+        {
+          "id": "arch-study",
+          "type": "independent-study",
+          "priority": 1,
+          "prompt": "Compare multi-spectral recovery to Declaration UV stack doctrine."
+        }
+      ],
+      "note": "Unsolved/hard manuscript high-res documentation for Memory Glass batch study",
+      "geometryHint": "Path on romanized labels · Cage decipherment claims · deep-zoom survey"
+    },
+    {
+      "id": "unsolved-ms-antikythera",
+      "kind": "visual-project",
+      "mediaType": "mechanism-inscription",
+      "title": "Antikythera mechanism · inscriptions",
+      "author": "National Archaeological Museum, Athens",
+      "year": null,
+      "rights": "museum · Commons",
+      "licenseNote": "museum · Commons",
+      "samplePhrase": "antikythera mechanism greek inscription astronomy",
+      "tags": [
+        "astronomy",
+        "greek",
+        "mechanism",
+        "mg-batch",
+        "high-res",
+        "cage"
+      ],
+      "tradition": "greek",
+      "corpus": "visual",
+      "viewer": "deep-zoom",
+      "zoom": {
+        "min": 0.2,
+        "max": 48
+      },
+      "pages": [
+        {
+          "n": 1,
+          "label": "Antikythera mechanism main fragment",
+          "url": "https://commons.wikimedia.org/wiki/Special:FilePath/NAMA_Machine_d%2527Anticyth%C3%A8re_1.jpg?width=2400",
+          "section": "object"
+        },
+        {
+          "n": 2,
+          "label": "Antikythera fragment",
+          "url": "https://commons.wikimedia.org/wiki/Special:FilePath/Antikythera_mechanism.jpg?width=2400",
+          "section": "object"
+        }
+      ],
+      "externalViewer": "https://commons.wikimedia.org/wiki/Category:Antikythera_mechanism",
+      "externalHub": null,
+      "meshId": "antikythera-mechanism",
+      "manuscriptId": "ms-antikythera",
+      "decipherment": "partially-solved",
+      "status": "partially-readable",
+      "documentation": {
+        "summary": "Gearwork astronomical device with recovered Greek inscriptions. Science orthography + Cage on modern myths.",
+        "whatIsKnown": [
+          "Complex gear trains",
+          "Inscriptions naming calendars/planets",
+          "X-ray tomography studies"
+        ],
+        "whatIsUnsolved": [
+          "Some fragment joins / full user manual reconstruction details"
+        ],
+        "studyTracks": [
+          "Inscription tokens path",
+          "Cage alien/tech myths",
+          "Link Maya calendar science as peer"
+        ],
+        "hiResSources": [
+          {
+            "label": "Commons",
+            "url": "https://commons.wikimedia.org/wiki/Category:Antikythera_mechanism"
+          },
+          {
+            "label": "Wikipedia",
+            "url": "https://en.wikipedia.org/wiki/Antikythera_mechanism"
+          }
+        ],
+        "mgNotes": "Batch object + inscription photos."
+      },
+      "batchJobs": [
+        {
+          "id": "anti-zoom",
+          "type": "deep-zoom-survey",
+          "priority": 1,
+          "pages": "all",
+          "prompt": "Survey fragments; note inscription areas."
+        },
+        {
+          "id": "anti-path",
+          "type": "path-geometry",
+          "priority": 1,
+          "phrases": [
+            "antikythera",
+            "mechanism",
+            "greek astronomy"
+          ],
+          "prompt": "Path."
+        },
+        {
+          "id": "anti-cage",
+          "type": "cage-litmus",
+          "priority": 1,
+          "prompt": "Cage alien technology / modern conspiracy claims."
+        }
+      ],
+      "note": "Unsolved/hard manuscript high-res documentation for Memory Glass batch study",
+      "geometryHint": "Path on romanized labels · Cage decipherment claims · deep-zoom survey"
+    },
+    {
+      "id": "unsolved-ms-oxyrhynchus",
+      "kind": "visual-project",
+      "mediaType": "papyrus-fragments",
+      "title": "Oxyrhynchus Papyri · fragment corpus",
+      "author": "Oxford · other collections",
+      "year": null,
+      "rights": "POxy editions · museum images",
+      "licenseNote": "POxy editions · museum images",
+      "samplePhrase": "oxyrhynchus papyrus greek fragment",
+      "tags": [
+        "papyrus",
+        "greek",
+        "fragments",
+        "mg-batch",
+        "high-res"
+      ],
+      "tradition": "greco-egyptian",
+      "corpus": "visual",
+      "viewer": "deep-zoom",
+      "zoom": {
+        "min": 0.2,
+        "max": 48
+      },
+      "pages": [
+        {
+          "n": 1,
+          "label": "Oxyrhynchus papyrus sample",
+          "url": "https://commons.wikimedia.org/wiki/Special:FilePath/Oxyrhynchus_papyrus.jpg?width=2400",
+          "section": "fragment"
+        },
+        {
+          "n": 2,
+          "label": "Papyrus fragment",
+          "url": "https://commons.wikimedia.org/wiki/Special:FilePath/POxy_1_29.jpg?width=2400",
+          "section": "fragment"
+        }
+      ],
+      "externalViewer": "https://commons.wikimedia.org/wiki/Category:Oxyrhynchus_papyri",
+      "externalHub": null,
+      "meshId": "oxyrhynchus-papyri",
+      "manuscriptId": "ms-oxyrhynchus",
+      "decipherment": "ongoing-edition",
+      "status": "partially-readable",
+      "documentation": {
+        "summary": "Huge dump of literary and documentary fragments. Continuous scholarly edition (POxy). Batch-friendly for fragment imaging + Greek path.",
+        "whatIsKnown": [
+          "Tens of thousands of fragments",
+          "Ongoing publication series"
+        ],
+        "whatIsUnsolved": [
+          "Many unpublished / unidentified fragments"
+        ],
+        "studyTracks": [
+          "Fragment catalog navigation",
+          "Path on published line samples",
+          "Independent study of edition process"
+        ],
+        "hiResSources": [
+          {
+            "label": "Wikipedia",
+            "url": "https://en.wikipedia.org/wiki/Oxyrhynchus_Papyri"
+          },
+          {
+            "label": "Commons",
+            "url": "https://commons.wikimedia.org/wiki/Category:Oxyrhynchus_papyri"
+          }
+        ],
+        "mgNotes": "Use published open images; never pirate commercial plates."
+      },
+      "batchJobs": [
+        {
+          "id": "oxy-zoom",
+          "type": "deep-zoom-survey",
+          "priority": 1,
+          "pages": "all",
+          "prompt": "Note damage patterns and column layout."
+        },
+        {
+          "id": "oxy-path",
+          "type": "path-geometry",
+          "priority": 1,
+          "phrases": [
+            "oxyrhynchus",
+            "papyrus fragment",
+            "greek documentary"
+          ],
+          "prompt": "Path."
+        },
+        {
+          "id": "oxy-study",
+          "type": "independent-study",
+          "priority": 2,
+          "prompt": "Explain why fragment corpora need batch workflows."
+        }
+      ],
+      "note": "Unsolved/hard manuscript high-res documentation for Memory Glass batch study",
+      "geometryHint": "Path on romanized labels · Cage decipherment claims · deep-zoom survey"
+    },
+    {
+      "id": "unsolved-ms-rosetta",
+      "kind": "visual-project",
+      "mediaType": "stele",
+      "title": "Rosetta Stone · trilingual key (solved control)",
+      "author": "British Museum",
+      "year": null,
+      "rights": "museum terms · decree text PD",
+      "licenseNote": "museum terms · decree text PD",
+      "samplePhrase": "rosetta stone demotic greek hieroglyph",
+      "tags": [
+        "solved",
+        "trilingual",
+        "control",
+        "calibration",
+        "mg-batch",
+        "high-res",
+        "egypt"
+      ],
+      "tradition": "egyptian-hellenistic",
+      "corpus": "visual",
+      "viewer": "deep-zoom",
+      "zoom": {
+        "min": 0.15,
+        "max": 48
+      },
+      "pages": [
+        {
+          "n": 1,
+          "label": "Rosetta Stone full",
+          "url": "https://commons.wikimedia.org/wiki/Special:FilePath/Rosetta_Stone.JPG?width=2400",
+          "section": "stele"
+        },
+        {
+          "n": 2,
+          "label": "Rosetta detail Greek",
+          "url": "https://commons.wikimedia.org/wiki/Special:FilePath/Rosetta_Stone_Detail.jpg?width=2400",
+          "section": "detail"
+        }
+      ],
+      "externalViewer": "/labs/rosetta.html",
+      "externalHub": null,
+      "meshId": "rosetta-stone",
+      "manuscriptId": "ms-rosetta",
+      "decipherment": "solved",
+      "status": "solved-control",
+      "documentation": {
+        "summary": "Trilingual decree that unlocked Egyptian hieroglyphs. Positive control for MG: what a true key text looks like vs unsolved scripts.",
+        "whatIsKnown": [
+          "Same decree in three scripts",
+          "Champollion decipherment lineage",
+          "Greek readable throughout"
+        ],
+        "studyTracks": [
+          "Link labs/rosetta.html",
+          "Path Greek surface",
+          "Contrast with Voynich/Indus (no bilingual key)"
+        ],
+        "hiResSources": [
+          {
+            "label": "Commons",
+            "url": "https://commons.wikimedia.org/wiki/Category:Rosetta_Stone"
+          },
+          {
+            "label": "KBatch Rosetta lab",
+            "url": "/labs/rosetta.html"
+          }
+        ],
+        "mgNotes": "Control batch before unsolved scripts."
+      },
+      "batchJobs": [
+        {
+          "id": "ros-control",
+          "type": "independent-study",
+          "priority": 1,
+          "prompt": "Explain bilingual/trilingual key method vs unsolved single-script corpora."
+        },
+        {
+          "id": "ros-path",
+          "type": "path-geometry",
+          "priority": 1,
+          "phrases": [
+            "rosetta stone",
+            "demotic",
+            "hieroglyph",
+            "ptolemy decree"
+          ],
+          "prompt": "Path."
+        },
+        {
+          "id": "ros-zoom",
+          "type": "deep-zoom-survey",
+          "priority": 2,
+          "pages": "all",
+          "prompt": "Zoom three script bands."
+        }
+      ],
+      "note": "Unsolved/hard manuscript high-res documentation for Memory Glass batch study",
+      "geometryHint": "Path on romanized labels · Cage decipherment claims · deep-zoom survey"
     }
   ],
-  "mesh": "/data/antiquity/discovery-projects.json"
+  "mesh": "/data/antiquity/discovery-projects.json",
+  "unsolvedPack": "data/living-books/unsolved-manuscripts.json"
 }

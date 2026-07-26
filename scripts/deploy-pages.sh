@@ -217,7 +217,8 @@ done
 [[ -f "$ROOT/world-ranking.html" ]] && cp -f "$ROOT/world-ranking.html" "$DIST/world-ranking.html"
 mkdir -p "$DIST/docs"
 for f in WORLD-AXIS-DOMINANCE.md MEMORY-GLASS-KBATCH.md ASSET-MAP-LIVING-BOOKS.md RESUME-TOMORROW.md SMOKE-AND-COMMANDS.md \
-  FLEET-NARRATIVE.md FLEET-R4-DATA.md MILESTONE-R4-DATA.md ANTIQUITY-DISCOVERY-MESH.md RESEARCH-LAYER.md; do
+  FLEET-NARRATIVE.md FLEET-R4-DATA.md MILESTONE-R4-DATA.md ANTIQUITY-DISCOVERY-MESH.md RESEARCH-LAYER.md \
+  UNSOLVED-MANUSCRIPTS-MG.md MEMORY-GLASS-KBATCH.md; do
   [[ -f "$ROOT/docs/$f" ]] && cp -f "$ROOT/docs/$f" "$DIST/docs/"
 done
 [[ -d "$ROOT/docs/fornever-ledger" ]] && rsync -a --max-size=2m "$ROOT/docs/fornever-ledger/" "$DIST/docs/fornever-ledger/"
