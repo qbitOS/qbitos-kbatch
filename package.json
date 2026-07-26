@@ -2,7 +2,7 @@
   "name": "ugrad-kbatch",
   "version": "1.2.0",
   "private": false,
-  "description": "ugrad.kbatch.shadow — geometric Shadow Live dictionary · mesh · quantum gutter · kb CLI",
+  "description": "ugrad.kbatch.shadow \u2014 geometric Shadow Live dictionary \u00b7 mesh \u00b7 quantum gutter \u00b7 kb CLI",
   "type": "module",
   "bin": {
     "kb": "bin/kb",
@@ -169,7 +169,8 @@
     "build:calibration-probes": "node scripts/build-calibration-probes.mjs",
     "build:calibration": "npm run build:world-path-matrix && npm run build:calibration-probes && npm run build:jax-bank && npm run build:phon",
     "build:jax-bank": "node scripts/build-jax-feature-bank.mjs",
-    "build:phon": "node scripts/build-phon-pattern-probes.mjs"
+    "build:phon": "node scripts/build-phon-pattern-probes.mjs",
+    "build:concepts": "node scripts/build-concept-mesh.mjs"
   },
   "devDependencies": {
     "wrangler": "^4.111.0"

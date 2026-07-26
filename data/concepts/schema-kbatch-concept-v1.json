@@ -1,0 +1,59 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://kbatch.ugrad.ai/schema/kbatch-concept-v1.json",
+  "title": "kbatch-concept-v1",
+  "description": "Meaning atom with multilingual orthography forms for path geometry + transfer ranking.",
+  "type": "object",
+  "required": [
+    "id",
+    "gloss_en",
+    "forms"
+  ],
+  "properties": {
+    "id": {
+      "type": "string"
+    },
+    "slug": {
+      "type": "string"
+    },
+    "gloss_en": {
+      "type": "string"
+    },
+    "pos": {
+      "type": "string"
+    },
+    "forms": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": [
+          "lang",
+          "form"
+        ],
+        "properties": {
+          "lang": {
+            "type": "string"
+          },
+          "form": {
+            "type": "string"
+          },
+          "primary": {
+            "type": "boolean"
+          },
+          "layout": {
+            "type": "string"
+          },
+          "status": {
+            "type": "string"
+          }
+        }
+      }
+    },
+    "license": {
+      "type": "string"
+    },
+    "source": {
+      "type": "string"
+    }
+  }
+}

@@ -412,6 +412,27 @@ export const MCP_TOOLS = [
     },
   },
   {
+    name: "kbatch_concept_solve",
+    description:
+      "Instant multilingual meaning solve: one concept/word → all mesh language forms with pure C transfer rank + path geometry. Geometry≠gloss. Honor opt-in.",
+    inputSchema: {
+      type: "object",
+      properties: {
+        q: { type: "string", description: "Word form, slug, or concept:id" },
+        conceptId: { type: "string", description: "Optional concept:water style id" },
+        from: { type: "string", description: "Source lang for C ranking (default en)" },
+        mode: {
+          type: "string",
+          enum: ["ready", "all", "honor"],
+          description: "ready = default; honor/all include FN educational seeds",
+        },
+        includeHonor: { type: "boolean" },
+        includePaths: { type: "boolean", description: "Path geometry per form (default true)" },
+        limit: { type: "number" },
+      },
+    },
+  },
+  {
     name: "kbatch_world_axes",
     description:
       "World-ranking five axes scores, pathway dial state (D3–R3), and Colossus pipe metadata.",

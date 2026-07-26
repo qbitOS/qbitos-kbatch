@@ -504,6 +504,18 @@ export function mcpCall(name, args = {}) {
           max: args.max,
         });
       });
+    case "kbatch_concept_solve":
+      return import("./concept-solve.js").then(({ conceptSolve }) =>
+        conceptSolve({
+          q: args.q || args.text || args.word || "",
+          conceptId: args.conceptId || args.id,
+          from: args.from || args.lang || "en",
+          mode: args.mode || "ready",
+          includeHonor: args.includeHonor === true,
+          includePaths: args.includePaths !== false,
+          limit: args.limit,
+        })
+      );
     case "kbatch_world_axes":
       return fetchWorldAxesBundle();
     case "kbatch_shadows":

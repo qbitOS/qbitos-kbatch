@@ -1,0 +1,39 @@
+{
+  "schema": "kbatch-concepts-index-v1",
+  "generated": "2026-07-26T02:04:31Z",
+  "packs": {
+    "mesh": "mesh.json",
+    "formIndex": "form-index.json",
+    "schema": "schema-kbatch-concept-v1.json"
+  },
+  "count": 170,
+  "formIndexKeys": 2855,
+  "langCoverage": {
+    "en": 191,
+    "fr": 186,
+    "de": 185,
+    "zh": 184,
+    "es": 182,
+    "it": 174,
+    "hi": 171,
+    "ru": 170,
+    "ar": 169,
+    "el": 169,
+    "nl": 168,
+    "pt": 168,
+    "pl": 166,
+    "is": 165,
+    "sv": 165,
+    "la": 164,
+    "ja": 53,
+    "vi": 53,
+    "ko": 52,
+    "tr": 52,
+    "sw": 51,
+    "oj": 31,
+    "nav": 8,
+    "chr": 8,
+    "he": 1
+  },
+  "mcp": "kbatch_concept_solve"
+}

@@ -153,6 +153,22 @@ const TOOLS = [
     },
   },
   {
+    name: "kbatch_concept_solve",
+    description:
+      "Instant multilingual meaning solve: concept/word → mesh forms ranked by pure C transfer + form metadata. Geometry≠gloss. Honor opt-in.",
+    inputSchema: {
+      type: "object",
+      properties: {
+        q: { type: "string" },
+        conceptId: { type: "string" },
+        from: { type: "string" },
+        mode: { type: "string", enum: ["ready", "all", "honor"] },
+        includeHonor: { type: "boolean" },
+        limit: { type: "number" },
+      },
+    },
+  },
+  {
     name: "kbatch_r3_outreach",
     description: "R3 outreach CRM scaffold (human-gated; no auto-send).",
     inputSchema: { type: "object", properties: {} },
@@ -1306,6 +1322,157 @@ async function toolWorldPath(request, args) {
   };
 }
 
+/** Multilingual concept solve from static mesh + optional C matrix */
+async function toolConceptSolve(request, args = {}) {
+  const mesh = await fetchJson(request, "concepts/mesh.json");
+  if (!mesh?.concepts?.length) {
+    return {
+      tool: "kbatch_concept_solve",
+      ok: false,
+      error: "concepts/mesh.json not deployed",
+      browser: 'await kbatchDict.mcp("kbatch_concept_solve", { q: "liberty" })',
+    };
+  }
+  const q = String(args.q || args.text || args.word || "")
+    .trim()
+    .toLowerCase();
+  const conceptId = args.conceptId || args.id || "";
+  const from = String(args.from || args.lang || "en").toLowerCase();
+  const mode = String(args.mode || "ready").toLowerCase();
+  const includeHonor = args.includeHonor === true || mode === "honor" || mode === "all";
+  const limit = Math.min(80, Math.max(1, Number(args.limit) || 40));
+
+  let primary = null;
+  if (conceptId) {
+    primary = mesh.concepts.find((c) => c.id === conceptId || c.slug === conceptId);
+  }
+  if (!primary && q) {
+    if (q.startsWith("concept:")) {
+      primary = mesh.concepts.find((c) => c.id === q);
+    }
+    if (!primary) {
+      primary = mesh.concepts.find((c) => c.slug === q);
+    }
+    if (!primary) {
+      for (const c of mesh.concepts) {
+        if ((c.forms || []).some((f) => String(f.form || "").toLowerCase() === q)) {
+          primary = c;
+          break;
+        }
+      }
+    }
+    if (!primary && q.length >= 3) {
+      primary = mesh.concepts.find((c) =>
+        String(c.gloss_en || "")
+          .toLowerCase()
+          .includes(q)
+      );
+    }
+  }
+  if (!primary) {
+    return {
+      schema: "kbatch-concept-solve-v1",
+      tool: "kbatch_concept_solve",
+      ok: false,
+      q,
+      from,
+      mode,
+      meshCount: mesh.count || mesh.concepts.length,
+      note: "No concept mesh hit — try liberty, water, path, concept:fox",
+    };
+  }
+
+  const C = await fetchJson(request, "world-path/cost-matrix.json");
+  const index = C?.index || {};
+  const matrix = C?.matrix || C?.costs || null;
+  function cCost(a, b) {
+    if (a === b) return 0;
+    if (matrix && index[a] != null && index[b] != null) {
+      const row = matrix[index[a]];
+      if (Array.isArray(row)) return Number(row[index[b]]) || 99;
+      if (row && typeof row === "object") return Number(row[b] ?? row[index[b]]) || 99;
+    }
+    // fallback rough: same latin cheap
+    const honor = new Set(["nav", "oj", "chr"]);
+    if (honor.has(b) && !includeHonor && mode === "ready") return 999;
+    if (a === "en" && ["de", "fr", "it", "es", "nl", "sv", "pt"].includes(b)) return 2;
+    return 8;
+  }
+
+  const honorSet = new Set(["nav", "oj", "chr"]);
+  const forms = [];
+  for (const fr of primary.forms || []) {
+    const lang = fr.lang;
+    const st = fr.status || "";
+    if (
+      mode === "ready" &&
+      !includeHonor &&
+      (honorSet.has(lang) || st === "honor-seed" || st === "honor")
+    ) {
+      continue;
+    }
+    const cost = cCost(from, lang);
+    forms.push({
+      lang,
+      form: fr.form,
+      primary: !!fr.primary,
+      layout: fr.layout || "qwerty",
+      status: st || (honorSet.has(lang) ? "honor-seed" : "open"),
+      cFromSource: Math.round(cost * 10) / 10,
+      path: {
+        layout: fr.layout || "qwerty",
+        pathLen: [...String(fr.form)].length,
+        note: "HTTP mesh: pathLen≈graphemes; browser MCP adds full key path",
+      },
+      dictionaryUrl: `https://kbatch.ugrad.ai/?lang=${encodeURIComponent(lang)}&q=${encodeURIComponent(fr.form)}`,
+    });
+  }
+  forms.sort((a, b) => {
+    if (a.lang === from && b.lang !== from) return -1;
+    if (b.lang === from && a.lang !== from) return 1;
+    return a.cFromSource - b.cFromSource;
+  });
+  const sliced = forms.slice(0, limit);
+  return {
+    schema: "kbatch-concept-solve-v1",
+    tool: "kbatch_concept_solve",
+    ok: true,
+    instant: true,
+    q,
+    from,
+    mode,
+    includeHonor,
+    concept: {
+      id: primary.id,
+      slug: primary.slug,
+      gloss_en: primary.gloss_en,
+      pos: primary.pos,
+      langCount: primary.langCount,
+      formCount: primary.formCount,
+      license: primary.license,
+    },
+    source: sliced.find((f) => f.lang === from) || sliced[0] || null,
+    forms: sliced,
+    formCount: sliced.length,
+    transferOrder: [...new Set(sliced.map((f) => f.lang))],
+    metrics: {
+      meshConcepts: mesh.count || mesh.concepts.length,
+      langsInResult: new Set(sliced.map((f) => f.lang)).size,
+    },
+    doctrine: {
+      purity: "path geometry ≠ gloss ≠ SO ≠ phon",
+      cost: "pure C matrix when available",
+      honor: "honor forms only when includeHonor or mode=honor|all",
+    },
+    urls: {
+      mesh: "/data/concepts/mesh.json",
+      doc: "/docs/CONCEPT-MESH-SOLVE.md",
+    },
+    browser:
+      'await kbatchDict.mcp("kbatch_concept_solve", { q: "liberty", from: "en", mode: "ready" })',
+  };
+}
+
 async function toolR3Outreach(request) {
   const doc = await fetchJson(request, "world-ranking/pathways/r3-outreach.json");
   return {
@@ -2237,6 +2404,8 @@ async function dispatch(request, name, args) {
       return toolMuseumResource(request);
     case "kbatch_world_path":
       return toolWorldPath(request, args || {});
+    case "kbatch_concept_solve":
+      return toolConceptSolve(request, args || {});
     case "kbatch_r3_outreach":
       return toolR3Outreach(request);
     case "kbatch_freya_convert":
