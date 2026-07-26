@@ -52,8 +52,8 @@ const SPEECH_PATTERNS = [
  */
 export async function ensureQuantumGutter() {
   await ensureGluelam({
-    // prefer local vendored modules for offline / quantum-speed path
-    base: "./vendor/gluelam/",
+    // absolute path — relative ./vendor breaks on /dojo/
+    base: "/vendor/gluelam/",
   });
   // second try remote if still stub
   const st = getGluelamStatus();

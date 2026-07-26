@@ -36,7 +36,18 @@ function gluelamBase() {
 }
 
 function hasReal(mod) {
-  return mod && !mod.stub && typeof mod === "object";
+  if (!mod || mod.stub || typeof mod !== "object") return false;
+  // Real uvspeed/GlueLam modules expose at least one working entrypoint
+  return (
+    typeof mod.classifyLine === "function" ||
+    typeof mod.prefixContent === "function" ||
+    typeof mod.prefixDAC === "function" ||
+    typeof mod.dacTracks === "function" ||
+    typeof mod.stenoEncode === "function" ||
+    typeof mod.encode === "function" ||
+    typeof mod.stenoPipeline === "function" ||
+    typeof mod.preflight === "function"
+  );
 }
 
 /**
@@ -148,12 +159,15 @@ export async function ensureGluelam(opts = {}) {
     return getGluelamStatus();
   }
 
+  // Absolute /vendor first — relative ./vendor from /dojo/ resolves to /dojo/vendor (404)
   const bases = [
     opts.base,
-    "./vendor/gluelam/", // local quantum gutter + DAC/steno first (offline / low latency)
+    "/vendor/gluelam/",
+    "vendor/gluelam/",
+    "./vendor/gluelam/",
     gluelamBase(),
-    "../mueee/",
     "https://mueee.qbitos.ai/",
+    "https://uvspeed.qbitos.ai/",
   ].filter(Boolean);
 
   for (const base of bases) {
@@ -186,8 +200,100 @@ export async function ensureGluelam(opts = {}) {
   return getGluelamStatus();
 }
 
+/**
+ * Live probe — call real entrypoints; return evidence, never vanity flags.
+ */
+export function probeGluelamLive() {
+  captureGlobals();
+  const QP = state.modules.prefixes;
+  const DAC = state.modules.dac;
+  const ST = state.modules.steno;
+  const sample = "import os\ndef main():\n  print(1)\n  return 0\n";
+  /** @type {Record<string, {live:boolean, api?:string, evidence?:any, error?:string}>} */
+  const probes = {
+    QuantumPrefixes: { live: false },
+    QbitDAC: { live: false },
+    QbitSteno: { live: false },
+  };
+
+  if (hasReal(QP) && typeof QP.classifyLine === "function") {
+    try {
+      const line = QP.classifyLine("import os", "python");
+      const block = typeof QP.prefixContent === "function" ? QP.prefixContent(sample, "python") : null;
+      probes.QuantumPrefixes = {
+        live: !!(line?.sym || line?.category),
+        api: "classifyLine+prefixContent",
+        evidence: {
+          importSym: line?.sym,
+          importCat: line?.category,
+          prefixedPreview: String(block || "").slice(0, 120),
+          version: QP.VERSION || null,
+        },
+      };
+    } catch (e) {
+      probes.QuantumPrefixes = { live: false, error: String(e?.message || e) };
+    }
+  }
+
+  if (hasReal(DAC) && typeof DAC.prefixDAC === "function") {
+    try {
+      const d = DAC.prefixDAC(sample, "python", "kbatch-probe");
+      probes.QbitDAC = {
+        live: !!(d?.prefixed || d?.meta),
+        api: "prefixDAC",
+        evidence: {
+          coverage: d?.meta?.coverage,
+          counts: d?.meta?.counts,
+          prefixedPreview: String(d?.prefixed || "").slice(0, 120),
+        },
+      };
+    } catch (e) {
+      probes.QbitDAC = { live: false, error: String(e?.message || e) };
+    }
+  }
+
+  if (hasReal(ST)) {
+    try {
+      const enc =
+        typeof ST.stenoEncode === "function"
+          ? ST.stenoEncode(sample)
+          : typeof ST.encode === "function"
+            ? ST.encode(sample)
+            : null;
+      const anal =
+        typeof ST.stenoAnalyze === "function" ? ST.stenoAnalyze(sample) : null;
+      probes.QbitSteno = {
+        live: enc != null || anal != null,
+        api: ST.stenoEncode ? "stenoEncode" : ST.encode ? "encode" : "stenoAnalyze",
+        evidence: {
+          encodedType: typeof enc,
+          encodedLen: enc != null ? String(enc).length : 0,
+          analyzeKeys: anal && typeof anal === "object" ? Object.keys(anal).slice(0, 8) : null,
+        },
+      };
+    } catch (e) {
+      probes.QbitSteno = { live: false, error: String(e?.message || e) };
+    }
+  }
+
+  const liveCount = Object.values(probes).filter((p) => p.live).length;
+  return {
+    ok: liveCount > 0,
+    liveCount,
+    base: state.base,
+    stubs: state.stubs,
+    probes,
+    upstream: {
+      quantumGutter: "https://mueee.qbitos.ai/quantum-gutter.html",
+      uvspeedWeb: "https://github.com/qbitOS/uvspeed",
+      vendor: "/vendor/gluelam/",
+    },
+  };
+}
+
 export function getGluelamStatus() {
   captureGlobals();
+  const probe = probeGluelamLive();
   return {
     loaded: state.loaded,
     stubs: state.stubs,
@@ -199,6 +305,7 @@ export function getGluelamStatus() {
       steno: hasReal(state.modules.steno),
       preflight: hasReal(state.modules.preflight),
     },
+    live: probe,
     modules: state.modules,
   };
 }

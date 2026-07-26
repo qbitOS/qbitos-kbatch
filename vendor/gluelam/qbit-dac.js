@@ -10,6 +10,11 @@
   var _perf = typeof performance !== 'undefined' ? performance : { now: Date.now.bind(Date) };
   var DAC_STATS = { calls: 0, lines: 0, t0: _perf.now(), classifications: {}, sources: {} };
 
+  // Telemetry hook for batch/xai
+  if (_isBrowser) {
+    root.dacTelemetry = { post: function(data) { new BroadcastChannel('dac-telemetry').postMessage(data); } };
+  }
+
   var GATE_MAP = {
     '+1:': 'H', '1:': 'CNOT', '-1:': 'X', '+0:': 'Rz', '0:': 'I',
     '-0:': 'S', '+n:': 'T', 'n:': 'SWAP', '-n:': 'M', '+2:': 'CZ',
@@ -272,6 +277,27 @@
   // qbitCodec.reinject() → re-encode steno metadata after formatter finishes
   // qbitCodec.map()    → generate .steno.map sidecar for production deploy
   var _stenoMode = 'full'; // 'full' | 'prefix-only' | 'off'
+  // Hybrid runtime migration policy (A+C):
+  // A) auto-normalize legacy outputs on generate/save
+  // C) allow temporary legacy with warning tags until confidence gates pass
+  var _runtimePolicy = {
+    autoNormalize: true,
+    allowLegacyWarning: true,
+    hardBlock: false,
+    warningTag: 'legacy-runtime-warning'
+  };
+  var _runtimeConfidence = {
+    profile: 'dev',
+    testsPassed: 0,
+    testsFailed: 0,
+    ibmVerifiedRuns: 0,
+    minPassRate: 0.95,
+    minTests: 50,
+    minIbmRuns: 6,
+    autoPromoteHardBlock: false,
+    status: 'warning',
+    lastEvaluated: null
+  };
 
   function _getSteno() {
     return _isBrowser ? root.QbitSteno : (typeof require === 'function' ? (function(){try{return require('./qbit-steno.js')}catch(e){return null}})() : null);
@@ -281,6 +307,149 @@
     return _isBrowser ? root.QbitPreflight : (typeof require === 'function' ? (function(){try{return require('./qbit-preflight.js')}catch(e){return null}})() : null);
   }
 
+  function _getQpack() {
+    if (_isBrowser) return null;
+    if (typeof require !== 'function') return null;
+    return (function () {
+      try { return require('../qbit/09-tools/qbit-pack.js'); }
+      catch (e) { return null; }
+    })();
+  }
+
+  function _isLegacyContent(content) {
+    if (!content) return false;
+    var s = String(content);
+    // Legacy markers: line-prefixed gutter format or historical header variants.
+    return /^[+\-]?(?:[0-9]|n):\s/m.test(s) ||
+      /beyondBINARY\s+quantum-prefixed/i.test(s) ||
+      /QUANTUM PREFIX LIVE SYNC/i.test(s);
+  }
+
+  function _normalizeRuntime(content, language, source, opts) {
+    opts = opts || {};
+    var normalized = false;
+    var warnings = [];
+    var code = String(content || '');
+    var isLegacy = _isLegacyContent(code);
+    if (isLegacy && _runtimePolicy.allowLegacyWarning) {
+      warnings.push({
+        tag: _runtimePolicy.warningTag,
+        message: 'Legacy format detected. Auto-normalized through qbit runtime surface.'
+      });
+    }
+    if (isLegacy && _runtimePolicy.autoNormalize) {
+      // Normalize by decoding legacy/prefixed content to clean code first,
+      // then re-encode through unified qbitCodec path.
+      var dec = qbitCodec.decode(code);
+      var clean = dec && dec.code ? dec.code : code;
+      var enc = qbitCodec.encode(clean, language || 'auto', source || 'runtime-normalizer', opts);
+      code = enc.stenoCode || enc.prefixed || clean;
+      normalized = true;
+    }
+    if (isLegacy && _runtimePolicy.hardBlock) {
+      return {
+        blocked: true,
+        code: null,
+        normalized: false,
+        isLegacy: true,
+        warnings: warnings.concat([{ tag: 'legacy-runtime-block', message: 'Legacy output blocked by runtime policy.' }]),
+        gate: _evaluateRuntimeConfidence()
+      };
+    }
+    return { blocked: false, code: code, normalized: normalized, isLegacy: isLegacy, warnings: warnings, gate: _evaluateRuntimeConfidence() };
+  }
+
+  function _runtimeSnapshot() {
+    return {
+      testsPassed: _runtimeConfidence.testsPassed,
+      testsFailed: _runtimeConfidence.testsFailed,
+      ibmVerifiedRuns: _runtimeConfidence.ibmVerifiedRuns,
+      minPassRate: _runtimeConfidence.minPassRate,
+      minTests: _runtimeConfidence.minTests,
+      minIbmRuns: _runtimeConfidence.minIbmRuns,
+      autoPromoteHardBlock: _runtimeConfidence.autoPromoteHardBlock,
+      status: _runtimeConfidence.status,
+      lastEvaluated: _runtimeConfidence.lastEvaluated
+    };
+  }
+
+  function _evaluateRuntimeConfidence() {
+    var total = _runtimeConfidence.testsPassed + _runtimeConfidence.testsFailed;
+    var passRate = total > 0 ? _runtimeConfidence.testsPassed / total : 0;
+    var eligible = total >= _runtimeConfidence.minTests &&
+      passRate >= _runtimeConfidence.minPassRate &&
+      _runtimeConfidence.ibmVerifiedRuns >= _runtimeConfidence.minIbmRuns;
+    _runtimeConfidence.status = eligible ? 'eligible' : 'warning';
+    _runtimeConfidence.lastEvaluated = Date.now();
+    if (eligible && _runtimeConfidence.autoPromoteHardBlock) {
+      _runtimePolicy.hardBlock = true;
+      _runtimePolicy.allowLegacyWarning = false;
+      _runtimeConfidence.status = 'enforced';
+    }
+    return {
+      totalTests: total,
+      passRate: +passRate.toFixed(4),
+      eligible: eligible,
+      enforced: !!_runtimePolicy.hardBlock,
+      thresholds: {
+        minPassRate: _runtimeConfidence.minPassRate,
+        minTests: _runtimeConfidence.minTests,
+        minIbmRuns: _runtimeConfidence.minIbmRuns
+      },
+      counters: {
+        testsPassed: _runtimeConfidence.testsPassed,
+        testsFailed: _runtimeConfidence.testsFailed,
+        ibmVerifiedRuns: _runtimeConfidence.ibmVerifiedRuns
+      },
+      status: _runtimeConfidence.status,
+      lastEvaluated: _runtimeConfidence.lastEvaluated
+    };
+  }
+
+  function _recordRuntimeEvidence(passed, meta) {
+    if (passed) _runtimeConfidence.testsPassed += 1;
+    else _runtimeConfidence.testsFailed += 1;
+    if (meta && meta.ibmVerified) _runtimeConfidence.ibmVerifiedRuns += 1;
+    return _evaluateRuntimeConfidence();
+  }
+
+  function _setRuntimeProfile(profile) {
+    var p = String(profile || 'dev').toLowerCase();
+    if (p === 'prod') {
+      _runtimePolicy.autoNormalize = true;
+      _runtimePolicy.allowLegacyWarning = false;
+      _runtimePolicy.hardBlock = true;
+      _runtimeConfidence.minPassRate = 0.99;
+      _runtimeConfidence.minTests = 200;
+      _runtimeConfidence.minIbmRuns = 12;
+      _runtimeConfidence.autoPromoteHardBlock = true;
+    } else if (p === 'stage') {
+      _runtimePolicy.autoNormalize = true;
+      _runtimePolicy.allowLegacyWarning = true;
+      _runtimePolicy.hardBlock = false;
+      _runtimeConfidence.minPassRate = 0.97;
+      _runtimeConfidence.minTests = 100;
+      _runtimeConfidence.minIbmRuns = 8;
+      _runtimeConfidence.autoPromoteHardBlock = true;
+    } else {
+      _runtimePolicy.autoNormalize = true;
+      _runtimePolicy.allowLegacyWarning = true;
+      _runtimePolicy.hardBlock = false;
+      _runtimeConfidence.minPassRate = 0.95;
+      _runtimeConfidence.minTests = 50;
+      _runtimeConfidence.minIbmRuns = 6;
+      _runtimeConfidence.autoPromoteHardBlock = false;
+      p = 'dev';
+    }
+    _runtimeConfidence.profile = p;
+    return {
+      profile: p,
+      policy: Object.assign({}, _runtimePolicy),
+      confidence: _runtimeSnapshot(),
+      evaluation: _evaluateRuntimeConfidence()
+    };
+  }
+
   var _t5 = null;
   function _getT5() {
     if (_t5 !== undefined && _t5 !== null) return _t5;
@@ -288,13 +457,284 @@
       try {
         var cp = require('child_process');
         var p = require('path');
-        var bin = p.join(__dirname, '..', 'crates', 'prefix-engine', 'target', 'release', 'uvspeed');
-        require('fs').accessSync(bin);
-        _t5 = { bin: bin, cp: cp, available: true, speed: '3.2ns/line' };
+        var fs = require('fs');
+        var root = p.join(__dirname, '..');
+        var candidates = [
+          p.join(root, 'target', 'release', 'uvspeed'),
+          p.join(root, 'crates', 'prefix-engine', 'target', 'release', 'uvspeed')
+        ];
+        for (var i = 0; i < candidates.length; i++) {
+          try { fs.accessSync(candidates[i]); _t5 = { bin: candidates[i], cp: cp, available: true, speed: '3.2ns/line' }; break; }
+          catch (e) {}
+        }
+        if (!_t5 || !_t5.available) _t5 = { available: false };
       } catch (e) { _t5 = { available: false }; }
     } else { _t5 = { available: false }; }
     return _t5;
   }
+
+  // ── .qbit_musica.Engine — code/music bridge for DAW + quantum pipeline ──
+  var qbitMusicaEngine = {
+    VERSION: 'qbit_musica.Engine/v1',
+    qCalibrate: function (nsPerLine) {
+      var ns = Math.max(0.001, Number(nsPerLine) || 0.001);
+      var qHz = 1e9 / ns;
+      var qBPM = qHz * 60;
+      return {
+        nsPerLine: +ns.toFixed(3),
+        qHz: +qHz.toFixed(2),
+        qBPM: +qBPM.toFixed(2),
+        lane: qBPM >= 1e8 ? 'beyond-bpm' : 'linear-bpm'
+      };
+    },
+    blochNavigation: function (musica) {
+      var m = musica || {};
+      var qHz = Math.max(0.000001, Number(m.qHz || 0));
+      var qBPM = Math.max(0.000001, Number(m.qBPM || (qHz * 60)));
+      var theta = ((qBPM % 360000) / 360000) * (Math.PI * 2);
+      var phi = ((qHz % 360000) / 360000) * (Math.PI * 2);
+      var r = Math.max(0.05, Math.min(1, Math.log10(qBPM + 1) / 9));
+      var st = Math.sin(theta), ct = Math.cos(theta), sp = Math.sin(phi), cp = Math.cos(phi);
+      var x = r * st * cp;
+      var y = r * st * sp;
+      var z = r * ct;
+      return {
+        thetaRad: +theta.toFixed(6),
+        phiRad: +phi.toFixed(6),
+        r: +r.toFixed(6),
+        vector: { x: +x.toFixed(6), y: +y.toFixed(6), z: +z.toFixed(6) }
+      };
+    },
+    gisSphereMap: function (bloch) {
+      var b = bloch || { vector: { x: 0, y: 0, z: 0 }, r: 0 };
+      var x = Number((b.vector || {}).x || 0);
+      var y = Number((b.vector || {}).y || 0);
+      var z = Number((b.vector || {}).z || 0);
+      var lat = Math.max(-90, Math.min(90, z * 90));
+      var lon = Math.atan2(y, x) * (180 / Math.PI);
+      var alt = Math.max(0, Number(b.r || 0) * 1000);
+      return {
+        lat: +lat.toFixed(5),
+        lon: +lon.toFixed(5),
+        altM: +alt.toFixed(2),
+        sphere: 'gis'
+      };
+    },
+    waveformTrajectory: function (musica, bloch, gis) {
+      var m = musica || {};
+      var qHz = Math.max(0.000001, Number(m.qHz || 0));
+      var ns = Math.max(0.001, Number(m.nsPerLine || 0.001));
+      var g = gis || { lat: 0, lon: 0 };
+      var b = bloch || { r: 0 };
+      var v = Math.min(3e8, qHz); // bounded to c-scale for trajectory visualization
+      var e = Math.max(-89.99, Math.min(89.99, Number(g.lat || 0)));
+      var az = Number(g.lon || 0);
+      var t1 = ns * 1e-9;
+      var dist = v * t1;
+      return {
+        mode: 'ballistic-waveform',
+        azimuthDeg: +az.toFixed(4),
+        elevationDeg: +e.toFixed(4),
+        velocity: +v.toFixed(2),
+        horizonStepM: +dist.toFixed(4),
+        curvature: +(1 - Math.max(0, Math.min(1, Number(b.r || 0)))).toFixed(6)
+      };
+    },
+    atmosField: function (bloch, trajectory) {
+      var b = bloch || { vector: { x: 0, y: 0, z: 0 }, r: 0 };
+      var t = trajectory || { elevationDeg: 0, azimuthDeg: 0 };
+      var x = Math.abs(Number((b.vector || {}).x || 0));
+      var y = Math.abs(Number((b.vector || {}).y || 0));
+      var z = Math.abs(Number((b.vector || {}).z || 0));
+      var l = Math.max(0, Math.min(1, (x + 0.1)));
+      var r = Math.max(0, Math.min(1, (y + 0.1)));
+      var c = Math.max(0, Math.min(1, (z + 0.15)));
+      var ls = Math.max(0, Math.min(1, (x * 0.8)));
+      var rs = Math.max(0, Math.min(1, (y * 0.8)));
+      var lfe = Math.max(0, Math.min(1, (1 - Number(b.r || 0)) * 0.9));
+      var top = Math.max(0, Math.min(1, Math.abs(Number(t.elevationDeg || 0)) / 90));
+      return {
+        format: 'atmos-7.1.2',
+        channels: {
+          L: +l.toFixed(4), R: +r.toFixed(4), C: +c.toFixed(4), LFE: +lfe.toFixed(4),
+          Ls: +ls.toFixed(4), Rs: +rs.toFixed(4), Ltf: +top.toFixed(4), Rtf: +top.toFixed(4)
+        }
+      };
+    },
+    ironCompass: function (musica) {
+      var m = musica || {};
+      var lane = m.calibrationLane || 'linear-bpm';
+      var profile = m.profile || 'steady';
+      var heading = lane === 'beyond-bpm' ? 'NNE' : (profile === 'lightspeed' ? 'ENE' : 'E');
+      var bloch = this.blochNavigation(m);
+      var gis = this.gisSphereMap(bloch);
+      var wave = this.waveformTrajectory(m, bloch, gis);
+      var atmos = this.atmosField(bloch, wave);
+      return {
+        name: 'iron-compass',
+        heading: heading,
+        lane: lane,
+        route: ['L0', 'L1', 'L2', 'L3', 'L4', 'L5', 'L6', 'L7'],
+        points: {
+          N: 'L7 Persona/Security',
+          E: 'L3 Quantum',
+          S: 'L0 Super Speed',
+          W: 'L2 Commander'
+        },
+        active: lane === 'beyond-bpm' ? ['L0', 'L3', 'L4', 'L7'] : ['L0', 'L2', 'L4'],
+        bloch: bloch,
+        gisSphere: gis,
+        waveform: wave,
+        atmosField: atmos,
+        note: lane === 'beyond-bpm'
+          ? 'Beyond-BPM lane uses qHz/ns routing on Iron Line.'
+          : 'Linear BPM lane uses musical-tempo routing.'
+      };
+    },
+    explainCalibration: function (musica) {
+      var m = musica || {};
+      var bpm = Number(m.bpm || 0);
+      var qBPM = Number(m.qBPM || 0);
+      var qHz = Number(m.qHz || 0);
+      var ns = Number(m.nsPerLine || 0);
+      var lane = m.calibrationLane || 'linear-bpm';
+      return {
+        lane: lane,
+        summary: 'BPM is musical calibration; qBPM is compute-derived calibration (QHz*60).',
+        formulas: {
+          qHz_from_nsPerLine: 'qHz = 1e9 / nsPerLine',
+          qBPM_from_qHz: 'qBPM = qHz * 60',
+          bpm_to_hz: 'Hz = BPM / 60'
+        },
+        values: { bpm: +bpm.toFixed(2), qBPM: +qBPM.toFixed(2), qHz: +qHz.toFixed(2), nsPerLine: +ns.toFixed(3) },
+        interpretation: lane === 'beyond-bpm'
+          ? 'Performance exceeds musically meaningful linear BPM calibration; use qHz/ns-per-line lane.'
+          : 'Performance is within linear BPM calibration lane.'
+      };
+    },
+    profileFromBpm: function (bpm) {
+      if (bpm >= 180) return 'lightspeed';
+      if (bpm >= 130) return 'fast';
+      return 'steady';
+    },
+    fromCode: function (content, language, source, opts) {
+      opts = opts || {};
+      var bm = qbitCodec.contrailBenchmark(content || '', language || 'auto', source || 'qbit-musica');
+      var lines = Math.max(1, bm.totalLines || 1);
+      var density = Math.min(1, (bm.coverage || 0));
+      var bpm = Math.max(72, Math.min(240, 108 + density * 80 + Math.min(40, lines / 40)));
+      var nsPerLine = (Number(bm.elapsedMs || 0) > 0) ? ((Number(bm.elapsedMs) * 1e6) / lines) : 0;
+      var qcal = this.qCalibrate(nsPerLine);
+      var profile = this.profileFromBpm(bpm);
+      var style = Object.entries(bm.prefixCounts || {})
+        .sort(function (a, b) { return b[1] - a[1]; })
+        .slice(0, 16)
+        .map(function (kv) { return kv[0] + 'x' + kv[1]; })
+        .join(' ');
+      return {
+        engine: this.VERSION,
+        source: source || 'qbit-musica',
+        bpm: +bpm.toFixed(2),
+        qBPM: qcal.qBPM,
+        qHz: qcal.qHz,
+        nsPerLine: qcal.nsPerLine,
+        calibrationLane: qcal.lane,
+        profile: profile,
+        calibrationLegend: this.explainCalibration({
+          bpm: +bpm.toFixed(2),
+          qBPM: qcal.qBPM,
+          qHz: qcal.qHz,
+          nsPerLine: qcal.nsPerLine,
+          calibrationLane: qcal.lane
+        }),
+        ironCompass: this.ironCompass({
+          bpm: +bpm.toFixed(2),
+          qBPM: qcal.qBPM,
+          qHz: qcal.qHz,
+          nsPerLine: qcal.nsPerLine,
+          profile: profile,
+          calibrationLane: qcal.lane
+        }),
+        notes: (bm.noteCounts || {}),
+        contrail: bm.contrail || '',
+        codeStyleAsMusic: style,
+        daw: {
+          webMIDI: !!(typeof navigator !== 'undefined' && navigator.requestMIDIAccess),
+          webAudio: !!(typeof AudioContext !== 'undefined' || typeof webkitAudioContext !== 'undefined'),
+          oscBridge: true,
+          abletonLinkBridge: true,
+          midiClockBridge: true,
+          pluginSurface: ['vst3-bridge', 'au-bridge', 'aax-bridge']
+        },
+        levels: this.baseLevels(content || ''),
+        ts: Date.now()
+      };
+    },
+    baseLevels: function (content) {
+      var text = String(content || '');
+      var bytes = 0;
+      for (var i = 0; i < text.length; i++) bytes += (text.charCodeAt(i) > 255 ? 2 : 1);
+      return {
+        binaryBits: bytes * 8,
+        decimalUnits: text.length,
+        hexNibbles: bytes * 2
+      };
+    },
+    toDawPayload: function (musica, opts) {
+      opts = opts || {};
+      var m = musica || {};
+      return {
+        type: 'musica-daw-payload',
+        source: opts.source || 'qbitCodec',
+        bpm: m.bpm || 120,
+        qBPM: m.qBPM || 0,
+        qHz: m.qHz || 0,
+        nsPerLine: m.nsPerLine || 0,
+        calibrationLane: m.calibrationLane || 'linear-bpm',
+        profile: m.profile || 'steady',
+        calibrationLegend: m.calibrationLegend || null,
+        ironCompass: m.ironCompass || this.ironCompass(m),
+        style: m.codeStyleAsMusic || '',
+        contrail: m.contrail || '',
+        notes: m.notes || {},
+        daw: m.daw || {},
+        levels: m.levels || {},
+        ts: Date.now()
+      };
+    },
+    sphereVegasPacket: function (musica, opts) {
+      opts = opts || {};
+      var m = musica || {};
+      var ic = m.ironCompass || this.ironCompass(m);
+      var bloch = ic.bloch || this.blochNavigation(m);
+      var gis = ic.gisSphere || this.gisSphereMap(bloch);
+      var wave = ic.waveform || this.waveformTrajectory(m, bloch, gis);
+      var atmos = ic.atmosField || this.atmosField(bloch, wave);
+      return {
+        type: 'sphere-vegas-nav',
+        source: opts.source || m.source || 'qbitCodec',
+        lane: m.calibrationLane || 'linear-bpm',
+        qBPM: Number(m.qBPM || 0),
+        qHz: Number(m.qHz || 0),
+        nsPerLine: Number(m.nsPerLine || 0),
+        compass: { heading: ic.heading || 'E', route: ic.route || ['L0', 'L1', 'L2', 'L3', 'L4', 'L5', 'L6', 'L7'] },
+        bloch: bloch,
+        gis: gis,
+        waveform: wave,
+        atmos: atmos,
+        ts: Date.now()
+      };
+    },
+    publishSphereVegas: function (musica, opts) {
+      if (typeof BroadcastChannel === 'undefined') return null;
+      var packet = this.sphereVegasPacket(musica, opts || {});
+      try {
+        var bc = new BroadcastChannel('sphere-vegas');
+        bc.postMessage(packet);
+      } catch (_) {}
+      return packet;
+    }
+  };
 
   var qbitCodec = {
     encode: function (content, language, source, opts) {
@@ -303,7 +743,14 @@
       var dac = prefixDAC(content, lang, source || 'qbit-codec');
       var ST = _getSteno();
       if (ST && _stenoMode === 'full') {
-        var stenoResult = ST.stenoEncode(content, lang, { layer: opts.layer || 0 });
+        var stenoResult = (opts.useStenoReplace && ST.stenoReplace)
+          ? ST.stenoReplace(content, lang, {
+              layer: opts.layer || 0,
+              upgrades: opts.upgrades || {},
+              onLowConfidence: opts.onLowConfidence || null,
+              confidenceThreshold: opts.confidenceThreshold
+            })
+          : ST.stenoEncode(content, lang, { layer: opts.layer || 0 });
         dac.steno = stenoResult.stats;
         dac.stenoCode = stenoResult.code;
         dac.stenoMeta = stenoResult.meta;
@@ -397,6 +844,150 @@
       }
       return out + '\n' + (result.stenoCode || result.prefixed);
     },
+    checkpointProfile: function () {
+      return {
+        id: 'qpth',
+        version: '0.1',
+        language: 'transcript',
+        extension: '.qpth',
+        mime: 'application/x-qpth'
+      };
+    },
+    encodeCheckpointManifest: function (manifest, opts) {
+      opts = opts || {};
+      var profile = this.checkpointProfile();
+      var src = opts.source || 'pth-ingest';
+      var content = '';
+      if (typeof manifest === 'string') {
+        content = manifest;
+      } else {
+        var keys = Object.keys(manifest || {});
+        var rows = [];
+        rows.push('# qbit checkpoint ingest manifest');
+        rows.push('format: pth-fast-v1');
+        for (var i = 0; i < keys.length; i++) rows.push(keys[i] + ': ' + String(manifest[keys[i]]));
+        content = rows.join('\n') + '\n';
+      }
+      var encoded = this.encode(content, profile.language, src, opts);
+      return {
+        profile: profile,
+        source: src,
+        content: encoded.stenoCode || encoded.prefixed || content,
+        map: this.map(content, profile.language, src),
+        meta: encoded.meta || null,
+        steno: encoded.steno || null,
+        stenoMeta: encoded.stenoMeta || null,
+        ts: Date.now()
+      };
+    },
+    decodeCheckpointManifest: function (checkpointContent) {
+      var dec = this.decode(checkpointContent || '');
+      var txt = String(dec.code || '');
+      var out = {};
+      txt.split('\n').forEach(function (line) {
+        var m = line.match(/^([A-Za-z0-9_.-]+):\s*(.*)$/);
+        if (m) out[m[1]] = m[2];
+      });
+      return {
+        profile: this.checkpointProfile(),
+        manifest: out,
+        text: txt,
+        steno: dec.steno || null,
+        ts: Date.now()
+      };
+    },
+    qmdProfile: function () {
+      return {
+        id: 'qmd',
+        version: '0.1',
+        language: 'markdown',
+        extension: '.qmd.qbit',
+        restoreExtension: '.md'
+      };
+    },
+    qjsonProfile: function () {
+      return {
+        id: 'qjson',
+        version: '0.1',
+        language: 'json',
+        extension: '.qjson.qbit',
+        restoreExtension: '.json'
+      };
+    },
+    encodeQmd: function (markdown, opts) {
+      opts = opts || {};
+      var source = opts.source || 'qmd-profile';
+      var encoded = this.encode(markdown || '', 'markdown', source, opts);
+      var payload = encoded.stenoCode || encoded.prefixed || String(markdown || '');
+      return {
+        profile: this.qmdProfile(),
+        source: source,
+        content: payload,
+        map: this.map(markdown || '', 'markdown', source),
+        meta: encoded.meta || null,
+        steno: encoded.steno || null,
+        stenoMeta: encoded.stenoMeta || null,
+        ts: Date.now()
+      };
+    },
+    decodeQmd: function (qmdContent, opts) {
+      opts = opts || {};
+      var ST = _getSteno();
+      var markdown = String(qmdContent || '');
+      var stenoMeta = null;
+      if (ST) {
+        var dec = ST.stenoDecode(markdown);
+        markdown = dec.code;
+        stenoMeta = dec.meta || null;
+      }
+      return {
+        profile: this.qmdProfile(),
+        markdown: markdown,
+        rawCode: markdown,
+        steno: stenoMeta,
+        ts: Date.now()
+      };
+    },
+    encodeQjson: function (jsonText, opts) {
+      opts = opts || {};
+      var source = opts.source || 'qjson-profile';
+      var encoded = this.encode(jsonText || '', 'json', source, opts);
+      var payload = encoded.stenoCode || encoded.prefixed || String(jsonText || '');
+      return {
+        profile: this.qjsonProfile(),
+        source: source,
+        content: payload,
+        map: this.map(jsonText || '', 'json', source),
+        meta: encoded.meta || null,
+        steno: encoded.steno || null,
+        stenoMeta: encoded.stenoMeta || null,
+        ts: Date.now()
+      };
+    },
+    decodeQjson: function (qjsonContent, opts) {
+      opts = opts || {};
+      var ST = _getSteno();
+      var jsonText = String(qjsonContent || '');
+      var stenoMeta = null;
+      if (ST) {
+        var dec = ST.stenoDecode(jsonText);
+        jsonText = dec.code;
+        stenoMeta = dec.meta || null;
+      }
+      var parsed = null;
+      try {
+        parsed = JSON.parse(jsonText);
+      } catch (_e) {
+        parsed = null;
+      }
+      return {
+        profile: this.qjsonProfile(),
+        jsonText: jsonText,
+        parsed: parsed,
+        steno: stenoMeta,
+        ts: Date.now()
+      };
+    },
     preflight: function (content, backend, opts) {
       var PF = _getPreflight();
       if (!PF) return null;
@@ -410,6 +1001,46 @@
     systemDirectory: function () {
       var PF = _getPreflight();
       return PF ? PF.systemDirectory() : null;
+    },
+    packContainer: function (inputPath, opts) {
+      var QPK = _getQpack();
+      if (!QPK || !QPK.packContainer) return { ok: false, error: 'qbit-pack module unavailable in this runtime' };
+      try {
+        var out = QPK.packContainer(inputPath, Object.assign({ silent: true }, opts || {}));
+        return { ok: true, result: out };
+      } catch (e) {
+        return { ok: false, error: String(e && e.message ? e.message : e) };
+      }
+    },
+    unpackContainer: function (containerPath, opts) {
+      var QPK = _getQpack();
+      if (!QPK || !QPK.unpackContainer) return { ok: false, error: 'qbit-pack module unavailable in this runtime' };
+      try {
+        var out = QPK.unpackContainer(containerPath, Object.assign({ silent: true }, opts || {}));
+        return { ok: true, result: out };
+      } catch (e) {
+        return { ok: false, error: String(e && e.message ? e.message : e) };
+      }
+    },
+    verifyContainer: function (containerPath, opts) {
+      var QPK = _getQpack();
+      if (!QPK || !QPK.verifyContainer) return { ok: false, error: 'qbit-pack module unavailable in this runtime' };
+      try {
+        var out = QPK.verifyContainer(containerPath, Object.assign({ silent: true }, opts || {}));
+        return { ok: true, result: out };
+      } catch (e) {
+        return { ok: false, error: String(e && e.message ? e.message : e) };
+      }
+    },
+    inspectContainer: function (containerPath, opts) {
+      var QPK = _getQpack();
+      if (!QPK || !QPK.inspectContainer) return { ok: false, error: 'qbit-pack module unavailable in this runtime' };
+      try {
+        var out = QPK.inspectContainer(containerPath, Object.assign({ silent: true }, opts || {}));
+        return { ok: true, result: out };
+      } catch (e) {
+        return { ok: false, error: String(e && e.message ? e.message : e) };
+      }
     },
     mode: function (m) { if (m) _stenoMode = m; return _stenoMode; },
     analyze: function (content) {
@@ -447,6 +1078,38 @@
     t5Available: function () {
       var t5 = _getT5();
       return t5 && t5.available;
+    },
+    runtimePolicy: function (nextPolicy) {
+      if (nextPolicy && typeof nextPolicy === 'object') {
+        _runtimePolicy = Object.assign({}, _runtimePolicy, nextPolicy);
+      }
+      return Object.assign({}, _runtimePolicy);
+    },
+    runtimeConfidence: function (nextConfidence) {
+      if (nextConfidence && typeof nextConfidence === 'object') {
+        _runtimeConfidence = Object.assign({}, _runtimeConfidence, nextConfidence);
+      }
+      return _runtimeSnapshot();
+    },
+    runtimeProfile: function (profileName) {
+      if (!profileName) return _runtimeConfidence.profile || 'dev';
+      return _setRuntimeProfile(profileName);
+    },
+    runtimeRecordTest: function (passed, meta) {
+      return _recordRuntimeEvidence(!!passed, meta || {});
+    },
+    runtimeEvaluate: function () {
+      return _evaluateRuntimeConfidence();
+    },
+    normalizeLegacy: function (content, language, source, opts) {
+      return _normalizeRuntime(content, language, source, opts);
+    },
+    guardLegacy: function (content, language, source, opts) {
+      var res = _normalizeRuntime(content, language, source, opts);
+      if (res.blocked) {
+        throw new Error((res.warnings && res.warnings.length ? res.warnings[res.warnings.length - 1].message : 'Legacy output blocked') || 'Legacy output blocked');
+      }
+      return res;
     },
     scanEncode: function (cloud, modality, opts) {
       opts = opts || {};
@@ -723,6 +1386,41 @@
         linesPerMs: (lines.length / Math.max(t1 - t0, 0.01)).toFixed(0),
         ts: Date.now()
       };
+    },
+    musicaEngine: function (content, language, source, opts) {
+      return qbitMusicaEngine.fromCode(content, language, source, opts);
+    },
+    musicaDawPayload: function (content, language, source, opts) {
+      var m = qbitMusicaEngine.fromCode(content, language, source, opts);
+      return qbitMusicaEngine.toDawPayload(m, { source: source || 'qbitCodec' });
+    },
+    calibrationLegend: function (content, language, source, opts) {
+      var m = qbitMusicaEngine.fromCode(content, language, source, opts);
+      return qbitMusicaEngine.explainCalibration(m);
+    },
+    ironCompass: function (content, language, source, opts) {
+      var m = qbitMusicaEngine.fromCode(content, language, source, opts);
+      return qbitMusicaEngine.ironCompass(m);
+    },
+    navigationMap: function (content, language, source, opts) {
+      var m = qbitMusicaEngine.fromCode(content, language, source, opts);
+      var ic = qbitMusicaEngine.ironCompass(m);
+      return {
+        calibrationLegend: qbitMusicaEngine.explainCalibration(m),
+        ironCompass: ic,
+        bloch: ic.bloch || qbitMusicaEngine.blochNavigation(m),
+        gisSphere: ic.gisSphere || null,
+        waveform: ic.waveform || null,
+        atmosField: ic.atmosField || null
+      };
+    },
+    sphereVegasPacket: function (content, language, source, opts) {
+      var m = qbitMusicaEngine.fromCode(content, language, source, opts);
+      return qbitMusicaEngine.sphereVegasPacket(m, { source: source || 'qbitCodec' });
+    },
+    publishSphereVegas: function (content, language, source, opts) {
+      var m = qbitMusicaEngine.fromCode(content, language, source, opts);
+      return qbitMusicaEngine.publishSphereVegas(m, { source: source || 'qbitCodec' });
     },
     VOWEL_FORMANTS: {
       a: [730, 1090, 2440], e: [530, 1840, 2480], i: [270, 2290, 3010],
@@ -1089,6 +1787,7 @@
     dacMode: dacMode,
     dacStats: dacStats,
     qbitCodec: qbitCodec,
+    qbit_musica: { Engine: qbitMusicaEngine },
     classifyLine: classifyLine,
     GATE_MAP: GATE_MAP,
     SYM_COLOR: SYM_COLOR,

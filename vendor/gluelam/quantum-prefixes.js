@@ -712,6 +712,32 @@
             output:    /^\s*\|/,
             variable:  /^\s*[\w-]+\s*:/,
         },
+        // ── Expansion: .qbit codec + Contrails language ──
+        qbit: {
+            shebang:   /^\s*n:\s/,
+            comment:   /^\s*\+1:\s/,
+            import:    /^\s*-n:\s/,
+            class:     /^\s*\+0:\s/,
+            function:  /^\s*0:\s/,
+            error:     /^\s*-1:\s/,
+            condition: /^\s*\+n:\s/,
+            loop:      /^\s*\+2:\s/,
+            return:    /^\s*-0:\s/,
+            output:    /^\s*\+3:\s/,
+            variable:  /^\s*1:\s/,
+        },
+        contrail: {
+            comment:   /^\s*[∘○⊤⊥]\s/,
+            import:    /^\s*[←]\s/,
+            class:     /^\s*[⊞]\s/,
+            function:  /^\s*[▶●⊢]\s/,
+            error:     /^\s*[⊥⊟]\s/,
+            condition: /^\s*[◇⇒]\s/,
+            loop:      /^\s*[∀]\s/,
+            return:    /^\s*[→]\s/,
+            output:    /^\s*[⊙]\s/,
+            variable:  /^\s*[□⊗]\s/,
+        },
     };
 
     // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
@@ -832,6 +858,10 @@
         if (/\{\{#?(if|each|unless)\b/m.test(c) || /\{%\s*(if|for|block)\b/m.test(c) || /^\s*\[(system|user|assistant)\]/im.test(c)) return 'prompt';
         // JSON Schema / MCP
         if (/^\s*"inputSchema"/m.test(c) || /^\s*"\$schema"/m.test(c) || (/^\s*"properties"/m.test(c) && /^\s*"type"\s*:\s*"object"/m.test(c))) return 'jsonschema';
+        // .qbit codec (prefix-prefixed lines)
+        if (/^\s*(n:|\+1:|-n:|\+0:|0:|-1:|\+n:|\+2:|-0:|\+3:|1:)\s/m.test(c)) return 'qbit';
+        // Contrails (Unicode concept symbols)
+        if (/^[\u2190-\u2194\u21D4\u2229\u222A\u2282\u2283\u2208\u2261\u2295\u2296\u2297\u2299\u22A0\u22A2\u22A4\u22A5\u25A1\u25C7\u25CB\u25CF\u25B6\u25A0\u03C4\u03C3\u03C0\u2A00]\s/m.test(c) || /^[→←↔⇒⊞⊟∀∃⊤⊥⊢∘⊕⊗□◇○●▶■∩∪⊂⊃∈≡τσπ⊙]/m.test(c)) return 'contrail';
         // MDC (Cursor rules)
         if (/^---\s*\n/m.test(c) && /^\s*(alwaysApply|globs|description)\s*:/m.test(c)) return 'mdc';
         // INI
@@ -1745,53 +1775,32 @@
             // If user has a manual override, use it; otherwise follow system
             var initial = (userOverride === 'yes' && saved) ? saved : systemPref;
 
-            // μ'search shell (mueee.html): uses #mueee-theme-toggle — never inject fixed ☀☾ bar
-            try {
-                if (typeof document !== 'undefined' && document.getElementById('mueee-shell')) {
-                    _ensureThemeChannel();
-                    _applyTheme(initial);
-                    if (root.matchMedia) {
-                        try {
-                            root.matchMedia('(prefers-color-scheme: light)').addEventListener('change', function(e) {
-                                try {
-                                    var override = localStorage.getItem('qp-theme-override');
-                                    if (override !== 'yes') {
-                                        _applyTheme(e.matches ? 'light' : 'dark');
-                                    }
-                                } catch (ex) {}
-                            });
-                        } catch (e) {}
-                    }
-                    return;
-                }
-            } catch (eShell) {}
-            // Iframe / embed chrome: parent shell owns theme UI — skip fixed ☀☾ bar (avoids duplicate + overlap)
-            var embedChrome = false;
-            try {
-                embedChrome = document.documentElement.classList.contains('qp-embed-chrome') || window.parent !== window;
-            } catch (e) {}
-            // search.html (and similar): native #theme-toggle — skip fixed bar so ☀/☾ is not duplicated / mis-colored
-            var nativeThemeToggle = false;
-            try {
-                nativeThemeToggle = !!document.getElementById('theme-toggle');
-            } catch (eNt) {}
-            if (embedChrome || nativeThemeToggle) {
+            // In iframe (e.g. hub): no toggle — hub holds it; listen for qp-theme broadcasts.
+            // uvqbit stands on its own — skip entirely so it keeps its own toggle and theme logic.
+            var inIframe = (typeof window !== 'undefined' && window !== window.top);
+            var isUvqbit = inIframe && /uvqbit\.html/.test((window.location.pathname || '') + (window.location.href || ''));
+            if (isUvqbit) return; // uvqbit: own toggle, own theme
+            if (inIframe) {
                 _ensureThemeChannel();
                 _applyTheme(initial);
-                if (root.matchMedia) {
-                    try {
-                        root.matchMedia('(prefers-color-scheme: light)').addEventListener('change', function(e) {
-                            try {
-                                var override = localStorage.getItem('qp-theme-override');
-                                if (override !== 'yes') {
-                                    _applyTheme(e.matches ? 'light' : 'dark');
-                                }
-                            } catch (ex) {}
-                        });
-                    } catch (e) {}
-                }
+                return; // other iframes: listen for hub, no toggle
+            }
+            // Hub + hub child pages: no QP toggle — hub uses .hub-theme-toggle; children lean on hub lighting
+            var path = (window.location.pathname || '').toLowerCase();
+            var hubChildren = ['ugrad-ai.html','qbit-map.html','qbit-globe.html','history.html','search.html','launcher.html','qbit-prefix-atlas.html','uterm.html','qbit-core-race.html','qbit-globe-earth.html'];
+            if (hubChildren.some(function(p){ return path.indexOf(p) !== -1; })) {
+                _ensureThemeChannel();
+                _applyTheme(initial);
                 return;
             }
+
+            // Global policy: disable built-in side-by-side ☀ ☾ toggle everywhere.
+            // Pages can provide their own single-button control if needed.
+            var existingToggle = document.getElementById('qp-theme-toggle');
+            if (existingToggle && existingToggle.parentNode) existingToggle.parentNode.removeChild(existingToggle);
+            _ensureThemeChannel();
+            _applyTheme(initial);
+            return;
 
             // Create side-by-side ☀ ☾ toggle — top-right, no circle
             _themeToggleEl = document.createElement('div');
@@ -2000,7 +2009,7 @@
         PREFIXES: PREFIXES,
         PREFIX_ANSI: PREFIX_ANSI,
         LANG_PATTERNS: LANG_PATTERNS,
-        VERSION: '11-symbol-v3-59lang',
+        VERSION: '11-symbol-v3-61lang',
 
         // Core
         detectLanguage: detectLanguage,

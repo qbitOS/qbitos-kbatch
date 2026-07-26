@@ -766,7 +766,7 @@ async function loadWorldAxes() {
                   })),
                 }
               : null,
-            streamRails: STREAM_RAILS,
+            streamNote: "use ensureStreamStack()/stairGlyphStream liveIds — not a vanity rail list",
             pathways: full.axes?.pathways
               ? Object.fromEntries(
                   Object.entries(full.axes.pathways).map(([k, v]) => [
@@ -860,18 +860,26 @@ async function mountStairStreamRail(solve) {
   return stream;
 }
 
-function refreshGlyphRailStatus(stream) {
+function refreshGlyphRailStatus(streamOrProbe) {
   const el = $("#glyph-rail-status");
   if (!el) return;
-  const g = stream?.stack?.gluelam || getGluelamStatus();
-  const has = g.has || {};
-  el.innerHTML = STREAM_RAILS.map((r) => {
-    let live = true;
-    if (r === "DAC") live = !!has.dac;
-    else if (r === "Prefixes") live = !!has.prefixes;
-    else if (r === "Gluelam") live = !g.stubs;
-    return `<span class="chip rail-chip ${live ? "is-live" : "is-stub"}">${escapeHtml(r)}</span>`;
-  }).join("");
+  const rails = streamOrProbe?.stack?.rails || streamOrProbe?.rails || null;
+  if (rails && typeof rails === "object") {
+    el.innerHTML = Object.entries(rails)
+      .map(([id, r]) => {
+        const live = !!r.live;
+        const tip = live
+          ? `${r.name || id} · ${JSON.stringify(r.evidence || {}).slice(0, 100)}`
+          : `${r.name || id} · DEAD · ${r.error || "not loaded"}`;
+        return `<span class="chip rail-chip ${live ? "is-live" : "is-dead"}" title="${escapeHtml(tip)}">${escapeHtml(id)}${live ? "" : " ✗"}</span>`;
+      })
+      .join("");
+    return;
+  }
+  // fallback: probe now
+  import("./stair-glyph-stream.js").then(({ probeLiveRails }) => {
+    refreshGlyphRailStatus(probeLiveRails());
+  });
 }
 
 function runGlyphEncode(broadcast = false) {
@@ -904,15 +912,23 @@ function runGlyphEncode(broadcast = false) {
   const pack = result.pack;
   const json = $("#glyph-json");
   if (json) {
+    const probe = getGluelamStatus()?.live || null;
     json.textContent = pretty({
       exemplary: true,
-      rails: STREAM_RAILS,
+      note: "live engines only — probe.liveCount; red chips = not loaded",
       n,
       ones: pack?.ones ?? result.envelope?.ones,
       bits: pack?.bits,
       payloadBytes: pack?.payloadBytes,
       encodedPreview: String(pack?.encoded || "").slice(0, 120) + "…",
-      dac: { source: dac.source, stub: dac.stub, sym: dac.sym, category: dac.category },
+      dac: {
+        live: !!dac.live,
+        engine: dac.engine,
+        source: dac.source,
+        sym: dac.sym,
+        category: dac.category,
+        coverage: dac.coverage,
+      },
       gutter: { sym: gutter.sym, category: gutter.category, source: gutter.source },
       stenoStrip: steno.strip,
       whitespace: {
@@ -923,7 +939,7 @@ function runGlyphEncode(broadcast = false) {
       steno: {
         coins: steno.blank?.coins,
         allotment: steno.allotment,
-        gluelam: steno.gluelam,
+        gluelamSteno: steno.gluelam,
       },
       quantum: {
         bitCount: quantum.bitCount,
@@ -931,7 +947,7 @@ function runGlyphEncode(broadcast = false) {
       },
       ironLine: broadcast ? "published gy-stream + iron-line" : "encode-only",
       broadcast: broadcast ? result.envelope?.type : false,
-      gluelam: getGluelamStatus(),
+      probe,
     });
   }
   if ($("#pipe-input") && pack?.encoded) {
@@ -1434,13 +1450,27 @@ async function init() {
   renderWordView("quantum");
   runPipe();
   runWorldPath();
-  // GlueLam / Quantum Gutter first so DAC·steno rails are live for glyph+stair
+  // Probe real uvspeed engines (script tags in dojo/index.html load vendor first)
   ensureStreamStack()
     .then((s) => {
-      refreshGlyphRailStatus({ stack: s });
+      refreshGlyphRailStatus(s);
+      console.info(
+        "[dojo stream]",
+        "live",
+        s.liveIds,
+        "dead",
+        s.deadIds,
+        "qp",
+        !!window.QuantumPrefixes && !window.QuantumPrefixes.stub,
+        "dac",
+        !!window.QbitDAC && !window.QbitDAC.stub
+      );
       runGlyphEncode(false);
     })
-    .catch(() => runGlyphEncode(false));
+    .catch((e) => {
+      console.warn("[dojo stream] probe failed", e);
+      runGlyphEncode(false);
+    });
   // axes + stair demos + stream rail (non-blocking)
   loadWorldAxes().catch(() => {});
   await loadCorpusStats();

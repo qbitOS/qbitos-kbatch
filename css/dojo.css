@@ -455,9 +455,21 @@
   border-color: color-mix(in srgb, #3fb950 55%, transparent);
   color: #3fb950;
 }
-.rail-chip.is-stub {
-  opacity: 0.55;
+.rail-chip.is-stub,
+.rail-chip.is-dead {
+  opacity: 0.7;
   border-style: dashed;
+  border-color: color-mix(in srgb, #f85149 50%, transparent);
+  color: #f85149;
+}
+.is-dead-txt {
+  color: #f85149;
+  font-weight: 600;
+}
+.stair-prefix-preview {
+  margin: 6px 0 8px;
+  white-space: pre-wrap;
+  word-break: break-word;
 }
 .sense-lang-chip.is-missing {
   opacity: 0.45;

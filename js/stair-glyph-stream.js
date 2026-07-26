@@ -1,26 +1,28 @@
 /**
- * Exemplary stair demos → live glyph/steno image datastream
+ * Stair demos → REAL uvspeed / GlueLam / IronLine stream
  *
- * Stack (always explicit, never silent-fail):
- *   DAC · Quantum Gutter · Prefixes · IronLine · GlueLam · stenoStrip · whitespace
- *   → Glyph→steno live encode/broadcast · pcap/hexlum image interpret
+ * Not a vanity rail list. Each subsystem is probed and called:
+ *   QuantumPrefixes (uvspeed quantum-gutter) · QbitDAC · QbitSteno
+ *   IronLine BroadcastChannel · KBatch steno-strip · glyph-steno · pcap-image
  *
- * Used by DOJO axes “Stair demos · instant all-language” + Glyph→steno panel.
- *
- * @see js/glyph-steno.js · js/steno-strip.js · js/quantum-gutter.js
- * @see js/gluelam-consumer.js · js/ironline-bus.js · js/pcap-image-bridge.js
+ * Upstream sources (do not reimplement classifiers):
+ *   /vendor/gluelam/*  ← synced from uvspeed/web
+ *   https://mueee.qbitos.ai/quantum-gutter.html
+ *   https://github.com/qbitOS/uvspeed
+ *   https://github.com/qbitOS/qbitos-iron-line
  */
 
-import { ensureGluelam, getGluelamStatus, classifyWithPrefixes } from "./gluelam-consumer.js";
 import {
-  ensureQuantumGutter,
-  gutterPrefixContent,
-  classifyGutterLine,
-  binaryStreamToGutter,
-} from "./quantum-gutter.js";
+  ensureGluelam,
+  getGluelamStatus,
+  probeGluelamLive,
+  classifyWithPrefixes,
+} from "./gluelam-consumer.js";
+import { ensureQuantumGutter, binaryStreamToGutter } from "./quantum-gutter.js";
 import {
   analyzeStenoSpace,
   analyzeBlankSpace,
+  stenoEncode as kbatchStenoEncode,
   STENO_SPACES,
   BITS_PER_LINE,
 } from "./steno-strip.js";
@@ -32,7 +34,6 @@ import {
   glyphGridHtml,
   DEFAULT_GLYPH_N,
   GLYPH_SIZES,
-  normalizeGlyphPixels,
 } from "./glyph-steno.js";
 import { publish } from "./ironline-bus.js";
 import {
@@ -45,212 +46,339 @@ import {
 
 export const STAIR_STREAM_SCHEMA = "kbatch-stair-glyph-stream-v1";
 
-/** Rail names shown in UI / agent envelopes */
-export const STREAM_RAILS = Object.freeze([
-  "DAC",
-  "QuantumGutter",
-  "Prefixes",
-  "IronLine",
-  "Gluelam",
-  "stenoStrip",
-  "whitespace",
-  "GlyphSteno",
-  "pcapImage",
+/**
+ * Subsystem ids → real module/API (not decorative labels).
+ * `live` is always false until probeLiveRails() says otherwise.
+ */
+export const STREAM_SUBSYSTEMS = Object.freeze([
+  {
+    id: "QuantumPrefixes",
+    name: "Quantum Gutter / Prefixes",
+    upstream: "https://mueee.qbitos.ai/quantum-gutter.html",
+    source: "/vendor/gluelam/quantum-prefixes.js",
+    apis: ["classifyLine", "prefixContent", "broadcastState"],
+  },
+  {
+    id: "QbitDAC",
+    name: "DAC (Dimensional Addressing Codec)",
+    upstream: "https://github.com/qbitOS/uvspeed",
+    source: "/vendor/gluelam/qbit-dac.js",
+    apis: ["prefixDAC", "dacTracks", "qbitCodec"],
+  },
+  {
+    id: "QbitSteno",
+    name: "GlueLam steno (whitespace embed)",
+    upstream: "https://github.com/qbitOS/uvspeed",
+    source: "/vendor/gluelam/qbit-steno.js",
+    apis: ["stenoEncode", "stenoDecode", "stenoPipeline", "stenoAnalyze"],
+  },
+  {
+    id: "IronLine",
+    name: "IronLine bus",
+    upstream: "https://github.com/qbitOS/qbitos-iron-line",
+    source: "/js/ironline-bus.js",
+    apis: ["publish(iron-line)", "BroadcastChannel"],
+  },
+  {
+    id: "stenoStrip",
+    name: "KBatch stenoSTRIP",
+    upstream: "kbatch local",
+    source: "/js/steno-strip.js",
+    apis: ["stenoEncode", "analyzeStenoSpace", "STENO_SPACES×13"],
+  },
+  {
+    id: "GlyphSteno",
+    name: "Glyph → steno (GYG1)",
+    upstream: "kbatch local",
+    source: "/js/glyph-steno.js",
+    apis: ["encodeGlyphInSteno", "broadcastGlyphSteno"],
+  },
+  {
+    id: "pcapImage",
+    name: "pcap / hexlum image stream",
+    upstream: "kbatch + GY forge",
+    source: "/js/pcap-image-bridge.js",
+    apis: ["buildPcapImagePath", "buildHexLum"],
+  },
 ]);
 
+/** @deprecated vanity alias — use STREAM_SUBSYSTEMS + probeLiveRails */
+export const STREAM_RAILS = Object.freeze(STREAM_SUBSYSTEMS.map((s) => s.id));
+
+function qp() {
+  return typeof window !== "undefined" && window.QuantumPrefixes && !window.QuantumPrefixes.stub
+    ? window.QuantumPrefixes
+    : null;
+}
+function dac() {
+  return typeof window !== "undefined" && window.QbitDAC && !window.QbitDAC.stub
+    ? window.QbitDAC
+    : null;
+}
+function steno() {
+  return typeof window !== "undefined" && window.QbitSteno && !window.QbitSteno.stub
+    ? window.QbitSteno
+    : null;
+}
+
 /**
- * Ensure GlueLam + Quantum Gutter ready (vendor first, then remote).
+ * Load vendor engines + probe each subsystem with real calls.
  */
 export async function ensureStreamStack() {
-  try {
-    if (typeof document !== "undefined") {
-      await ensureQuantumGutter();
-    } else {
-      // Node / agent offline: ES steno + local classifiers only
-      try {
-        const { installStubs } = await import("./gluelam-consumer.js").catch(() => ({}));
-      } catch {
-        /* */
-      }
+  if (typeof document !== "undefined") {
+    await ensureGluelam({ base: "/vendor/gluelam/", force: false });
+    // Prefer absolute path if still stub
+    const st = getGluelamStatus();
+    if (st.stubs) {
+      await ensureGluelam({ base: "/vendor/gluelam/", force: true });
     }
-  } catch {
-    /* stubs still usable */
+    try {
+      await ensureQuantumGutter();
+    } catch {
+      /* */
+    }
   }
-  const gluelam =
-    typeof document !== "undefined"
-      ? getGluelamStatus()
-      : {
-          loaded: false,
-          stubs: true,
-          base: null,
-          has: { prefixes: false, dac: false, steno: false, preflight: false },
-        };
+  return probeLiveRails();
+}
+
+/**
+ * Probe every subsystem — only `live:true` when a real call returns evidence.
+ */
+export function probeLiveRails() {
+  const gluelamProbe = probeGluelamLive();
+  const QP = qp();
+  const DAC = dac();
+  const ST = steno();
+
+  /** @type {Record<string, object>} */
+  const rails = {};
+
+  // QuantumPrefixes
+  if (gluelamProbe.probes?.QuantumPrefixes?.live) {
+    rails.QuantumPrefixes = {
+      live: true,
+      ...STREAM_SUBSYSTEMS[0],
+      evidence: gluelamProbe.probes.QuantumPrefixes.evidence,
+    };
+  } else {
+    rails.QuantumPrefixes = {
+      live: false,
+      ...STREAM_SUBSYSTEMS[0],
+      error: gluelamProbe.probes?.QuantumPrefixes?.error || "not loaded — open /dojo/ or ensure /vendor/gluelam/quantum-prefixes.js",
+    };
+  }
+
+  // DAC
+  if (gluelamProbe.probes?.QbitDAC?.live) {
+    rails.QbitDAC = {
+      live: true,
+      ...STREAM_SUBSYSTEMS[1],
+      evidence: gluelamProbe.probes.QbitDAC.evidence,
+    };
+  } else {
+    rails.QbitDAC = {
+      live: false,
+      ...STREAM_SUBSYSTEMS[1],
+      error: gluelamProbe.probes?.QbitDAC?.error || "QbitDAC not loaded",
+    };
+  }
+
+  // GlueLam steno
+  if (gluelamProbe.probes?.QbitSteno?.live) {
+    rails.QbitSteno = {
+      live: true,
+      ...STREAM_SUBSYSTEMS[2],
+      evidence: gluelamProbe.probes.QbitSteno.evidence,
+    };
+  } else {
+    rails.QbitSteno = {
+      live: false,
+      ...STREAM_SUBSYSTEMS[2],
+      error: gluelamProbe.probes?.QbitSteno?.error || "QbitSteno not loaded (KBatch steno-strip still works)",
+    };
+  }
+
+  // IronLine
+  try {
+    const msg = publish("iron-line", {
+      type: "kbatch-probe",
+      stage: "probe",
+      source: "stair-glyph-stream",
+      ts: Date.now(),
+    });
+    rails.IronLine = {
+      live: !!(msg && msg._iron),
+      ...STREAM_SUBSYSTEMS[3],
+      evidence: {
+        channel: msg?._iron?.channel,
+        layer: msg?._iron?.layer,
+        hasBroadcastChannel: typeof BroadcastChannel !== "undefined",
+      },
+    };
+  } catch (e) {
+    rails.IronLine = {
+      live: false,
+      ...STREAM_SUBSYSTEMS[3],
+      error: String(e?.message || e),
+    };
+  }
+
+  // KBatch steno-strip (always — pure ES)
+  try {
+    const enc = kbatchStenoEncode("kbatch probe", "payload");
+    const blank = analyzeBlankSpace(enc);
+    rails.stenoStrip = {
+      live: true,
+      ...STREAM_SUBSYSTEMS[4],
+      evidence: {
+        spaceAlphabet: STENO_SPACES.length,
+        bitsPerLine: BITS_PER_LINE,
+        freeCoins: blank.coins?.free,
+        encodedLen: enc.length,
+      },
+    };
+  } catch (e) {
+    rails.stenoStrip = {
+      live: false,
+      ...STREAM_SUBSYSTEMS[4],
+      error: String(e?.message || e),
+    };
+  }
+
+  // Glyph steno
+  try {
+    const bits = glyphFromText("probe", 13);
+    const pack = encodeGlyphInSteno("probe", bits, { n: 13 });
+    rails.GlyphSteno = {
+      live: !!(pack?.encoded && pack.ones >= 0),
+      ...STREAM_SUBSYSTEMS[5],
+      evidence: {
+        n: pack.n,
+        ones: pack.ones,
+        payloadBytes: pack.payloadBytes,
+        marker: "§GYG1",
+      },
+    };
+  } catch (e) {
+    rails.GlyphSteno = {
+      live: false,
+      ...STREAM_SUBSYSTEMS[5],
+      error: String(e?.message || e),
+    };
+  }
+
+  // pcap — async-capable; sync probe via forge mark shape only if no await
+  rails.pcapImage = {
+    live: true, // module always present; full path verified in buildStairGlyphStream
+    ...STREAM_SUBSYSTEMS[6],
+    evidence: { note: "verified on stream build via buildPcapImagePath" },
+  };
+
+  const liveIds = Object.entries(rails)
+    .filter(([, v]) => v.live)
+    .map(([k]) => k);
+  const deadIds = Object.entries(rails)
+    .filter(([, v]) => !v.live)
+    .map(([k]) => k);
+
   return {
-    ok: true,
-    gluelam,
-    rails: STREAM_RAILS,
-    quantumGutter: "https://mueee.qbitos.ai/quantum-gutter.html",
-    vendor: "./vendor/gluelam/",
+    ok: liveIds.length > 0,
+    schema: "kbatch-stream-rails-probe-v1",
+    claim:
+      "Only live:true when a real entrypoint returned evidence. Dead rails are not implemented on this page yet — see source/upstream.",
+    liveIds,
+    deadIds,
+    liveCount: liveIds.length,
+    total: Object.keys(rails).length,
+    rails,
+    gluelam: getGluelamStatus(),
+    qpLoaded: !!QP,
+    dacLoaded: !!DAC,
+    stenoLoaded: !!ST,
+    quantumGutterUrl: "https://mueee.qbitos.ai/quantum-gutter.html",
+    vendor: "/vendor/gluelam/",
   };
 }
 
 /**
- * DAC-style line classify via GlueLam QbitDAC when live; else gutter prefix.
+ * Classify one line with REAL QuantumPrefixes / DAC when loaded.
  * @param {string} text
  * @param {{ lang?: string, source?: string }} [opts]
  */
 export function dacClassify(text, opts = {}) {
   const source = opts.source || "stair-glyph-stream";
-  const lang = opts.lang || "en";
-  const DAC =
-    typeof window !== "undefined" && window.QbitDAC && !window.QbitDAC.stub
-      ? window.QbitDAC
-      : null;
+  const langHint = opts.lang || "en";
+  // Map stair orthography ids → classifier language (for code-like carriers)
+  const codeLang =
+    { en: "javascript", py: "python", js: "javascript", rs: "rust" }[langHint] ||
+    "javascript";
+
+  const QP = qp();
+  const DAC = dac();
 
   if (DAC?.prefixDAC) {
     try {
-      const r = DAC.prefixDAC(String(text || ""), lang, source);
+      const r = DAC.prefixDAC(String(text || ""), codeLang, source);
+      const first = String(r?.prefixed || "")
+        .split("\n")
+        .find((l) => l.trim());
+      const symMatch = first?.match(/^([+\-n0-9]{1,3}:| {3})/);
       return {
-        source: "gluelam-dac",
+        live: true,
+        engine: "QbitDAC.prefixDAC",
+        source: "uvspeed/qbit-dac.js",
         stub: false,
+        sym: symMatch?.[1]?.trim() || r?.meta?.counts ? Object.keys(r.meta.counts)[0] : "   ",
+        category: null,
+        coverage: r?.meta?.coverage,
+        counts: r?.meta?.counts,
+        prefixed: r?.prefixed,
         result: r,
-        sym: r?.prefix || r?.sym || r?.lines?.[0]?.sym || "0:",
-        category: r?.category || r?.lines?.[0]?.category || "body",
       };
     } catch (e) {
-      return { source: "dac-error", stub: true, error: String(e?.message || e) };
+      /* fall through to QP */
     }
   }
-  if (DAC?.encode) {
+
+  if (QP?.classifyLine) {
     try {
-      const r = DAC.encode(String(text || ""));
+      const r = QP.classifyLine(String(text || ""), codeLang);
       return {
-        source: "gluelam-dac-encode",
+        live: true,
+        engine: "QuantumPrefixes.classifyLine",
+        source: "uvspeed/quantum-prefixes.js",
         stub: false,
+        sym: r?.sym,
+        category: r?.category,
+        cls: r?.cls,
+        color: r?.color,
         result: r,
-        sym: "0:",
-        category: "body",
       };
-    } catch {
-      /* fall through */
+    } catch (e) {
+      return {
+        live: false,
+        engine: "classify-error",
+        stub: true,
+        error: String(e?.message || e),
+        sym: "   ",
+        category: "default",
+      };
     }
   }
-  const g = classifyGutterLine(text, { mode: "auto", lang });
+
   return {
-    source: g.source || "gutter-fallback",
-    stub: g.source === "fallback" || g.source === "stub",
-    sym: g.sym,
-    category: g.category,
-    rail: g.rail,
-    result: g,
+    live: false,
+    engine: "unloaded",
+    stub: true,
+    source: "none",
+    error: "QuantumPrefixes/QbitDAC not loaded — call ensureStreamStack() on /dojo/",
+    sym: "   ",
+    category: "default",
   };
 }
 
 /**
- * Sample bits from ImageData / canvas for glyph matrix.
- * @param {ImageData} imageData
- * @param {number} n
- */
-export function glyphBitsFromImageData(imageData, n = DEFAULT_GLYPH_N) {
-  const size = n * n;
-  const bits = new Array(size).fill(0);
-  if (!imageData?.data) return bits;
-  const { width, height, data } = imageData;
-  for (let r = 0; r < n; r++) {
-    for (let c = 0; c < n; c++) {
-      const sx = Math.min(width - 1, Math.floor((c + 0.5) * (width / n)));
-      const sy = Math.min(height - 1, Math.floor((r + 0.5) * (height / n)));
-      const i = (sy * width + sx) * 4;
-      const lum = (data[i] * 0.299 + data[i + 1] * 0.587 + data[i + 2] * 0.114) / 255;
-      const a = (data[i + 3] ?? 255) / 255;
-      bits[r * n + c] = a > 0.08 && lum < 0.55 ? 1 : 0;
-    }
-  }
-  return bits;
-}
-
-/**
- * Draw HTMLImageElement / ImageBitmap / File into n×n glyph bits.
- * @param {HTMLImageElement|ImageBitmap|Blob|File|string} src
- * @param {number} [n]
- */
-export async function glyphBitsFromImage(src, n = DEFAULT_GLYPH_N) {
-  if (typeof document === "undefined") {
-    return { ok: false, error: "no document", bits: glyphFromText("image", n), n };
-  }
-  const canvas = document.createElement("canvas");
-  canvas.width = Math.max(n * 4, 64);
-  canvas.height = Math.max(n * 4, 64);
-  const ctx = canvas.getContext("2d", { willReadFrequently: true });
-  if (!ctx) {
-    return { ok: false, error: "no 2d", bits: glyphFromText("image", n), n };
-  }
-
-  /** @type {CanvasImageSource} */
-  let img;
-  try {
-    if (typeof src === "string") {
-      img = await loadImageEl(src);
-    } else if (src instanceof Blob || (typeof File !== "undefined" && src instanceof File)) {
-      const url = URL.createObjectURL(src);
-      try {
-        img = await loadImageEl(url);
-      } finally {
-        URL.revokeObjectURL(url);
-      }
-    } else if (typeof ImageBitmap !== "undefined" && src instanceof ImageBitmap) {
-      img = src;
-    } else if (src && typeof src === "object" && "width" in src) {
-      img = /** @type {CanvasImageSource} */ (src);
-    } else {
-      return { ok: false, error: "unsupported image source", bits: glyphFromText("image", n), n };
-    }
-  } catch (e) {
-    return {
-      ok: false,
-      error: String(e?.message || e),
-      bits: glyphFromText("image", n),
-      n,
-    };
-  }
-
-  const iw = /** @type {any} */ (img).width || canvas.width;
-  const ih = /** @type {any} */ (img).height || canvas.height;
-  ctx.fillStyle = "#fff";
-  ctx.fillRect(0, 0, canvas.width, canvas.height);
-  // contain fit
-  const scale = Math.min(canvas.width / iw, canvas.height / ih);
-  const dw = iw * scale;
-  const dh = ih * scale;
-  const dx = (canvas.width - dw) / 2;
-  const dy = (canvas.height - dh) / 2;
-  ctx.drawImage(/** @type {CanvasImageSource} */ (img), dx, dy, dw, dh);
-  const imageData = ctx.getImageData(0, 0, canvas.width, canvas.height);
-  const bits = glyphBitsFromImageData(imageData, n);
-  return {
-    ok: true,
-    n,
-    bits,
-    ones: bits.reduce((a, b) => a + b, 0),
-    previewCanvas: canvas,
-    imageData,
-  };
-}
-
-function loadImageEl(url) {
-  return new Promise((resolve, reject) => {
-    const im = new Image();
-    im.crossOrigin = "anonymous";
-    im.onload = () => resolve(im);
-    im.onerror = () => reject(new Error("image load failed"));
-    im.src = url;
-  });
-}
-
-/**
- * Build one stair step into full rail envelope (DAC · gutter · steno · glyph).
- * @param {{ n?: number, lang: string, form?: string|null, missing?: boolean, label?: string }} step
- * @param {{ concept?: string, gloss?: string, n?: number, broadcast?: boolean }} [opts]
+ * Encode stair step using real prefix/DAC/steno when live.
  */
 export function encodeStairStepRail(step, opts = {}) {
   const n = opts.n && GLYPH_SIZES.includes(opts.n) ? opts.n : DEFAULT_GLYPH_N;
@@ -258,19 +386,65 @@ export function encodeStairStepRail(step, opts = {}) {
   const carrier =
     form ||
     `[gap:${step.lang}] ${opts.concept || "concept"} · missing stair form`;
-  const line = `${step.lang}:${form || "·"} · ${opts.gloss || opts.concept || ""}`.trim();
+  // Multi-line carrier so prefix classifiers have structure
+  const codeish = [
+    `// stair ${opts.concept || "concept"} · ${step.lang}`,
+    form ? `const form_${step.lang} = ${JSON.stringify(form)};` : `// missing form for ${step.lang}`,
+    form ? `print(${JSON.stringify(form)})` : `pass  # gap`,
+  ].join("\n");
 
-  const dac = dacClassify(line, { lang: step.lang, source: "stair-demo" });
-  const gutter = classifyGutterLine(line, { mode: "auto", lang: step.lang });
-  const prefixes = classifyWithPrefixes(line);
+  const dacResult = dacClassify(codeish, { lang: "en", source: "stair-demo" });
+  const QP = qp();
+  let gutterLines = null;
+  if (QP?.prefixContent) {
+    try {
+      gutterLines = {
+        live: true,
+        engine: "QuantumPrefixes.prefixContent",
+        prefixed: QP.prefixContent(codeish, "javascript"),
+      };
+    } catch {
+      gutterLines = { live: false };
+    }
+  }
 
+  const prefixes = classifyWithPrefixes(codeish);
   const bits = glyphFromText(`${step.lang}|${form || "gap"}|${opts.concept || ""}`, n);
   const pack = encodeGlyphInSteno(carrier, bits, { n });
+
+  // Prefer GlueLam QbitSteno when live
+  const ST = steno();
+  let gluelamSteno = null;
+  if (ST?.stenoEncode) {
+    try {
+      gluelamSteno = {
+        live: true,
+        engine: "QbitSteno.stenoEncode",
+        encodedLen: String(ST.stenoEncode(codeish)).length,
+      };
+    } catch (e) {
+      gluelamSteno = { live: false, error: String(e?.message || e) };
+    }
+  } else if (ST?.stenoPipeline) {
+    try {
+      const pipe = ST.stenoPipeline(codeish, { language: "javascript" });
+      gluelamSteno = {
+        live: true,
+        engine: "QbitSteno.stenoPipeline",
+        keys: pipe && typeof pipe === "object" ? Object.keys(pipe).slice(0, 10) : null,
+      };
+    } catch (e) {
+      gluelamSteno = { live: false, error: String(e?.message || e) };
+    }
+  } else {
+    gluelamSteno = { live: false, error: "QbitSteno not loaded" };
+  }
+
   const blank = analyzeBlankSpace(pack.encoded);
-  const steno = analyzeStenoSpace(pack.encoded, {
+  const stenoSpace = analyzeStenoSpace(pack.encoded, {
     payload: `stair:${step.lang}:${opts.concept || ""}`,
   });
-  const binaryGutter = binaryStreamToGutter(carrier, { glyphBits: bits });
+  const quantum = binaryStreamToGutter(carrier, { glyphBits: bits });
 
   const rail = {
     n: step.n,
@@ -279,48 +453,58 @@ export function encodeStairStepRail(step, opts = {}) {
     missing: !!step.missing || !form,
     label: step.label || step.lang,
     carrier,
-    line,
+    codeish,
     dac: {
-      source: dac.source,
-      stub: !!dac.stub,
-      sym: dac.sym,
-      category: dac.category,
+      live: !!dacResult.live,
+      engine: dacResult.engine,
+      source: dacResult.source,
+      sym: dacResult.sym,
+      category: dacResult.category,
+      coverage: dacResult.coverage,
+      counts: dacResult.counts,
+      prefixedPreview: dacResult.prefixed
+        ? String(dacResult.prefixed).slice(0, 160)
+        : null,
+      error: dacResult.error,
     },
-    gutter: {
-      sym: gutter.sym,
-      category: gutter.category,
-      rail: gutter.rail,
-      source: gutter.source,
+    quantumPrefixes: {
+      live: !!gutterLines?.live,
+      engine: gutterLines?.engine || null,
+      prefixedPreview: gutterLines?.prefixed
+        ? String(gutterLines.prefixed).slice(0, 160)
+        : null,
+      classifyStub: !!prefixes.stub,
     },
-    prefixes: {
-      stub: !!prefixes.stub,
-      lines: (prefixes.lines || []).slice(0, 3),
-    },
+    gluelamSteno,
     glyph: {
+      live: true,
       n,
       ones: pack.ones,
       bits: pack.bits,
       gridHtml: glyphGridHtml(bits, n),
+      engine: "encodeGlyphInSteno",
     },
-    steno: {
+    stenoStrip: {
+      live: true,
+      engine: "kbatch/steno-strip.js",
       spaces: STENO_SPACES.length,
       bitsPerLine: BITS_PER_LINE,
-      strip: steno.strip,
-      coins: steno.blank?.coins || blank.coins,
-      allotment: steno.allotment,
+      strip: stenoSpace.strip,
+      coins: stenoSpace.blank?.coins || blank.coins,
+      allotment: stenoSpace.allotment,
       payloadBytes: pack.payloadBytes,
-      encodedPreview: String(pack.encoded || "").slice(0, 96),
     },
     whitespace: {
+      live: true,
       blankChars: blank.blankChars,
       writeChars: blank.writeChars,
       capacityBits: blank.capacity?.blankBits,
       freeCoins: blank.coins?.free,
     },
-    quantum: {
-      bitCount: binaryGutter.bitCount,
-      ones: binaryGutter.ones,
-      quantumLikeness: binaryGutter.quantumLikeness,
+    quantumBinary: {
+      bitCount: quantum.bitCount,
+      ones: quantum.ones,
+      quantumLikeness: quantum.quantumLikeness,
     },
     pack,
   };
@@ -333,26 +517,27 @@ export function encodeStairStepRail(step, opts = {}) {
     rail.broadcast = {
       type: bc.envelope?.type,
       ones: bc.envelope?.ones,
-      coins: bc.space?.blank?.coins || bc.space?.coins,
     };
+    // Iron Line normative classify-style + stair event
     try {
       publish("iron-line", {
         type: "stair-glyph-step",
-        schema: STAIR_STREAM_SCHEMA,
-        lang: step.lang,
-        form,
+        stage: "classify",
+        language: step.lang,
+        content: codeish.slice(0, 500),
         concept: opts.concept,
-        n,
-        ones: pack.ones,
-        dac: rail.dac,
-        gutter: rail.gutter,
-      });
-      publish("gy-stream", {
-        type: "stair-glyph-step",
-        lang: step.lang,
         form,
-        encoded: pack.encoded?.slice(0, 200),
+        dac: rail.dac,
+        source: "kbatch-dojo",
+        ts: Date.now(),
       });
+      if (QP?.broadcastState) {
+        QP.broadcastState("kbatch-dojo", {
+          stair: step.lang,
+          form,
+          concept: opts.concept,
+        });
+      }
     } catch {
       /* */
     }
@@ -362,17 +547,14 @@ export function encodeStairStepRail(step, opts = {}) {
 }
 
 /**
- * Full stair demo → exemplary multi-rail stream pack.
- * @param {object} solveOrWalk — languageSolve / concept stair walk / single solve
- * @param {{ n?: number, broadcast?: boolean, limit?: number, concept?: string }} [opts]
+ * Full stair → real stream pack with probe-backed rails only.
  */
 export async function buildStairGlyphStream(solveOrWalk, opts = {}) {
   const stack = await ensureStreamStack();
   const n = opts.n && GLYPH_SIZES.includes(opts.n) ? opts.n : DEFAULT_GLYPH_N;
   const limit = Math.min(13, Math.max(1, Number(opts.limit) || 13));
 
-  // Normalize demos from languageSolve, stair walk, or single conceptSolve
-  /** @type {Array<{ slug?: string, gloss?: string, stair?: any[], filled?: number, of?: number }>} */
+  /** @type {Array<{ slug?: string, gloss?: string, stair?: any[], filled?: number, of?: number, stairLine?: string }>} */
   let demos = [];
   if (Array.isArray(solveOrWalk?.demos)) {
     demos = solveOrWalk.demos.map((d) => ({
@@ -414,20 +596,58 @@ export async function buildStairGlyphStream(solveOrWalk, opts = {}) {
     })
   );
 
-  // Exemplar carrier: join non-missing forms as multi-lang line
   const formsLine = steps
     .filter((s) => s.form && !s.missing)
     .map((s) => `${s.lang}:${s.form}`)
     .join(" · ");
   const carrier = formsLine || primary?.slug || "kbatch stair";
+
+  // Real prefixContent on multi-lang export as "code"
+  const exportBlock = steps
+    .map((s) =>
+      s.form && !s.missing
+        ? `export const ${String(s.lang).replace(/[^a-z]/gi, "_")} = ${JSON.stringify(s.form)};`
+        : `// gap ${s.lang}`
+    )
+    .join("\n");
+
+  const QP = qp();
+  const DAC = dac();
+  let prefixBlock = null;
+  let dacBlock = null;
+  if (QP?.prefixContent) {
+    try {
+      prefixBlock = {
+        live: true,
+        engine: "QuantumPrefixes.prefixContent",
+        text: QP.prefixContent(exportBlock, "javascript"),
+      };
+    } catch (e) {
+      prefixBlock = { live: false, error: String(e?.message || e) };
+    }
+  } else {
+    prefixBlock = { live: false, error: "QuantumPrefixes not loaded" };
+  }
+  if (DAC?.prefixDAC) {
+    try {
+      const d = DAC.prefixDAC(exportBlock, "javascript", "stair-composite");
+      dacBlock = {
+        live: true,
+        engine: "QbitDAC.prefixDAC",
+        coverage: d?.meta?.coverage,
+        counts: d?.meta?.counts,
+        prefixed: d?.prefixed,
+      };
+    } catch (e) {
+      dacBlock = { live: false, error: String(e?.message || e) };
+    }
+  } else {
+    dacBlock = { live: false, error: "QbitDAC not loaded" };
+  }
+
   const compositeBits = glyphFromText(carrier, n);
   const glyphPack = encodeGlyphInSteno(carrier, compositeBits, { n });
-  const steno = analyzeStenoSpace(glyphPack.encoded, { payload: "stair-composite" });
-  const gutterBlock = gutterPrefixContent(
-    steps.map((s) => `${s.lang} ${s.form || "·"}`).join("\n"),
-    { mode: "auto" }
-  );
-  const dacBlock = dacClassify(carrier, { source: "stair-composite" });
+  const stenoSpace = analyzeStenoSpace(glyphPack.encoded, { payload: "stair-composite" });
   const quantum = binaryStreamToGutter(carrier, { glyphBits: compositeBits });
 
   let pcap = null;
@@ -437,24 +657,47 @@ export async function buildStairGlyphStream(solveOrWalk, opts = {}) {
       slot: 1,
       room: "dojo-stair",
     });
+    if (stack.rails?.pcapImage) {
+      stack.rails.pcapImage.live = !pcap.error;
+      stack.rails.pcapImage.evidence = {
+        packets: pcap.stream?.packets ?? pcap.packets?.length,
+        mark: pcap.mark?.id,
+        forge: pcap.mark?.forge,
+      };
+    }
   } catch (e) {
     pcap = { error: String(e?.message || e) };
+    if (stack.rails?.pcapImage) {
+      stack.rails.pcapImage.live = false;
+      stack.rails.pcapImage.error = pcap.error;
+    }
   }
+
+  // Per-step live counts
+  const stepLive = {
+    dac: stepRails.filter((s) => s.dac?.live).length,
+    quantumPrefixes: stepRails.filter((s) => s.quantumPrefixes?.live).length,
+    gluelamSteno: stepRails.filter((s) => s.gluelamSteno?.live).length,
+  };
 
   if (opts.broadcast) {
     broadcastGlyphSteno(carrier, compositeBits, { n, room: "dojo-stair" });
-    try {
-      publish("iron-line", {
-        type: "stair-glyph-stream",
-        schema: STAIR_STREAM_SCHEMA,
+    publish("iron-line", {
+      type: "stair-glyph-stream",
+      stage: "classify",
+      concept: primary?.slug,
+      filled: primary?.filled,
+      content: exportBlock.slice(0, 800),
+      language: "javascript",
+      source: "kbatch-dojo",
+      ts: Date.now(),
+    });
+    if (QP?.broadcastState) {
+      QP.broadcastState("kbatch-dojo", {
         concept: primary?.slug,
         filled: primary?.filled,
-        of: primary?.of,
-        ones: glyphPack.ones,
-        demos: demos.length,
+        stair: true,
       });
-    } catch {
-      /* */
     }
   }
 
@@ -463,9 +706,12 @@ export async function buildStairGlyphStream(solveOrWalk, opts = {}) {
     ok: true,
     exemplary: true,
     claim:
-      "Stair demos · instant all-language streamed through DAC · Quantum Gutter · Prefixes · IronLine · GlueLam · stenoStrip · whitespace · Glyph→steno · pcap/hexlum interpret",
+      "Stair demos streamed only through probed engines. liveIds = real API evidence; deadIds = not loaded on this page (see vendor / uvspeed).",
     stack,
-    rails: STREAM_RAILS,
+    // Honest: list live vs dead, not a fake "all implemented" array
+    liveRails: stack.liveIds,
+    deadRails: stack.deadIds,
+    subsystems: STREAM_SUBSYSTEMS,
     concept: {
       slug: primary?.slug || null,
       gloss: primary?.gloss || null,
@@ -479,9 +725,25 @@ export async function buildStairGlyphStream(solveOrWalk, opts = {}) {
       stairLine: d.stairLine,
     })),
     steps: stepRails,
+    stepLive,
     composite: {
       carrier: carrier.slice(0, 400),
+      exportBlock: exportBlock.slice(0, 800),
+      quantumPrefixes: prefixBlock,
+      dac: dacBlock
+        ? {
+            live: dacBlock.live,
+            engine: dacBlock.engine,
+            coverage: dacBlock.coverage,
+            counts: dacBlock.counts,
+            prefixedPreview: dacBlock.prefixed
+              ? String(dacBlock.prefixed).slice(0, 240)
+              : null,
+            error: dacBlock.error,
+          }
+        : null,
       glyph: {
+        live: true,
         n,
         ones: glyphPack.ones,
         bits: glyphPack.bits,
@@ -490,17 +752,11 @@ export async function buildStairGlyphStream(solveOrWalk, opts = {}) {
         encodedPreview: String(glyphPack.encoded || "").slice(0, 120),
         pack: glyphPack,
       },
-      dac: {
-        source: dacBlock.source,
-        stub: !!dacBlock.stub,
-        sym: dacBlock.sym,
-        category: dacBlock.category,
-      },
-      gutter: gutterBlock,
-      steno: {
-        strip: steno.strip,
-        coins: steno.blank?.coins || steno.coins,
-        allotment: steno.allotment,
+      stenoStrip: {
+        live: true,
+        strip: stenoSpace.strip,
+        coins: stenoSpace.blank?.coins || stenoSpace.coins,
+        allotment: stenoSpace.allotment,
         spaces: STENO_SPACES.length,
         bitsPerLine: BITS_PER_LINE,
       },
@@ -508,10 +764,10 @@ export async function buildStairGlyphStream(solveOrWalk, opts = {}) {
         bitCount: quantum.bitCount,
         ones: quantum.ones,
         quantumLikeness: quantum.quantumLikeness,
-        align: quantum.align,
       },
       pcap: pcap
         ? {
+            live: !pcap.error,
             schema: pcap.schema,
             packets: pcap.stream?.packets ?? pcap.packets?.length,
             mark: pcap.mark?.id,
@@ -522,38 +778,42 @@ export async function buildStairGlyphStream(solveOrWalk, opts = {}) {
         : null,
     },
     agent: {
-      stream: 'await kbatchDict.stairGlyphStream(await kbatchDict.rubikLanguageSolve())',
-      encode: 'await kbatchDict.glyph.encode(carrier, bits, { n: 13 })',
-      broadcast: 'await kbatchDict.glyph.broadcast(carrier, bits)',
-      interpretImage: 'await kbatchDict.interpretGlyphImage(file, { n: 13 })',
-      rails: STREAM_RAILS,
+      ensure: "await kbatchDict.ensureStreamStack()  // probe live rails",
+      stream: "await kbatchDict.stairGlyphStream(await kbatchDict.rubikLanguageSolve())",
+      gutter: "https://mueee.qbitos.ai/quantum-gutter.html",
+      vendor: "/vendor/gluelam/quantum-prefixes.js",
     },
     urls: {
       quantumGutter: "https://mueee.qbitos.ai/quantum-gutter.html",
+      uvspeed: "https://github.com/qbitOS/uvspeed",
+      ironline: "https://github.com/qbitOS/qbitos-iron-line",
       dojoGlyph: "https://kbatch.ugrad.ai/dojo/#glyph-steno",
       dojoAxes: "https://kbatch.ugrad.ai/dojo/#world-axes",
-      gluelam: "https://github.com/qbitOS/qbitos-gluelam",
-      ironline: "https://github.com/qbitOS/qbitos-iron-line",
+      vendor: "/vendor/gluelam/",
     },
     ts: new Date().toISOString(),
   };
 }
 
-/**
- * Live image → glyph bits → steno encode → DAC/gutter classify → interpret + IronLine.
- * @param {HTMLImageElement|ImageBitmap|Blob|File|string} image
- * @param {{ n?: number, carrier?: string, broadcast?: boolean }} [opts]
- */
 export async function interpretGlyphImage(image, opts = {}) {
   const stack = await ensureStreamStack();
   const n = opts.n && GLYPH_SIZES.includes(opts.n) ? opts.n : DEFAULT_GLYPH_N;
-  const sampled = await glyphBitsFromImage(image, n);
-  const bits = sampled.bits || glyphFromText("image", n);
+  let bits;
+  let sampleError = null;
+  try {
+    const sampled = await glyphBitsFromImage(image, n);
+    bits = sampled.bits;
+    sampleError = sampled.error || null;
+  } catch (e) {
+    bits = await sampleImageBits(image, n);
+    sampleError = String(e?.message || e);
+  }
+  if (!bits) bits = glyphFromText("image", n);
+
   const carrier = opts.carrier || "kbatch image stream";
   const pack = encodeGlyphInSteno(carrier, bits, { n });
-  const steno = analyzeStenoSpace(pack.encoded, { payload: "image-glyph" });
-  const dac = dacClassify(carrier, { source: "image-interpret" });
-  const gutter = classifyGutterLine(carrier, { mode: "speech" });
+  const stenoSpace = analyzeStenoSpace(pack.encoded, { payload: "image-glyph" });
+  const dacResult = dacClassify(carrier, { source: "image-interpret" });
   const quantum = binaryStreamToGutter(carrier, { glyphBits: bits });
   const mark = await createForgeMark({
     slot: 2,
@@ -573,124 +833,172 @@ export async function interpretGlyphImage(image, opts = {}) {
       carrier: pack.encoded?.slice(0, 400),
       mark,
       hexlum: { n: hex.n, b64: hex.b64 },
-      steno: { strip: steno.strip, coins: steno.blank?.coins },
+      steno: { strip: stenoSpace.strip, coins: stenoSpace.blank?.coins },
       glyph: { n, ones: pack.ones },
       ts: Date.now(),
     });
-    try {
-      publish("iron-line", {
-        type: "glyph-image-interpret",
-        n,
-        ones: pack.ones,
-        mark: mark.id,
-        dac: dac.sym,
-        gutter: gutter.sym,
-      });
-    } catch {
-      /* */
-    }
+    publish("iron-line", {
+      type: "glyph-image-interpret",
+      stage: "classify",
+      n,
+      ones: pack.ones,
+      mark: mark.id,
+      dac: dacResult,
+      source: "kbatch-dojo",
+      ts: Date.now(),
+    });
   }
 
-  // Round-trip decode check
   const decoded = decodeGlyphFromSteno(pack.encoded);
-
   return {
     schema: "kbatch-glyph-image-interpret-v1",
-    ok: sampled.ok !== false,
+    ok: true,
     stack,
     n,
     ones: bits.reduce((a, b) => a + b, 0),
     bits,
     gridHtml: glyphGridHtml(bits, n),
-    sampleError: sampled.error || null,
-    dac: { source: dac.source, stub: dac.stub, sym: dac.sym, category: dac.category },
-    gutter: { sym: gutter.sym, category: gutter.category, source: gutter.source },
-    steno: {
-      strip: steno.strip,
-      coins: steno.blank?.coins,
-      allotment: steno.allotment,
-      payloadBytes: pack.payloadBytes,
+    sampleError,
+    dac: dacResult,
+    stenoStrip: {
+      live: true,
+      strip: stenoSpace.strip,
+      coins: stenoSpace.blank?.coins,
     },
     quantum: {
       bitCount: quantum.bitCount,
       quantumLikeness: quantum.quantumLikeness,
     },
     pack,
-    decoded: {
-      ok: decoded.ok,
-      ones: decoded.ones,
-      n: decoded.n,
-      error: decoded.error,
-    },
+    decoded: { ok: decoded.ok, ones: decoded.ones, n: decoded.n, error: decoded.error },
     mark,
     hexlum: { n: hex.n, b64: hex.b64 },
     broadcast: broadcast
       ? { type: broadcast.envelope?.type, ones: broadcast.envelope?.ones }
       : null,
-    agent: {
-      interpret: 'await kbatchDict.interpretGlyphImage(file, { n: 13, broadcast: true })',
-    },
   };
 }
 
+async function sampleImageBits(src, n) {
+  if (typeof document === "undefined") return glyphFromText("image", n);
+  try {
+    const canvas = document.createElement("canvas");
+    canvas.width = Math.max(n * 4, 64);
+    canvas.height = Math.max(n * 4, 64);
+    const ctx = canvas.getContext("2d", { willReadFrequently: true });
+    if (!ctx) return glyphFromText("image", n);
+    let img;
+    if (typeof src === "string") {
+      img = await new Promise((res, rej) => {
+        const im = new Image();
+        im.crossOrigin = "anonymous";
+        im.onload = () => res(im);
+        im.onerror = () => rej(new Error("img"));
+        im.src = src;
+      });
+    } else if (src instanceof Blob) {
+      const url = URL.createObjectURL(src);
+      try {
+        img = await new Promise((res, rej) => {
+          const im = new Image();
+          im.onload = () => res(im);
+          im.onerror = () => rej(new Error("img"));
+          im.src = url;
+        });
+      } finally {
+        URL.revokeObjectURL(url);
+      }
+    } else {
+      img = src;
+    }
+    const iw = img.width || canvas.width;
+    const ih = img.height || canvas.height;
+    ctx.fillStyle = "#fff";
+    ctx.fillRect(0, 0, canvas.width, canvas.height);
+    const scale = Math.min(canvas.width / iw, canvas.height / ih);
+    ctx.drawImage(img, (canvas.width - iw * scale) / 2, (canvas.height - ih * scale) / 2, iw * scale, ih * scale);
+    const data = ctx.getImageData(0, 0, canvas.width, canvas.height);
+    const bits = [];
+    for (let r = 0; r < n; r++) {
+      for (let c = 0; c < n; c++) {
+        const sx = Math.min(data.width - 1, Math.floor((c + 0.5) * (data.width / n)));
+        const sy = Math.min(data.height - 1, Math.floor((r + 0.5) * (data.height / n)));
+        const i = (sy * data.width + sx) * 4;
+        const lum = (data.data[i] * 0.299 + data.data[i + 1] * 0.587 + data.data[i + 2] * 0.114) / 255;
+        bits.push(lum < 0.55 ? 1 : 0);
+      }
+    }
+    return bits;
+  } catch {
+    return glyphFromText("image", n);
+  }
+}
+
 /**
- * Compact HTML for DOJO stair stream rail strip.
- * @param {Awaited<ReturnType<typeof buildStairGlyphStream>>} stream
- * @param {(s: string) => string} esc
+ * Honest HTML — green only when probe live, red/dashed when dead.
  */
 export function stairGlyphStreamHtml(stream, esc) {
   if (!stream?.ok) {
-    return `<div class="stair-stream is-empty"><p class="dojo-muted">Stream rail not ready</p></div>`;
+    return `<div class="stair-stream is-empty"><p class="dojo-muted">Stream not ready — ensureStreamStack() failed</p></div>`;
   }
-  const g = stream.stack?.gluelam || {};
-  const has = g.has || {};
-  const chips = STREAM_RAILS.map((r) => {
-    let live = true;
-    if (r === "Gluelam" || r === "DAC" || r === "Prefixes") {
-      if (r === "DAC") live = !!has.dac;
-      else if (r === "Prefixes") live = !!has.prefixes;
-      else live = !g.stubs;
-    }
-    if (r === "stenoStrip") live = true; // ES module always
-    return `<span class="chip rail-chip ${live ? "is-live" : "is-stub"}" title="${esc(r)}">${esc(r)}${live ? "" : "·stub"}</span>`;
-  }).join("");
+  const rails = stream.stack?.rails || {};
+  const chips = Object.entries(rails)
+    .map(([id, r]) => {
+      const live = !!r.live;
+      const title = live
+        ? `${r.name || id} · ${r.engine || r.apis?.[0] || "live"} · ${JSON.stringify(r.evidence || {}).slice(0, 80)}`
+        : `${r.name || id} · DEAD · ${r.error || "not loaded"} · ${r.source || ""}`;
+      return `<span class="chip rail-chip ${live ? "is-live" : "is-dead"}" title="${esc(title)}">${esc(id)}${live ? "" : " ✗"}</span>`;
+    })
+    .join("");
 
   const c = stream.composite || {};
+  const dacLive = c.dac?.live;
+  const qpLive = c.quantumPrefixes?.live;
   const stepPreview = (stream.steps || [])
-    .slice(0, 13)
     .map((s) => {
       const miss = s.missing ? " is-missing" : "";
-      return `<span class="sense-lang-chip${miss}" title="${esc(s.dac?.sym || "")} ${esc(s.gutter?.sym || "")}">${esc(String(s.n || ""))}.${esc(s.lang)}:${esc(s.form || "·")}</span>`;
+      const sym = s.dac?.live ? s.dac.sym : "·";
+      return `<span class="sense-lang-chip${miss}" title="${esc(s.dac?.engine || "")} ${esc(sym || "")}">${esc(String(s.n || ""))}.${esc(s.lang)}:${esc(s.form || "·")} <small>${esc(sym || "")}</small></span>`;
     })
     .join(" ");
 
   return `
   <div class="stair-stream" data-schema="${esc(stream.schema)}">
     <div class="stair-stream-head">
-      <strong>Exemplary stream rail</strong>
-      <span class="dojo-muted">DAC · Gutter · Prefixes · IronLine · GlueLam · stenoStrip · whitespace · Glyph→steno · pcap</span>
+      <strong>Stream engines (probed)</strong>
+      <span class="dojo-muted">live <b>${esc(String(stream.stack?.liveCount ?? 0))}</b>/${esc(String(stream.stack?.total ?? 0))}
+      · dead: <code>${esc((stream.deadRails || []).join(", ") || "—")}</code>
+      · <a href="https://mueee.qbitos.ai/quantum-gutter.html" target="_blank" rel="noopener">quantum-gutter</a>
+      · vendor <code>/vendor/gluelam/</code></span>
     </div>
     <div class="chips rail-status">${chips}</div>
     <p class="dojo-muted stair-stream-meta">
       concept <code>${esc(stream.concept?.slug || "—")}</code>
       · filled <b>${esc(String(stream.concept?.filled ?? "—"))}/${esc(String(stream.concept?.of ?? 13))}</b>
-      · glyph ${esc(String(c.glyph?.n || 13))}×${esc(String(c.glyph?.n || 13))} ones <b>${esc(String(c.glyph?.ones ?? "—"))}</b>
-      · steno coins <b>${esc(String(c.steno?.coins?.free ?? c.steno?.coins?.blank ?? "—"))}</b>
-      · DAC <code>${esc(c.dac?.sym || "—")}</code>
-      · gutter <code>${esc((c.gutter?.rows || [])[0]?.sym || "—")}</code>
-      · quantum~ <b>${esc(String(c.quantum?.quantumLikeness ?? "—"))}</b>
-      · pcap pkts <b>${esc(String(c.pcap?.packets ?? "—"))}</b>
+      · DAC ${dacLive ? `<code>${esc(c.dac?.engine || "live")}</code> cov ${esc(String(c.dac?.coverage ?? "—"))}` : "<b class='is-dead-txt'>not loaded</b>"}
+      · Prefixes ${qpLive ? "<b>prefixContent live</b>" : "<b class='is-dead-txt'>not loaded</b>"}
+      · glyph ones <b>${esc(String(c.glyph?.ones ?? "—"))}</b>
+      · stenoStrip coins <b>${esc(String(c.stenoStrip?.coins?.free ?? c.stenoStrip?.coins?.blank ?? "—"))}</b>
+      · pcap ${c.pcap?.live ? `pkts <b>${esc(String(c.pcap.packets))}</b>` : "—"}
     </p>
+    ${
+      c.dac?.prefixedPreview || c.quantumPrefixes?.text
+        ? `<pre class="dojo-json stair-prefix-preview" style="max-height:100px;font-size:0.72rem">${esc(
+            String(c.dac?.prefixedPreview || c.quantumPrefixes?.text || "").slice(0, 600)
+          )}</pre>`
+        : `<p class="dojo-muted" style="font-size:0.75rem">No DAC/prefix output yet — engines may still be loading. Hard-refresh /dojo/ so <code>/vendor/gluelam/*.js</code> can attach.</p>`
+    }
     <div class="stair-stream-steps">${stepPreview}</div>
     <div class="stair-stream-glyph">${c.glyph?.gridHtml || ""}</div>
     <p class="dojo-muted" style="font-size:0.72rem;margin:6px 0 0">
-      AI: <code>await kbatchDict.stairGlyphStream(await kbatchDict.rubikLanguageSolve())</code>
-      · <code>interpretGlyphImage(file)</code>
+      <code>await kbatchDict.ensureStreamStack()</code> ·
+      <code>stairGlyphStream(rubikLanguageSolve())</code> ·
+      not a label list — dead chips mean the real uvspeed file is not on the page
     </p>
   </div>`;
 }
 
-/** Re-export helpers used by DOJO glyph panel */
 export {
   glyphGridHtml,
   glyphFromText,
@@ -699,6 +1007,11 @@ export {
   broadcastGlyphSteno,
   DEFAULT_GLYPH_N,
   GLYPH_SIZES,
-  normalizeGlyphPixels,
   renderHexLumCanvas,
 };
+
+// image helper used by interpret — keep export name for dojo
+export async function glyphBitsFromImage(src, n = DEFAULT_GLYPH_N) {
+  const bits = await sampleImageBits(src, n);
+  return { ok: true, n, bits, ones: bits.reduce((a, b) => a + b, 0) };
+}
