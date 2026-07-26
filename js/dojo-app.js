@@ -45,8 +45,25 @@ import {
   glyphGridHtml,
   DEFAULT_GLYPH_N,
 } from "./glyph-steno.js";
+import {
+  buildStairGlyphStream,
+  stairGlyphStreamHtml,
+  interpretGlyphImage,
+  ensureStreamStack,
+  STREAM_RAILS,
+  renderHexLumCanvas,
+  dacClassify,
+} from "./stair-glyph-stream.js";
+import { analyzeStenoSpace, analyzeBlankSpace } from "./steno-strip.js";
+import { classifyGutterLine, binaryStreamToGutter } from "./quantum-gutter.js";
+import { getGluelamStatus } from "./gluelam-consumer.js";
 
 const $ = (sel) => document.querySelector(sel);
+
+/** @type {object|null} */
+let lastLanguageSolve = null;
+/** @type {object|null} */
+let lastStairStream = null;
 
 /** @type {string} */
 let activeLetter = "a";
@@ -724,6 +741,9 @@ async function loadWorldAxes() {
 
         <h3 style="margin:14px 0 8px;font-size:0.9rem">Stair demos · instant all-language</h3>
         <div class="axes-cards">${demoCards || `<p class="dojo-muted">No stair demos — mesh may still be loading</p>`}</div>
+        <div id="stair-stream-mount" class="stair-stream-mount" aria-live="polite">
+          <p class="dojo-muted">Building exemplary stream rail (DAC · Gutter · IronLine · GlueLam · steno · glyph)…</p>
+        </div>
 
         <pre class="dojo-json" style="max-height:200px;margin-top:10px">${escapeHtml(
           pretty({
@@ -746,6 +766,7 @@ async function loadWorldAxes() {
                   })),
                 }
               : null,
+            streamRails: STREAM_RAILS,
             pathways: full.axes?.pathways
               ? Object.fromEntries(
                   Object.entries(full.axes.pathways).map(([k, v]) => [
@@ -760,8 +781,18 @@ async function loadWorldAxes() {
         )}</pre>
       `;
     }
+    lastLanguageSolve = solve || null;
+
+    // Exemplary stream rail under stair demos (async, non-blocking UI first paint)
+    mountStairStreamRail(solve).catch((e) => {
+      const mount = $("#stair-stream-mount");
+      if (mount) {
+        mount.innerHTML = `<p class="dojo-muted">Stream rail error: ${escapeHtml(String(e?.message || e))}</p>`;
+      }
+    });
+
     if (st) {
-      st.textContent = `Loaded · ${list.length} axes · ready ${readySteps} · stair avg ${solve?.metrics?.avgFilled ?? "—"}/13 · AI solve live`;
+      st.textContent = `Loaded · ${list.length} axes · ready ${readySteps} · stair avg ${solve?.metrics?.avgFilled ?? "—"}/13 · stream rail…`;
     }
     return full;
   } catch (e) {
@@ -771,47 +802,152 @@ async function loadWorldAxes() {
   }
 }
 
+/**
+ * Exemplary: stair demos → DAC/Gutter/IronLine/Gluelam/steno/glyph stream.
+ * @param {object|null} solve
+ */
+async function mountStairStreamRail(solve) {
+  const mount = $("#stair-stream-mount");
+  if (!mount) return null;
+  if (!solve) {
+    mount.innerHTML = `<p class="dojo-muted">No languageSolve — stream rail idle</p>`;
+    return null;
+  }
+  const n = Number($("#glyph-n")?.value) || DEFAULT_GLYPH_N;
+  const stream = await buildStairGlyphStream(solve, {
+    n,
+    broadcast: false,
+    limit: 13,
+  });
+  lastStairStream = stream;
+  mount.innerHTML = stairGlyphStreamHtml(stream, escapeHtml);
+
+  // Seed glyph panel carrier from composite stair line
+  const carrierEl = $("#glyph-carrier");
+  if (carrierEl && stream.composite?.carrier) {
+    carrierEl.value = stream.composite.carrier.slice(0, 500);
+  }
+  const prev = $("#glyph-steno-preview");
+  if (prev && stream.composite?.glyph?.gridHtml) {
+    prev.innerHTML = stream.composite.glyph.gridHtml;
+  }
+  const hexCanvas = $("#glyph-hexlum-canvas");
+  if (hexCanvas && stream.composite?.pcap && !stream.composite.pcap.error) {
+    // hexlum may need full envelope — rebuild light preview from carrier
+    try {
+      const { buildHexLum, createForgeMark } = await import("./pcap-image-bridge.js");
+      const mark = await createForgeMark({
+        slot: 1,
+        source: "dojo-stair-stream",
+        content: stream.composite.carrier,
+      });
+      const hex = await buildHexLum(stream.composite.carrier, n, mark);
+      renderHexLumCanvas(hexCanvas, { hexlum: hex });
+    } catch {
+      /* optional */
+    }
+  }
+  refreshGlyphRailStatus(stream);
+  const st = $("#axes-status");
+  if (st) {
+    st.textContent = `${st.textContent.replace(/ · stream rail…$/, "")} · stream rails live`;
+  }
+  const line = $("#dojo-status");
+  if (line) {
+    line.textContent = `Stair stream · ${stream.concept?.slug || "—"} · glyph ones ${stream.composite?.glyph?.ones ?? "—"} · ${STREAM_RAILS.length} rails`;
+  }
+  window.__DOJO_STAIR_STREAM__ = stream;
+  return stream;
+}
+
+function refreshGlyphRailStatus(stream) {
+  const el = $("#glyph-rail-status");
+  if (!el) return;
+  const g = stream?.stack?.gluelam || getGluelamStatus();
+  const has = g.has || {};
+  el.innerHTML = STREAM_RAILS.map((r) => {
+    let live = true;
+    if (r === "DAC") live = !!has.dac;
+    else if (r === "Prefixes") live = !!has.prefixes;
+    else if (r === "Gluelam") live = !g.stubs;
+    return `<span class="chip rail-chip ${live ? "is-live" : "is-stub"}">${escapeHtml(r)}</span>`;
+  }).join("");
+}
+
 function runGlyphEncode(broadcast = false) {
   const carrier =
     $("#glyph-carrier")?.value?.trim() ||
     $("#pipe-input")?.value?.trim() ||
+    lastStairStream?.composite?.carrier ||
     "kbatch";
   const n = Number($("#glyph-n")?.value) || DEFAULT_GLYPH_N;
   const bits = glyphFromText(carrier, n);
   const prev = $("#glyph-steno-preview");
   if (prev) prev.innerHTML = glyphGridHtml(bits, n);
 
+  const dac = dacClassify(carrier, { source: "dojo-glyph" });
+  const gutter = classifyGutterLine(carrier, { mode: "auto" });
+  const steno = analyzeStenoSpace(
+    encodeGlyphInSteno(carrier, bits, { n }).encoded,
+    { payload: `glyph${n}x${n}` }
+  );
+  const blank = analyzeBlankSpace(carrier);
+  const quantum = binaryStreamToGutter(carrier, { glyphBits: bits });
+
   let result;
   if (broadcast) {
-    result = broadcastGlyphSteno(carrier, bits, { n });
+    result = broadcastGlyphSteno(carrier, bits, { n, room: "dojo-glyph" });
   } else {
     const pack = encodeGlyphInSteno(carrier, bits, { n });
     result = { pack };
   }
+  const pack = result.pack;
   const json = $("#glyph-json");
   if (json) {
     json.textContent = pretty({
+      exemplary: true,
+      rails: STREAM_RAILS,
       n,
-      ones: result.pack?.ones ?? result.envelope?.ones,
-      bits: result.pack?.bits,
-      payloadBytes: result.pack?.payloadBytes,
-      encodedPreview: String(result.pack?.encoded || "").slice(0, 120) + "…",
+      ones: pack?.ones ?? result.envelope?.ones,
+      bits: pack?.bits,
+      payloadBytes: pack?.payloadBytes,
+      encodedPreview: String(pack?.encoded || "").slice(0, 120) + "…",
+      dac: { source: dac.source, stub: dac.stub, sym: dac.sym, category: dac.category },
+      gutter: { sym: gutter.sym, category: gutter.category, source: gutter.source },
+      stenoStrip: steno.strip,
+      whitespace: {
+        blankChars: blank.blankChars,
+        freeCoins: blank.coins?.free,
+        capacityBits: blank.capacity?.blankBits,
+      },
+      steno: {
+        coins: steno.blank?.coins,
+        allotment: steno.allotment,
+        gluelam: steno.gluelam,
+      },
+      quantum: {
+        bitCount: quantum.bitCount,
+        quantumLikeness: quantum.quantumLikeness,
+      },
+      ironLine: broadcast ? "published gy-stream + iron-line" : "encode-only",
       broadcast: broadcast ? result.envelope?.type : false,
+      gluelam: getGluelamStatus(),
     });
   }
-  // also feed encoded into pipe for decode demos
-  if ($("#pipe-input") && result.pack?.encoded) {
-    // keep carrier visible; show encoded length in status
+  if ($("#pipe-input") && pack?.encoded) {
+    // optional: don't overwrite user pipe unless empty
   }
   const st = $("#glyph-status");
   if (st) {
     st.textContent = broadcast
-      ? `Broadcast · ${n}×${n} · ones ${result.pack?.ones}`
-      : `Encoded · ${n}×${n} · ${result.pack?.payloadBytes}B`;
+      ? `Broadcast · ${n}×${n} · ones ${pack?.ones} · DAC ${dac.sym} · IronLine`
+      : `Encoded · ${n}×${n} · ${pack?.payloadBytes}B · steno ${steno.blank?.coins?.free ?? "—"} coins · DAC ${dac.sym}`;
   }
   const line = $("#dojo-status");
-  if (line) line.textContent = `Glyph steno · ${n}×${n} · ${broadcast ? "mesh" : "encode"}`;
-  // stash for decode
+  if (line) {
+    line.textContent = `Glyph steno · ${n}×${n} · ${broadcast ? "mesh+iron" : "encode"} · gutter ${gutter.sym}`;
+  }
+  refreshGlyphRailStatus(lastStairStream);
   window.__DOJO_GLYPH__ = result;
   return result;
 }
@@ -828,7 +964,13 @@ function runGlyphDecode() {
     prev.innerHTML = glyphGridHtml(decoded.bits, decoded.n);
   }
   const json = $("#glyph-json");
-  if (json) json.textContent = pretty(decoded);
+  if (json) {
+    json.textContent = pretty({
+      ...decoded,
+      interpret: "glyph←steno whitespace trailer GYG1",
+      rails: STREAM_RAILS,
+    });
+  }
   const st = $("#glyph-status");
   if (st) {
     st.textContent = decoded.ok
@@ -836,6 +978,71 @@ function runGlyphDecode() {
       : `Decode fail · ${decoded.error || "—"}`;
   }
   return decoded;
+}
+
+async function runGlyphImageInterpret(file) {
+  const st = $("#glyph-status");
+  if (st) st.textContent = "Image stream · sampling → glyph → steno · interpret…";
+  const n = Number($("#glyph-n")?.value) || DEFAULT_GLYPH_N;
+  const carrier =
+    $("#glyph-carrier")?.value?.trim() ||
+    lastStairStream?.composite?.carrier ||
+    (file && file.name) ||
+    "kbatch image stream";
+  try {
+    const result = await interpretGlyphImage(file, {
+      n,
+      carrier,
+      broadcast: true,
+    });
+    const prev = $("#glyph-steno-preview");
+    if (prev && result.gridHtml) prev.innerHTML = result.gridHtml;
+    const hexCanvas = $("#glyph-hexlum-canvas");
+    if (hexCanvas && result.hexlum) {
+      renderHexLumCanvas(hexCanvas, { hexlum: result.hexlum });
+    }
+    const json = $("#glyph-json");
+    if (json) {
+      json.textContent = pretty({
+        exemplary: true,
+        ...result,
+        bits: undefined, // keep JSON light
+        bitCount: result.bits?.length,
+      });
+    }
+    if ($("#glyph-carrier") && result.pack?.carrier) {
+      // keep human carrier; show note in status
+    }
+    window.__DOJO_GLYPH__ = { pack: result.pack, interpret: result };
+    if (st) {
+      st.textContent = result.ok
+        ? `Image interpret · ${result.n}×${result.n} · ones ${result.ones} · DAC ${result.dac?.sym} · IronLine+pcap`
+        : `Image interpret soft · ${result.sampleError || "sampled"} · ones ${result.ones}`;
+    }
+    refreshGlyphRailStatus(result);
+    return result;
+  } catch (e) {
+    if (st) st.textContent = `Image fail · ${e?.message || e}`;
+    return null;
+  }
+}
+
+async function runStairStreamBroadcast() {
+  const solve = lastLanguageSolve;
+  if (!solve) {
+    await loadWorldAxes();
+  }
+  const src = lastLanguageSolve;
+  if (!src) return null;
+  const n = Number($("#glyph-n")?.value) || DEFAULT_GLYPH_N;
+  const stream = await buildStairGlyphStream(src, { n, broadcast: true, limit: 13 });
+  lastStairStream = stream;
+  const mount = $("#stair-stream-mount");
+  if (mount) mount.innerHTML = stairGlyphStreamHtml(stream, escapeHtml);
+  runGlyphEncode(true);
+  const st = $("#glyph-status");
+  if (st) st.textContent = `Stair stream broadcast · ${stream.concept?.slug} · IronLine+mesh`;
+  return stream;
 }
 
 function bind() {
@@ -994,6 +1201,27 @@ function bind() {
   $("#btn-glyph-encode")?.addEventListener("click", () => runGlyphEncode(false));
   $("#btn-glyph-broadcast")?.addEventListener("click", () => runGlyphEncode(true));
   $("#btn-glyph-decode")?.addEventListener("click", () => runGlyphDecode());
+  $("#btn-glyph-image")?.addEventListener("click", () => {
+    $("#glyph-image-input")?.click();
+  });
+  $("#glyph-image-input")?.addEventListener("change", (ev) => {
+    const f = ev.target?.files?.[0];
+    if (f) runGlyphImageInterpret(f);
+  });
+  $("#btn-stair-stream-broadcast")?.addEventListener("click", () => {
+    runStairStreamBroadcast().catch((e) => {
+      const st = $("#glyph-status");
+      if (st) st.textContent = `Stair stream fail · ${e?.message || e}`;
+    });
+  });
+  // live carrier → glyph preview (debounce-ish via input)
+  $("#glyph-carrier")?.addEventListener("input", () => {
+    const carrier = $("#glyph-carrier")?.value?.trim();
+    if (!carrier) return;
+    const n = Number($("#glyph-n")?.value) || DEFAULT_GLYPH_N;
+    const prev = $("#glyph-steno-preview");
+    if (prev) prev.innerHTML = glyphGridHtml(glyphFromText(carrier, n), n);
+  });
   $("#glyph-n")?.addEventListener("change", () => runGlyphEncode(false));
 
   /** Chart geometry seeds — title-path only; contrast dense / balanced / glide */
@@ -1181,13 +1409,19 @@ async function bindHistoryScaffold() {
 
 async function init() {
   installGlobalAPI();
-  // Expose master 88-language alphabet matrix on window API
+  // Expose master 88-language alphabet matrix + stream rails on window API
   if (typeof window !== "undefined" && window.kbatchDict) {
     window.kbatchDict.languageAlphabetMatrix = () =>
       languageAlphabetMatrixExport();
     window.kbatchDict.buildLanguageAlphabetMatrix = buildLanguageAlphabetMatrix;
     window.kbatchDict.worldPathSync = computeWorldPath;
     window.kbatchDict.worldPathSnapshotSync = worldPathSnapshot;
+    window.kbatchDict.stairGlyphStream = (solve, opts) =>
+      buildStairGlyphStream(solve || lastLanguageSolve, opts);
+    window.kbatchDict.interpretGlyphImage = (img, opts) =>
+      interpretGlyphImage(img, opts);
+    window.kbatchDict.ensureStreamStack = ensureStreamStack;
+    window.kbatchDict.streamRails = STREAM_RAILS;
   }
   initTheme();
   fillLayouts();
@@ -1200,8 +1434,14 @@ async function init() {
   renderWordView("quantum");
   runPipe();
   runWorldPath();
-  runGlyphEncode(false);
-  // axes load non-blocking
+  // GlueLam / Quantum Gutter first so DAC·steno rails are live for glyph+stair
+  ensureStreamStack()
+    .then((s) => {
+      refreshGlyphRailStatus({ stack: s });
+      runGlyphEncode(false);
+    })
+    .catch(() => runGlyphEncode(false));
+  // axes + stair demos + stream rail (non-blocking)
   loadWorldAxes().catch(() => {});
   await loadCorpusStats();
   bindHistoryScaffold().catch(() => {});
@@ -1209,7 +1449,7 @@ async function init() {
   if (st) {
     const m = buildLanguageAlphabetMatrix();
     const wp = lastWorldPath;
-    st.textContent = `DOJO ready · history scaffold · ${LAYOUT_RING_ORDER.length} layouts · ${m.totalLanguages} langs · world-path ${wp?.stepCount || "—"} · glyph-steno live`;
+    st.textContent = `DOJO ready · history · ${LAYOUT_RING_ORDER.length} layouts · ${m.totalLanguages} langs · world-path ${wp?.stepCount || "—"} · stair+glyph stream rails`;
   }
 }
 

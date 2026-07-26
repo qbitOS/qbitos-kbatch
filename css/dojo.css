@@ -410,6 +410,105 @@
   font-weight: 700;
 }
 
+/* Stair stream rail · glyph image datastream */
+.stair-stream-mount {
+  margin-top: 12px;
+}
+.stair-stream {
+  border: 1px solid var(--line, #30363d);
+  border-radius: 10px;
+  padding: 12px 14px;
+  background: color-mix(in srgb, var(--bg, #0d1117) 88%, var(--accent, #58a6ff) 12%);
+}
+.stair-stream-head {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px 12px;
+  align-items: baseline;
+  margin-bottom: 8px;
+}
+.stair-stream-head strong {
+  font-size: 0.9rem;
+}
+.stair-stream-meta {
+  margin: 6px 0 8px;
+  font-size: 0.78rem;
+  line-height: 1.45;
+}
+.stair-stream-steps {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 4px 6px;
+  margin-bottom: 8px;
+}
+.stair-stream-glyph {
+  margin-top: 6px;
+}
+.rail-status,
+#glyph-rail-status {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 4px 6px;
+  margin: 0 0 10px;
+}
+.rail-chip.is-live {
+  border-color: color-mix(in srgb, #3fb950 55%, transparent);
+  color: #3fb950;
+}
+.rail-chip.is-stub {
+  opacity: 0.55;
+  border-style: dashed;
+}
+.sense-lang-chip.is-missing {
+  opacity: 0.45;
+  text-decoration: line-through;
+}
+.dojo-glyph-visuals {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 12px;
+  margin: 10px 0;
+  align-items: start;
+}
+@media (max-width: 700px) {
+  .dojo-glyph-visuals {
+    grid-template-columns: 1fr;
+  }
+}
+.glyph-steno-preview .gy-glyph-grid,
+.gy-glyph-grid {
+  display: grid;
+  grid-template-columns: repeat(var(--n, 13), 1fr);
+  gap: 1px;
+  max-width: 220px;
+  aspect-ratio: 1;
+  background: var(--line, #30363d);
+  border-radius: 6px;
+  overflow: hidden;
+}
+.gy-glyph-grid .gy-px {
+  background: var(--bg, #0d1117);
+  min-height: 0;
+  aspect-ratio: 1;
+}
+.gy-glyph-grid .gy-px.is-on {
+  background: var(--accent, #58a6ff);
+}
+.glyph-hexlum-canvas {
+  width: 100%;
+  max-width: 220px;
+  aspect-ratio: 1;
+  border-radius: 6px;
+  border: 1px solid var(--line, #30363d);
+  background: #000;
+  image-rendering: pixelated;
+}
+.axis-solve-demo .stair-line {
+  word-break: break-word;
+  max-height: 4.5em;
+  overflow: hidden;
+}
+
 /* Letter atoms */
 .letter-atom-grid {
   display: grid;

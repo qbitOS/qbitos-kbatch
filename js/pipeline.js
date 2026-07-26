@@ -1166,8 +1166,24 @@ export async function fetchRubikLanguageSolveBundle(opts = {}) {
       axes: 'await kbatchDict.mcp("kbatch_world_axes")',
       colossusFull: 'await kbatchDict.colossusFull()',
       rubikSolve: 'await kbatchDict.rubikLanguageSolve()',
+      stairStream:
+        'await kbatchDict.stairGlyphStream(await kbatchDict.rubikLanguageSolve())',
+      glyphBroadcast: 'await kbatchDict.glyph.broadcast(carrier, bits)',
+      imageInterpret: 'await kbatchDict.interpretGlyphImage(file, { n: 13 })',
+      rails: [
+        "DAC",
+        "QuantumGutter",
+        "Prefixes",
+        "IronLine",
+        "Gluelam",
+        "stenoStrip",
+        "whitespace",
+        "GlyphSteno",
+        "pcapImage",
+      ],
       start: [
         'await kbatchDict.colossusFull()  // axes + speed path + stair demos',
+        'await kbatchDict.stairGlyphStream()  // DAC·Gutter·IronLine·GlueLam·steno·glyph',
         'await kbatchDict.mcp("kbatch_concept_solve", { q: "liberty", mode: "stair" })',
         'await kbatchDict.mcp("kbatch_world_path", { from: "en", mode: "ready" })',
         'await kbatchDict.mcp("kbatch_lettergrid_rubik")  // 13 cubes · Σc 83.5',
@@ -1349,6 +1365,22 @@ export function installGlobalAPI() {
     rubikLanguageSolve: (opts = {}) => fetchRubikLanguageSolveBundle(opts),
     conceptSolve: (args = {}) => mcpCall("kbatch_concept_solve", args),
     conceptStairWalk: (args = {}) => mcpCall("kbatch_concept_stair_walk", args),
+    stairGlyphStream: (solve, opts = {}) =>
+      import("./stair-glyph-stream.js").then(async ({ buildStairGlyphStream }) => {
+        const pack =
+          solve ||
+          (await fetchRubikLanguageSolveBundle({
+            from: opts.from || "en",
+            includePaths: false,
+          }));
+        return buildStairGlyphStream(pack, opts);
+      }),
+    interpretGlyphImage: (image, opts = {}) =>
+      import("./stair-glyph-stream.js").then(({ interpretGlyphImage }) =>
+        interpretGlyphImage(image, opts)
+      ),
+    ensureStreamStack: () =>
+      import("./stair-glyph-stream.js").then(({ ensureStreamStack }) => ensureStreamStack()),
     worldPath: (opts = {}) =>
       import("./world-path.js").then(({ computeWorldPath }) => computeWorldPath(opts)),
     worldPathSnapshot: (opts = {}) =>
@@ -1389,6 +1421,12 @@ export function installGlobalAPI() {
       encode: (text, pixels, opts) =>
         mcpCall("kbatch_glyph_steno", { mode: "encode", text, pixels, ...opts }),
       decode: (text) => mcpCall("kbatch_glyph_steno", { mode: "decode", text }),
+      broadcast: (text, pixels, opts) =>
+        import("./glyph-steno.js").then(({ broadcastGlyphSteno, glyphFromText, DEFAULT_GLYPH_N }) => {
+          const n = opts?.n || DEFAULT_GLYPH_N;
+          const bits = pixels || glyphFromText(text, n);
+          return broadcastGlyphSteno(text, bits, { n, ...opts });
+        }),
     },
     quantum: {
       binaryStream: (text, opts) =>
