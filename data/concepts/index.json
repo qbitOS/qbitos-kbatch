@@ -1,39 +1,123 @@
 {
   "schema": "kbatch-concepts-index-v1",
-  "generated": "2026-07-26T02:04:31Z",
+  "generated": "2026-07-26T02:39:50Z",
   "packs": {
     "mesh": "mesh.json",
     "formIndex": "form-index.json",
+    "stairInstant": "stair-instant.json",
     "schema": "schema-kbatch-concept-v1.json"
   },
-  "count": 170,
-  "formIndexKeys": 2855,
+  "count": 178,
+  "formIndexKeys": 3336,
   "langCoverage": {
-    "en": 191,
-    "fr": 186,
-    "de": 185,
-    "zh": 184,
-    "es": 182,
-    "it": 174,
-    "hi": 171,
-    "ru": 170,
-    "ar": 169,
-    "el": 169,
-    "nl": 168,
-    "pt": 168,
-    "pl": 166,
-    "is": 165,
+    "en": 202,
+    "de": 197,
+    "fr": 197,
+    "zh": 195,
+    "es": 193,
+    "it": 186,
+    "hi": 183,
+    "ru": 182,
+    "nl": 181,
+    "ar": 180,
+    "pt": 180,
+    "el": 179,
+    "pl": 179,
+    "is": 178,
+    "la": 165,
     "sv": 165,
-    "la": 164,
-    "ja": 53,
+    "oj": 164,
+    "nav": 154,
+    "chr": 151,
+    "ja": 57,
+    "ko": 56,
     "vi": 53,
-    "ko": 52,
     "tr": 52,
     "sw": 51,
-    "oj": 31,
-    "nav": 8,
-    "chr": 8,
     "he": 1
   },
-  "mcp": "kbatch_concept_solve"
+  "stairFill": {
+    "en": {
+      "conceptsWithForm": 178,
+      "totalConcepts": 178,
+      "pct": 100.0,
+      "formTokens": 202
+    },
+    "is": {
+      "conceptsWithForm": 178,
+      "totalConcepts": 178,
+      "pct": 100.0,
+      "formTokens": 178
+    },
+    "de": {
+      "conceptsWithForm": 178,
+      "totalConcepts": 178,
+      "pct": 100.0,
+      "formTokens": 197
+    },
+    "fr": {
+      "conceptsWithForm": 178,
+      "totalConcepts": 178,
+      "pct": 100.0,
+      "formTokens": 197
+    },
+    "it": {
+      "conceptsWithForm": 178,
+      "totalConcepts": 178,
+      "pct": 100.0,
+      "formTokens": 186
+    },
+    "es": {
+      "conceptsWithForm": 178,
+      "totalConcepts": 178,
+      "pct": 100.0,
+      "formTokens": 193
+    },
+    "nav": {
+      "conceptsWithForm": 151,
+      "totalConcepts": 178,
+      "pct": 84.8,
+      "formTokens": 154
+    },
+    "oj": {
+      "conceptsWithForm": 162,
+      "totalConcepts": 178,
+      "pct": 91.0,
+      "formTokens": 164
+    },
+    "ar": {
+      "conceptsWithForm": 178,
+      "totalConcepts": 178,
+      "pct": 100.0,
+      "formTokens": 180
+    },
+    "hi": {
+      "conceptsWithForm": 178,
+      "totalConcepts": 178,
+      "pct": 100.0,
+      "formTokens": 183
+    },
+    "el": {
+      "conceptsWithForm": 178,
+      "totalConcepts": 178,
+      "pct": 100.0,
+      "formTokens": 179
+    },
+    "zh": {
+      "conceptsWithForm": 178,
+      "totalConcepts": 178,
+      "pct": 100.0,
+      "formTokens": 195
+    },
+    "chr": {
+      "conceptsWithForm": 151,
+      "totalConcepts": 178,
+      "pct": 84.8,
+      "formTokens": 151
+    }
+  },
+  "mcp": [
+    "kbatch_concept_solve",
+    "kbatch_concept_stair_walk"
+  ]
 }

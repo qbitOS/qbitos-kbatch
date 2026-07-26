@@ -5266,6 +5266,8 @@ async function init() {
             window.kbatchDict = window.kbatchDict || {};
             window.kbatchDict.conceptSolve = (args) =>
               import("./concept-solve.js").then((m) => m.conceptSolve(args || {}));
+            window.kbatchDict.conceptStairWalk = (args) =>
+              import("./concept-solve.js").then((m) => m.conceptStairWalk(args || {}));
           });
         }
       )

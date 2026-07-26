@@ -1,6 +1,6 @@
 {
   "schema": "kbatch-concept-mesh-v1",
-  "generated": "2026-07-26T02:04:31Z",
+  "generated": "2026-07-26T02:39:50Z",
   "claim": "Multilingual concept mesh: one meaning atom → many language forms. Instant path + C transfer. Geometry and gloss stay separate. Honor opt-in.",
   "doctrine": {
     "purity": "path geometry ≠ gloss ≠ SO ≠ phon",
@@ -8,33 +8,33 @@
     "license": "curated open educational forms — not OED/MW",
     "cost": "Transfer ranking uses pure C / langTransferCost (DOJO-true)"
   },
-  "count": 170,
-  "formIndexKeys": 2855,
+  "count": 178,
+  "formIndexKeys": 3336,
   "langCoverage": {
-    "en": 191,
-    "fr": 186,
-    "de": 185,
-    "zh": 184,
-    "es": 182,
-    "it": 174,
-    "hi": 171,
-    "ru": 170,
-    "ar": 169,
-    "el": 169,
-    "nl": 168,
-    "pt": 168,
-    "pl": 166,
-    "is": 165,
+    "en": 202,
+    "de": 197,
+    "fr": 197,
+    "zh": 195,
+    "es": 193,
+    "it": 186,
+    "hi": 183,
+    "ru": 182,
+    "nl": 181,
+    "ar": 180,
+    "pt": 180,
+    "el": 179,
+    "pl": 179,
+    "is": 178,
+    "la": 165,
     "sv": 165,
-    "la": 164,
-    "ja": 53,
+    "oj": 164,
+    "nav": 154,
+    "chr": 151,
+    "ja": 57,
+    "ko": 56,
     "vi": 53,
-    "ko": 52,
     "tr": 52,
     "sw": 51,
-    "oj": 31,
-    "nav": 8,
-    "chr": 8,
     "he": 1
   },
   "urls": {
@@ -426,12 +426,20 @@
           "primary": true,
           "layout": "qwerty",
           "status": "honor-seed"
+        },
+        {
+          "lang": "chr",
+          "form": "atsila",
+          "primary": true,
+          "layout": "qwerty",
+          "status": "honor-seed"
         }
       ],
-      "formCount": 23,
-      "langCount": 23,
+      "formCount": 24,
+      "langCount": 24,
       "langs": [
         "ar",
+        "chr",
         "de",
         "el",
         "en",
@@ -632,12 +640,27 @@
           "primary": true,
           "layout": "qwerty",
           "status": "honor-seed"
+        },
+        {
+          "lang": "nav",
+          "form": "niʼ",
+          "primary": true,
+          "layout": "qwerty",
+          "status": "honor-seed"
+        },
+        {
+          "lang": "chr",
+          "form": "elohi",
+          "primary": true,
+          "layout": "qwerty",
+          "status": "honor-seed"
         }
       ],
-      "formCount": 24,
-      "langCount": 22,
+      "formCount": 26,
+      "langCount": 24,
       "langs": [
         "ar",
+        "chr",
         "de",
         "el",
         "en",
@@ -649,6 +672,7 @@
         "ja",
         "ko",
         "la",
+        "nav",
         "nl",
         "oj",
         "pl",
@@ -816,12 +840,34 @@
           "primary": true,
           "layout": "qwerty",
           "status": "open"
+        },
+        {
+          "lang": "oj",
+          "form": "giizhig",
+          "primary": true,
+          "layout": "qwerty",
+          "status": "honor-seed"
+        },
+        {
+          "lang": "nav",
+          "form": "yá",
+          "primary": true,
+          "layout": "qwerty",
+          "status": "honor-seed"
+        },
+        {
+          "lang": "chr",
+          "form": "galvladi",
+          "primary": true,
+          "layout": "qwerty",
+          "status": "honor-seed"
         }
       ],
-      "formCount": 21,
-      "langCount": 21,
+      "formCount": 24,
+      "langCount": 24,
       "langs": [
         "ar",
+        "chr",
         "de",
         "el",
         "en",
@@ -833,7 +879,9 @@
         "ja",
         "ko",
         "la",
+        "nav",
         "nl",
+        "oj",
         "pl",
         "pt",
         "ru",
@@ -1020,10 +1068,17 @@
           "primary": true,
           "layout": "qwerty",
           "status": "honor-seed"
+        },
+        {
+          "lang": "nav",
+          "form": "jǫ'onaa'éí",
+          "primary": true,
+          "layout": "qwerty",
+          "status": "honor-seed"
         }
       ],
-      "formCount": 24,
-      "langCount": 23,
+      "formCount": 25,
+      "langCount": 24,
       "langs": [
         "ar",
         "chr",
@@ -1038,6 +1093,7 @@
         "ja",
         "ko",
         "la",
+        "nav",
         "nl",
         "oj",
         "pl",
@@ -1219,12 +1275,27 @@
           "primary": true,
           "layout": "qwerty",
           "status": "honor-seed"
+        },
+        {
+          "lang": "nav",
+          "form": "ooljééʼ",
+          "primary": true,
+          "layout": "qwerty",
+          "status": "honor-seed"
+        },
+        {
+          "lang": "chr",
+          "form": "nvdagv",
+          "primary": true,
+          "layout": "qwerty",
+          "status": "honor-seed"
         }
       ],
-      "formCount": 23,
-      "langCount": 22,
+      "formCount": 25,
+      "langCount": 24,
       "langs": [
         "ar",
+        "chr",
         "de",
         "el",
         "en",
@@ -1236,6 +1307,7 @@
         "ja",
         "ko",
         "la",
+        "nav",
         "nl",
         "oj",
         "pl",
@@ -1410,12 +1482,27 @@
           "primary": true,
           "layout": "qwerty",
           "status": "honor-seed"
+        },
+        {
+          "lang": "nav",
+          "form": "sǫʼ",
+          "primary": true,
+          "layout": "qwerty",
+          "status": "honor-seed"
+        },
+        {
+          "lang": "chr",
+          "form": "noquisi",
+          "primary": true,
+          "layout": "qwerty",
+          "status": "honor-seed"
         }
       ],
-      "formCount": 22,
-      "langCount": 22,
+      "formCount": 24,
+      "langCount": 24,
       "langs": [
         "ar",
+        "chr",
         "de",
         "el",
         "en",
@@ -1427,6 +1514,7 @@
         "ja",
         "ko",
         "la",
+        "nav",
         "nl",
         "oj",
         "pl",
@@ -1629,12 +1717,34 @@
           "primary": true,
           "layout": "qwerty",
           "status": "open"
+        },
+        {
+          "lang": "nav",
+          "form": "atiin",
+          "primary": true,
+          "layout": "qwerty",
+          "status": "honor-seed"
+        },
+        {
+          "lang": "oj",
+          "form": "miikana",
+          "primary": true,
+          "layout": "qwerty",
+          "status": "honor-seed"
+        },
+        {
+          "lang": "chr",
+          "form": "nvnohi",
+          "primary": true,
+          "layout": "qwerty",
+          "status": "honor-seed"
         }
       ],
-      "formCount": 26,
-      "langCount": 21,
+      "formCount": 29,
+      "langCount": 24,
       "langs": [
         "ar",
+        "chr",
         "de",
         "el",
         "en",
@@ -1646,7 +1756,9 @@
         "ja",
         "ko",
         "la",
+        "nav",
         "nl",
+        "oj",
         "pl",
         "pt",
         "ru",
@@ -1819,12 +1931,27 @@
           "primary": true,
           "layout": "qwerty",
           "status": "honor-seed"
+        },
+        {
+          "lang": "nav",
+          "form": "adinídíín",
+          "primary": true,
+          "layout": "qwerty",
+          "status": "honor-seed"
+        },
+        {
+          "lang": "chr",
+          "form": "akanvdi",
+          "primary": true,
+          "layout": "qwerty",
+          "status": "honor-seed"
         }
       ],
-      "formCount": 22,
-      "langCount": 22,
+      "formCount": 24,
+      "langCount": 24,
       "langs": [
         "ar",
+        "chr",
         "de",
         "el",
         "en",
@@ -1836,6 +1963,7 @@
         "ja",
         "ko",
         "la",
+        "nav",
         "nl",
         "oj",
         "pl",
@@ -2010,12 +2138,34 @@
           "primary": true,
           "layout": "qwerty",
           "status": "open"
+        },
+        {
+          "lang": "oj",
+          "form": "ikidowin",
+          "primary": true,
+          "layout": "qwerty",
+          "status": "honor-seed"
+        },
+        {
+          "lang": "nav",
+          "form": "saad",
+          "primary": true,
+          "layout": "qwerty",
+          "status": "honor-seed"
+        },
+        {
+          "lang": "chr",
+          "form": "gawonihisdi",
+          "primary": true,
+          "layout": "qwerty",
+          "status": "honor-seed"
         }
       ],
-      "formCount": 22,
-      "langCount": 21,
+      "formCount": 25,
+      "langCount": 24,
       "langs": [
         "ar",
+        "chr",
         "de",
         "el",
         "en",
@@ -2027,7 +2177,9 @@
         "ja",
         "ko",
         "la",
+        "nav",
         "nl",
+        "oj",
         "pl",
         "pt",
         "ru",
@@ -2407,12 +2559,34 @@
           "primary": true,
           "layout": "qwerty",
           "status": "open"
+        },
+        {
+          "lang": "oj",
+          "form": "mazina'igan",
+          "primary": true,
+          "layout": "qwerty",
+          "status": "honor-seed"
+        },
+        {
+          "lang": "chr",
+          "form": "gohweli",
+          "primary": true,
+          "layout": "qwerty",
+          "status": "honor-seed"
+        },
+        {
+          "lang": "nav",
+          "form": "naaltsoos",
+          "primary": true,
+          "layout": "qwerty",
+          "status": "honor-seed"
         }
       ],
-      "formCount": 21,
-      "langCount": 21,
+      "formCount": 24,
+      "langCount": 24,
       "langs": [
         "ar",
+        "chr",
         "de",
         "el",
         "en",
@@ -2424,7 +2598,9 @@
         "ja",
         "ko",
         "la",
+        "nav",
         "nl",
+        "oj",
         "pl",
         "pt",
         "ru",
@@ -2590,12 +2766,34 @@
           "primary": true,
           "layout": "qwerty",
           "status": "open"
+        },
+        {
+          "lang": "oj",
+          "form": "izhinikaazo",
+          "primary": true,
+          "layout": "qwerty",
+          "status": "honor-seed"
+        },
+        {
+          "lang": "nav",
+          "form": "yoochʼííd",
+          "primary": true,
+          "layout": "qwerty",
+          "status": "honor-seed"
+        },
+        {
+          "lang": "chr",
+          "form": "doyalvsgi",
+          "primary": true,
+          "layout": "qwerty",
+          "status": "honor-seed"
         }
       ],
-      "formCount": 21,
-      "langCount": 21,
+      "formCount": 24,
+      "langCount": 24,
       "langs": [
         "ar",
+        "chr",
         "de",
         "el",
         "en",
@@ -2607,7 +2805,9 @@
         "ja",
         "ko",
         "la",
+        "nav",
         "nl",
+        "oj",
         "pl",
         "pt",
         "ru",
@@ -2794,12 +2994,34 @@
           "primary": true,
           "layout": "qwerty",
           "status": "honor-seed"
+        },
+        {
+          "lang": "oj",
+          "form": "bemaadizid",
+          "primary": false,
+          "layout": "qwerty",
+          "status": "honor-seed"
+        },
+        {
+          "lang": "nav",
+          "form": "diné",
+          "primary": true,
+          "layout": "qwerty",
+          "status": "honor-seed"
+        },
+        {
+          "lang": "chr",
+          "form": "yvwi",
+          "primary": true,
+          "layout": "qwerty",
+          "status": "honor-seed"
         }
       ],
-      "formCount": 24,
-      "langCount": 22,
+      "formCount": 27,
+      "langCount": 24,
       "langs": [
         "ar",
+        "chr",
         "de",
         "el",
         "en",
@@ -2811,6 +3033,7 @@
         "ja",
         "ko",
         "la",
+        "nav",
         "nl",
         "oj",
         "pl",
@@ -2985,12 +3208,34 @@
           "primary": true,
           "layout": "qwerty",
           "status": "open"
+        },
+        {
+          "lang": "nav",
+          "form": "iiná",
+          "primary": true,
+          "layout": "qwerty",
+          "status": "honor-seed"
+        },
+        {
+          "lang": "oj",
+          "form": "bimaadiziwin",
+          "primary": true,
+          "layout": "qwerty",
+          "status": "honor-seed"
+        },
+        {
+          "lang": "chr",
+          "form": "adonvdi",
+          "primary": true,
+          "layout": "qwerty",
+          "status": "honor-seed"
         }
       ],
-      "formCount": 22,
-      "langCount": 21,
+      "formCount": 25,
+      "langCount": 24,
       "langs": [
         "ar",
+        "chr",
         "de",
         "el",
         "en",
@@ -3002,7 +3247,9 @@
         "ja",
         "ko",
         "la",
+        "nav",
         "nl",
+        "oj",
         "pl",
         "pt",
         "ru",
@@ -3175,12 +3422,34 @@
           "primary": true,
           "layout": "qwerty",
           "status": "open"
+        },
+        {
+          "lang": "oj",
+          "form": "dibendizowin",
+          "primary": true,
+          "layout": "qwerty",
+          "status": "honor-seed"
+        },
+        {
+          "lang": "chr",
+          "form": "uwenvsv",
+          "primary": true,
+          "layout": "qwerty",
+          "status": "honor-seed"
+        },
+        {
+          "lang": "nav",
+          "form": "tʼáá hoołtsʼááʼí",
+          "primary": true,
+          "layout": "qwerty",
+          "status": "honor-seed"
         }
       ],
-      "formCount": 22,
-      "langCount": 21,
+      "formCount": 25,
+      "langCount": 24,
       "langs": [
         "ar",
+        "chr",
         "de",
         "el",
         "en",
@@ -3192,7 +3461,9 @@
         "ja",
         "ko",
         "la",
+        "nav",
         "nl",
+        "oj",
         "pl",
         "pt",
         "ru",
@@ -3358,12 +3629,34 @@
           "primary": true,
           "layout": "qwerty",
           "status": "open"
+        },
+        {
+          "lang": "oj",
+          "form": "bizaani",
+          "primary": true,
+          "layout": "qwerty",
+          "status": "honor-seed"
+        },
+        {
+          "lang": "chr",
+          "form": "nvwatiyvda",
+          "primary": true,
+          "layout": "qwerty",
+          "status": "honor-seed"
+        },
+        {
+          "lang": "nav",
+          "form": "kʼé",
+          "primary": true,
+          "layout": "qwerty",
+          "status": "honor-seed"
         }
       ],
-      "formCount": 21,
-      "langCount": 21,
+      "formCount": 24,
+      "langCount": 24,
       "langs": [
         "ar",
+        "chr",
         "de",
         "el",
         "en",
@@ -3375,7 +3668,9 @@
         "ja",
         "ko",
         "la",
+        "nav",
         "nl",
+        "oj",
         "pl",
         "pt",
         "ru",
@@ -3548,12 +3843,34 @@
           "primary": true,
           "layout": "qwerty",
           "status": "honor-seed"
+        },
+        {
+          "lang": "nav",
+          "form": "ayóó ánííníshní",
+          "primary": false,
+          "layout": "qwerty",
+          "status": "honor-seed"
+        },
+        {
+          "lang": "oj",
+          "form": "zaagi'",
+          "primary": true,
+          "layout": "qwerty",
+          "status": "honor-seed"
+        },
+        {
+          "lang": "chr",
+          "form": "adageyudi",
+          "primary": true,
+          "layout": "qwerty",
+          "status": "honor-seed"
         }
       ],
-      "formCount": 22,
-      "langCount": 22,
+      "formCount": 25,
+      "langCount": 24,
       "langs": [
         "ar",
+        "chr",
         "de",
         "el",
         "en",
@@ -3567,6 +3884,7 @@
         "la",
         "nav",
         "nl",
+        "oj",
         "pl",
         "pt",
         "ru",
@@ -3732,12 +4050,34 @@
           "primary": true,
           "layout": "qwerty",
           "status": "open"
+        },
+        {
+          "lang": "oj",
+          "form": "debwewin",
+          "primary": true,
+          "layout": "qwerty",
+          "status": "honor-seed"
+        },
+        {
+          "lang": "chr",
+          "form": "nvwatiyesdi",
+          "primary": true,
+          "layout": "qwerty",
+          "status": "honor-seed"
+        },
+        {
+          "lang": "nav",
+          "form": "tʼáá aaníí",
+          "primary": true,
+          "layout": "qwerty",
+          "status": "honor-seed"
         }
       ],
-      "formCount": 21,
-      "langCount": 21,
+      "formCount": 24,
+      "langCount": 24,
       "langs": [
         "ar",
+        "chr",
         "de",
         "el",
         "en",
@@ -3749,7 +4089,9 @@
         "ja",
         "ko",
         "la",
+        "nav",
         "nl",
+        "oj",
         "pl",
         "pt",
         "ru",
@@ -3929,12 +4271,27 @@
           "primary": true,
           "layout": "qwerty",
           "status": "honor-seed"
+        },
+        {
+          "lang": "nav",
+          "form": "bee hózin",
+          "primary": true,
+          "layout": "qwerty",
+          "status": "honor-seed"
+        },
+        {
+          "lang": "chr",
+          "form": "ugalvdodi",
+          "primary": true,
+          "layout": "qwerty",
+          "status": "honor-seed"
         }
       ],
-      "formCount": 23,
-      "langCount": 22,
+      "formCount": 25,
+      "langCount": 24,
       "langs": [
         "ar",
+        "chr",
         "de",
         "el",
         "en",
@@ -3946,6 +4303,7 @@
         "ja",
         "ko",
         "la",
+        "nav",
         "nl",
         "oj",
         "pl",
@@ -4113,12 +4471,34 @@
           "primary": true,
           "layout": "qwerty",
           "status": "open"
+        },
+        {
+          "lang": "nav",
+          "form": "áníłtsoígíí",
+          "primary": true,
+          "layout": "qwerty",
+          "status": "honor-seed"
+        },
+        {
+          "lang": "chr",
+          "form": "digohweli",
+          "primary": true,
+          "layout": "qwerty",
+          "status": "honor-seed"
+        },
+        {
+          "lang": "oj",
+          "form": "agindaasowin",
+          "primary": true,
+          "layout": "qwerty",
+          "status": "honor-seed"
         }
       ],
-      "formCount": 21,
-      "langCount": 21,
+      "formCount": 24,
+      "langCount": 24,
       "langs": [
         "ar",
+        "chr",
         "de",
         "el",
         "en",
@@ -4130,7 +4510,9 @@
         "ja",
         "ko",
         "la",
+        "nav",
         "nl",
+        "oj",
         "pl",
         "pt",
         "ru",
@@ -4317,9 +4699,16 @@
           "primary": true,
           "layout": "qwerty",
           "status": "honor-seed"
+        },
+        {
+          "lang": "nav",
+          "form": "tʼááłáʼí",
+          "primary": false,
+          "layout": "qwerty",
+          "status": "honor-seed"
         }
       ],
-      "formCount": 24,
+      "formCount": 25,
       "langCount": 24,
       "langs": [
         "ar",
@@ -4517,10 +4906,17 @@
           "primary": true,
           "layout": "qwerty",
           "status": "honor-seed"
+        },
+        {
+          "lang": "nav",
+          "form": "naaki",
+          "primary": true,
+          "layout": "qwerty",
+          "status": "honor-seed"
         }
       ],
-      "formCount": 23,
-      "langCount": 23,
+      "formCount": 24,
+      "langCount": 24,
       "langs": [
         "ar",
         "chr",
@@ -4535,6 +4931,7 @@
         "ja",
         "ko",
         "la",
+        "nav",
         "nl",
         "oj",
         "pl",
@@ -4716,10 +5113,17 @@
           "primary": true,
           "layout": "qwerty",
           "status": "honor-seed"
+        },
+        {
+          "lang": "nav",
+          "form": "tááʼ",
+          "primary": true,
+          "layout": "qwerty",
+          "status": "honor-seed"
         }
       ],
-      "formCount": 23,
-      "langCount": 23,
+      "formCount": 24,
+      "langCount": 24,
       "langs": [
         "ar",
         "chr",
@@ -4734,6 +5138,7 @@
         "ja",
         "ko",
         "la",
+        "nav",
         "nl",
         "oj",
         "pl",
@@ -4901,12 +5306,34 @@
           "primary": true,
           "layout": "qwerty",
           "status": "open"
+        },
+        {
+          "lang": "nav",
+          "form": "ála",
+          "primary": true,
+          "layout": "qwerty",
+          "status": "honor-seed"
+        },
+        {
+          "lang": "oj",
+          "form": "oninji",
+          "primary": true,
+          "layout": "qwerty",
+          "status": "honor-seed"
+        },
+        {
+          "lang": "chr",
+          "form": "uwoyeni",
+          "primary": true,
+          "layout": "qwerty",
+          "status": "honor-seed"
         }
       ],
-      "formCount": 21,
-      "langCount": 21,
+      "formCount": 24,
+      "langCount": 24,
       "langs": [
         "ar",
+        "chr",
         "de",
         "el",
         "en",
@@ -4918,7 +5345,9 @@
         "ja",
         "ko",
         "la",
+        "nav",
         "nl",
+        "oj",
         "pl",
         "pt",
         "ru",
@@ -5098,12 +5527,34 @@
           "primary": true,
           "layout": "qwerty",
           "status": "open"
+        },
+        {
+          "lang": "nav",
+          "form": "anááʼ",
+          "primary": true,
+          "layout": "qwerty",
+          "status": "honor-seed"
+        },
+        {
+          "lang": "oj",
+          "form": "ishkiinzhig",
+          "primary": true,
+          "layout": "qwerty",
+          "status": "honor-seed"
+        },
+        {
+          "lang": "chr",
+          "form": "akta",
+          "primary": true,
+          "layout": "qwerty",
+          "status": "honor-seed"
         }
       ],
-      "formCount": 23,
-      "langCount": 21,
+      "formCount": 26,
+      "langCount": 24,
       "langs": [
         "ar",
+        "chr",
         "de",
         "el",
         "en",
@@ -5115,7 +5566,9 @@
         "ja",
         "ko",
         "la",
+        "nav",
         "nl",
+        "oj",
         "pl",
         "pt",
         "ru",
@@ -5281,12 +5734,34 @@
           "primary": true,
           "layout": "qwerty",
           "status": "open"
+        },
+        {
+          "lang": "nav",
+          "form": "jéí",
+          "primary": true,
+          "layout": "qwerty",
+          "status": "honor-seed"
+        },
+        {
+          "lang": "oj",
+          "form": "ode'",
+          "primary": true,
+          "layout": "qwerty",
+          "status": "honor-seed"
+        },
+        {
+          "lang": "chr",
+          "form": "adageyv",
+          "primary": true,
+          "layout": "qwerty",
+          "status": "honor-seed"
         }
       ],
-      "formCount": 21,
-      "langCount": 21,
+      "formCount": 24,
+      "langCount": 24,
       "langs": [
         "ar",
+        "chr",
         "de",
         "el",
         "en",
@@ -5298,7 +5773,9 @@
         "ja",
         "ko",
         "la",
+        "nav",
         "nl",
+        "oj",
         "pl",
         "pt",
         "ru",
@@ -5478,12 +5955,34 @@
           "primary": true,
           "layout": "qwerty",
           "status": "open"
+        },
+        {
+          "lang": "nav",
+          "form": "hooghan",
+          "primary": true,
+          "layout": "qwerty",
+          "status": "honor-seed"
+        },
+        {
+          "lang": "oj",
+          "form": "waakaa'igan",
+          "primary": true,
+          "layout": "qwerty",
+          "status": "honor-seed"
+        },
+        {
+          "lang": "chr",
+          "form": "adlanvdo",
+          "primary": true,
+          "layout": "qwerty",
+          "status": "honor-seed"
         }
       ],
-      "formCount": 23,
-      "langCount": 21,
+      "formCount": 26,
+      "langCount": 24,
       "langs": [
         "ar",
+        "chr",
         "de",
         "el",
         "en",
@@ -5495,7 +5994,9 @@
         "ja",
         "ko",
         "la",
+        "nav",
         "nl",
+        "oj",
         "pl",
         "pt",
         "ru",
@@ -5668,12 +6169,34 @@
           "primary": true,
           "layout": "qwerty",
           "status": "open"
+        },
+        {
+          "lang": "oj",
+          "form": "miijim",
+          "primary": true,
+          "layout": "qwerty",
+          "status": "honor-seed"
+        },
+        {
+          "lang": "nav",
+          "form": "chʼiyáán",
+          "primary": true,
+          "layout": "qwerty",
+          "status": "honor-seed"
+        },
+        {
+          "lang": "chr",
+          "form": "alisdayvdi",
+          "primary": true,
+          "layout": "qwerty",
+          "status": "honor-seed"
         }
       ],
-      "formCount": 22,
-      "langCount": 21,
+      "formCount": 25,
+      "langCount": 24,
       "langs": [
         "ar",
+        "chr",
         "de",
         "el",
         "en",
@@ -5685,7 +6208,9 @@
         "ja",
         "ko",
         "la",
+        "nav",
         "nl",
+        "oj",
         "pl",
         "pt",
         "ru",
@@ -5851,12 +6376,34 @@
           "primary": true,
           "layout": "qwerty",
           "status": "open"
+        },
+        {
+          "lang": "oj",
+          "form": "diba'igan",
+          "primary": true,
+          "layout": "qwerty",
+          "status": "honor-seed"
+        },
+        {
+          "lang": "nav",
+          "form": "ahoolzhíísh",
+          "primary": true,
+          "layout": "qwerty",
+          "status": "honor-seed"
+        },
+        {
+          "lang": "chr",
+          "form": "iyvhi",
+          "primary": true,
+          "layout": "qwerty",
+          "status": "honor-seed"
         }
       ],
-      "formCount": 21,
-      "langCount": 21,
+      "formCount": 24,
+      "langCount": 24,
       "langs": [
         "ar",
+        "chr",
         "de",
         "el",
         "en",
@@ -5868,7 +6415,9 @@
         "ja",
         "ko",
         "la",
+        "nav",
         "nl",
+        "oj",
         "pl",
         "pt",
         "ru",
@@ -6041,12 +6590,34 @@
           "primary": true,
           "layout": "qwerty",
           "status": "open"
+        },
+        {
+          "lang": "oj",
+          "form": "giizhigad",
+          "primary": true,
+          "layout": "qwerty",
+          "status": "honor-seed"
+        },
+        {
+          "lang": "nav",
+          "form": "jı̨́",
+          "primary": true,
+          "layout": "qwerty",
+          "status": "honor-seed"
+        },
+        {
+          "lang": "chr",
+          "form": "iga",
+          "primary": true,
+          "layout": "qwerty",
+          "status": "honor-seed"
         }
       ],
-      "formCount": 22,
-      "langCount": 21,
+      "formCount": 25,
+      "langCount": 24,
       "langs": [
         "ar",
+        "chr",
         "de",
         "el",
         "en",
@@ -6058,7 +6629,9 @@
         "ja",
         "ko",
         "la",
+        "nav",
         "nl",
+        "oj",
         "pl",
         "pt",
         "ru",
@@ -6224,12 +6797,34 @@
           "primary": true,
           "layout": "qwerty",
           "status": "open"
+        },
+        {
+          "lang": "oj",
+          "form": "dibik",
+          "primary": true,
+          "layout": "qwerty",
+          "status": "honor-seed"
+        },
+        {
+          "lang": "nav",
+          "form": "tłʼééʼ",
+          "primary": true,
+          "layout": "qwerty",
+          "status": "honor-seed"
+        },
+        {
+          "lang": "chr",
+          "form": "svnoyi",
+          "primary": true,
+          "layout": "qwerty",
+          "status": "honor-seed"
         }
       ],
-      "formCount": 21,
-      "langCount": 21,
+      "formCount": 24,
+      "langCount": 24,
       "langs": [
         "ar",
+        "chr",
         "de",
         "el",
         "en",
@@ -6241,7 +6836,9 @@
         "ja",
         "ko",
         "la",
+        "nav",
         "nl",
+        "oj",
         "pl",
         "pt",
         "ru",
@@ -6414,12 +7011,27 @@
           "primary": true,
           "layout": "qwerty",
           "status": "honor-seed"
+        },
+        {
+          "lang": "nav",
+          "form": "yá'át'ééh",
+          "primary": true,
+          "layout": "qwerty",
+          "status": "honor-seed"
+        },
+        {
+          "lang": "chr",
+          "form": "osiyo",
+          "primary": true,
+          "layout": "qwerty",
+          "status": "honor-seed"
         }
       ],
-      "formCount": 22,
-      "langCount": 22,
+      "formCount": 24,
+      "langCount": 24,
       "langs": [
         "ar",
+        "chr",
         "de",
         "el",
         "en",
@@ -6431,6 +7043,7 @@
         "ja",
         "ko",
         "la",
+        "nav",
         "nl",
         "oj",
         "pl",
@@ -6598,12 +7211,34 @@
           "primary": true,
           "layout": "qwerty",
           "status": "open"
+        },
+        {
+          "lang": "nav",
+          "form": "nítsaa",
+          "primary": true,
+          "layout": "qwerty",
+          "status": "honor-seed"
+        },
+        {
+          "lang": "chr",
+          "form": "utana",
+          "primary": true,
+          "layout": "qwerty",
+          "status": "honor-seed"
+        },
+        {
+          "lang": "oj",
+          "form": "gichi",
+          "primary": true,
+          "layout": "qwerty",
+          "status": "honor-seed"
         }
       ],
-      "formCount": 21,
-      "langCount": 21,
+      "formCount": 24,
+      "langCount": 24,
       "langs": [
         "ar",
+        "chr",
         "de",
         "el",
         "en",
@@ -6615,7 +7250,9 @@
         "ja",
         "ko",
         "la",
+        "nav",
         "nl",
+        "oj",
         "pl",
         "pt",
         "ru",
@@ -6781,12 +7418,34 @@
           "primary": true,
           "layout": "qwerty",
           "status": "open"
+        },
+        {
+          "lang": "oj",
+          "form": "oshki",
+          "primary": true,
+          "layout": "qwerty",
+          "status": "honor-seed"
+        },
+        {
+          "lang": "nav",
+          "form": "ániidí",
+          "primary": true,
+          "layout": "qwerty",
+          "status": "honor-seed"
+        },
+        {
+          "lang": "chr",
+          "form": "igvyi",
+          "primary": true,
+          "layout": "qwerty",
+          "status": "honor-seed"
         }
       ],
-      "formCount": 21,
-      "langCount": 21,
+      "formCount": 24,
+      "langCount": 24,
       "langs": [
         "ar",
+        "chr",
         "de",
         "el",
         "en",
@@ -6798,7 +7457,9 @@
         "ja",
         "ko",
         "la",
+        "nav",
         "nl",
+        "oj",
         "pl",
         "pt",
         "ru",
@@ -6985,12 +7646,34 @@
           "primary": true,
           "layout": "qwerty",
           "status": "open"
+        },
+        {
+          "lang": "oj",
+          "form": "geté",
+          "primary": true,
+          "layout": "qwerty",
+          "status": "honor-seed"
+        },
+        {
+          "lang": "nav",
+          "form": "sání",
+          "primary": true,
+          "layout": "qwerty",
+          "status": "honor-seed"
+        },
+        {
+          "lang": "chr",
+          "form": "agayvli",
+          "primary": true,
+          "layout": "qwerty",
+          "status": "honor-seed"
         }
       ],
-      "formCount": 24,
-      "langCount": 21,
+      "formCount": 27,
+      "langCount": 24,
       "langs": [
         "ar",
+        "chr",
         "de",
         "el",
         "en",
@@ -7002,7 +7685,9 @@
         "ja",
         "ko",
         "la",
+        "nav",
         "nl",
+        "oj",
         "pl",
         "pt",
         "ru",
@@ -7175,12 +7860,27 @@
           "primary": true,
           "layout": "qwerty",
           "status": "honor-seed"
+        },
+        {
+          "lang": "nav",
+          "form": "ʼííshłaa",
+          "primary": true,
+          "layout": "qwerty",
+          "status": "honor-seed"
+        },
+        {
+          "lang": "chr",
+          "form": "gohwelodi",
+          "primary": true,
+          "layout": "qwerty",
+          "status": "honor-seed"
         }
       ],
-      "formCount": 22,
-      "langCount": 22,
+      "formCount": 24,
+      "langCount": 24,
       "langs": [
         "ar",
+        "chr",
         "de",
         "el",
         "en",
@@ -7192,6 +7892,7 @@
         "ja",
         "ko",
         "la",
+        "nav",
         "nl",
         "oj",
         "pl",
@@ -7366,12 +8067,27 @@
           "primary": true,
           "layout": "qwerty",
           "status": "honor-seed"
+        },
+        {
+          "lang": "chr",
+          "form": "agowatisdi",
+          "primary": true,
+          "layout": "qwerty",
+          "status": "honor-seed"
+        },
+        {
+          "lang": "nav",
+          "form": "ííłtaʼ",
+          "primary": true,
+          "layout": "qwerty",
+          "status": "honor-seed"
         }
       ],
-      "formCount": 22,
-      "langCount": 22,
+      "formCount": 24,
+      "langCount": 24,
       "langs": [
         "ar",
+        "chr",
         "de",
         "el",
         "en",
@@ -7383,6 +8099,7 @@
         "ja",
         "ko",
         "la",
+        "nav",
         "nl",
         "oj",
         "pl",
@@ -7564,12 +8281,27 @@
           "primary": true,
           "layout": "qwerty",
           "status": "honor-seed"
+        },
+        {
+          "lang": "nav",
+          "form": "yáłtiʼ",
+          "primary": true,
+          "layout": "qwerty",
+          "status": "honor-seed"
+        },
+        {
+          "lang": "chr",
+          "form": "gawonihisdi",
+          "primary": true,
+          "layout": "qwerty",
+          "status": "honor-seed"
         }
       ],
-      "formCount": 23,
-      "langCount": 22,
+      "formCount": 25,
+      "langCount": 24,
       "langs": [
         "ar",
+        "chr",
         "de",
         "el",
         "en",
@@ -7581,6 +8313,7 @@
         "ja",
         "ko",
         "la",
+        "nav",
         "nl",
         "oj",
         "pl",
@@ -7748,12 +8481,34 @@
           "primary": true,
           "layout": "qwerty",
           "status": "open"
+        },
+        {
+          "lang": "nav",
+          "form": "yooʼí",
+          "primary": true,
+          "layout": "qwerty",
+          "status": "honor-seed"
+        },
+        {
+          "lang": "oj",
+          "form": "waabam",
+          "primary": true,
+          "layout": "qwerty",
+          "status": "honor-seed"
+        },
+        {
+          "lang": "chr",
+          "form": "gowatiha",
+          "primary": true,
+          "layout": "qwerty",
+          "status": "honor-seed"
         }
       ],
-      "formCount": 21,
-      "langCount": 21,
+      "formCount": 24,
+      "langCount": 24,
       "langs": [
         "ar",
+        "chr",
         "de",
         "el",
         "en",
@@ -7765,7 +8520,9 @@
         "ja",
         "ko",
         "la",
+        "nav",
         "nl",
+        "oj",
         "pl",
         "pt",
         "ru",
@@ -7931,12 +8688,34 @@
           "primary": true,
           "layout": "qwerty",
           "status": "open"
+        },
+        {
+          "lang": "nav",
+          "form": "yidiitsʼaʼ",
+          "primary": true,
+          "layout": "qwerty",
+          "status": "honor-seed"
+        },
+        {
+          "lang": "oj",
+          "form": "noondaw",
+          "primary": true,
+          "layout": "qwerty",
+          "status": "honor-seed"
+        },
+        {
+          "lang": "chr",
+          "form": "aktaha",
+          "primary": true,
+          "layout": "qwerty",
+          "status": "honor-seed"
         }
       ],
-      "formCount": 21,
-      "langCount": 21,
+      "formCount": 24,
+      "langCount": 24,
       "langs": [
         "ar",
+        "chr",
         "de",
         "el",
         "en",
@@ -7948,7 +8727,9 @@
         "ja",
         "ko",
         "la",
+        "nav",
         "nl",
+        "oj",
         "pl",
         "pt",
         "ru",
@@ -8135,12 +8916,34 @@
           "primary": true,
           "layout": "qwerty",
           "status": "open"
+        },
+        {
+          "lang": "oj",
+          "form": "gikendaan",
+          "primary": true,
+          "layout": "qwerty",
+          "status": "honor-seed"
+        },
+        {
+          "lang": "chr",
+          "form": "agalvdodi",
+          "primary": true,
+          "layout": "qwerty",
+          "status": "honor-seed"
+        },
+        {
+          "lang": "nav",
+          "form": "bééhózin",
+          "primary": true,
+          "layout": "qwerty",
+          "status": "honor-seed"
         }
       ],
-      "formCount": 24,
-      "langCount": 21,
+      "formCount": 27,
+      "langCount": 24,
       "langs": [
         "ar",
+        "chr",
         "de",
         "el",
         "en",
@@ -8152,7 +8955,9 @@
         "ja",
         "ko",
         "la",
+        "nav",
         "nl",
+        "oj",
         "pl",
         "pt",
         "ru",
@@ -8318,12 +9123,34 @@
           "primary": true,
           "layout": "qwerty",
           "status": "open"
+        },
+        {
+          "lang": "oj",
+          "form": "inendam",
+          "primary": true,
+          "layout": "qwerty",
+          "status": "honor-seed"
+        },
+        {
+          "lang": "nav",
+          "form": "nitsáhákees",
+          "primary": true,
+          "layout": "qwerty",
+          "status": "honor-seed"
+        },
+        {
+          "lang": "chr",
+          "form": "adadvdodi",
+          "primary": true,
+          "layout": "qwerty",
+          "status": "honor-seed"
         }
       ],
-      "formCount": 21,
-      "langCount": 21,
+      "formCount": 24,
+      "langCount": 24,
       "langs": [
         "ar",
+        "chr",
         "de",
         "el",
         "en",
@@ -8335,7 +9162,9 @@
         "ja",
         "ko",
         "la",
+        "nav",
         "nl",
+        "oj",
         "pl",
         "pt",
         "ru",
@@ -8501,12 +9330,34 @@
           "primary": true,
           "layout": "qwerty",
           "status": "open"
+        },
+        {
+          "lang": "oj",
+          "form": "miizh",
+          "primary": true,
+          "layout": "qwerty",
+          "status": "honor-seed"
+        },
+        {
+          "lang": "nav",
+          "form": "yeidoołtsos",
+          "primary": true,
+          "layout": "qwerty",
+          "status": "honor-seed"
+        },
+        {
+          "lang": "chr",
+          "form": "ahnewadvdi",
+          "primary": true,
+          "layout": "qwerty",
+          "status": "honor-seed"
         }
       ],
-      "formCount": 21,
-      "langCount": 21,
+      "formCount": 24,
+      "langCount": 24,
       "langs": [
         "ar",
+        "chr",
         "de",
         "el",
         "en",
@@ -8518,7 +9369,9 @@
         "ja",
         "ko",
         "la",
+        "nav",
         "nl",
+        "oj",
         "pl",
         "pt",
         "ru",
@@ -8684,12 +9537,34 @@
           "primary": true,
           "layout": "qwerty",
           "status": "open"
+        },
+        {
+          "lang": "oj",
+          "form": "biizhaa",
+          "primary": true,
+          "layout": "qwerty",
+          "status": "honor-seed"
+        },
+        {
+          "lang": "nav",
+          "form": "yíghááh",
+          "primary": true,
+          "layout": "qwerty",
+          "status": "honor-seed"
+        },
+        {
+          "lang": "chr",
+          "form": "digalenvhi",
+          "primary": true,
+          "layout": "qwerty",
+          "status": "honor-seed"
         }
       ],
-      "formCount": 21,
-      "langCount": 21,
+      "formCount": 24,
+      "langCount": 24,
       "langs": [
         "ar",
+        "chr",
         "de",
         "el",
         "en",
@@ -8701,7 +9576,9 @@
         "ja",
         "ko",
         "la",
+        "nav",
         "nl",
+        "oj",
         "pl",
         "pt",
         "ru",
@@ -8867,12 +9744,34 @@
           "primary": true,
           "layout": "qwerty",
           "status": "open"
+        },
+        {
+          "lang": "oj",
+          "form": "maajaa",
+          "primary": true,
+          "layout": "qwerty",
+          "status": "honor-seed"
+        },
+        {
+          "lang": "nav",
+          "form": "yigáál",
+          "primary": true,
+          "layout": "qwerty",
+          "status": "honor-seed"
+        },
+        {
+          "lang": "chr",
+          "form": "galenvhi",
+          "primary": true,
+          "layout": "qwerty",
+          "status": "honor-seed"
         }
       ],
-      "formCount": 21,
-      "langCount": 21,
+      "formCount": 24,
+      "langCount": 24,
       "langs": [
         "ar",
+        "chr",
         "de",
         "el",
         "en",
@@ -8884,7 +9783,9 @@
         "ja",
         "ko",
         "la",
+        "nav",
         "nl",
+        "oj",
         "pl",
         "pt",
         "ru",
@@ -9050,12 +9951,34 @@
           "primary": true,
           "layout": "qwerty",
           "status": "open"
+        },
+        {
+          "lang": "oj",
+          "form": "ozhitoon",
+          "primary": true,
+          "layout": "qwerty",
+          "status": "honor-seed"
+        },
+        {
+          "lang": "nav",
+          "form": "áyiilaa",
+          "primary": true,
+          "layout": "qwerty",
+          "status": "honor-seed"
+        },
+        {
+          "lang": "chr",
+          "form": "asgoli",
+          "primary": true,
+          "layout": "qwerty",
+          "status": "honor-seed"
         }
       ],
-      "formCount": 21,
-      "langCount": 21,
+      "formCount": 24,
+      "langCount": 24,
       "langs": [
         "ar",
+        "chr",
         "de",
         "el",
         "en",
@@ -9067,7 +9990,9 @@
         "ja",
         "ko",
         "la",
+        "nav",
         "nl",
+        "oj",
         "pl",
         "pt",
         "ru",
@@ -9689,12 +10614,27 @@
           "primary": true,
           "layout": "qwerty",
           "status": "honor-seed"
+        },
+        {
+          "lang": "chr",
+          "form": "v",
+          "primary": true,
+          "layout": "qwerty",
+          "status": "honor-seed"
+        },
+        {
+          "lang": "nav",
+          "form": "aooʼ",
+          "primary": true,
+          "layout": "qwerty",
+          "status": "honor-seed"
         }
       ],
-      "formCount": 24,
-      "langCount": 22,
+      "formCount": 26,
+      "langCount": 24,
       "langs": [
         "ar",
+        "chr",
         "de",
         "el",
         "en",
@@ -9706,6 +10646,7 @@
         "ja",
         "ko",
         "la",
+        "nav",
         "nl",
         "oj",
         "pl",
@@ -9880,12 +10821,27 @@
           "primary": true,
           "layout": "qwerty",
           "status": "honor-seed"
+        },
+        {
+          "lang": "chr",
+          "form": "tla",
+          "primary": true,
+          "layout": "qwerty",
+          "status": "honor-seed"
+        },
+        {
+          "lang": "nav",
+          "form": "dooda",
+          "primary": true,
+          "layout": "qwerty",
+          "status": "honor-seed"
         }
       ],
-      "formCount": 22,
-      "langCount": 22,
+      "formCount": 24,
+      "langCount": 24,
       "langs": [
         "ar",
+        "chr",
         "de",
         "el",
         "en",
@@ -9897,6 +10853,7 @@
         "ja",
         "ko",
         "la",
+        "nav",
         "nl",
         "oj",
         "pl",
@@ -10029,12 +10986,27 @@
           "primary": true,
           "layout": "jcuken",
           "status": "open"
+        },
+        {
+          "lang": "chr",
+          "form": "gohweli",
+          "primary": true,
+          "layout": "qwerty",
+          "status": "honor-seed"
+        },
+        {
+          "lang": "oj",
+          "form": "ikidowin",
+          "primary": true,
+          "layout": "qwerty",
+          "status": "honor-seed"
         }
       ],
-      "formCount": 16,
-      "langCount": 16,
+      "formCount": 18,
+      "langCount": 18,
       "langs": [
         "ar",
+        "chr",
         "de",
         "el",
         "en",
@@ -10045,6 +11017,7 @@
         "it",
         "la",
         "nl",
+        "oj",
         "pl",
         "pt",
         "ru",
@@ -10172,12 +11145,34 @@
           "primary": true,
           "layout": "jcuken",
           "status": "open"
+        },
+        {
+          "lang": "nav",
+          "form": "tʼáá bíniʼdílyé",
+          "primary": true,
+          "layout": "qwerty",
+          "status": "honor-seed"
+        },
+        {
+          "lang": "chr",
+          "form": "uwenvsv",
+          "primary": true,
+          "layout": "qwerty",
+          "status": "honor-seed"
+        },
+        {
+          "lang": "oj",
+          "form": "dibenjigewin",
+          "primary": true,
+          "layout": "qwerty",
+          "status": "honor-seed"
         }
       ],
-      "formCount": 16,
-      "langCount": 16,
+      "formCount": 19,
+      "langCount": 19,
       "langs": [
         "ar",
+        "chr",
         "de",
         "el",
         "en",
@@ -10187,7 +11182,9 @@
         "is",
         "it",
         "la",
+        "nav",
         "nl",
+        "oj",
         "pl",
         "pt",
         "ru",
@@ -10315,12 +11312,34 @@
           "primary": true,
           "layout": "jcuken",
           "status": "open"
+        },
+        {
+          "lang": "oj",
+          "form": "minawaanigwendam",
+          "primary": true,
+          "layout": "qwerty",
+          "status": "honor-seed"
+        },
+        {
+          "lang": "nav",
+          "form": "ił hózhǫ́",
+          "primary": true,
+          "layout": "qwerty",
+          "status": "honor-seed"
+        },
+        {
+          "lang": "chr",
+          "form": "alihelisdi",
+          "primary": true,
+          "layout": "qwerty",
+          "status": "honor-seed"
         }
       ],
-      "formCount": 16,
-      "langCount": 16,
+      "formCount": 19,
+      "langCount": 19,
       "langs": [
         "ar",
+        "chr",
         "de",
         "el",
         "en",
@@ -10330,7 +11349,9 @@
         "is",
         "it",
         "la",
+        "nav",
         "nl",
+        "oj",
         "pl",
         "pt",
         "ru",
@@ -10458,12 +11479,34 @@
           "primary": true,
           "layout": "jcuken",
           "status": "open"
+        },
+        {
+          "lang": "oj",
+          "form": "dibaakonigewin",
+          "primary": true,
+          "layout": "qwerty",
+          "status": "honor-seed"
+        },
+        {
+          "lang": "nav",
+          "form": "beehazʼáanii bikʼehgo",
+          "primary": true,
+          "layout": "qwerty",
+          "status": "honor-seed"
+        },
+        {
+          "lang": "chr",
+          "form": "nvwatiyesdi",
+          "primary": true,
+          "layout": "qwerty",
+          "status": "honor-seed"
         }
       ],
-      "formCount": 16,
-      "langCount": 16,
+      "formCount": 19,
+      "langCount": 19,
       "langs": [
         "ar",
+        "chr",
         "de",
         "el",
         "en",
@@ -10473,7 +11516,9 @@
         "is",
         "it",
         "la",
+        "nav",
         "nl",
+        "oj",
         "pl",
         "pt",
         "ru",
@@ -10643,12 +11688,34 @@
           "primary": true,
           "layout": "jcuken",
           "status": "open"
+        },
+        {
+          "lang": "oj",
+          "form": "anishinaabeg",
+          "primary": true,
+          "layout": "qwerty",
+          "status": "honor-seed"
+        },
+        {
+          "lang": "nav",
+          "form": "diné",
+          "primary": true,
+          "layout": "qwerty",
+          "status": "honor-seed"
+        },
+        {
+          "lang": "chr",
+          "form": "yvwi",
+          "primary": true,
+          "layout": "qwerty",
+          "status": "honor-seed"
         }
       ],
-      "formCount": 22,
-      "langCount": 16,
+      "formCount": 25,
+      "langCount": 19,
       "langs": [
         "ar",
+        "chr",
         "de",
         "el",
         "en",
@@ -10658,7 +11725,9 @@
         "is",
         "it",
         "la",
+        "nav",
         "nl",
+        "oj",
         "pl",
         "pt",
         "ru",
@@ -10786,12 +11855,34 @@
           "primary": true,
           "layout": "jcuken",
           "status": "open"
+        },
+        {
+          "lang": "oj",
+          "form": "ogimaawiwin",
+          "primary": true,
+          "layout": "qwerty",
+          "status": "honor-seed"
+        },
+        {
+          "lang": "nav",
+          "form": "wááshindoon",
+          "primary": true,
+          "layout": "qwerty",
+          "status": "honor-seed"
+        },
+        {
+          "lang": "chr",
+          "form": "gaduhv digohwelodi",
+          "primary": true,
+          "layout": "qwerty",
+          "status": "honor-seed"
         }
       ],
-      "formCount": 16,
-      "langCount": 16,
+      "formCount": 19,
+      "langCount": 19,
       "langs": [
         "ar",
+        "chr",
         "de",
         "el",
         "en",
@@ -10801,7 +11892,9 @@
         "is",
         "it",
         "la",
+        "nav",
         "nl",
+        "oj",
         "pl",
         "pt",
         "ru",
@@ -10929,10 +12022,17 @@
           "primary": true,
           "layout": "jcuken",
           "status": "open"
+        },
+        {
+          "lang": "oj",
+          "form": "waawiyeyaa",
+          "primary": true,
+          "layout": "qwerty",
+          "status": "honor-seed"
         }
       ],
-      "formCount": 16,
-      "langCount": 16,
+      "formCount": 17,
+      "langCount": 17,
       "langs": [
         "ar",
         "de",
@@ -10945,6 +12045,7 @@
         "it",
         "la",
         "nl",
+        "oj",
         "pl",
         "pt",
         "ru",
@@ -11079,10 +12180,17 @@
           "primary": true,
           "layout": "jcuken",
           "status": "open"
+        },
+        {
+          "lang": "oj",
+          "form": "agindaasowin",
+          "primary": true,
+          "layout": "qwerty",
+          "status": "honor-seed"
         }
       ],
-      "formCount": 17,
-      "langCount": 16,
+      "formCount": 18,
+      "langCount": 17,
       "langs": [
         "ar",
         "de",
@@ -11095,6 +12203,7 @@
         "it",
         "la",
         "nl",
+        "oj",
         "pl",
         "pt",
         "ru",
@@ -11222,12 +12331,34 @@
           "primary": true,
           "layout": "jcuken",
           "status": "open"
+        },
+        {
+          "lang": "oj",
+          "form": "waawiyeyaa",
+          "primary": true,
+          "layout": "qwerty",
+          "status": "honor-seed"
+        },
+        {
+          "lang": "nav",
+          "form": "náhookǫs",
+          "primary": true,
+          "layout": "qwerty",
+          "status": "honor-seed"
+        },
+        {
+          "lang": "chr",
+          "form": "digalenvdi",
+          "primary": true,
+          "layout": "qwerty",
+          "status": "honor-seed"
         }
       ],
-      "formCount": 16,
-      "langCount": 16,
+      "formCount": 19,
+      "langCount": 19,
       "langs": [
         "ar",
+        "chr",
         "de",
         "el",
         "en",
@@ -11237,7 +12368,9 @@
         "is",
         "it",
         "la",
+        "nav",
         "nl",
+        "oj",
         "pl",
         "pt",
         "ru",
@@ -11365,12 +12498,34 @@
           "primary": true,
           "layout": "jcuken",
           "status": "open"
+        },
+        {
+          "lang": "oj",
+          "form": "biimiskonigan",
+          "primary": true,
+          "layout": "qwerty",
+          "status": "honor-seed"
+        },
+        {
+          "lang": "nav",
+          "form": "bee niʼnitin",
+          "primary": true,
+          "layout": "qwerty",
+          "status": "honor-seed"
+        },
+        {
+          "lang": "chr",
+          "form": "kanvsdi",
+          "primary": true,
+          "layout": "qwerty",
+          "status": "honor-seed"
         }
       ],
-      "formCount": 16,
-      "langCount": 16,
+      "formCount": 19,
+      "langCount": 19,
       "langs": [
         "ar",
+        "chr",
         "de",
         "el",
         "en",
@@ -11380,7 +12535,9 @@
         "is",
         "it",
         "la",
+        "nav",
         "nl",
+        "oj",
         "pl",
         "pt",
         "ru",
@@ -11508,10 +12665,17 @@
           "primary": true,
           "layout": "jcuken",
           "status": "open"
+        },
+        {
+          "lang": "oj",
+          "form": "mazinaʼigan",
+          "primary": true,
+          "layout": "qwerty",
+          "status": "honor-seed"
         }
       ],
-      "formCount": 16,
-      "langCount": 16,
+      "formCount": 17,
+      "langCount": 17,
       "langs": [
         "ar",
         "de",
@@ -11524,6 +12688,7 @@
         "it",
         "la",
         "nl",
+        "oj",
         "pl",
         "pt",
         "ru",
@@ -11658,10 +12823,17 @@
           "primary": true,
           "layout": "jcuken",
           "status": "open"
+        },
+        {
+          "lang": "oj",
+          "form": "ozhibii'igan",
+          "primary": true,
+          "layout": "qwerty",
+          "status": "honor-seed"
         }
       ],
-      "formCount": 17,
-      "langCount": 16,
+      "formCount": 18,
+      "langCount": 17,
       "langs": [
         "ar",
         "de",
@@ -11674,6 +12846,7 @@
         "it",
         "la",
         "nl",
+        "oj",
         "pl",
         "pt",
         "ru",
@@ -11801,12 +12974,41 @@
           "primary": true,
           "layout": "jcuken",
           "status": "open"
+        },
+        {
+          "lang": "hi",
+          "form": "पंचांग",
+          "primary": false,
+          "layout": "hindi",
+          "status": "open"
+        },
+        {
+          "lang": "oj",
+          "form": "giizisoo-mazina'igan",
+          "primary": true,
+          "layout": "qwerty",
+          "status": "honor-seed"
+        },
+        {
+          "lang": "nav",
+          "form": "nááhai bikááʼ",
+          "primary": true,
+          "layout": "qwerty",
+          "status": "honor-seed"
+        },
+        {
+          "lang": "chr",
+          "form": "nvda digohweli",
+          "primary": true,
+          "layout": "qwerty",
+          "status": "honor-seed"
         }
       ],
-      "formCount": 16,
-      "langCount": 16,
+      "formCount": 20,
+      "langCount": 19,
       "langs": [
         "ar",
+        "chr",
         "de",
         "el",
         "en",
@@ -11816,7 +13018,9 @@
         "is",
         "it",
         "la",
+        "nav",
         "nl",
+        "oj",
         "pl",
         "pt",
         "ru",
@@ -11909,10 +13113,101 @@
           "primary": true,
           "layout": "qwerty",
           "status": "open"
+        },
+        {
+          "lang": "de",
+          "form": "Astronomie",
+          "primary": false,
+          "layout": "qwertz",
+          "status": "open"
+        },
+        {
+          "lang": "fr",
+          "form": "astronomie",
+          "primary": false,
+          "layout": "azerty",
+          "status": "open"
+        },
+        {
+          "lang": "es",
+          "form": "astronomía",
+          "primary": false,
+          "layout": "qwerty",
+          "status": "open"
+        },
+        {
+          "lang": "it",
+          "form": "astronomia",
+          "primary": false,
+          "layout": "qwerty",
+          "status": "open"
+        },
+        {
+          "lang": "is",
+          "form": "stjörnufræði",
+          "primary": true,
+          "layout": "qwerty",
+          "status": "open"
+        },
+        {
+          "lang": "nl",
+          "form": "sterrenkunde",
+          "primary": true,
+          "layout": "qwerty",
+          "status": "open"
+        },
+        {
+          "lang": "pt",
+          "form": "astronomia",
+          "primary": true,
+          "layout": "qwerty",
+          "status": "open"
+        },
+        {
+          "lang": "pl",
+          "form": "astronomia",
+          "primary": true,
+          "layout": "qwerty",
+          "status": "open"
+        },
+        {
+          "lang": "ar",
+          "form": "فلك",
+          "primary": false,
+          "layout": "arabic",
+          "status": "open"
+        },
+        {
+          "lang": "hi",
+          "form": "खगोल",
+          "primary": false,
+          "layout": "hindi",
+          "status": "open"
+        },
+        {
+          "lang": "zh",
+          "form": "天文",
+          "primary": false,
+          "layout": "qwerty",
+          "status": "open"
+        },
+        {
+          "lang": "ru",
+          "form": "астрономия",
+          "primary": true,
+          "layout": "jcuken",
+          "status": "open"
+        },
+        {
+          "lang": "oj",
+          "form": "anang mazinaʼigan",
+          "primary": true,
+          "layout": "qwerty",
+          "status": "honor-seed"
         }
       ],
-      "formCount": 11,
-      "langCount": 10,
+      "formCount": 24,
+      "langCount": 16,
       "langs": [
         "ar",
         "de",
@@ -11921,8 +13216,14 @@
         "es",
         "fr",
         "hi",
+        "is",
         "it",
         "la",
+        "nl",
+        "oj",
+        "pl",
+        "pt",
+        "ru",
         "zh"
       ],
       "license": "kbatch-curated-open-seed",
@@ -12074,12 +13375,34 @@
           "primary": true,
           "layout": "vietnamese",
           "status": "open"
+        },
+        {
+          "lang": "nav",
+          "form": "mąʼii",
+          "primary": true,
+          "layout": "qwerty",
+          "status": "honor-seed"
+        },
+        {
+          "lang": "chr",
+          "form": "tsula",
+          "primary": true,
+          "layout": "qwerty",
+          "status": "honor-seed"
+        },
+        {
+          "lang": "oj",
+          "form": "waagosh",
+          "primary": true,
+          "layout": "qwerty",
+          "status": "honor-seed"
         }
       ],
-      "formCount": 20,
-      "langCount": 20,
+      "formCount": 23,
+      "langCount": 23,
       "langs": [
         "ar",
+        "chr",
         "de",
         "el",
         "en",
@@ -12091,7 +13414,9 @@
         "ja",
         "ko",
         "la",
+        "nav",
         "nl",
+        "oj",
         "pl",
         "pt",
         "ru",
@@ -12221,10 +13546,17 @@
           "primary": true,
           "layout": "jcuken",
           "status": "open"
+        },
+        {
+          "lang": "oj",
+          "form": "ozhibiiʼigewinini",
+          "primary": true,
+          "layout": "qwerty",
+          "status": "honor-seed"
         }
       ],
-      "formCount": 16,
-      "langCount": 16,
+      "formCount": 17,
+      "langCount": 17,
       "langs": [
         "ar",
         "de",
@@ -12237,6 +13569,7 @@
         "it",
         "la",
         "nl",
+        "oj",
         "pl",
         "pt",
         "ru",
@@ -12364,10 +13697,17 @@
           "primary": true,
           "layout": "jcuken",
           "status": "open"
+        },
+        {
+          "lang": "oj",
+          "form": "mazinaʼigan",
+          "primary": true,
+          "layout": "qwerty",
+          "status": "honor-seed"
         }
       ],
-      "formCount": 16,
-      "langCount": 16,
+      "formCount": 17,
+      "langCount": 17,
       "langs": [
         "ar",
         "de",
@@ -12380,6 +13720,7 @@
         "it",
         "la",
         "nl",
+        "oj",
         "pl",
         "pt",
         "ru",
@@ -12507,10 +13848,17 @@
           "primary": true,
           "layout": "jcuken",
           "status": "open"
+        },
+        {
+          "lang": "oj",
+          "form": "mazinaʼigan",
+          "primary": true,
+          "layout": "qwerty",
+          "status": "honor-seed"
         }
       ],
-      "formCount": 16,
-      "langCount": 16,
+      "formCount": 17,
+      "langCount": 17,
       "langs": [
         "ar",
         "de",
@@ -12523,6 +13871,7 @@
         "it",
         "la",
         "nl",
+        "oj",
         "pl",
         "pt",
         "ru",
@@ -12657,12 +14006,34 @@
           "primary": true,
           "layout": "jcuken",
           "status": "open"
+        },
+        {
+          "lang": "nav",
+          "form": "tooh",
+          "primary": true,
+          "layout": "qwerty",
+          "status": "honor-seed"
+        },
+        {
+          "lang": "oj",
+          "form": "ziibi",
+          "primary": true,
+          "layout": "qwerty",
+          "status": "honor-seed"
+        },
+        {
+          "lang": "chr",
+          "form": "uweyv",
+          "primary": true,
+          "layout": "qwerty",
+          "status": "honor-seed"
         }
       ],
-      "formCount": 17,
-      "langCount": 16,
+      "formCount": 20,
+      "langCount": 19,
       "langs": [
         "ar",
+        "chr",
         "de",
         "el",
         "en",
@@ -12672,7 +14043,9 @@
         "is",
         "it",
         "la",
+        "nav",
         "nl",
+        "oj",
         "pl",
         "pt",
         "ru",
@@ -12800,12 +14173,34 @@
           "primary": true,
           "layout": "jcuken",
           "status": "open"
+        },
+        {
+          "lang": "nav",
+          "form": "dził",
+          "primary": true,
+          "layout": "qwerty",
+          "status": "honor-seed"
+        },
+        {
+          "lang": "oj",
+          "form": "wajiw",
+          "primary": true,
+          "layout": "qwerty",
+          "status": "honor-seed"
+        },
+        {
+          "lang": "chr",
+          "form": "odalv",
+          "primary": true,
+          "layout": "qwerty",
+          "status": "honor-seed"
         }
       ],
-      "formCount": 16,
-      "langCount": 16,
+      "formCount": 19,
+      "langCount": 19,
       "langs": [
         "ar",
+        "chr",
         "de",
         "el",
         "en",
@@ -12815,7 +14210,9 @@
         "is",
         "it",
         "la",
+        "nav",
         "nl",
+        "oj",
         "pl",
         "pt",
         "ru",
@@ -12950,12 +14347,27 @@
           "primary": true,
           "layout": "qwerty",
           "status": "honor-seed"
+        },
+        {
+          "lang": "nav",
+          "form": "tsin",
+          "primary": true,
+          "layout": "qwerty",
+          "status": "honor-seed"
+        },
+        {
+          "lang": "chr",
+          "form": "adatlisdi",
+          "primary": true,
+          "layout": "qwerty",
+          "status": "honor-seed"
         }
       ],
-      "formCount": 17,
-      "langCount": 17,
+      "formCount": 19,
+      "langCount": 19,
       "langs": [
         "ar",
+        "chr",
         "de",
         "el",
         "en",
@@ -12965,6 +14377,7 @@
         "is",
         "it",
         "la",
+        "nav",
         "nl",
         "oj",
         "pl",
@@ -13108,12 +14521,27 @@
           "primary": true,
           "layout": "qwerty",
           "status": "honor-seed"
+        },
+        {
+          "lang": "nav",
+          "form": "tsídii",
+          "primary": true,
+          "layout": "qwerty",
+          "status": "honor-seed"
+        },
+        {
+          "lang": "chr",
+          "form": "tsisqua",
+          "primary": true,
+          "layout": "qwerty",
+          "status": "honor-seed"
         }
       ],
-      "formCount": 18,
-      "langCount": 17,
+      "formCount": 20,
+      "langCount": 19,
       "langs": [
         "ar",
+        "chr",
         "de",
         "el",
         "en",
@@ -13123,6 +14551,7 @@
         "is",
         "it",
         "la",
+        "nav",
         "nl",
         "oj",
         "pl",
@@ -13259,12 +14688,34 @@
           "primary": true,
           "layout": "jcuken",
           "status": "open"
+        },
+        {
+          "lang": "nav",
+          "form": "łóóʼ",
+          "primary": true,
+          "layout": "qwerty",
+          "status": "honor-seed"
+        },
+        {
+          "lang": "oj",
+          "form": "giigoonh",
+          "primary": true,
+          "layout": "qwerty",
+          "status": "honor-seed"
+        },
+        {
+          "lang": "chr",
+          "form": "atsadi",
+          "primary": true,
+          "layout": "qwerty",
+          "status": "honor-seed"
         }
       ],
-      "formCount": 17,
-      "langCount": 16,
+      "formCount": 20,
+      "langCount": 19,
       "langs": [
         "ar",
+        "chr",
         "de",
         "el",
         "en",
@@ -13274,7 +14725,9 @@
         "is",
         "it",
         "la",
+        "nav",
         "nl",
+        "oj",
         "pl",
         "pt",
         "ru",
@@ -13416,12 +14869,27 @@
           "primary": true,
           "layout": "qwerty",
           "status": "honor-seed"
+        },
+        {
+          "lang": "nav",
+          "form": "amá",
+          "primary": true,
+          "layout": "qwerty",
+          "status": "honor-seed"
+        },
+        {
+          "lang": "chr",
+          "form": "agitsi",
+          "primary": true,
+          "layout": "qwerty",
+          "status": "honor-seed"
         }
       ],
-      "formCount": 18,
-      "langCount": 17,
+      "formCount": 20,
+      "langCount": 19,
       "langs": [
         "ar",
+        "chr",
         "de",
         "el",
         "en",
@@ -13431,6 +14899,7 @@
         "is",
         "it",
         "la",
+        "nav",
         "nl",
         "oj",
         "pl",
@@ -13574,12 +15043,27 @@
           "primary": true,
           "layout": "qwerty",
           "status": "honor-seed"
+        },
+        {
+          "lang": "nav",
+          "form": "azhéʼé",
+          "primary": true,
+          "layout": "qwerty",
+          "status": "honor-seed"
+        },
+        {
+          "lang": "chr",
+          "form": "edoda",
+          "primary": true,
+          "layout": "qwerty",
+          "status": "honor-seed"
         }
       ],
-      "formCount": 18,
-      "langCount": 17,
+      "formCount": 20,
+      "langCount": 19,
       "langs": [
         "ar",
+        "chr",
         "de",
         "el",
         "en",
@@ -13589,6 +15073,7 @@
         "is",
         "it",
         "la",
+        "nav",
         "nl",
         "oj",
         "pl",
@@ -13732,12 +15217,27 @@
           "primary": true,
           "layout": "qwerty",
           "status": "honor-seed"
+        },
+        {
+          "lang": "nav",
+          "form": "awééʼ",
+          "primary": true,
+          "layout": "qwerty",
+          "status": "honor-seed"
+        },
+        {
+          "lang": "chr",
+          "form": "ayetli",
+          "primary": true,
+          "layout": "qwerty",
+          "status": "honor-seed"
         }
       ],
-      "formCount": 18,
-      "langCount": 17,
+      "formCount": 20,
+      "langCount": 19,
       "langs": [
         "ar",
+        "chr",
         "de",
         "el",
         "en",
@@ -13747,6 +15247,7 @@
         "is",
         "it",
         "la",
+        "nav",
         "nl",
         "oj",
         "pl",
@@ -13876,12 +15377,34 @@
           "primary": true,
           "layout": "jcuken",
           "status": "open"
+        },
+        {
+          "lang": "oj",
+          "form": "niijikiwenh",
+          "primary": true,
+          "layout": "qwerty",
+          "status": "honor-seed"
+        },
+        {
+          "lang": "chr",
+          "form": "unaliyi",
+          "primary": true,
+          "layout": "qwerty",
+          "status": "honor-seed"
+        },
+        {
+          "lang": "nav",
+          "form": "akʼis",
+          "primary": true,
+          "layout": "qwerty",
+          "status": "honor-seed"
         }
       ],
-      "formCount": 16,
-      "langCount": 16,
+      "formCount": 19,
+      "langCount": 19,
       "langs": [
         "ar",
+        "chr",
         "de",
         "el",
         "en",
@@ -13891,7 +15414,9 @@
         "is",
         "it",
         "la",
+        "nav",
         "nl",
+        "oj",
         "pl",
         "pt",
         "ru",
@@ -14019,12 +15544,34 @@
           "primary": true,
           "layout": "jcuken",
           "status": "open"
+        },
+        {
+          "lang": "oj",
+          "form": "aki",
+          "primary": true,
+          "layout": "qwerty",
+          "status": "honor-seed"
+        },
+        {
+          "lang": "chr",
+          "form": "elohi",
+          "primary": true,
+          "layout": "qwerty",
+          "status": "honor-seed"
+        },
+        {
+          "lang": "nav",
+          "form": "nahasdzáán",
+          "primary": true,
+          "layout": "qwerty",
+          "status": "honor-seed"
         }
       ],
-      "formCount": 16,
-      "langCount": 16,
+      "formCount": 19,
+      "langCount": 19,
       "langs": [
         "ar",
+        "chr",
         "de",
         "el",
         "en",
@@ -14034,7 +15581,9 @@
         "is",
         "it",
         "la",
+        "nav",
         "nl",
+        "oj",
         "pl",
         "pt",
         "ru",
@@ -14162,12 +15711,34 @@
           "primary": true,
           "layout": "jcuken",
           "status": "open"
+        },
+        {
+          "lang": "oj",
+          "form": "gichi-manidoo",
+          "primary": true,
+          "layout": "qwerty",
+          "status": "honor-seed"
+        },
+        {
+          "lang": "chr",
+          "form": "unequa",
+          "primary": true,
+          "layout": "qwerty",
+          "status": "honor-seed"
+        },
+        {
+          "lang": "nav",
+          "form": "Diyin",
+          "primary": true,
+          "layout": "qwerty",
+          "status": "honor-seed"
         }
       ],
-      "formCount": 16,
-      "langCount": 16,
+      "formCount": 19,
+      "langCount": 19,
       "langs": [
         "ar",
+        "chr",
         "de",
         "el",
         "en",
@@ -14177,7 +15748,9 @@
         "is",
         "it",
         "la",
+        "nav",
         "nl",
+        "oj",
         "pl",
         "pt",
         "ru",
@@ -14305,12 +15878,34 @@
           "primary": true,
           "layout": "jcuken",
           "status": "open"
+        },
+        {
+          "lang": "oj",
+          "form": "manidoo",
+          "primary": true,
+          "layout": "qwerty",
+          "status": "honor-seed"
+        },
+        {
+          "lang": "chr",
+          "form": "adanvdo",
+          "primary": true,
+          "layout": "qwerty",
+          "status": "honor-seed"
+        },
+        {
+          "lang": "nav",
+          "form": "níłchʼi",
+          "primary": true,
+          "layout": "qwerty",
+          "status": "honor-seed"
         }
       ],
-      "formCount": 16,
-      "langCount": 16,
+      "formCount": 19,
+      "langCount": 19,
       "langs": [
         "ar",
+        "chr",
         "de",
         "el",
         "en",
@@ -14320,7 +15915,9 @@
         "is",
         "it",
         "la",
+        "nav",
         "nl",
+        "oj",
         "pl",
         "pt",
         "ru",
@@ -14448,12 +16045,34 @@
           "primary": true,
           "layout": "jcuken",
           "status": "open"
+        },
+        {
+          "lang": "oj",
+          "form": "inaabandam",
+          "primary": true,
+          "layout": "qwerty",
+          "status": "honor-seed"
+        },
+        {
+          "lang": "chr",
+          "form": "adadolisgv",
+          "primary": true,
+          "layout": "qwerty",
+          "status": "honor-seed"
+        },
+        {
+          "lang": "nav",
+          "form": "naʼiidzííʼ",
+          "primary": true,
+          "layout": "qwerty",
+          "status": "honor-seed"
         }
       ],
-      "formCount": 16,
-      "langCount": 16,
+      "formCount": 19,
+      "langCount": 19,
       "langs": [
         "ar",
+        "chr",
         "de",
         "el",
         "en",
@@ -14463,7 +16082,9 @@
         "is",
         "it",
         "la",
+        "nav",
         "nl",
+        "oj",
         "pl",
         "pt",
         "ru",
@@ -14598,12 +16219,34 @@
           "primary": true,
           "layout": "jcuken",
           "status": "open"
+        },
+        {
+          "lang": "oj",
+          "form": "aadizookaan",
+          "primary": true,
+          "layout": "qwerty",
+          "status": "honor-seed"
+        },
+        {
+          "lang": "chr",
+          "form": "kanoheda",
+          "primary": true,
+          "layout": "qwerty",
+          "status": "honor-seed"
+        },
+        {
+          "lang": "nav",
+          "form": "haneʼ",
+          "primary": true,
+          "layout": "qwerty",
+          "status": "honor-seed"
         }
       ],
-      "formCount": 17,
-      "langCount": 16,
+      "formCount": 20,
+      "langCount": 19,
       "langs": [
         "ar",
+        "chr",
         "de",
         "el",
         "en",
@@ -14613,7 +16256,9 @@
         "is",
         "it",
         "la",
+        "nav",
         "nl",
+        "oj",
         "pl",
         "pt",
         "ru",
@@ -14741,12 +16386,34 @@
           "primary": true,
           "layout": "jcuken",
           "status": "open"
+        },
+        {
+          "lang": "oj",
+          "form": "nagamon",
+          "primary": true,
+          "layout": "qwerty",
+          "status": "honor-seed"
+        },
+        {
+          "lang": "chr",
+          "form": "dikanogisdi",
+          "primary": true,
+          "layout": "qwerty",
+          "status": "honor-seed"
+        },
+        {
+          "lang": "nav",
+          "form": "sin",
+          "primary": true,
+          "layout": "qwerty",
+          "status": "honor-seed"
         }
       ],
-      "formCount": 16,
-      "langCount": 16,
+      "formCount": 19,
+      "langCount": 19,
       "langs": [
         "ar",
+        "chr",
         "de",
         "el",
         "en",
@@ -14756,7 +16423,9 @@
         "is",
         "it",
         "la",
+        "nav",
         "nl",
+        "oj",
         "pl",
         "pt",
         "ru",
@@ -14891,12 +16560,34 @@
           "primary": true,
           "layout": "jcuken",
           "status": "open"
+        },
+        {
+          "lang": "nav",
+          "form": "níłchʼi beeʼádiłnííł",
+          "primary": true,
+          "layout": "qwerty",
+          "status": "honor-seed"
+        },
+        {
+          "lang": "chr",
+          "form": "adigalenvdi",
+          "primary": true,
+          "layout": "qwerty",
+          "status": "honor-seed"
+        },
+        {
+          "lang": "oj",
+          "form": "inaande",
+          "primary": true,
+          "layout": "qwerty",
+          "status": "honor-seed"
         }
       ],
-      "formCount": 17,
-      "langCount": 16,
+      "formCount": 20,
+      "langCount": 19,
       "langs": [
         "ar",
+        "chr",
         "de",
         "el",
         "en",
@@ -14906,7 +16597,9 @@
         "is",
         "it",
         "la",
+        "nav",
         "nl",
+        "oj",
         "pl",
         "pt",
         "ru",
@@ -15034,12 +16727,34 @@
           "primary": true,
           "layout": "jcuken",
           "status": "open"
+        },
+        {
+          "lang": "oj",
+          "form": "miskwaa",
+          "primary": true,
+          "layout": "qwerty",
+          "status": "honor-seed"
+        },
+        {
+          "lang": "chr",
+          "form": "gigage",
+          "primary": true,
+          "layout": "qwerty",
+          "status": "honor-seed"
+        },
+        {
+          "lang": "nav",
+          "form": "łichííʼ",
+          "primary": true,
+          "layout": "qwerty",
+          "status": "honor-seed"
         }
       ],
-      "formCount": 16,
-      "langCount": 16,
+      "formCount": 19,
+      "langCount": 19,
       "langs": [
         "ar",
+        "chr",
         "de",
         "el",
         "en",
@@ -15049,7 +16764,9 @@
         "is",
         "it",
         "la",
+        "nav",
         "nl",
+        "oj",
         "pl",
         "pt",
         "ru",
@@ -15177,12 +16894,34 @@
           "primary": true,
           "layout": "jcuken",
           "status": "open"
+        },
+        {
+          "lang": "oj",
+          "form": "waabishkaa",
+          "primary": true,
+          "layout": "qwerty",
+          "status": "honor-seed"
+        },
+        {
+          "lang": "chr",
+          "form": "uneqa",
+          "primary": true,
+          "layout": "qwerty",
+          "status": "honor-seed"
+        },
+        {
+          "lang": "nav",
+          "form": "łigai",
+          "primary": true,
+          "layout": "qwerty",
+          "status": "honor-seed"
         }
       ],
-      "formCount": 16,
-      "langCount": 16,
+      "formCount": 19,
+      "langCount": 19,
       "langs": [
         "ar",
+        "chr",
         "de",
         "el",
         "en",
@@ -15192,7 +16931,9 @@
         "is",
         "it",
         "la",
+        "nav",
         "nl",
+        "oj",
         "pl",
         "pt",
         "ru",
@@ -15320,12 +17061,34 @@
           "primary": true,
           "layout": "jcuken",
           "status": "open"
+        },
+        {
+          "lang": "oj",
+          "form": "makadewaa",
+          "primary": true,
+          "layout": "qwerty",
+          "status": "honor-seed"
+        },
+        {
+          "lang": "chr",
+          "form": "gvhnage",
+          "primary": true,
+          "layout": "qwerty",
+          "status": "honor-seed"
+        },
+        {
+          "lang": "nav",
+          "form": "łizhin",
+          "primary": true,
+          "layout": "qwerty",
+          "status": "honor-seed"
         }
       ],
-      "formCount": 16,
-      "langCount": 16,
+      "formCount": 19,
+      "langCount": 19,
       "langs": [
         "ar",
+        "chr",
         "de",
         "el",
         "en",
@@ -15335,7 +17098,9 @@
         "is",
         "it",
         "la",
+        "nav",
         "nl",
+        "oj",
         "pl",
         "pt",
         "ru",
@@ -15477,12 +17242,34 @@
           "primary": true,
           "layout": "jcuken",
           "status": "open"
+        },
+        {
+          "lang": "oj",
+          "form": "mashkawiziiwin",
+          "primary": true,
+          "layout": "qwerty",
+          "status": "honor-seed"
+        },
+        {
+          "lang": "nav",
+          "form": "bidziil",
+          "primary": true,
+          "layout": "qwerty",
+          "status": "honor-seed"
+        },
+        {
+          "lang": "chr",
+          "form": "ulsgeda",
+          "primary": true,
+          "layout": "qwerty",
+          "status": "honor-seed"
         }
       ],
-      "formCount": 18,
-      "langCount": 16,
+      "formCount": 21,
+      "langCount": 19,
       "langs": [
         "ar",
+        "chr",
         "de",
         "el",
         "en",
@@ -15492,7 +17279,9 @@
         "is",
         "it",
         "la",
+        "nav",
         "nl",
+        "oj",
         "pl",
         "pt",
         "ru",
@@ -15620,12 +17409,34 @@
           "primary": true,
           "layout": "jcuken",
           "status": "open"
+        },
+        {
+          "lang": "oj",
+          "form": "nibwaakaawin",
+          "primary": true,
+          "layout": "qwerty",
+          "status": "honor-seed"
+        },
+        {
+          "lang": "chr",
+          "form": "agalvdodi",
+          "primary": true,
+          "layout": "qwerty",
+          "status": "honor-seed"
+        },
+        {
+          "lang": "nav",
+          "form": "hódzą́",
+          "primary": true,
+          "layout": "qwerty",
+          "status": "honor-seed"
         }
       ],
-      "formCount": 16,
-      "langCount": 16,
+      "formCount": 19,
+      "langCount": 19,
       "langs": [
         "ar",
+        "chr",
         "de",
         "el",
         "en",
@@ -15635,7 +17446,9 @@
         "is",
         "it",
         "la",
+        "nav",
         "nl",
+        "oj",
         "pl",
         "pt",
         "ru",
@@ -15763,12 +17576,34 @@
           "primary": true,
           "layout": "jcuken",
           "status": "open"
+        },
+        {
+          "lang": "oj",
+          "form": "bagosendam",
+          "primary": true,
+          "layout": "qwerty",
+          "status": "honor-seed"
+        },
+        {
+          "lang": "nav",
+          "form": "bee hózhǫ́",
+          "primary": true,
+          "layout": "qwerty",
+          "status": "honor-seed"
+        },
+        {
+          "lang": "chr",
+          "form": "adadolisdi",
+          "primary": true,
+          "layout": "qwerty",
+          "status": "honor-seed"
         }
       ],
-      "formCount": 16,
-      "langCount": 16,
+      "formCount": 19,
+      "langCount": 19,
       "langs": [
         "ar",
+        "chr",
         "de",
         "el",
         "en",
@@ -15778,7 +17613,9 @@
         "is",
         "it",
         "la",
+        "nav",
         "nl",
+        "oj",
         "pl",
         "pt",
         "ru",
@@ -15913,12 +17750,34 @@
           "primary": true,
           "layout": "jcuken",
           "status": "open"
+        },
+        {
+          "lang": "oj",
+          "form": "zegizi",
+          "primary": true,
+          "layout": "qwerty",
+          "status": "honor-seed"
+        },
+        {
+          "lang": "nav",
+          "form": "nánitłʼah",
+          "primary": true,
+          "layout": "qwerty",
+          "status": "honor-seed"
+        },
+        {
+          "lang": "chr",
+          "form": "udetiyvsdi",
+          "primary": true,
+          "layout": "qwerty",
+          "status": "honor-seed"
         }
       ],
-      "formCount": 17,
-      "langCount": 16,
+      "formCount": 20,
+      "langCount": 19,
       "langs": [
         "ar",
+        "chr",
         "de",
         "el",
         "en",
@@ -15928,7 +17787,9 @@
         "is",
         "it",
         "la",
+        "nav",
         "nl",
+        "oj",
         "pl",
         "pt",
         "ru",
@@ -16056,12 +17917,34 @@
           "primary": true,
           "layout": "jcuken",
           "status": "open"
+        },
+        {
+          "lang": "oj",
+          "form": "bzhinaagozi",
+          "primary": true,
+          "layout": "qwerty",
+          "status": "honor-seed"
+        },
+        {
+          "lang": "nav",
+          "form": "nizhóní",
+          "primary": true,
+          "layout": "qwerty",
+          "status": "honor-seed"
+        },
+        {
+          "lang": "chr",
+          "form": "uwohli",
+          "primary": true,
+          "layout": "qwerty",
+          "status": "honor-seed"
         }
       ],
-      "formCount": 16,
-      "langCount": 16,
+      "formCount": 19,
+      "langCount": 19,
       "langs": [
         "ar",
+        "chr",
         "de",
         "el",
         "en",
@@ -16071,7 +17954,9 @@
         "is",
         "it",
         "la",
+        "nav",
         "nl",
+        "oj",
         "pl",
         "pt",
         "ru",
@@ -16206,12 +18091,34 @@
           "primary": true,
           "layout": "jcuken",
           "status": "open"
+        },
+        {
+          "lang": "oj",
+          "form": "mannaaji'idiwin",
+          "primary": true,
+          "layout": "qwerty",
+          "status": "honor-seed"
+        },
+        {
+          "lang": "nav",
+          "form": "ił ílí",
+          "primary": true,
+          "layout": "qwerty",
+          "status": "honor-seed"
+        },
+        {
+          "lang": "chr",
+          "form": "udohiyu",
+          "primary": true,
+          "layout": "qwerty",
+          "status": "honor-seed"
         }
       ],
-      "formCount": 17,
-      "langCount": 16,
+      "formCount": 20,
+      "langCount": 19,
       "langs": [
         "ar",
+        "chr",
         "de",
         "el",
         "en",
@@ -16221,7 +18128,9 @@
         "is",
         "it",
         "la",
+        "nav",
         "nl",
+        "oj",
         "pl",
         "pt",
         "ru",
@@ -16349,12 +18258,34 @@
           "primary": true,
           "layout": "jcuken",
           "status": "open"
+        },
+        {
+          "lang": "oj",
+          "form": "agawaatese",
+          "primary": true,
+          "layout": "qwerty",
+          "status": "honor-seed"
+        },
+        {
+          "lang": "chr",
+          "form": "osdv",
+          "primary": true,
+          "layout": "qwerty",
+          "status": "honor-seed"
+        },
+        {
+          "lang": "nav",
+          "form": "chahałheeł",
+          "primary": true,
+          "layout": "qwerty",
+          "status": "honor-seed"
         }
       ],
-      "formCount": 16,
-      "langCount": 16,
+      "formCount": 19,
+      "langCount": 19,
       "langs": [
         "ar",
+        "chr",
         "de",
         "el",
         "en",
@@ -16364,7 +18295,9 @@
         "is",
         "it",
         "la",
+        "nav",
         "nl",
+        "oj",
         "pl",
         "pt",
         "ru",
@@ -16485,10 +18418,24 @@
           "primary": true,
           "layout": "jcuken",
           "status": "open"
+        },
+        {
+          "lang": "ja",
+          "form": "キーボード",
+          "primary": true,
+          "layout": "japanese",
+          "status": "open"
+        },
+        {
+          "lang": "ko",
+          "form": "키보드",
+          "primary": true,
+          "layout": "korean",
+          "status": "open"
         }
       ],
-      "formCount": 15,
-      "langCount": 15,
+      "formCount": 17,
+      "langCount": 17,
       "langs": [
         "ar",
         "de",
@@ -16499,6 +18446,8 @@
         "hi",
         "is",
         "it",
+        "ja",
+        "ko",
         "nl",
         "pl",
         "pt",
@@ -16634,10 +18583,17 @@
           "primary": true,
           "layout": "jcuken",
           "status": "open"
+        },
+        {
+          "lang": "oj",
+          "form": "mazinaabikiwebinigan",
+          "primary": true,
+          "layout": "qwerty",
+          "status": "honor-seed"
         }
       ],
-      "formCount": 17,
-      "langCount": 15,
+      "formCount": 18,
+      "langCount": 16,
       "langs": [
         "ar",
         "de",
@@ -16649,6 +18605,7 @@
         "is",
         "it",
         "nl",
+        "oj",
         "pl",
         "pt",
         "ru",
@@ -16911,12 +18868,34 @@
           "primary": true,
           "layout": "jcuken",
           "status": "open"
+        },
+        {
+          "lang": "oj",
+          "form": "gikinoo'amaadiiwigamig",
+          "primary": true,
+          "layout": "qwerty",
+          "status": "honor-seed"
+        },
+        {
+          "lang": "nav",
+          "form": "óltaʼ",
+          "primary": true,
+          "layout": "qwerty",
+          "status": "honor-seed"
+        },
+        {
+          "lang": "chr",
+          "form": "tsunelogasdi",
+          "primary": true,
+          "layout": "qwerty",
+          "status": "honor-seed"
         }
       ],
-      "formCount": 16,
-      "langCount": 16,
+      "formCount": 19,
+      "langCount": 19,
       "langs": [
         "ar",
+        "chr",
         "de",
         "el",
         "en",
@@ -16926,7 +18905,9 @@
         "is",
         "it",
         "la",
+        "nav",
         "nl",
+        "oj",
         "pl",
         "pt",
         "ru",
@@ -17068,12 +19049,34 @@
           "primary": true,
           "layout": "jcuken",
           "status": "open"
+        },
+        {
+          "lang": "oj",
+          "form": "gikinoo'amaage",
+          "primary": true,
+          "layout": "qwerty",
+          "status": "honor-seed"
+        },
+        {
+          "lang": "chr",
+          "form": "dideyohvsgi",
+          "primary": true,
+          "layout": "qwerty",
+          "status": "honor-seed"
+        },
+        {
+          "lang": "nav",
+          "form": "óltaʼí",
+          "primary": true,
+          "layout": "qwerty",
+          "status": "honor-seed"
         }
       ],
-      "formCount": 18,
-      "langCount": 16,
+      "formCount": 21,
+      "langCount": 19,
       "langs": [
         "ar",
+        "chr",
         "de",
         "el",
         "en",
@@ -17083,7 +19086,9 @@
         "is",
         "it",
         "la",
+        "nav",
         "nl",
+        "oj",
         "pl",
         "pt",
         "ru",
@@ -17225,12 +19230,34 @@
           "primary": true,
           "layout": "jcuken",
           "status": "open"
+        },
+        {
+          "lang": "oj",
+          "form": "gikinoo'amaagan",
+          "primary": true,
+          "layout": "qwerty",
+          "status": "honor-seed"
+        },
+        {
+          "lang": "nav",
+          "form": "ółtaʼí",
+          "primary": true,
+          "layout": "qwerty",
+          "status": "honor-seed"
+        },
+        {
+          "lang": "chr",
+          "form": "disgohwelodi",
+          "primary": true,
+          "layout": "qwerty",
+          "status": "honor-seed"
         }
       ],
-      "formCount": 18,
-      "langCount": 16,
+      "formCount": 21,
+      "langCount": 19,
       "langs": [
         "ar",
+        "chr",
         "de",
         "el",
         "en",
@@ -17240,7 +19267,9 @@
         "is",
         "it",
         "la",
+        "nav",
         "nl",
+        "oj",
         "pl",
         "pt",
         "ru",
@@ -17368,12 +19397,34 @@
           "primary": true,
           "layout": "jcuken",
           "status": "open"
+        },
+        {
+          "lang": "oj",
+          "form": "anokii",
+          "primary": true,
+          "layout": "qwerty",
+          "status": "honor-seed"
+        },
+        {
+          "lang": "nav",
+          "form": "naanish",
+          "primary": true,
+          "layout": "qwerty",
+          "status": "honor-seed"
+        },
+        {
+          "lang": "chr",
+          "form": "ulsgeda",
+          "primary": true,
+          "layout": "qwerty",
+          "status": "honor-seed"
         }
       ],
-      "formCount": 16,
-      "langCount": 16,
+      "formCount": 19,
+      "langCount": 19,
       "langs": [
         "ar",
+        "chr",
         "de",
         "el",
         "en",
@@ -17383,7 +19434,9 @@
         "is",
         "it",
         "la",
+        "nav",
         "nl",
+        "oj",
         "pl",
         "pt",
         "ru",
@@ -17511,12 +19564,34 @@
           "primary": true,
           "layout": "jcuken",
           "status": "open"
+        },
+        {
+          "lang": "oj",
+          "form": "zhooniyaa",
+          "primary": true,
+          "layout": "qwerty",
+          "status": "honor-seed"
+        },
+        {
+          "lang": "nav",
+          "form": "béeso",
+          "primary": true,
+          "layout": "qwerty",
+          "status": "honor-seed"
+        },
+        {
+          "lang": "chr",
+          "form": "adela",
+          "primary": true,
+          "layout": "qwerty",
+          "status": "honor-seed"
         }
       ],
-      "formCount": 16,
-      "langCount": 16,
+      "formCount": 19,
+      "langCount": 19,
       "langs": [
         "ar",
+        "chr",
         "de",
         "el",
         "en",
@@ -17526,7 +19601,9 @@
         "is",
         "it",
         "la",
+        "nav",
         "nl",
+        "oj",
         "pl",
         "pt",
         "ru",
@@ -17654,12 +19731,34 @@
           "primary": true,
           "layout": "jcuken",
           "status": "open"
+        },
+        {
+          "lang": "oj",
+          "form": "odena",
+          "primary": true,
+          "layout": "qwerty",
+          "status": "honor-seed"
+        },
+        {
+          "lang": "nav",
+          "form": "kin łání",
+          "primary": true,
+          "layout": "qwerty",
+          "status": "honor-seed"
+        },
+        {
+          "lang": "chr",
+          "form": "gaduhv",
+          "primary": true,
+          "layout": "qwerty",
+          "status": "honor-seed"
         }
       ],
-      "formCount": 16,
-      "langCount": 16,
+      "formCount": 19,
+      "langCount": 19,
       "langs": [
         "ar",
+        "chr",
         "de",
         "el",
         "en",
@@ -17669,7 +19768,9 @@
         "is",
         "it",
         "la",
+        "nav",
         "nl",
+        "oj",
         "pl",
         "pt",
         "ru",
@@ -17811,12 +19912,34 @@
           "primary": true,
           "layout": "jcuken",
           "status": "open"
+        },
+        {
+          "lang": "oj",
+          "form": "aki",
+          "primary": true,
+          "layout": "qwerty",
+          "status": "honor-seed"
+        },
+        {
+          "lang": "nav",
+          "form": "kéyah",
+          "primary": true,
+          "layout": "qwerty",
+          "status": "honor-seed"
+        },
+        {
+          "lang": "chr",
+          "form": "gaduhv",
+          "primary": true,
+          "layout": "qwerty",
+          "status": "honor-seed"
         }
       ],
-      "formCount": 18,
-      "langCount": 16,
+      "formCount": 21,
+      "langCount": 19,
       "langs": [
         "ar",
+        "chr",
         "de",
         "el",
         "en",
@@ -17826,7 +19949,9 @@
         "is",
         "it",
         "la",
+        "nav",
         "nl",
+        "oj",
         "pl",
         "pt",
         "ru",
@@ -17975,12 +20100,27 @@
           "primary": true,
           "layout": "qwerty",
           "status": "honor-seed"
+        },
+        {
+          "lang": "nav",
+          "form": "tónteel",
+          "primary": true,
+          "layout": "qwerty",
+          "status": "honor-seed"
+        },
+        {
+          "lang": "chr",
+          "form": "amayehi",
+          "primary": true,
+          "layout": "qwerty",
+          "status": "honor-seed"
         }
       ],
-      "formCount": 19,
-      "langCount": 17,
+      "formCount": 21,
+      "langCount": 19,
       "langs": [
         "ar",
+        "chr",
         "de",
         "el",
         "en",
@@ -17990,6 +20130,7 @@
         "is",
         "it",
         "la",
+        "nav",
         "nl",
         "oj",
         "pl",
@@ -18126,12 +20267,27 @@
           "primary": true,
           "layout": "qwerty",
           "status": "honor-seed"
+        },
+        {
+          "lang": "nav",
+          "form": "níłchʼi",
+          "primary": true,
+          "layout": "qwerty",
+          "status": "honor-seed"
+        },
+        {
+          "lang": "chr",
+          "form": "unole",
+          "primary": true,
+          "layout": "qwerty",
+          "status": "honor-seed"
         }
       ],
-      "formCount": 17,
-      "langCount": 17,
+      "formCount": 19,
+      "langCount": 19,
       "langs": [
         "ar",
+        "chr",
         "de",
         "el",
         "en",
@@ -18141,6 +20297,7 @@
         "is",
         "it",
         "la",
+        "nav",
         "nl",
         "oj",
         "pl",
@@ -18270,12 +20427,34 @@
           "primary": true,
           "layout": "jcuken",
           "status": "open"
+        },
+        {
+          "lang": "nav",
+          "form": "níłtsą́",
+          "primary": true,
+          "layout": "qwerty",
+          "status": "honor-seed"
+        },
+        {
+          "lang": "oj",
+          "form": "gimiwan",
+          "primary": true,
+          "layout": "qwerty",
+          "status": "honor-seed"
+        },
+        {
+          "lang": "chr",
+          "form": "agaasgv",
+          "primary": true,
+          "layout": "qwerty",
+          "status": "honor-seed"
         }
       ],
-      "formCount": 16,
-      "langCount": 16,
+      "formCount": 19,
+      "langCount": 19,
       "langs": [
         "ar",
+        "chr",
         "de",
         "el",
         "en",
@@ -18285,7 +20464,9 @@
         "is",
         "it",
         "la",
+        "nav",
         "nl",
+        "oj",
         "pl",
         "pt",
         "ru",
@@ -18413,12 +20594,34 @@
           "primary": true,
           "layout": "jcuken",
           "status": "open"
+        },
+        {
+          "lang": "nav",
+          "form": "yéigo",
+          "primary": true,
+          "layout": "qwerty",
+          "status": "honor-seed"
+        },
+        {
+          "lang": "oj",
+          "form": "goon",
+          "primary": true,
+          "layout": "qwerty",
+          "status": "honor-seed"
+        },
+        {
+          "lang": "chr",
+          "form": "unatsi",
+          "primary": true,
+          "layout": "qwerty",
+          "status": "honor-seed"
         }
       ],
-      "formCount": 16,
-      "langCount": 16,
+      "formCount": 19,
+      "langCount": 19,
       "langs": [
         "ar",
+        "chr",
         "de",
         "el",
         "en",
@@ -18428,7 +20631,9 @@
         "is",
         "it",
         "la",
+        "nav",
         "nl",
+        "oj",
         "pl",
         "pt",
         "ru",
@@ -18563,12 +20768,34 @@
           "primary": true,
           "layout": "jcuken",
           "status": "open"
+        },
+        {
+          "lang": "nav",
+          "form": "tsé",
+          "primary": true,
+          "layout": "qwerty",
+          "status": "honor-seed"
+        },
+        {
+          "lang": "oj",
+          "form": "asin",
+          "primary": true,
+          "layout": "qwerty",
+          "status": "honor-seed"
+        },
+        {
+          "lang": "chr",
+          "form": "nvya",
+          "primary": true,
+          "layout": "qwerty",
+          "status": "honor-seed"
         }
       ],
-      "formCount": 17,
-      "langCount": 16,
+      "formCount": 20,
+      "langCount": 19,
       "langs": [
         "ar",
+        "chr",
         "de",
         "el",
         "en",
@@ -18578,7 +20805,9 @@
         "is",
         "it",
         "la",
+        "nav",
         "nl",
+        "oj",
         "pl",
         "pt",
         "ru",
@@ -18706,12 +20935,34 @@
           "primary": true,
           "layout": "jcuken",
           "status": "open"
+        },
+        {
+          "lang": "oj",
+          "form": "oozaawaabik",
+          "primary": true,
+          "layout": "qwerty",
+          "status": "honor-seed"
+        },
+        {
+          "lang": "nav",
+          "form": "óola",
+          "primary": true,
+          "layout": "qwerty",
+          "status": "honor-seed"
+        },
+        {
+          "lang": "chr",
+          "form": "adela digalenvdi",
+          "primary": true,
+          "layout": "qwerty",
+          "status": "honor-seed"
         }
       ],
-      "formCount": 16,
-      "langCount": 16,
+      "formCount": 19,
+      "langCount": 19,
       "langs": [
         "ar",
+        "chr",
         "de",
         "el",
         "en",
@@ -18721,7 +20972,9 @@
         "is",
         "it",
         "la",
+        "nav",
         "nl",
+        "oj",
         "pl",
         "pt",
         "ru",
@@ -18849,12 +21102,34 @@
           "primary": true,
           "layout": "jcuken",
           "status": "open"
+        },
+        {
+          "lang": "nav",
+          "form": "dił",
+          "primary": true,
+          "layout": "qwerty",
+          "status": "honor-seed"
+        },
+        {
+          "lang": "oj",
+          "form": "miskwi",
+          "primary": true,
+          "layout": "qwerty",
+          "status": "honor-seed"
+        },
+        {
+          "lang": "chr",
+          "form": "gigage",
+          "primary": true,
+          "layout": "qwerty",
+          "status": "honor-seed"
         }
       ],
-      "formCount": 16,
-      "langCount": 16,
+      "formCount": 19,
+      "langCount": 19,
       "langs": [
         "ar",
+        "chr",
         "de",
         "el",
         "en",
@@ -18864,7 +21139,9 @@
         "is",
         "it",
         "la",
+        "nav",
         "nl",
+        "oj",
         "pl",
         "pt",
         "ru",
@@ -18992,12 +21269,34 @@
           "primary": true,
           "layout": "jcuken",
           "status": "open"
+        },
+        {
+          "lang": "oj",
+          "form": "okun",
+          "primary": true,
+          "layout": "qwerty",
+          "status": "honor-seed"
+        },
+        {
+          "lang": "nav",
+          "form": "tsʼin",
+          "primary": true,
+          "layout": "qwerty",
+          "status": "honor-seed"
+        },
+        {
+          "lang": "chr",
+          "form": "ukano",
+          "primary": true,
+          "layout": "qwerty",
+          "status": "honor-seed"
         }
       ],
-      "formCount": 16,
-      "langCount": 16,
+      "formCount": 19,
+      "langCount": 19,
       "langs": [
         "ar",
+        "chr",
         "de",
         "el",
         "en",
@@ -19007,7 +21306,9 @@
         "is",
         "it",
         "la",
+        "nav",
         "nl",
+        "oj",
         "pl",
         "pt",
         "ru",
@@ -19135,12 +21436,34 @@
           "primary": true,
           "layout": "jcuken",
           "status": "open"
+        },
+        {
+          "lang": "oj",
+          "form": "wayaan",
+          "primary": true,
+          "layout": "qwerty",
+          "status": "honor-seed"
+        },
+        {
+          "lang": "nav",
+          "form": "akágí",
+          "primary": true,
+          "layout": "qwerty",
+          "status": "honor-seed"
+        },
+        {
+          "lang": "chr",
+          "form": "ugano",
+          "primary": true,
+          "layout": "qwerty",
+          "status": "honor-seed"
         }
       ],
-      "formCount": 16,
-      "langCount": 16,
+      "formCount": 19,
+      "langCount": 19,
       "langs": [
         "ar",
+        "chr",
         "de",
         "el",
         "en",
@@ -19150,7 +21473,9 @@
         "is",
         "it",
         "la",
+        "nav",
         "nl",
+        "oj",
         "pl",
         "pt",
         "ru",
@@ -19278,12 +21603,34 @@
           "primary": true,
           "layout": "jcuken",
           "status": "open"
+        },
+        {
+          "lang": "oj",
+          "form": "odoon",
+          "primary": true,
+          "layout": "qwerty",
+          "status": "honor-seed"
+        },
+        {
+          "lang": "nav",
+          "form": "azééʼ",
+          "primary": true,
+          "layout": "qwerty",
+          "status": "honor-seed"
+        },
+        {
+          "lang": "chr",
+          "form": "uhyvdla",
+          "primary": true,
+          "layout": "qwerty",
+          "status": "honor-seed"
         }
       ],
-      "formCount": 16,
-      "langCount": 16,
+      "formCount": 19,
+      "langCount": 19,
       "langs": [
         "ar",
+        "chr",
         "de",
         "el",
         "en",
@@ -19293,7 +21640,9 @@
         "is",
         "it",
         "la",
+        "nav",
         "nl",
+        "oj",
         "pl",
         "pt",
         "ru",
@@ -19421,12 +21770,34 @@
           "primary": true,
           "layout": "jcuken",
           "status": "open"
+        },
+        {
+          "lang": "oj",
+          "form": "otawag",
+          "primary": true,
+          "layout": "qwerty",
+          "status": "honor-seed"
+        },
+        {
+          "lang": "nav",
+          "form": "ajááʼ",
+          "primary": true,
+          "layout": "qwerty",
+          "status": "honor-seed"
+        },
+        {
+          "lang": "chr",
+          "form": "gahli",
+          "primary": true,
+          "layout": "qwerty",
+          "status": "honor-seed"
         }
       ],
-      "formCount": 16,
-      "langCount": 16,
+      "formCount": 19,
+      "langCount": 19,
       "langs": [
         "ar",
+        "chr",
         "de",
         "el",
         "en",
@@ -19436,7 +21807,9 @@
         "is",
         "it",
         "la",
+        "nav",
         "nl",
+        "oj",
         "pl",
         "pt",
         "ru",
@@ -19564,12 +21937,34 @@
           "primary": true,
           "layout": "jcuken",
           "status": "open"
+        },
+        {
+          "lang": "nav",
+          "form": "akeeʼ",
+          "primary": true,
+          "layout": "qwerty",
+          "status": "honor-seed"
+        },
+        {
+          "lang": "oj",
+          "form": "ozid",
+          "primary": true,
+          "layout": "qwerty",
+          "status": "honor-seed"
+        },
+        {
+          "lang": "chr",
+          "form": "inage",
+          "primary": true,
+          "layout": "qwerty",
+          "status": "honor-seed"
         }
       ],
-      "formCount": 16,
-      "langCount": 16,
+      "formCount": 19,
+      "langCount": 19,
       "langs": [
         "ar",
+        "chr",
         "de",
         "el",
         "en",
@@ -19579,7 +21974,9 @@
         "is",
         "it",
         "la",
+        "nav",
         "nl",
+        "oj",
         "pl",
         "pt",
         "ru",
@@ -19707,12 +22104,34 @@
           "primary": true,
           "layout": "jcuken",
           "status": "open"
+        },
+        {
+          "lang": "nav",
+          "form": "atsiitʼááh",
+          "primary": true,
+          "layout": "qwerty",
+          "status": "honor-seed"
+        },
+        {
+          "lang": "oj",
+          "form": "oshtigwaan",
+          "primary": true,
+          "layout": "qwerty",
+          "status": "honor-seed"
+        },
+        {
+          "lang": "chr",
+          "form": "askoli",
+          "primary": true,
+          "layout": "qwerty",
+          "status": "honor-seed"
         }
       ],
-      "formCount": 16,
-      "langCount": 16,
+      "formCount": 19,
+      "langCount": 19,
       "langs": [
         "ar",
+        "chr",
         "de",
         "el",
         "en",
@@ -19722,7 +22141,9 @@
         "is",
         "it",
         "la",
+        "nav",
         "nl",
+        "oj",
         "pl",
         "pt",
         "ru",
@@ -19850,12 +22271,34 @@
           "primary": true,
           "layout": "jcuken",
           "status": "open"
+        },
+        {
+          "lang": "oj",
+          "form": "niba",
+          "primary": true,
+          "layout": "qwerty",
+          "status": "honor-seed"
+        },
+        {
+          "lang": "chr",
+          "form": "aaliha",
+          "primary": true,
+          "layout": "qwerty",
+          "status": "honor-seed"
+        },
+        {
+          "lang": "nav",
+          "form": "ałhosh",
+          "primary": true,
+          "layout": "qwerty",
+          "status": "honor-seed"
         }
       ],
-      "formCount": 16,
-      "langCount": 16,
+      "formCount": 19,
+      "langCount": 19,
       "langs": [
         "ar",
+        "chr",
         "de",
         "el",
         "en",
@@ -19865,7 +22308,9 @@
         "is",
         "it",
         "la",
+        "nav",
         "nl",
+        "oj",
         "pl",
         "pt",
         "ru",
@@ -19993,12 +22438,34 @@
           "primary": true,
           "layout": "jcuken",
           "status": "open"
+        },
+        {
+          "lang": "oj",
+          "form": "nibo",
+          "primary": true,
+          "layout": "qwerty",
+          "status": "honor-seed"
+        },
+        {
+          "lang": "chr",
+          "form": "uyohusv",
+          "primary": true,
+          "layout": "qwerty",
+          "status": "honor-seed"
+        },
+        {
+          "lang": "nav",
+          "form": "anoonééł",
+          "primary": true,
+          "layout": "qwerty",
+          "status": "honor-seed"
         }
       ],
-      "formCount": 16,
-      "langCount": 16,
+      "formCount": 19,
+      "langCount": 19,
       "langs": [
         "ar",
+        "chr",
         "de",
         "el",
         "en",
@@ -20008,7 +22475,9 @@
         "is",
         "it",
         "la",
+        "nav",
         "nl",
+        "oj",
         "pl",
         "pt",
         "ru",
@@ -20136,12 +22605,34 @@
           "primary": true,
           "layout": "jcuken",
           "status": "open"
+        },
+        {
+          "lang": "oj",
+          "form": "miigaadiwin",
+          "primary": true,
+          "layout": "qwerty",
+          "status": "honor-seed"
+        },
+        {
+          "lang": "nav",
+          "form": "anaaʼ",
+          "primary": true,
+          "layout": "qwerty",
+          "status": "honor-seed"
+        },
+        {
+          "lang": "chr",
+          "form": "digalenvdo",
+          "primary": true,
+          "layout": "qwerty",
+          "status": "honor-seed"
         }
       ],
-      "formCount": 16,
-      "langCount": 16,
+      "formCount": 19,
+      "langCount": 19,
       "langs": [
         "ar",
+        "chr",
         "de",
         "el",
         "en",
@@ -20151,7 +22642,9 @@
         "is",
         "it",
         "la",
+        "nav",
         "nl",
+        "oj",
         "pl",
         "pt",
         "ru",
@@ -20293,12 +22786,34 @@
           "primary": true,
           "layout": "jcuken",
           "status": "open"
+        },
+        {
+          "lang": "oj",
+          "form": "inaakonigewin",
+          "primary": true,
+          "layout": "qwerty",
+          "status": "honor-seed"
+        },
+        {
+          "lang": "nav",
+          "form": "beehazʼáanii",
+          "primary": true,
+          "layout": "qwerty",
+          "status": "honor-seed"
+        },
+        {
+          "lang": "chr",
+          "form": "digohwelodi",
+          "primary": true,
+          "layout": "qwerty",
+          "status": "honor-seed"
         }
       ],
-      "formCount": 18,
-      "langCount": 16,
+      "formCount": 21,
+      "langCount": 19,
       "langs": [
         "ar",
+        "chr",
         "de",
         "el",
         "en",
@@ -20308,7 +22823,9 @@
         "is",
         "it",
         "la",
+        "nav",
         "nl",
+        "oj",
         "pl",
         "pt",
         "ru",
@@ -20436,10 +22953,24 @@
           "primary": true,
           "layout": "jcuken",
           "status": "open"
+        },
+        {
+          "lang": "nav",
+          "form": "nishtłʼah",
+          "primary": true,
+          "layout": "qwerty",
+          "status": "honor-seed"
+        },
+        {
+          "lang": "oj",
+          "form": "gwayak",
+          "primary": true,
+          "layout": "qwerty",
+          "status": "honor-seed"
         }
       ],
-      "formCount": 16,
-      "langCount": 16,
+      "formCount": 18,
+      "langCount": 18,
       "langs": [
         "ar",
         "de",
@@ -20451,7 +22982,9 @@
         "is",
         "it",
         "la",
+        "nav",
         "nl",
+        "oj",
         "pl",
         "pt",
         "ru",
@@ -20579,10 +23112,24 @@
           "primary": true,
           "layout": "jcuken",
           "status": "open"
+        },
+        {
+          "lang": "nav",
+          "form": "nishtłʼajigo",
+          "primary": true,
+          "layout": "qwerty",
+          "status": "honor-seed"
+        },
+        {
+          "lang": "oj",
+          "form": "namanj",
+          "primary": true,
+          "layout": "qwerty",
+          "status": "honor-seed"
         }
       ],
-      "formCount": 16,
-      "langCount": 16,
+      "formCount": 18,
+      "langCount": 18,
       "langs": [
         "ar",
         "de",
@@ -20594,7 +23141,9 @@
         "is",
         "it",
         "la",
+        "nav",
         "nl",
+        "oj",
         "pl",
         "pt",
         "ru",
@@ -20729,12 +23278,34 @@
           "primary": true,
           "layout": "jcuken",
           "status": "open"
+        },
+        {
+          "lang": "oj",
+          "form": "gichi",
+          "primary": true,
+          "layout": "qwerty",
+          "status": "honor-seed"
+        },
+        {
+          "lang": "nav",
+          "form": "nitsaa",
+          "primary": true,
+          "layout": "qwerty",
+          "status": "honor-seed"
+        },
+        {
+          "lang": "chr",
+          "form": "utana",
+          "primary": true,
+          "layout": "qwerty",
+          "status": "honor-seed"
         }
       ],
-      "formCount": 17,
-      "langCount": 16,
+      "formCount": 20,
+      "langCount": 19,
       "langs": [
         "ar",
+        "chr",
         "de",
         "el",
         "en",
@@ -20744,7 +23315,9 @@
         "is",
         "it",
         "la",
+        "nav",
         "nl",
+        "oj",
         "pl",
         "pt",
         "ru",
@@ -20879,12 +23452,34 @@
           "primary": true,
           "layout": "jcuken",
           "status": "open"
+        },
+        {
+          "lang": "oj",
+          "form": "agaashiinyi",
+          "primary": true,
+          "layout": "qwerty",
+          "status": "honor-seed"
+        },
+        {
+          "lang": "nav",
+          "form": "yázhí",
+          "primary": true,
+          "layout": "qwerty",
+          "status": "honor-seed"
+        },
+        {
+          "lang": "chr",
+          "form": "usdi",
+          "primary": true,
+          "layout": "qwerty",
+          "status": "honor-seed"
         }
       ],
-      "formCount": 17,
-      "langCount": 16,
+      "formCount": 20,
+      "langCount": 19,
       "langs": [
         "ar",
+        "chr",
         "de",
         "el",
         "en",
@@ -20894,7 +23489,9 @@
         "is",
         "it",
         "la",
+        "nav",
         "nl",
+        "oj",
         "pl",
         "pt",
         "ru",
@@ -21022,12 +23619,34 @@
           "primary": true,
           "layout": "jcuken",
           "status": "open"
+        },
+        {
+          "lang": "oj",
+          "form": "gizhaate",
+          "primary": true,
+          "layout": "qwerty",
+          "status": "honor-seed"
+        },
+        {
+          "lang": "nav",
+          "form": "sido",
+          "primary": true,
+          "layout": "qwerty",
+          "status": "honor-seed"
+        },
+        {
+          "lang": "chr",
+          "form": "udalenv",
+          "primary": true,
+          "layout": "qwerty",
+          "status": "honor-seed"
         }
       ],
-      "formCount": 16,
-      "langCount": 16,
+      "formCount": 19,
+      "langCount": 19,
       "langs": [
         "ar",
+        "chr",
         "de",
         "el",
         "en",
@@ -21037,7 +23656,9 @@
         "is",
         "it",
         "la",
+        "nav",
         "nl",
+        "oj",
         "pl",
         "pt",
         "ru",
@@ -21165,12 +23786,34 @@
           "primary": true,
           "layout": "jcuken",
           "status": "open"
+        },
+        {
+          "lang": "oj",
+          "form": "gisinaa",
+          "primary": true,
+          "layout": "qwerty",
+          "status": "honor-seed"
+        },
+        {
+          "lang": "nav",
+          "form": "sikʼaz",
+          "primary": true,
+          "layout": "qwerty",
+          "status": "honor-seed"
+        },
+        {
+          "lang": "chr",
+          "form": "uyosv",
+          "primary": true,
+          "layout": "qwerty",
+          "status": "honor-seed"
         }
       ],
-      "formCount": 16,
-      "langCount": 16,
+      "formCount": 19,
+      "langCount": 19,
       "langs": [
         "ar",
+        "chr",
         "de",
         "el",
         "en",
@@ -21180,7 +23823,9 @@
         "is",
         "it",
         "la",
+        "nav",
         "nl",
+        "oj",
         "pl",
         "pt",
         "ru",
@@ -21308,12 +23953,34 @@
           "primary": true,
           "layout": "jcuken",
           "status": "open"
+        },
+        {
+          "lang": "nav",
+          "form": "haaʼí",
+          "primary": true,
+          "layout": "qwerty",
+          "status": "honor-seed"
+        },
+        {
+          "lang": "chr",
+          "form": "uweti",
+          "primary": true,
+          "layout": "qwerty",
+          "status": "honor-seed"
+        },
+        {
+          "lang": "oj",
+          "form": "mooshkine",
+          "primary": true,
+          "layout": "qwerty",
+          "status": "honor-seed"
         }
       ],
-      "formCount": 16,
-      "langCount": 16,
+      "formCount": 19,
+      "langCount": 19,
       "langs": [
         "ar",
+        "chr",
         "de",
         "el",
         "en",
@@ -21323,7 +23990,9 @@
         "is",
         "it",
         "la",
+        "nav",
         "nl",
+        "oj",
         "pl",
         "pt",
         "ru",
@@ -21451,12 +24120,34 @@
           "primary": true,
           "layout": "jcuken",
           "status": "open"
+        },
+        {
+          "lang": "nav",
+          "form": "tʼáadoo leʼé",
+          "primary": true,
+          "layout": "qwerty",
+          "status": "honor-seed"
+        },
+        {
+          "lang": "chr",
+          "form": "uweti tla",
+          "primary": true,
+          "layout": "qwerty",
+          "status": "honor-seed"
+        },
+        {
+          "lang": "oj",
+          "form": "biinaakwaa",
+          "primary": true,
+          "layout": "qwerty",
+          "status": "honor-seed"
         }
       ],
-      "formCount": 16,
-      "langCount": 16,
+      "formCount": 19,
+      "langCount": 19,
       "langs": [
         "ar",
+        "chr",
         "de",
         "el",
         "en",
@@ -21466,7 +24157,9 @@
         "is",
         "it",
         "la",
+        "nav",
         "nl",
+        "oj",
         "pl",
         "pt",
         "ru",
@@ -21594,12 +24287,34 @@
           "primary": true,
           "layout": "jcuken",
           "status": "open"
+        },
+        {
+          "lang": "nav",
+          "form": "ádingo",
+          "primary": true,
+          "layout": "qwerty",
+          "status": "honor-seed"
+        },
+        {
+          "lang": "chr",
+          "form": "adigalenvdi",
+          "primary": true,
+          "layout": "qwerty",
+          "status": "honor-seed"
+        },
+        {
+          "lang": "oj",
+          "form": "baakin",
+          "primary": true,
+          "layout": "qwerty",
+          "status": "honor-seed"
         }
       ],
-      "formCount": 16,
-      "langCount": 16,
+      "formCount": 19,
+      "langCount": 19,
       "langs": [
         "ar",
+        "chr",
         "de",
         "el",
         "en",
@@ -21609,7 +24324,9 @@
         "is",
         "it",
         "la",
+        "nav",
         "nl",
+        "oj",
         "pl",
         "pt",
         "ru",
@@ -21737,12 +24454,34 @@
           "primary": true,
           "layout": "jcuken",
           "status": "open"
+        },
+        {
+          "lang": "nav",
+          "form": "niʼííłtsooz",
+          "primary": true,
+          "layout": "qwerty",
+          "status": "honor-seed"
+        },
+        {
+          "lang": "chr",
+          "form": "adigalenvdi",
+          "primary": true,
+          "layout": "qwerty",
+          "status": "honor-seed"
+        },
+        {
+          "lang": "oj",
+          "form": "gibaakwaʼan",
+          "primary": true,
+          "layout": "qwerty",
+          "status": "honor-seed"
         }
       ],
-      "formCount": 16,
-      "langCount": 16,
+      "formCount": 19,
+      "langCount": 19,
       "langs": [
         "ar",
+        "chr",
         "de",
         "el",
         "en",
@@ -21752,7 +24491,9 @@
         "is",
         "it",
         "la",
+        "nav",
         "nl",
+        "oj",
         "pl",
         "pt",
         "ru",
@@ -21887,12 +24628,34 @@
           "primary": true,
           "layout": "jcuken",
           "status": "open"
+        },
+        {
+          "lang": "oj",
+          "form": "maajitaa",
+          "primary": true,
+          "layout": "qwerty",
+          "status": "honor-seed"
+        },
+        {
+          "lang": "nav",
+          "form": "áłtsé",
+          "primary": true,
+          "layout": "qwerty",
+          "status": "honor-seed"
+        },
+        {
+          "lang": "chr",
+          "form": "igvyi",
+          "primary": true,
+          "layout": "qwerty",
+          "status": "honor-seed"
         }
       ],
-      "formCount": 17,
-      "langCount": 16,
+      "formCount": 20,
+      "langCount": 19,
       "langs": [
         "ar",
+        "chr",
         "de",
         "el",
         "en",
@@ -21902,7 +24665,9 @@
         "is",
         "it",
         "la",
+        "nav",
         "nl",
+        "oj",
         "pl",
         "pt",
         "ru",
@@ -22030,12 +24795,34 @@
           "primary": true,
           "layout": "jcuken",
           "status": "open"
+        },
+        {
+          "lang": "oj",
+          "form": "ishkwaa",
+          "primary": true,
+          "layout": "qwerty",
+          "status": "honor-seed"
+        },
+        {
+          "lang": "nav",
+          "form": "ałtso",
+          "primary": true,
+          "layout": "qwerty",
+          "status": "honor-seed"
+        },
+        {
+          "lang": "chr",
+          "form": "ulsgeda",
+          "primary": true,
+          "layout": "qwerty",
+          "status": "honor-seed"
         }
       ],
-      "formCount": 16,
-      "langCount": 16,
+      "formCount": 19,
+      "langCount": 19,
       "langs": [
         "ar",
+        "chr",
         "de",
         "el",
         "en",
@@ -22045,7 +24832,9 @@
         "is",
         "it",
         "la",
+        "nav",
         "nl",
+        "oj",
         "pl",
         "pt",
         "ru",
@@ -22173,12 +24962,34 @@
           "primary": true,
           "layout": "jcuken",
           "status": "open"
+        },
+        {
+          "lang": "oj",
+          "form": "biboon",
+          "primary": true,
+          "layout": "qwerty",
+          "status": "honor-seed"
+        },
+        {
+          "lang": "nav",
+          "form": "nááhai",
+          "primary": true,
+          "layout": "qwerty",
+          "status": "honor-seed"
+        },
+        {
+          "lang": "chr",
+          "form": "iyu",
+          "primary": true,
+          "layout": "qwerty",
+          "status": "honor-seed"
         }
       ],
-      "formCount": 16,
-      "langCount": 16,
+      "formCount": 19,
+      "langCount": 19,
       "langs": [
         "ar",
+        "chr",
         "de",
         "el",
         "en",
@@ -22188,7 +24999,9 @@
         "is",
         "it",
         "la",
+        "nav",
         "nl",
+        "oj",
         "pl",
         "pt",
         "ru",
@@ -22316,12 +25129,34 @@
           "primary": true,
           "layout": "jcuken",
           "status": "open"
+        },
+        {
+          "lang": "oj",
+          "form": "giizis",
+          "primary": true,
+          "layout": "qwerty",
+          "status": "honor-seed"
+        },
+        {
+          "lang": "nav",
+          "form": "nídíílid",
+          "primary": true,
+          "layout": "qwerty",
+          "status": "honor-seed"
+        },
+        {
+          "lang": "chr",
+          "form": "nvda",
+          "primary": true,
+          "layout": "qwerty",
+          "status": "honor-seed"
         }
       ],
-      "formCount": 16,
-      "langCount": 16,
+      "formCount": 19,
+      "langCount": 19,
       "langs": [
         "ar",
+        "chr",
         "de",
         "el",
         "en",
@@ -22331,7 +25166,9 @@
         "is",
         "it",
         "la",
+        "nav",
         "nl",
+        "oj",
         "pl",
         "pt",
         "ru",
@@ -22459,12 +25296,34 @@
           "primary": true,
           "layout": "jcuken",
           "status": "open"
+        },
+        {
+          "lang": "nav",
+          "form": "damóo",
+          "primary": true,
+          "layout": "qwerty",
+          "status": "honor-seed"
+        },
+        {
+          "lang": "chr",
+          "form": "igohidoda",
+          "primary": true,
+          "layout": "qwerty",
+          "status": "honor-seed"
+        },
+        {
+          "lang": "oj",
+          "form": "anamiʼe-giizhigad",
+          "primary": true,
+          "layout": "qwerty",
+          "status": "honor-seed"
         }
       ],
-      "formCount": 16,
-      "langCount": 16,
+      "formCount": 19,
+      "langCount": 19,
       "langs": [
         "ar",
+        "chr",
         "de",
         "el",
         "en",
@@ -22474,7 +25333,9 @@
         "is",
         "it",
         "la",
+        "nav",
         "nl",
+        "oj",
         "pl",
         "pt",
         "ru",
@@ -22602,12 +25463,34 @@
           "primary": true,
           "layout": "jcuken",
           "status": "open"
+        },
+        {
+          "lang": "nav",
+          "form": "ahééʼílkid",
+          "primary": true,
+          "layout": "qwerty",
+          "status": "honor-seed"
+        },
+        {
+          "lang": "chr",
+          "form": "iyvhi",
+          "primary": true,
+          "layout": "qwerty",
+          "status": "honor-seed"
+        },
+        {
+          "lang": "oj",
+          "form": "dibaʼigan",
+          "primary": true,
+          "layout": "qwerty",
+          "status": "honor-seed"
         }
       ],
-      "formCount": 16,
-      "langCount": 16,
+      "formCount": 19,
+      "langCount": 19,
       "langs": [
         "ar",
+        "chr",
         "de",
         "el",
         "en",
@@ -22617,7 +25500,9 @@
         "is",
         "it",
         "la",
+        "nav",
         "nl",
+        "oj",
         "pl",
         "pt",
         "ru",
@@ -22745,12 +25630,34 @@
           "primary": true,
           "layout": "jcuken",
           "status": "open"
+        },
+        {
+          "lang": "oj",
+          "form": "noongom",
+          "primary": true,
+          "layout": "qwerty",
+          "status": "honor-seed"
+        },
+        {
+          "lang": "nav",
+          "form": "kʼad",
+          "primary": true,
+          "layout": "qwerty",
+          "status": "honor-seed"
+        },
+        {
+          "lang": "chr",
+          "form": "higeyv",
+          "primary": true,
+          "layout": "qwerty",
+          "status": "honor-seed"
         }
       ],
-      "formCount": 16,
-      "langCount": 16,
+      "formCount": 19,
+      "langCount": 19,
       "langs": [
         "ar",
+        "chr",
         "de",
         "el",
         "en",
@@ -22760,7 +25667,9 @@
         "is",
         "it",
         "la",
+        "nav",
         "nl",
+        "oj",
         "pl",
         "pt",
         "ru",
@@ -22888,12 +25797,34 @@
           "primary": true,
           "layout": "jcuken",
           "status": "open"
+        },
+        {
+          "lang": "oj",
+          "form": "omaa",
+          "primary": true,
+          "layout": "qwerty",
+          "status": "honor-seed"
+        },
+        {
+          "lang": "nav",
+          "form": "kweʼé",
+          "primary": true,
+          "layout": "qwerty",
+          "status": "honor-seed"
+        },
+        {
+          "lang": "chr",
+          "form": "hia",
+          "primary": true,
+          "layout": "qwerty",
+          "status": "honor-seed"
         }
       ],
-      "formCount": 16,
-      "langCount": 16,
+      "formCount": 19,
+      "langCount": 19,
       "langs": [
         "ar",
+        "chr",
         "de",
         "el",
         "en",
@@ -22903,7 +25834,9 @@
         "is",
         "it",
         "la",
+        "nav",
         "nl",
+        "oj",
         "pl",
         "pt",
         "ru",
@@ -23031,12 +25964,34 @@
           "primary": true,
           "layout": "jcuken",
           "status": "open"
+        },
+        {
+          "lang": "oj",
+          "form": "iwidi",
+          "primary": true,
+          "layout": "qwerty",
+          "status": "honor-seed"
+        },
+        {
+          "lang": "nav",
+          "form": "áadi",
+          "primary": true,
+          "layout": "qwerty",
+          "status": "honor-seed"
+        },
+        {
+          "lang": "chr",
+          "form": "na",
+          "primary": true,
+          "layout": "qwerty",
+          "status": "honor-seed"
         }
       ],
-      "formCount": 16,
-      "langCount": 16,
+      "formCount": 19,
+      "langCount": 19,
       "langs": [
         "ar",
+        "chr",
         "de",
         "el",
         "en",
@@ -23046,7 +26001,9 @@
         "is",
         "it",
         "la",
+        "nav",
         "nl",
+        "oj",
         "pl",
         "pt",
         "ru",
@@ -23174,12 +26131,34 @@
           "primary": true,
           "layout": "jcuken",
           "status": "open"
+        },
+        {
+          "lang": "oj",
+          "form": "awenen",
+          "primary": true,
+          "layout": "qwerty",
+          "status": "honor-seed"
+        },
+        {
+          "lang": "nav",
+          "form": "háí",
+          "primary": true,
+          "layout": "qwerty",
+          "status": "honor-seed"
+        },
+        {
+          "lang": "chr",
+          "form": "gado",
+          "primary": true,
+          "layout": "qwerty",
+          "status": "honor-seed"
         }
       ],
-      "formCount": 16,
-      "langCount": 16,
+      "formCount": 19,
+      "langCount": 19,
       "langs": [
         "ar",
+        "chr",
         "de",
         "el",
         "en",
@@ -23189,7 +26168,9 @@
         "is",
         "it",
         "la",
+        "nav",
         "nl",
+        "oj",
         "pl",
         "pt",
         "ru",
@@ -23331,12 +26312,34 @@
           "primary": true,
           "layout": "jcuken",
           "status": "open"
+        },
+        {
+          "lang": "oj",
+          "form": "wegonen",
+          "primary": true,
+          "layout": "qwerty",
+          "status": "honor-seed"
+        },
+        {
+          "lang": "nav",
+          "form": "haʼátʼíí",
+          "primary": true,
+          "layout": "qwerty",
+          "status": "honor-seed"
+        },
+        {
+          "lang": "chr",
+          "form": "gado",
+          "primary": true,
+          "layout": "qwerty",
+          "status": "honor-seed"
         }
       ],
-      "formCount": 18,
-      "langCount": 16,
+      "formCount": 21,
+      "langCount": 19,
       "langs": [
         "ar",
+        "chr",
         "de",
         "el",
         "en",
@@ -23346,7 +26349,9 @@
         "is",
         "it",
         "la",
+        "nav",
         "nl",
+        "oj",
         "pl",
         "pt",
         "ru",
@@ -23474,12 +26479,34 @@
           "primary": true,
           "layout": "jcuken",
           "status": "open"
+        },
+        {
+          "lang": "oj",
+          "form": "aandi",
+          "primary": true,
+          "layout": "qwerty",
+          "status": "honor-seed"
+        },
+        {
+          "lang": "nav",
+          "form": "háadi",
+          "primary": true,
+          "layout": "qwerty",
+          "status": "honor-seed"
+        },
+        {
+          "lang": "chr",
+          "form": "haitlv",
+          "primary": true,
+          "layout": "qwerty",
+          "status": "honor-seed"
         }
       ],
-      "formCount": 16,
-      "langCount": 16,
+      "formCount": 19,
+      "langCount": 19,
       "langs": [
         "ar",
+        "chr",
         "de",
         "el",
         "en",
@@ -23489,7 +26516,9 @@
         "is",
         "it",
         "la",
+        "nav",
         "nl",
+        "oj",
         "pl",
         "pt",
         "ru",
@@ -23617,12 +26646,34 @@
           "primary": true,
           "layout": "jcuken",
           "status": "open"
+        },
+        {
+          "lang": "oj",
+          "form": "aaniin apii",
+          "primary": true,
+          "layout": "qwerty",
+          "status": "honor-seed"
+        },
+        {
+          "lang": "nav",
+          "form": "háádishąʼ",
+          "primary": true,
+          "layout": "qwerty",
+          "status": "honor-seed"
+        },
+        {
+          "lang": "chr",
+          "form": "hilvsgi",
+          "primary": true,
+          "layout": "qwerty",
+          "status": "honor-seed"
         }
       ],
-      "formCount": 16,
-      "langCount": 16,
+      "formCount": 19,
+      "langCount": 19,
       "langs": [
         "ar",
+        "chr",
         "de",
         "el",
         "en",
@@ -23632,7 +26683,9 @@
         "is",
         "it",
         "la",
+        "nav",
         "nl",
+        "oj",
         "pl",
         "pt",
         "ru",
@@ -23760,12 +26813,34 @@
           "primary": true,
           "layout": "jcuken",
           "status": "open"
+        },
+        {
+          "lang": "oj",
+          "form": "aaniin dash",
+          "primary": true,
+          "layout": "qwerty",
+          "status": "honor-seed"
+        },
+        {
+          "lang": "nav",
+          "form": "haʼátʼíí biniinaa",
+          "primary": true,
+          "layout": "qwerty",
+          "status": "honor-seed"
+        },
+        {
+          "lang": "chr",
+          "form": "gado usdi",
+          "primary": true,
+          "layout": "qwerty",
+          "status": "honor-seed"
         }
       ],
-      "formCount": 16,
-      "langCount": 16,
+      "formCount": 19,
+      "langCount": 19,
       "langs": [
         "ar",
+        "chr",
         "de",
         "el",
         "en",
@@ -23775,7 +26850,9 @@
         "is",
         "it",
         "la",
+        "nav",
         "nl",
+        "oj",
         "pl",
         "pt",
         "ru",
@@ -23903,12 +26980,34 @@
           "primary": true,
           "layout": "jcuken",
           "status": "open"
+        },
+        {
+          "lang": "oj",
+          "form": "aaniin",
+          "primary": true,
+          "layout": "qwerty",
+          "status": "honor-seed"
+        },
+        {
+          "lang": "nav",
+          "form": "haitʼéego",
+          "primary": true,
+          "layout": "qwerty",
+          "status": "honor-seed"
+        },
+        {
+          "lang": "chr",
+          "form": "gadohi",
+          "primary": true,
+          "layout": "qwerty",
+          "status": "honor-seed"
         }
       ],
-      "formCount": 16,
-      "langCount": 16,
+      "formCount": 19,
+      "langCount": 19,
       "langs": [
         "ar",
+        "chr",
         "de",
         "el",
         "en",
@@ -23918,7 +27017,9 @@
         "is",
         "it",
         "la",
+        "nav",
         "nl",
+        "oj",
         "pl",
         "pt",
         "ru",
@@ -24046,12 +27147,34 @@
           "primary": true,
           "layout": "jcuken",
           "status": "open"
+        },
+        {
+          "lang": "oj",
+          "form": "miinawaa",
+          "primary": true,
+          "layout": "qwerty",
+          "status": "honor-seed"
+        },
+        {
+          "lang": "nav",
+          "form": "dóó",
+          "primary": true,
+          "layout": "qwerty",
+          "status": "honor-seed"
+        },
+        {
+          "lang": "chr",
+          "form": "ale",
+          "primary": true,
+          "layout": "qwerty",
+          "status": "honor-seed"
         }
       ],
-      "formCount": 16,
-      "langCount": 16,
+      "formCount": 19,
+      "langCount": 19,
       "langs": [
         "ar",
+        "chr",
         "de",
         "el",
         "en",
@@ -24061,7 +27184,9 @@
         "is",
         "it",
         "la",
+        "nav",
         "nl",
+        "oj",
         "pl",
         "pt",
         "ru",
@@ -24189,12 +27314,34 @@
           "primary": true,
           "layout": "jcuken",
           "status": "open"
+        },
+        {
+          "lang": "nav",
+          "form": "doodaiiʼ",
+          "primary": true,
+          "layout": "qwerty",
+          "status": "honor-seed"
+        },
+        {
+          "lang": "chr",
+          "form": "ale",
+          "primary": true,
+          "layout": "qwerty",
+          "status": "honor-seed"
+        },
+        {
+          "lang": "oj",
+          "form": "gemaa",
+          "primary": true,
+          "layout": "qwerty",
+          "status": "honor-seed"
         }
       ],
-      "formCount": 16,
-      "langCount": 16,
+      "formCount": 19,
+      "langCount": 19,
       "langs": [
         "ar",
+        "chr",
         "de",
         "el",
         "en",
@@ -24204,7 +27351,9 @@
         "is",
         "it",
         "la",
+        "nav",
         "nl",
+        "oj",
         "pl",
         "pt",
         "ru",
@@ -24339,12 +27488,27 @@
           "primary": true,
           "layout": "jcuken",
           "status": "open"
+        },
+        {
+          "lang": "oj",
+          "form": "gaawiin",
+          "primary": true,
+          "layout": "qwerty",
+          "status": "honor-seed"
+        },
+        {
+          "lang": "chr",
+          "form": "tla",
+          "primary": true,
+          "layout": "qwerty",
+          "status": "honor-seed"
         }
       ],
-      "formCount": 17,
-      "langCount": 16,
+      "formCount": 19,
+      "langCount": 18,
       "langs": [
         "ar",
+        "chr",
         "de",
         "el",
         "en",
@@ -24355,6 +27519,7 @@
         "it",
         "la",
         "nl",
+        "oj",
         "pl",
         "pt",
         "ru",
@@ -24482,12 +27647,34 @@
           "primary": true,
           "layout": "jcuken",
           "status": "open"
+        },
+        {
+          "lang": "oj",
+          "form": "niin",
+          "primary": true,
+          "layout": "qwerty",
+          "status": "honor-seed"
+        },
+        {
+          "lang": "nav",
+          "form": "shí",
+          "primary": true,
+          "layout": "qwerty",
+          "status": "honor-seed"
+        },
+        {
+          "lang": "chr",
+          "form": "aya",
+          "primary": true,
+          "layout": "qwerty",
+          "status": "honor-seed"
         }
       ],
-      "formCount": 16,
-      "langCount": 16,
+      "formCount": 19,
+      "langCount": 19,
       "langs": [
         "ar",
+        "chr",
         "de",
         "el",
         "en",
@@ -24497,7 +27684,9 @@
         "is",
         "it",
         "la",
+        "nav",
         "nl",
+        "oj",
         "pl",
         "pt",
         "ru",
@@ -24681,12 +27870,34 @@
           "primary": false,
           "layout": "jcuken",
           "status": "open"
+        },
+        {
+          "lang": "oj",
+          "form": "giin",
+          "primary": true,
+          "layout": "qwerty",
+          "status": "honor-seed"
+        },
+        {
+          "lang": "nav",
+          "form": "ni",
+          "primary": true,
+          "layout": "qwerty",
+          "status": "honor-seed"
+        },
+        {
+          "lang": "chr",
+          "form": "nihi",
+          "primary": true,
+          "layout": "qwerty",
+          "status": "honor-seed"
         }
       ],
-      "formCount": 24,
-      "langCount": 16,
+      "formCount": 27,
+      "langCount": 19,
       "langs": [
         "ar",
+        "chr",
         "de",
         "el",
         "en",
@@ -24696,7 +27907,9 @@
         "is",
         "it",
         "la",
+        "nav",
         "nl",
+        "oj",
         "pl",
         "pt",
         "ru",
@@ -24824,12 +28037,34 @@
           "primary": true,
           "layout": "jcuken",
           "status": "open"
+        },
+        {
+          "lang": "oj",
+          "form": "niinawind",
+          "primary": true,
+          "layout": "qwerty",
+          "status": "honor-seed"
+        },
+        {
+          "lang": "nav",
+          "form": "nihí",
+          "primary": true,
+          "layout": "qwerty",
+          "status": "honor-seed"
+        },
+        {
+          "lang": "chr",
+          "form": "otsi",
+          "primary": true,
+          "layout": "qwerty",
+          "status": "honor-seed"
         }
       ],
-      "formCount": 16,
-      "langCount": 16,
+      "formCount": 19,
+      "langCount": 19,
       "langs": [
         "ar",
+        "chr",
         "de",
         "el",
         "en",
@@ -24839,7 +28074,9 @@
         "is",
         "it",
         "la",
+        "nav",
         "nl",
+        "oj",
         "pl",
         "pt",
         "ru",
@@ -24974,12 +28211,34 @@
           "primary": true,
           "layout": "jcuken",
           "status": "open"
+        },
+        {
+          "lang": "oj",
+          "form": "wiinawaa",
+          "primary": true,
+          "layout": "qwerty",
+          "status": "honor-seed"
+        },
+        {
+          "lang": "nav",
+          "form": "bí",
+          "primary": true,
+          "layout": "qwerty",
+          "status": "honor-seed"
+        },
+        {
+          "lang": "chr",
+          "form": "ani",
+          "primary": true,
+          "layout": "qwerty",
+          "status": "honor-seed"
         }
       ],
-      "formCount": 17,
-      "langCount": 16,
+      "formCount": 20,
+      "langCount": 19,
       "langs": [
         "ar",
+        "chr",
         "de",
         "el",
         "en",
@@ -24989,7 +28248,9 @@
         "is",
         "it",
         "la",
+        "nav",
         "nl",
+        "oj",
         "pl",
         "pt",
         "ru",
@@ -25131,12 +28392,34 @@
           "primary": true,
           "layout": "jcuken",
           "status": "open"
+        },
+        {
+          "lang": "oj",
+          "form": "o'o",
+          "primary": true,
+          "layout": "qwerty",
+          "status": "honor-seed"
+        },
+        {
+          "lang": "nav",
+          "form": "díí",
+          "primary": true,
+          "layout": "qwerty",
+          "status": "honor-seed"
+        },
+        {
+          "lang": "chr",
+          "form": "hia",
+          "primary": true,
+          "layout": "qwerty",
+          "status": "honor-seed"
         }
       ],
-      "formCount": 18,
-      "langCount": 16,
+      "formCount": 21,
+      "langCount": 19,
       "langs": [
         "ar",
+        "chr",
         "de",
         "el",
         "en",
@@ -25146,7 +28429,9 @@
         "is",
         "it",
         "la",
+        "nav",
         "nl",
+        "oj",
         "pl",
         "pt",
         "ru",
@@ -25295,12 +28580,34 @@
           "primary": true,
           "layout": "jcuken",
           "status": "open"
+        },
+        {
+          "lang": "oj",
+          "form": "i'iw",
+          "primary": true,
+          "layout": "qwerty",
+          "status": "honor-seed"
+        },
+        {
+          "lang": "nav",
+          "form": "éí",
+          "primary": true,
+          "layout": "qwerty",
+          "status": "honor-seed"
+        },
+        {
+          "lang": "chr",
+          "form": "na",
+          "primary": true,
+          "layout": "qwerty",
+          "status": "honor-seed"
         }
       ],
-      "formCount": 19,
-      "langCount": 16,
+      "formCount": 22,
+      "langCount": 19,
       "langs": [
         "ar",
+        "chr",
         "de",
         "el",
         "en",
@@ -25310,7 +28617,9 @@
         "is",
         "it",
         "la",
+        "nav",
         "nl",
+        "oj",
         "pl",
         "pt",
         "ru",
@@ -25445,12 +28754,34 @@
           "primary": true,
           "layout": "jcuken",
           "status": "open"
+        },
+        {
+          "lang": "oj",
+          "form": "kakoinaag",
+          "primary": true,
+          "layout": "qwerty",
+          "status": "honor-seed"
+        },
+        {
+          "lang": "nav",
+          "form": "tʼáá ałtso",
+          "primary": true,
+          "layout": "qwerty",
+          "status": "honor-seed"
+        },
+        {
+          "lang": "chr",
+          "form": "nigada",
+          "primary": true,
+          "layout": "qwerty",
+          "status": "honor-seed"
         }
       ],
-      "formCount": 17,
-      "langCount": 16,
+      "formCount": 20,
+      "langCount": 19,
       "langs": [
         "ar",
+        "chr",
         "de",
         "el",
         "en",
@@ -25460,7 +28791,9 @@
         "is",
         "it",
         "la",
+        "nav",
         "nl",
+        "oj",
         "pl",
         "pt",
         "ru",
@@ -25588,12 +28921,34 @@
           "primary": true,
           "layout": "jcuken",
           "status": "open"
+        },
+        {
+          "lang": "oj",
+          "form": "niibowa",
+          "primary": true,
+          "layout": "qwerty",
+          "status": "honor-seed"
+        },
+        {
+          "lang": "nav",
+          "form": "ląʼí",
+          "primary": true,
+          "layout": "qwerty",
+          "status": "honor-seed"
+        },
+        {
+          "lang": "chr",
+          "form": "igohida",
+          "primary": true,
+          "layout": "qwerty",
+          "status": "honor-seed"
         }
       ],
-      "formCount": 16,
-      "langCount": 16,
+      "formCount": 19,
+      "langCount": 19,
       "langs": [
         "ar",
+        "chr",
         "de",
         "el",
         "en",
@@ -25603,7 +28958,9 @@
         "is",
         "it",
         "la",
+        "nav",
         "nl",
+        "oj",
         "pl",
         "pt",
         "ru",
@@ -25731,12 +29088,34 @@
           "primary": true,
           "layout": "jcuken",
           "status": "open"
+        },
+        {
+          "lang": "nav",
+          "form": "tʼáá díkwíí",
+          "primary": true,
+          "layout": "qwerty",
+          "status": "honor-seed"
+        },
+        {
+          "lang": "chr",
+          "form": "usdi",
+          "primary": true,
+          "layout": "qwerty",
+          "status": "honor-seed"
+        },
+        {
+          "lang": "oj",
+          "form": "bakaan",
+          "primary": true,
+          "layout": "qwerty",
+          "status": "honor-seed"
         }
       ],
-      "formCount": 16,
-      "langCount": 16,
+      "formCount": 19,
+      "langCount": 19,
       "langs": [
         "ar",
+        "chr",
         "de",
         "el",
         "en",
@@ -25746,7 +29125,9 @@
         "is",
         "it",
         "la",
+        "nav",
         "nl",
+        "oj",
         "pl",
         "pt",
         "ru",
@@ -25881,12 +29262,27 @@
           "primary": true,
           "layout": "qwerty",
           "status": "honor-seed"
+        },
+        {
+          "lang": "nav",
+          "form": "dį́į́ʼ",
+          "primary": true,
+          "layout": "qwerty",
+          "status": "honor-seed"
+        },
+        {
+          "lang": "chr",
+          "form": "nvgi",
+          "primary": true,
+          "layout": "qwerty",
+          "status": "honor-seed"
         }
       ],
-      "formCount": 17,
-      "langCount": 17,
+      "formCount": 19,
+      "langCount": 19,
       "langs": [
         "ar",
+        "chr",
         "de",
         "el",
         "en",
@@ -25896,6 +29292,7 @@
         "is",
         "it",
         "la",
+        "nav",
         "nl",
         "oj",
         "pl",
@@ -26039,12 +29436,27 @@
           "primary": true,
           "layout": "qwerty",
           "status": "honor-seed"
+        },
+        {
+          "lang": "nav",
+          "form": "ashdlaʼ",
+          "primary": false,
+          "layout": "qwerty",
+          "status": "honor-seed"
+        },
+        {
+          "lang": "chr",
+          "form": "hisgi",
+          "primary": true,
+          "layout": "qwerty",
+          "status": "honor-seed"
         }
       ],
-      "formCount": 18,
-      "langCount": 18,
+      "formCount": 20,
+      "langCount": 19,
       "langs": [
         "ar",
+        "chr",
         "de",
         "el",
         "en",
@@ -26184,12 +29596,34 @@
           "primary": true,
           "layout": "jcuken",
           "status": "open"
+        },
+        {
+          "lang": "oj",
+          "form": "midaaswi",
+          "primary": true,
+          "layout": "qwerty",
+          "status": "honor-seed"
+        },
+        {
+          "lang": "nav",
+          "form": "neeznáá",
+          "primary": true,
+          "layout": "qwerty",
+          "status": "honor-seed"
+        },
+        {
+          "lang": "chr",
+          "form": "sgohi",
+          "primary": true,
+          "layout": "qwerty",
+          "status": "honor-seed"
         }
       ],
-      "formCount": 16,
-      "langCount": 16,
+      "formCount": 19,
+      "langCount": 19,
       "langs": [
         "ar",
+        "chr",
         "de",
         "el",
         "en",
@@ -26199,7 +29633,9 @@
         "is",
         "it",
         "la",
+        "nav",
         "nl",
+        "oj",
         "pl",
         "pt",
         "ru",
@@ -26327,12 +29763,34 @@
           "primary": true,
           "layout": "jcuken",
           "status": "open"
+        },
+        {
+          "lang": "oj",
+          "form": "ningodwaak",
+          "primary": true,
+          "layout": "qwerty",
+          "status": "honor-seed"
+        },
+        {
+          "lang": "nav",
+          "form": "neeznádiin",
+          "primary": true,
+          "layout": "qwerty",
+          "status": "honor-seed"
+        },
+        {
+          "lang": "chr",
+          "form": "sgohitsgwa",
+          "primary": true,
+          "layout": "qwerty",
+          "status": "honor-seed"
         }
       ],
-      "formCount": 16,
-      "langCount": 16,
+      "formCount": 19,
+      "langCount": 19,
       "langs": [
         "ar",
+        "chr",
         "de",
         "el",
         "en",
@@ -26342,7 +29800,9 @@
         "is",
         "it",
         "la",
+        "nav",
         "nl",
+        "oj",
         "pl",
         "pt",
         "ru",
@@ -26477,12 +29937,34 @@
           "primary": true,
           "layout": "jcuken",
           "status": "open"
+        },
+        {
+          "lang": "nav",
+          "form": "ádin",
+          "primary": true,
+          "layout": "qwerty",
+          "status": "honor-seed"
+        },
+        {
+          "lang": "chr",
+          "form": "tla digohweli",
+          "primary": true,
+          "layout": "qwerty",
+          "status": "honor-seed"
+        },
+        {
+          "lang": "oj",
+          "form": "gaawiin gegoo",
+          "primary": true,
+          "layout": "qwerty",
+          "status": "honor-seed"
         }
       ],
-      "formCount": 17,
-      "langCount": 16,
+      "formCount": 20,
+      "langCount": 19,
       "langs": [
         "ar",
+        "chr",
         "de",
         "el",
         "en",
@@ -26492,7 +29974,9 @@
         "is",
         "it",
         "la",
+        "nav",
         "nl",
+        "oj",
         "pl",
         "pt",
         "ru",
@@ -26592,10 +30076,45 @@
           "primary": true,
           "layout": "jcuken",
           "status": "open"
+        },
+        {
+          "lang": "nl",
+          "form": "Venus",
+          "primary": true,
+          "layout": "qwerty",
+          "status": "open"
+        },
+        {
+          "lang": "pt",
+          "form": "Vênus",
+          "primary": true,
+          "layout": "qwerty",
+          "status": "open"
+        },
+        {
+          "lang": "pl",
+          "form": "Wenus",
+          "primary": true,
+          "layout": "qwerty",
+          "status": "open"
+        },
+        {
+          "lang": "ja",
+          "form": "金星",
+          "primary": true,
+          "layout": "japanese",
+          "status": "open"
+        },
+        {
+          "lang": "ko",
+          "form": "금성",
+          "primary": true,
+          "layout": "korean",
+          "status": "open"
         }
       ],
-      "formCount": 12,
-      "langCount": 12,
+      "formCount": 17,
+      "langCount": 17,
       "langs": [
         "ar",
         "de",
@@ -26606,7 +30125,12 @@
         "hi",
         "is",
         "it",
+        "ja",
+        "ko",
         "la",
+        "nl",
+        "pl",
+        "pt",
         "ru",
         "zh"
       ],
@@ -26703,10 +30227,45 @@
           "primary": true,
           "layout": "jcuken",
           "status": "open"
+        },
+        {
+          "lang": "nl",
+          "form": "Mars",
+          "primary": true,
+          "layout": "qwerty",
+          "status": "open"
+        },
+        {
+          "lang": "pt",
+          "form": "Marte",
+          "primary": true,
+          "layout": "qwerty",
+          "status": "open"
+        },
+        {
+          "lang": "pl",
+          "form": "Mars",
+          "primary": true,
+          "layout": "qwerty",
+          "status": "open"
+        },
+        {
+          "lang": "ja",
+          "form": "火星",
+          "primary": true,
+          "layout": "japanese",
+          "status": "open"
+        },
+        {
+          "lang": "ko",
+          "form": "화성",
+          "primary": true,
+          "layout": "korean",
+          "status": "open"
         }
       ],
-      "formCount": 12,
-      "langCount": 12,
+      "formCount": 17,
+      "langCount": 17,
       "langs": [
         "ar",
         "de",
@@ -26717,7 +30276,12 @@
         "hi",
         "is",
         "it",
+        "ja",
+        "ko",
         "la",
+        "nl",
+        "pl",
+        "pt",
         "ru",
         "zh"
       ],
@@ -26828,10 +30392,101 @@
           "primary": true,
           "layout": "jcuken",
           "status": "open"
+        },
+        {
+          "lang": "de",
+          "form": "Zeichen",
+          "primary": false,
+          "layout": "qwertz",
+          "status": "open"
+        },
+        {
+          "lang": "fr",
+          "form": "signe",
+          "primary": false,
+          "layout": "azerty",
+          "status": "open"
+        },
+        {
+          "lang": "es",
+          "form": "signo",
+          "primary": false,
+          "layout": "qwerty",
+          "status": "open"
+        },
+        {
+          "lang": "it",
+          "form": "segno",
+          "primary": false,
+          "layout": "qwerty",
+          "status": "open"
+        },
+        {
+          "lang": "is",
+          "form": "tákn",
+          "primary": true,
+          "layout": "qwerty",
+          "status": "open"
+        },
+        {
+          "lang": "nl",
+          "form": "teken",
+          "primary": false,
+          "layout": "qwerty",
+          "status": "open"
+        },
+        {
+          "lang": "pl",
+          "form": "znak",
+          "primary": false,
+          "layout": "qwerty",
+          "status": "open"
+        },
+        {
+          "lang": "ar",
+          "form": "حرف",
+          "primary": false,
+          "layout": "arabic",
+          "status": "open"
+        },
+        {
+          "lang": "hi",
+          "form": "चिह्न",
+          "primary": false,
+          "layout": "hindi",
+          "status": "open"
+        },
+        {
+          "lang": "el",
+          "form": "σύμβολο",
+          "primary": false,
+          "layout": "greek",
+          "status": "open"
+        },
+        {
+          "lang": "zh",
+          "form": "符号",
+          "primary": false,
+          "layout": "qwerty",
+          "status": "open"
+        },
+        {
+          "lang": "ru",
+          "form": "знак",
+          "primary": false,
+          "layout": "jcuken",
+          "status": "open"
+        },
+        {
+          "lang": "la",
+          "form": "signum",
+          "primary": false,
+          "layout": "qwerty",
+          "status": "open"
         }
       ],
-      "formCount": 14,
-      "langCount": 14,
+      "formCount": 27,
+      "langCount": 15,
       "langs": [
         "ar",
         "de",
@@ -26840,6 +30495,7 @@
         "es",
         "fr",
         "hi",
+        "is",
         "it",
         "la",
         "nl",
@@ -26920,17 +30576,116 @@
           "primary": true,
           "layout": "japanese",
           "status": "open"
+        },
+        {
+          "lang": "en",
+          "form": "rubik",
+          "primary": false,
+          "layout": "qwerty",
+          "status": "open"
+        },
+        {
+          "lang": "es",
+          "form": "cubo",
+          "primary": false,
+          "layout": "qwerty",
+          "status": "open"
+        },
+        {
+          "lang": "it",
+          "form": "cubo",
+          "primary": false,
+          "layout": "qwerty",
+          "status": "open"
+        },
+        {
+          "lang": "is",
+          "form": "teningur",
+          "primary": true,
+          "layout": "qwerty",
+          "status": "open"
+        },
+        {
+          "lang": "nl",
+          "form": "kubus",
+          "primary": true,
+          "layout": "qwerty",
+          "status": "open"
+        },
+        {
+          "lang": "pt",
+          "form": "cubo",
+          "primary": true,
+          "layout": "qwerty",
+          "status": "open"
+        },
+        {
+          "lang": "pl",
+          "form": "kostka",
+          "primary": true,
+          "layout": "qwerty",
+          "status": "open"
+        },
+        {
+          "lang": "ar",
+          "form": "مكعب",
+          "primary": true,
+          "layout": "arabic",
+          "status": "open"
+        },
+        {
+          "lang": "hi",
+          "form": "घन",
+          "primary": true,
+          "layout": "hindi",
+          "status": "open"
+        },
+        {
+          "lang": "el",
+          "form": "κύβος",
+          "primary": true,
+          "layout": "greek",
+          "status": "open"
+        },
+        {
+          "lang": "ru",
+          "form": "кубик",
+          "primary": false,
+          "layout": "jcuken",
+          "status": "open"
+        },
+        {
+          "lang": "ja",
+          "form": "ルービック",
+          "primary": false,
+          "layout": "japanese",
+          "status": "open"
+        },
+        {
+          "lang": "ko",
+          "form": "큐브",
+          "primary": true,
+          "layout": "korean",
+          "status": "open"
         }
       ],
-      "formCount": 9,
-      "langCount": 8,
+      "formCount": 22,
+      "langCount": 16,
       "langs": [
+        "ar",
         "de",
+        "el",
         "en",
         "es",
         "fr",
+        "hi",
+        "is",
         "it",
         "ja",
+        "ko",
+        "nl",
+        "pl",
+        "pt",
         "ru",
         "zh"
       ],
@@ -27041,10 +30796,38 @@
           "primary": true,
           "layout": "jcuken",
           "status": "open"
+        },
+        {
+          "lang": "fr",
+          "form": "effort",
+          "primary": false,
+          "layout": "azerty",
+          "status": "open"
+        },
+        {
+          "lang": "is",
+          "form": "álag",
+          "primary": true,
+          "layout": "qwerty",
+          "status": "open"
+        },
+        {
+          "lang": "zh",
+          "form": "压力",
+          "primary": false,
+          "layout": "qwerty",
+          "status": "open"
+        },
+        {
+          "lang": "ru",
+          "form": "нагрузка",
+          "primary": false,
+          "layout": "jcuken",
+          "status": "open"
         }
       ],
-      "formCount": 14,
-      "langCount": 14,
+      "formCount": 18,
+      "langCount": 15,
       "langs": [
         "ar",
         "de",
@@ -27053,6 +30836,7 @@
         "es",
         "fr",
         "hi",
+        "is",
         "it",
         "nl",
         "pl",
@@ -27168,10 +30952,31 @@
           "primary": true,
           "layout": "jcuken",
           "status": "open"
+        },
+        {
+          "lang": "de",
+          "form": "Layout",
+          "primary": false,
+          "layout": "qwertz",
+          "status": "open"
+        },
+        {
+          "lang": "it",
+          "form": "disposizione",
+          "primary": false,
+          "layout": "qwerty",
+          "status": "open"
+        },
+        {
+          "lang": "is",
+          "form": "skipulag",
+          "primary": true,
+          "layout": "qwerty",
+          "status": "open"
         }
       ],
-      "formCount": 14,
-      "langCount": 14,
+      "formCount": 17,
+      "langCount": 15,
       "langs": [
         "ar",
         "de",
@@ -27180,6 +30985,7 @@
         "es",
         "fr",
         "hi",
+        "is",
         "it",
         "nl",
         "pl",
@@ -27191,6 +30997,1048 @@
       "license": "kbatch-curated-open-seed",
       "source": "kbatch-concept-mesh-v1",
       "note": "Educational multilingual forms for geometry + transfer. Not a commercial dictionary. Honor forms opt-in."
+    },
+    {
+      "id": "concept:transfer",
+      "slug": "transfer",
+      "gloss_en": "language transfer; cost between packs",
+      "pos": "noun",
+      "forms": [
+        {
+          "lang": "en",
+          "form": "transfer",
+          "primary": true,
+          "layout": "qwerty",
+          "status": "open"
+        },
+        {
+          "lang": "de",
+          "form": "Transfer",
+          "primary": true,
+          "layout": "qwertz",
+          "status": "open"
+        },
+        {
+          "lang": "fr",
+          "form": "transfert",
+          "primary": true,
+          "layout": "azerty",
+          "status": "open"
+        },
+        {
+          "lang": "es",
+          "form": "transferencia",
+          "primary": true,
+          "layout": "qwerty",
+          "status": "open"
+        },
+        {
+          "lang": "it",
+          "form": "trasferimento",
+          "primary": true,
+          "layout": "qwerty",
+          "status": "open"
+        },
+        {
+          "lang": "is",
+          "form": "flutningur",
+          "primary": true,
+          "layout": "qwerty",
+          "status": "open"
+        },
+        {
+          "lang": "nl",
+          "form": "overdracht",
+          "primary": true,
+          "layout": "qwerty",
+          "status": "open"
+        },
+        {
+          "lang": "pt",
+          "form": "transferência",
+          "primary": true,
+          "layout": "qwerty",
+          "status": "open"
+        },
+        {
+          "lang": "pl",
+          "form": "transfer",
+          "primary": true,
+          "layout": "qwerty",
+          "status": "open"
+        },
+        {
+          "lang": "ar",
+          "form": "نقل",
+          "primary": true,
+          "layout": "arabic",
+          "status": "open"
+        },
+        {
+          "lang": "hi",
+          "form": "स्थानांतरण",
+          "primary": true,
+          "layout": "hindi",
+          "status": "open"
+        },
+        {
+          "lang": "el",
+          "form": "μεταφορά",
+          "primary": true,
+          "layout": "greek",
+          "status": "open"
+        },
+        {
+          "lang": "zh",
+          "form": "迁移",
+          "primary": true,
+          "layout": "qwerty",
+          "status": "open"
+        },
+        {
+          "lang": "ru",
+          "form": "перенос",
+          "primary": true,
+          "layout": "jcuken",
+          "status": "open"
+        }
+      ],
+      "license": "kbatch-curated-open-seed",
+      "source": "kbatch-concept-mesh-v1-stair-iter",
+      "note": "Educational multilingual forms · honor opt-in",
+      "formCount": 14,
+      "langs": [
+        "ar",
+        "de",
+        "el",
+        "en",
+        "es",
+        "fr",
+        "hi",
+        "is",
+        "it",
+        "nl",
+        "pl",
+        "pt",
+        "ru",
+        "zh"
+      ],
+      "langCount": 14
+    },
+    {
+      "id": "concept:portal",
+      "slug": "portal",
+      "gloss_en": "script portal; hub language",
+      "pos": "noun",
+      "forms": [
+        {
+          "lang": "en",
+          "form": "portal",
+          "primary": true,
+          "layout": "qwerty",
+          "status": "open"
+        },
+        {
+          "lang": "de",
+          "form": "Portal",
+          "primary": true,
+          "layout": "qwertz",
+          "status": "open"
+        },
+        {
+          "lang": "fr",
+          "form": "portail",
+          "primary": true,
+          "layout": "azerty",
+          "status": "open"
+        },
+        {
+          "lang": "es",
+          "form": "portal",
+          "primary": true,
+          "layout": "qwerty",
+          "status": "open"
+        },
+        {
+          "lang": "it",
+          "form": "portale",
+          "primary": true,
+          "layout": "qwerty",
+          "status": "open"
+        },
+        {
+          "lang": "is",
+          "form": "gátt",
+          "primary": true,
+          "layout": "qwerty",
+          "status": "open"
+        },
+        {
+          "lang": "nl",
+          "form": "portaal",
+          "primary": true,
+          "layout": "qwerty",
+          "status": "open"
+        },
+        {
+          "lang": "pt",
+          "form": "portal",
+          "primary": true,
+          "layout": "qwerty",
+          "status": "open"
+        },
+        {
+          "lang": "pl",
+          "form": "portal",
+          "primary": true,
+          "layout": "qwerty",
+          "status": "open"
+        },
+        {
+          "lang": "ar",
+          "form": "بوابة",
+          "primary": true,
+          "layout": "arabic",
+          "status": "open"
+        },
+        {
+          "lang": "hi",
+          "form": "पोर्टल",
+          "primary": true,
+          "layout": "hindi",
+          "status": "open"
+        },
+        {
+          "lang": "el",
+          "form": "πύλη",
+          "primary": true,
+          "layout": "greek",
+          "status": "open"
+        },
+        {
+          "lang": "zh",
+          "form": "门户",
+          "primary": true,
+          "layout": "qwerty",
+          "status": "open"
+        },
+        {
+          "lang": "ru",
+          "form": "портал",
+          "primary": true,
+          "layout": "jcuken",
+          "status": "open"
+        }
+      ],
+      "license": "kbatch-curated-open-seed",
+      "source": "kbatch-concept-mesh-v1-stair-iter",
+      "note": "Educational multilingual forms · honor opt-in",
+      "formCount": 14,
+      "langs": [
+        "ar",
+        "de",
+        "el",
+        "en",
+        "es",
+        "fr",
+        "hi",
+        "is",
+        "it",
+        "nl",
+        "pl",
+        "pt",
+        "ru",
+        "zh"
+      ],
+      "langCount": 14
+    },
+    {
+      "id": "concept:stair",
+      "slug": "stair",
+      "gloss_en": "ordered steps across languages",
+      "pos": "noun",
+      "forms": [
+        {
+          "lang": "en",
+          "form": "stair",
+          "primary": true,
+          "layout": "qwerty",
+          "status": "open"
+        },
+        {
+          "lang": "en",
+          "form": "ladder",
+          "primary": false,
+          "layout": "qwerty",
+          "status": "open"
+        },
+        {
+          "lang": "de",
+          "form": "Treppe",
+          "primary": true,
+          "layout": "qwertz",
+          "status": "open"
+        },
+        {
+          "lang": "fr",
+          "form": "escalier",
+          "primary": true,
+          "layout": "azerty",
+          "status": "open"
+        },
+        {
+          "lang": "es",
+          "form": "escalera",
+          "primary": true,
+          "layout": "qwerty",
+          "status": "open"
+        },
+        {
+          "lang": "it",
+          "form": "scala",
+          "primary": true,
+          "layout": "qwerty",
+          "status": "open"
+        },
+        {
+          "lang": "is",
+          "form": "stigi",
+          "primary": true,
+          "layout": "qwerty",
+          "status": "open"
+        },
+        {
+          "lang": "nl",
+          "form": "trap",
+          "primary": true,
+          "layout": "qwerty",
+          "status": "open"
+        },
+        {
+          "lang": "pt",
+          "form": "escada",
+          "primary": true,
+          "layout": "qwerty",
+          "status": "open"
+        },
+        {
+          "lang": "pl",
+          "form": "schody",
+          "primary": true,
+          "layout": "qwerty",
+          "status": "open"
+        },
+        {
+          "lang": "ar",
+          "form": "درج",
+          "primary": true,
+          "layout": "arabic",
+          "status": "open"
+        },
+        {
+          "lang": "hi",
+          "form": "सीढ़ी",
+          "primary": true,
+          "layout": "hindi",
+          "status": "open"
+        },
+        {
+          "lang": "el",
+          "form": "σκάλα",
+          "primary": true,
+          "layout": "greek",
+          "status": "open"
+        },
+        {
+          "lang": "zh",
+          "form": "阶梯",
+          "primary": true,
+          "layout": "qwerty",
+          "status": "open"
+        },
+        {
+          "lang": "ru",
+          "form": "лестница",
+          "primary": true,
+          "layout": "jcuken",
+          "status": "open"
+        }
+      ],
+      "license": "kbatch-curated-open-seed",
+      "source": "kbatch-concept-mesh-v1-stair-iter",
+      "note": "Educational multilingual forms · honor opt-in",
+      "formCount": 15,
+      "langs": [
+        "ar",
+        "de",
+        "el",
+        "en",
+        "es",
+        "fr",
+        "hi",
+        "is",
+        "it",
+        "nl",
+        "pl",
+        "pt",
+        "ru",
+        "zh"
+      ],
+      "langCount": 14
+    },
+    {
+      "id": "concept:mesh",
+      "slug": "mesh",
+      "gloss_en": "linked network of languages or systems",
+      "pos": "noun",
+      "forms": [
+        {
+          "lang": "en",
+          "form": "mesh",
+          "primary": true,
+          "layout": "qwerty",
+          "status": "open"
+        },
+        {
+          "lang": "de",
+          "form": "Netz",
+          "primary": true,
+          "layout": "qwertz",
+          "status": "open"
+        },
+        {
+          "lang": "fr",
+          "form": "maillage",
+          "primary": true,
+          "layout": "azerty",
+          "status": "open"
+        },
+        {
+          "lang": "es",
+          "form": "malla",
+          "primary": true,
+          "layout": "qwerty",
+          "status": "open"
+        },
+        {
+          "lang": "it",
+          "form": "rete",
+          "primary": true,
+          "layout": "qwerty",
+          "status": "open"
+        },
+        {
+          "lang": "is",
+          "form": "net",
+          "primary": true,
+          "layout": "qwerty",
+          "status": "open"
+        },
+        {
+          "lang": "nl",
+          "form": "net",
+          "primary": true,
+          "layout": "qwerty",
+          "status": "open"
+        },
+        {
+          "lang": "pt",
+          "form": "malha",
+          "primary": true,
+          "layout": "qwerty",
+          "status": "open"
+        },
+        {
+          "lang": "pl",
+          "form": "siatka",
+          "primary": true,
+          "layout": "qwerty",
+          "status": "open"
+        },
+        {
+          "lang": "ar",
+          "form": "شبكة",
+          "primary": true,
+          "layout": "arabic",
+          "status": "open"
+        },
+        {
+          "lang": "hi",
+          "form": "जाल",
+          "primary": true,
+          "layout": "hindi",
+          "status": "open"
+        },
+        {
+          "lang": "el",
+          "form": "πλέγμα",
+          "primary": true,
+          "layout": "greek",
+          "status": "open"
+        },
+        {
+          "lang": "zh",
+          "form": "网格",
+          "primary": true,
+          "layout": "qwerty",
+          "status": "open"
+        },
+        {
+          "lang": "ru",
+          "form": "сеть",
+          "primary": true,
+          "layout": "jcuken",
+          "status": "open"
+        }
+      ],
+      "license": "kbatch-curated-open-seed",
+      "source": "kbatch-concept-mesh-v1-stair-iter",
+      "note": "Educational multilingual forms · honor opt-in",
+      "formCount": 14,
+      "langs": [
+        "ar",
+        "de",
+        "el",
+        "en",
+        "es",
+        "fr",
+        "hi",
+        "is",
+        "it",
+        "nl",
+        "pl",
+        "pt",
+        "ru",
+        "zh"
+      ],
+      "langCount": 14
+    },
+    {
+      "id": "concept:concept",
+      "slug": "concept",
+      "gloss_en": "unit of meaning",
+      "pos": "noun",
+      "forms": [
+        {
+          "lang": "en",
+          "form": "concept",
+          "primary": true,
+          "layout": "qwerty",
+          "status": "open"
+        },
+        {
+          "lang": "de",
+          "form": "Begriff",
+          "primary": true,
+          "layout": "qwertz",
+          "status": "open"
+        },
+        {
+          "lang": "fr",
+          "form": "concept",
+          "primary": true,
+          "layout": "azerty",
+          "status": "open"
+        },
+        {
+          "lang": "es",
+          "form": "concepto",
+          "primary": true,
+          "layout": "qwerty",
+          "status": "open"
+        },
+        {
+          "lang": "it",
+          "form": "concetto",
+          "primary": true,
+          "layout": "qwerty",
+          "status": "open"
+        },
+        {
+          "lang": "is",
+          "form": "hugtak",
+          "primary": true,
+          "layout": "qwerty",
+          "status": "open"
+        },
+        {
+          "lang": "nl",
+          "form": "concept",
+          "primary": true,
+          "layout": "qwerty",
+          "status": "open"
+        },
+        {
+          "lang": "pt",
+          "form": "conceito",
+          "primary": true,
+          "layout": "qwerty",
+          "status": "open"
+        },
+        {
+          "lang": "pl",
+          "form": "pojęcie",
+          "primary": true,
+          "layout": "qwerty",
+          "status": "open"
+        },
+        {
+          "lang": "ar",
+          "form": "مفهوم",
+          "primary": true,
+          "layout": "arabic",
+          "status": "open"
+        },
+        {
+          "lang": "hi",
+          "form": "अवधारणा",
+          "primary": true,
+          "layout": "hindi",
+          "status": "open"
+        },
+        {
+          "lang": "el",
+          "form": "έννοια",
+          "primary": true,
+          "layout": "greek",
+          "status": "open"
+        },
+        {
+          "lang": "zh",
+          "form": "概念",
+          "primary": true,
+          "layout": "qwerty",
+          "status": "open"
+        },
+        {
+          "lang": "ru",
+          "form": "понятие",
+          "primary": true,
+          "layout": "jcuken",
+          "status": "open"
+        }
+      ],
+      "license": "kbatch-curated-open-seed",
+      "source": "kbatch-concept-mesh-v1-stair-iter",
+      "note": "Educational multilingual forms · honor opt-in",
+      "formCount": 14,
+      "langs": [
+        "ar",
+        "de",
+        "el",
+        "en",
+        "es",
+        "fr",
+        "hi",
+        "is",
+        "it",
+        "nl",
+        "pl",
+        "pt",
+        "ru",
+        "zh"
+      ],
+      "langCount": 14
+    },
+    {
+      "id": "concept:form",
+      "slug": "form",
+      "gloss_en": "surface spelling of a concept",
+      "pos": "noun",
+      "forms": [
+        {
+          "lang": "en",
+          "form": "form",
+          "primary": true,
+          "layout": "qwerty",
+          "status": "open"
+        },
+        {
+          "lang": "en",
+          "form": "spelling",
+          "primary": false,
+          "layout": "qwerty",
+          "status": "open"
+        },
+        {
+          "lang": "de",
+          "form": "Form",
+          "primary": true,
+          "layout": "qwertz",
+          "status": "open"
+        },
+        {
+          "lang": "de",
+          "form": "Schreibung",
+          "primary": false,
+          "layout": "qwertz",
+          "status": "open"
+        },
+        {
+          "lang": "fr",
+          "form": "forme",
+          "primary": true,
+          "layout": "azerty",
+          "status": "open"
+        },
+        {
+          "lang": "es",
+          "form": "forma",
+          "primary": true,
+          "layout": "qwerty",
+          "status": "open"
+        },
+        {
+          "lang": "it",
+          "form": "forma",
+          "primary": true,
+          "layout": "qwerty",
+          "status": "open"
+        },
+        {
+          "lang": "is",
+          "form": "form",
+          "primary": true,
+          "layout": "qwerty",
+          "status": "open"
+        },
+        {
+          "lang": "nl",
+          "form": "vorm",
+          "primary": true,
+          "layout": "qwerty",
+          "status": "open"
+        },
+        {
+          "lang": "pt",
+          "form": "forma",
+          "primary": true,
+          "layout": "qwerty",
+          "status": "open"
+        },
+        {
+          "lang": "pl",
+          "form": "forma",
+          "primary": true,
+          "layout": "qwerty",
+          "status": "open"
+        },
+        {
+          "lang": "ar",
+          "form": "شكل",
+          "primary": true,
+          "layout": "arabic",
+          "status": "open"
+        },
+        {
+          "lang": "hi",
+          "form": "रूप",
+          "primary": true,
+          "layout": "hindi",
+          "status": "open"
+        },
+        {
+          "lang": "el",
+          "form": "μορφή",
+          "primary": true,
+          "layout": "greek",
+          "status": "open"
+        },
+        {
+          "lang": "zh",
+          "form": "形式",
+          "primary": true,
+          "layout": "qwerty",
+          "status": "open"
+        },
+        {
+          "lang": "ru",
+          "form": "форма",
+          "primary": true,
+          "layout": "jcuken",
+          "status": "open"
+        }
+      ],
+      "license": "kbatch-curated-open-seed",
+      "source": "kbatch-concept-mesh-v1-stair-iter",
+      "note": "Educational multilingual forms · honor opt-in",
+      "formCount": 16,
+      "langs": [
+        "ar",
+        "de",
+        "el",
+        "en",
+        "es",
+        "fr",
+        "hi",
+        "is",
+        "it",
+        "nl",
+        "pl",
+        "pt",
+        "ru",
+        "zh"
+      ],
+      "langCount": 14
+    },
+    {
+      "id": "concept:instant",
+      "slug": "instant",
+      "gloss_en": "immediate; without delay",
+      "pos": "adj",
+      "forms": [
+        {
+          "lang": "en",
+          "form": "instant",
+          "primary": true,
+          "layout": "qwerty",
+          "status": "open"
+        },
+        {
+          "lang": "de",
+          "form": "sofort",
+          "primary": true,
+          "layout": "qwertz",
+          "status": "open"
+        },
+        {
+          "lang": "fr",
+          "form": "instantané",
+          "primary": true,
+          "layout": "azerty",
+          "status": "open"
+        },
+        {
+          "lang": "es",
+          "form": "instantáneo",
+          "primary": true,
+          "layout": "qwerty",
+          "status": "open"
+        },
+        {
+          "lang": "it",
+          "form": "istantaneo",
+          "primary": true,
+          "layout": "qwerty",
+          "status": "open"
+        },
+        {
+          "lang": "is",
+          "form": "augnabliks",
+          "primary": true,
+          "layout": "qwerty",
+          "status": "open"
+        },
+        {
+          "lang": "nl",
+          "form": "direct",
+          "primary": true,
+          "layout": "qwerty",
+          "status": "open"
+        },
+        {
+          "lang": "pt",
+          "form": "instantâneo",
+          "primary": true,
+          "layout": "qwerty",
+          "status": "open"
+        },
+        {
+          "lang": "pl",
+          "form": "natychmiastowy",
+          "primary": true,
+          "layout": "qwerty",
+          "status": "open"
+        },
+        {
+          "lang": "ar",
+          "form": "فوري",
+          "primary": true,
+          "layout": "arabic",
+          "status": "open"
+        },
+        {
+          "lang": "hi",
+          "form": "तत्काल",
+          "primary": true,
+          "layout": "hindi",
+          "status": "open"
+        },
+        {
+          "lang": "el",
+          "form": "άμεσος",
+          "primary": true,
+          "layout": "greek",
+          "status": "open"
+        },
+        {
+          "lang": "zh",
+          "form": "即时",
+          "primary": true,
+          "layout": "qwerty",
+          "status": "open"
+        },
+        {
+          "lang": "ru",
+          "form": "мгновенный",
+          "primary": true,
+          "layout": "jcuken",
+          "status": "open"
+        }
+      ],
+      "license": "kbatch-curated-open-seed",
+      "source": "kbatch-concept-mesh-v1-stair-iter",
+      "note": "Educational multilingual forms · honor opt-in",
+      "formCount": 14,
+      "langs": [
+        "ar",
+        "de",
+        "el",
+        "en",
+        "es",
+        "fr",
+        "hi",
+        "is",
+        "it",
+        "nl",
+        "pl",
+        "pt",
+        "ru",
+        "zh"
+      ],
+      "langCount": 14
+    },
+    {
+      "id": "concept:ready",
+      "slug": "ready",
+      "gloss_en": "pack status: ready for practice",
+      "pos": "adj",
+      "forms": [
+        {
+          "lang": "en",
+          "form": "ready",
+          "primary": true,
+          "layout": "qwerty",
+          "status": "open"
+        },
+        {
+          "lang": "de",
+          "form": "bereit",
+          "primary": true,
+          "layout": "qwertz",
+          "status": "open"
+        },
+        {
+          "lang": "fr",
+          "form": "prêt",
+          "primary": true,
+          "layout": "azerty",
+          "status": "open"
+        },
+        {
+          "lang": "es",
+          "form": "listo",
+          "primary": true,
+          "layout": "qwerty",
+          "status": "open"
+        },
+        {
+          "lang": "it",
+          "form": "pronto",
+          "primary": true,
+          "layout": "qwerty",
+          "status": "open"
+        },
+        {
+          "lang": "is",
+          "form": "tilbúinn",
+          "primary": true,
+          "layout": "qwerty",
+          "status": "open"
+        },
+        {
+          "lang": "nl",
+          "form": "klaar",
+          "primary": true,
+          "layout": "qwerty",
+          "status": "open"
+        },
+        {
+          "lang": "pt",
+          "form": "pronto",
+          "primary": true,
+          "layout": "qwerty",
+          "status": "open"
+        },
+        {
+          "lang": "pl",
+          "form": "gotowy",
+          "primary": true,
+          "layout": "qwerty",
+          "status": "open"
+        },
+        {
+          "lang": "ar",
+          "form": "جاهز",
+          "primary": true,
+          "layout": "arabic",
+          "status": "open"
+        },
+        {
+          "lang": "hi",
+          "form": "तैयार",
+          "primary": true,
+          "layout": "hindi",
+          "status": "open"
+        },
+        {
+          "lang": "el",
+          "form": "έτοιμος",
+          "primary": true,
+          "layout": "greek",
+          "status": "open"
+        },
+        {
+          "lang": "zh",
+          "form": "就绪",
+          "primary": true,
+          "layout": "qwerty",
+          "status": "open"
+        },
+        {
+          "lang": "ru",
+          "form": "готов",
+          "primary": true,
+          "layout": "jcuken",
+          "status": "open"
+        }
+      ],
+      "license": "kbatch-curated-open-seed",
+      "source": "kbatch-concept-mesh-v1-stair-iter",
+      "note": "Educational multilingual forms · honor opt-in",
+      "formCount": 14,
+      "langs": [
+        "ar",
+        "de",
+        "el",
+        "en",
+        "es",
+        "fr",
+        "hi",
+        "is",
+        "it",
+        "nl",
+        "pl",
+        "pt",
+        "ru",
+        "zh"
+      ],
+      "langCount": 14
     }
-  ]
+  ],
+  "iteration": {
+    "at": "2026-07-26T02:39:50Z",
+    "note": "stair densify · honor educational fill · mode=stair + stair_walk",
+    "formsAddedApprox": 198
+  }
 }

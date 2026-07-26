@@ -516,6 +516,15 @@ export function mcpCall(name, args = {}) {
           limit: args.limit,
         })
       );
+    case "kbatch_concept_stair_walk":
+      return import("./concept-solve.js").then(({ conceptStairWalk }) =>
+        conceptStairWalk({
+          concepts: args.concepts || args.q || args.words,
+          from: args.from || args.lang || "en",
+          includePaths: args.includePaths !== false,
+          limit: args.limit,
+        })
+      );
     case "kbatch_world_axes":
       return fetchWorldAxesBundle();
     case "kbatch_shadows":

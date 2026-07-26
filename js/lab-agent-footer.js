@@ -29,7 +29,7 @@
       "<strong>Agents</strong> · " +
       '<a href="/for-ai#declaration-lab">for-ai#declaration-lab</a> · ' +
       '<code>kbatch_lettergrid_ping</code> · ' +
-      '<code>kbatch_concept_solve</code> · ' +
+      '<code>kbatch_concept_solve</code> · <code>mode:stair</code> · <code>kbatch_concept_stair_walk</code> · ' +
       '<a href="/api/mcp" target="_blank" rel="noopener">/api/mcp</a> · ' +
       '<button type="button" class="btn" id="lab-agent-copy-mcp" style="font-size:0.75rem;padding:2px 8px">Copy MCP JSON</button>' +
       "</div>";

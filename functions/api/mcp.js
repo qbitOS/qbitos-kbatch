@@ -155,15 +155,29 @@ const TOOLS = [
   {
     name: "kbatch_concept_solve",
     description:
-      "Instant multilingual meaning solve: concept/word → mesh forms ranked by pure C transfer + form metadata. Geometry≠gloss. Honor opt-in.",
+      "Instant multilingual meaning solve: concept/word → mesh forms ranked by pure C transfer + form metadata. mode=stair = full Rubik 13-lang order with missing gaps. Geometry≠gloss. Honor opt-in (always on for stair).",
     inputSchema: {
       type: "object",
       properties: {
         q: { type: "string" },
         conceptId: { type: "string" },
         from: { type: "string" },
-        mode: { type: "string", enum: ["ready", "all", "honor"] },
+        mode: { type: "string", enum: ["ready", "all", "honor", "stair"] },
         includeHonor: { type: "boolean" },
+        limit: { type: "number" },
+      },
+    },
+  },
+  {
+    name: "kbatch_concept_stair_walk",
+    description:
+      "Walk several concepts along Rubik stair (en→is→de→fr→it→es→nav→oj→ar→hi→el→zh→chr). Instant multi-lang; missing = educational gap.",
+    inputSchema: {
+      type: "object",
+      properties: {
+        concepts: { type: "array", items: { type: "string" } },
+        q: { type: "string" },
+        from: { type: "string" },
         limit: { type: "number" },
       },
     },
@@ -1322,29 +1336,30 @@ async function toolWorldPath(request, args) {
   };
 }
 
-/** Multilingual concept solve from static mesh + optional C matrix */
-async function toolConceptSolve(request, args = {}) {
-  const mesh = await fetchJson(request, "concepts/mesh.json");
-  if (!mesh?.concepts?.length) {
-    return {
-      tool: "kbatch_concept_solve",
-      ok: false,
-      error: "concepts/mesh.json not deployed",
-      browser: 'await kbatchDict.mcp("kbatch_concept_solve", { q: "liberty" })',
-    };
-  }
-  const q = String(args.q || args.text || args.word || "")
-    .trim()
-    .toLowerCase();
-  const conceptId = args.conceptId || args.id || "";
-  const from = String(args.from || args.lang || "en").toLowerCase();
-  const mode = String(args.mode || "ready").toLowerCase();
-  const includeHonor = args.includeHonor === true || mode === "honor" || mode === "all";
-  const limit = Math.min(80, Math.max(1, Number(args.limit) || 40));
+/** Rubik all-13 stair order (pure C tour) */
+const RUBIK_STAIR_ORDER = [
+  "en",
+  "is",
+  "de",
+  "fr",
+  "it",
+  "es",
+  "nav",
+  "oj",
+  "ar",
+  "hi",
+  "el",
+  "zh",
+  "chr",
+];
+const HONOR_STAIR = new Set(["nav", "oj", "chr"]);
 
+function resolveConceptFromMesh(mesh, q, conceptId) {
   let primary = null;
   if (conceptId) {
-    primary = mesh.concepts.find((c) => c.id === conceptId || c.slug === conceptId);
+    primary = mesh.concepts.find(
+      (c) => c.id === conceptId || c.slug === conceptId || c.id === `concept:${conceptId}`
+    );
   }
   if (!primary && q) {
     if (q.startsWith("concept:")) {
@@ -1369,6 +1384,89 @@ async function toolConceptSolve(request, args = {}) {
       );
     }
   }
+  return primary;
+}
+
+function meshCCost(C, from, lang, includeHonor, mode) {
+  const index = C?.index || {};
+  const matrix = C?.matrix || C?.costs || null;
+  if (from === lang) return 0;
+  if (matrix && index[from] != null && index[lang] != null) {
+    const row = matrix[index[from]];
+    if (Array.isArray(row)) return Number(row[index[lang]]) || 99;
+    if (row && typeof row === "object") return Number(row[lang] ?? row[index[lang]]) || 99;
+  }
+  if (HONOR_STAIR.has(lang) && !includeHonor && mode === "ready") return 999;
+  if (from === "en" && ["de", "fr", "it", "es", "nl", "sv", "pt", "is"].includes(lang)) return 2;
+  return 8;
+}
+
+function buildHttpStair(primary, from, cCostFn) {
+  const byLang = new Map();
+  for (const fr of primary.forms || []) {
+    if (!byLang.has(fr.lang)) byLang.set(fr.lang, []);
+    byLang.get(fr.lang).push(fr);
+  }
+  const stair = [];
+  for (let i = 0; i < RUBIK_STAIR_ORDER.length; i++) {
+    const lang = RUBIK_STAIR_ORDER[i];
+    const candidates = byLang.get(lang) || [];
+    const fr = candidates.find((f) => f.primary) || candidates[0] || null;
+    const cost = cCostFn(from, lang);
+    stair.push({
+      n: i + 1,
+      lang,
+      form: fr?.form ?? null,
+      primary: !!fr?.primary,
+      layout: fr?.layout || "qwerty",
+      status: fr?.status || (HONOR_STAIR.has(lang) ? "honor-seed" : "open"),
+      missing: !fr,
+      cFromSource: Math.round(cost * 10) / 10,
+      path: fr
+        ? {
+            layout: fr.layout || "qwerty",
+            pathLen: [...String(fr.form)].length,
+            note: "HTTP mesh: pathLen≈graphemes; browser MCP adds full key path",
+          }
+        : null,
+      dictionaryUrl: fr
+        ? `https://kbatch.ugrad.ai/?lang=${encodeURIComponent(lang)}&q=${encodeURIComponent(fr.form)}`
+        : `https://kbatch.ugrad.ai/?lang=${encodeURIComponent(lang)}`,
+    });
+  }
+  const filled = stair.filter((s) => !s.missing).length;
+  return {
+    stair,
+    filled,
+    of: RUBIK_STAIR_ORDER.length,
+    fillPct: Math.round((filled / RUBIK_STAIR_ORDER.length) * 1000) / 10,
+    transferOrder: stair.filter((s) => !s.missing).map((s) => s.lang),
+  };
+}
+
+/** Multilingual concept solve from static mesh + optional C matrix */
+async function toolConceptSolve(request, args = {}) {
+  const mesh = await fetchJson(request, "concepts/mesh.json");
+  if (!mesh?.concepts?.length) {
+    return {
+      tool: "kbatch_concept_solve",
+      ok: false,
+      error: "concepts/mesh.json not deployed",
+      browser: 'await kbatchDict.mcp("kbatch_concept_solve", { q: "liberty" })',
+    };
+  }
+  const q = String(args.q || args.text || args.word || "")
+    .trim()
+    .toLowerCase();
+  const conceptId = args.conceptId || args.id || "";
+  const from = String(args.from || args.lang || "en").toLowerCase();
+  const mode = String(args.mode || "ready").toLowerCase();
+  const isStair = mode === "stair";
+  const includeHonor =
+    args.includeHonor === true || mode === "honor" || mode === "all" || isStair;
+  const limit = Math.min(80, Math.max(1, Number(args.limit) || 40));
+
+  const primary = resolveConceptFromMesh(mesh, q, conceptId);
   if (!primary) {
     return {
       schema: "kbatch-concept-solve-v1",
@@ -1383,23 +1481,64 @@ async function toolConceptSolve(request, args = {}) {
   }
 
   const C = await fetchJson(request, "world-path/cost-matrix.json");
-  const index = C?.index || {};
-  const matrix = C?.matrix || C?.costs || null;
-  function cCost(a, b) {
-    if (a === b) return 0;
-    if (matrix && index[a] != null && index[b] != null) {
-      const row = matrix[index[a]];
-      if (Array.isArray(row)) return Number(row[index[b]]) || 99;
-      if (row && typeof row === "object") return Number(row[b] ?? row[index[b]]) || 99;
-    }
-    // fallback rough: same latin cheap
-    const honor = new Set(["nav", "oj", "chr"]);
-    if (honor.has(b) && !includeHonor && mode === "ready") return 999;
-    if (a === "en" && ["de", "fr", "it", "es", "nl", "sv", "pt"].includes(b)) return 2;
-    return 8;
+  const cCost = (a, b) => meshCCost(C, a, b, includeHonor, mode);
+
+  if (isStair) {
+    const pack = buildHttpStair(primary, from, cCost);
+    const formsPresent = pack.stair.filter((s) => !s.missing);
+    const sliced = formsPresent.slice(0, limit);
+    return {
+      schema: "kbatch-concept-solve-v1",
+      tool: "kbatch_concept_solve",
+      ok: true,
+      instant: true,
+      allLanguage: true,
+      q,
+      from,
+      mode: "stair",
+      includeHonor: true,
+      stairOrder: [...RUBIK_STAIR_ORDER],
+      stair: pack.stair,
+      filled: pack.filled,
+      of: pack.of,
+      fillPct: pack.fillPct,
+      concept: {
+        id: primary.id,
+        slug: primary.slug,
+        gloss_en: primary.gloss_en,
+        pos: primary.pos,
+        langCount: primary.langCount,
+        formCount: primary.formCount,
+        license: primary.license,
+      },
+      source: sliced.find((f) => f.lang === from) || sliced[0] || null,
+      forms: sliced,
+      formCount: sliced.length,
+      transferOrder: pack.transferOrder,
+      metrics: {
+        meshConcepts: mesh.count || mesh.concepts.length,
+        langsInResult: pack.filled,
+        stairFilled: pack.filled,
+        stairOf: pack.of,
+      },
+      doctrine: {
+        purity: "path geometry ≠ gloss ≠ SO ≠ phon",
+        cost: "pure C matrix when available",
+        honor: "mode=stair always includes honor-seed langs (nav/oj/chr)",
+        stair: "forms ordered en→is→de→fr→it→es→nav→oj→ar→hi→el→zh→chr; missing=gap",
+      },
+      urls: {
+        mesh: "/data/concepts/mesh.json",
+        stairInstant: "/data/concepts/stair-instant.json",
+        stair: "/data/world-path/rubik-stair-next.json",
+        tour: "/data/declaration/rubik-all-language-path.json",
+        doc: "/docs/CONCEPT-MESH-SOLVE.md",
+      },
+      browser:
+        'await kbatchDict.mcp("kbatch_concept_solve", { q: "liberty", from: "en", mode: "stair" })',
+    };
   }
 
-  const honorSet = new Set(["nav", "oj", "chr"]);
   const forms = [];
   for (const fr of primary.forms || []) {
     const lang = fr.lang;
@@ -1407,7 +1546,7 @@ async function toolConceptSolve(request, args = {}) {
     if (
       mode === "ready" &&
       !includeHonor &&
-      (honorSet.has(lang) || st === "honor-seed" || st === "honor")
+      (HONOR_STAIR.has(lang) || st === "honor-seed" || st === "honor")
     ) {
       continue;
     }
@@ -1417,7 +1556,7 @@ async function toolConceptSolve(request, args = {}) {
       form: fr.form,
       primary: !!fr.primary,
       layout: fr.layout || "qwerty",
-      status: st || (honorSet.has(lang) ? "honor-seed" : "open"),
+      status: st || (HONOR_STAIR.has(lang) ? "honor-seed" : "open"),
       cFromSource: Math.round(cost * 10) / 10,
       path: {
         layout: fr.layout || "qwerty",
@@ -1462,14 +1601,101 @@ async function toolConceptSolve(request, args = {}) {
     doctrine: {
       purity: "path geometry ≠ gloss ≠ SO ≠ phon",
       cost: "pure C matrix when available",
-      honor: "honor forms only when includeHonor or mode=honor|all",
+      honor: "honor forms only when includeHonor or mode=honor|all|stair",
     },
     urls: {
       mesh: "/data/concepts/mesh.json",
+      stairInstant: "/data/concepts/stair-instant.json",
       doc: "/docs/CONCEPT-MESH-SOLVE.md",
     },
     browser:
-      'await kbatchDict.mcp("kbatch_concept_solve", { q: "liberty", from: "en", mode: "ready" })',
+      'await kbatchDict.mcp("kbatch_concept_solve", { q: "liberty", from: "en", mode: "stair" })',
+  };
+}
+
+/** Multi-concept Rubik stair walk */
+async function toolConceptStairWalk(request, args = {}) {
+  const mesh = await fetchJson(request, "concepts/mesh.json");
+  if (!mesh?.concepts?.length) {
+    return {
+      tool: "kbatch_concept_stair_walk",
+      ok: false,
+      error: "concepts/mesh.json not deployed",
+    };
+  }
+  const from = String(args.from || args.lang || "en").toLowerCase();
+  let keys = args.concepts || args.words || args.q || [];
+  if (typeof keys === "string") keys = keys.split(/[\s,]+/).filter(Boolean);
+  if (!Array.isArray(keys) || !keys.length) {
+    keys = ["liberty", "water", "path", "language", "sun", "earth"];
+  }
+  const limit = Math.min(40, Math.max(1, Number(args.limit) || keys.length));
+  keys = keys.slice(0, limit);
+
+  const C = await fetchJson(request, "world-path/cost-matrix.json");
+  const cCost = (a, b) => meshCCost(C, a, b, true, "stair");
+
+  const rows = [];
+  for (const key of keys) {
+    const q = String(key).trim().toLowerCase();
+    const primary = resolveConceptFromMesh(mesh, q, "");
+    if (!primary) {
+      rows.push({ q: key, ok: false, note: "no mesh hit", filled: 0, of: 13 });
+      continue;
+    }
+    const pack = buildHttpStair(primary, from, cCost);
+    rows.push({
+      q: key,
+      ok: true,
+      concept: {
+        id: primary.id,
+        slug: primary.slug,
+        gloss_en: primary.gloss_en,
+        pos: primary.pos,
+      },
+      stair: pack.stair,
+      filled: pack.filled,
+      of: pack.of,
+      fillPct: pack.fillPct,
+      transferOrder: pack.transferOrder,
+    });
+  }
+  const okRows = rows.filter((r) => r.ok);
+  const avgFill =
+    okRows.length > 0
+      ? Math.round((okRows.reduce((s, r) => s + r.filled, 0) / okRows.length) * 10) / 10
+      : 0;
+  const stairInstant = await fetchJson(request, "concepts/stair-instant.json");
+
+  return {
+    schema: "kbatch-concept-stair-walk-v1",
+    tool: "kbatch_concept_stair_walk",
+    ok: true,
+    instant: true,
+    allLanguage: true,
+    from,
+    stairOrder: [...RUBIK_STAIR_ORDER],
+    conceptCount: rows.length,
+    hits: okRows.length,
+    avgFilled: avgFill,
+    of: 13,
+    rows,
+    stairFill: stairInstant?.stairFill || null,
+    doctrine: {
+      purity: "path geometry ≠ gloss ≠ SO ≠ phon",
+      cost: "pure C matrix when available",
+      honor: "stair always surfaces honor-seed forms when present",
+      missing: "missing step = educational gap to fill, not error",
+    },
+    urls: {
+      mesh: "/data/concepts/mesh.json",
+      stairInstant: "/data/concepts/stair-instant.json",
+      stair: "/data/world-path/rubik-stair-next.json",
+      tour: "/data/declaration/rubik-all-language-path.json",
+      doc: "/docs/CONCEPT-MESH-SOLVE.md",
+    },
+    browser:
+      'await kbatchDict.mcp("kbatch_concept_stair_walk", { concepts: ["liberty","water","path"] })',
   };
 }
 
@@ -2406,6 +2632,8 @@ async function dispatch(request, name, args) {
       return toolWorldPath(request, args || {});
     case "kbatch_concept_solve":
       return toolConceptSolve(request, args || {});
+    case "kbatch_concept_stair_walk":
+      return toolConceptStairWalk(request, args || {});
     case "kbatch_r3_outreach":
       return toolR3Outreach(request);
     case "kbatch_freya_convert":

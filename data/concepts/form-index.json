@@ -1,8 +1,7 @@
 {
   "schema": "kbatch-concept-form-index-v1",
-  "generated": "2026-07-26T02:04:31Z",
-  "claim": "Lookup spelling → concept ids for instant multilingual solve",
-  "count": 2855,
+  "generated": "2026-07-26T02:39:50Z",
+  "count": 3336,
   "byForm": {
     "water": [
       {
@@ -382,6 +381,14 @@
         "primary": true
       }
     ],
+    "atsila": [
+      {
+        "conceptId": "concept:fire",
+        "lang": "chr",
+        "form": "atsila",
+        "primary": true
+      }
+    ],
     "earth": [
       {
         "conceptId": "concept:earth",
@@ -572,6 +579,40 @@
         "lang": "oj",
         "form": "aki",
         "primary": true
+      },
+      {
+        "conceptId": "concept:world",
+        "lang": "oj",
+        "form": "aki",
+        "primary": true
+      },
+      {
+        "conceptId": "concept:country",
+        "lang": "oj",
+        "form": "aki",
+        "primary": true
+      }
+    ],
+    "niʼ": [
+      {
+        "conceptId": "concept:earth",
+        "lang": "nav",
+        "form": "niʼ",
+        "primary": true
+      }
+    ],
+    "elohi": [
+      {
+        "conceptId": "concept:earth",
+        "lang": "chr",
+        "form": "elohi",
+        "primary": true
+      },
+      {
+        "conceptId": "concept:world",
+        "lang": "chr",
+        "form": "elohi",
+        "primary": true
       }
     ],
     "sky": [
@@ -674,14 +715,6 @@
         "primary": true
       }
     ],
-    "ουρανόσ": [
-      {
-        "conceptId": "concept:sky",
-        "lang": "el",
-        "form": "ουρανός",
-        "primary": true
-      }
-    ],
     "ουρανός": [
       {
         "conceptId": "concept:sky",
@@ -755,6 +788,30 @@
         "conceptId": "concept:sky",
         "lang": "sw",
         "form": "anga",
+        "primary": true
+      }
+    ],
+    "giizhig": [
+      {
+        "conceptId": "concept:sky",
+        "lang": "oj",
+        "form": "giizhig",
+        "primary": true
+      }
+    ],
+    "yá": [
+      {
+        "conceptId": "concept:sky",
+        "lang": "nav",
+        "form": "yá",
+        "primary": true
+      }
+    ],
+    "galvladi": [
+      {
+        "conceptId": "concept:sky",
+        "lang": "chr",
+        "form": "galvladi",
         "primary": true
       }
     ],
@@ -856,14 +913,6 @@
         "primary": true
       }
     ],
-    "ήλιοσ": [
-      {
-        "conceptId": "concept:sun",
-        "lang": "el",
-        "form": "ήλιος",
-        "primary": true
-      }
-    ],
     "ήλιος": [
       {
         "conceptId": "concept:sun",
@@ -954,6 +1003,12 @@
         "lang": "oj",
         "form": "giizis",
         "primary": true
+      },
+      {
+        "conceptId": "concept:month",
+        "lang": "oj",
+        "form": "giizis",
+        "primary": true
       }
     ],
     "nvda": [
@@ -961,6 +1016,20 @@
         "conceptId": "concept:sun",
         "lang": "chr",
         "form": "nvda",
+        "primary": true
+      },
+      {
+        "conceptId": "concept:month",
+        "lang": "chr",
+        "form": "nvda",
+        "primary": true
+      }
+    ],
+    "jǫ'onaa'éí": [
+      {
+        "conceptId": "concept:sun",
+        "lang": "nav",
+        "form": "jǫ'onaa'éí",
         "primary": true
       }
     ],
@@ -1154,6 +1223,22 @@
         "primary": true
       }
     ],
+    "ooljééʼ": [
+      {
+        "conceptId": "concept:moon",
+        "lang": "nav",
+        "form": "ooljééʼ",
+        "primary": true
+      }
+    ],
+    "nvdagv": [
+      {
+        "conceptId": "concept:moon",
+        "lang": "chr",
+        "form": "nvdagv",
+        "primary": true
+      }
+    ],
     "star": [
       {
         "conceptId": "concept:star",
@@ -1323,6 +1408,22 @@
         "conceptId": "concept:star",
         "lang": "oj",
         "form": "anang",
+        "primary": true
+      }
+    ],
+    "sǫʼ": [
+      {
+        "conceptId": "concept:star",
+        "lang": "nav",
+        "form": "sǫʼ",
+        "primary": true
+      }
+    ],
+    "noquisi": [
+      {
+        "conceptId": "concept:star",
+        "lang": "chr",
+        "form": "noquisi",
         "primary": true
       }
     ],
@@ -1532,6 +1633,30 @@
         "primary": true
       }
     ],
+    "atiin": [
+      {
+        "conceptId": "concept:path",
+        "lang": "nav",
+        "form": "atiin",
+        "primary": true
+      }
+    ],
+    "miikana": [
+      {
+        "conceptId": "concept:path",
+        "lang": "oj",
+        "form": "miikana",
+        "primary": true
+      }
+    ],
+    "nvnohi": [
+      {
+        "conceptId": "concept:path",
+        "lang": "chr",
+        "form": "nvnohi",
+        "primary": true
+      }
+    ],
     "light": [
       {
         "conceptId": "concept:light",
@@ -1632,14 +1757,6 @@
         "primary": true
       }
     ],
-    "φωσ": [
-      {
-        "conceptId": "concept:light",
-        "lang": "el",
-        "form": "φως",
-        "primary": true
-      }
-    ],
     "φως": [
       {
         "conceptId": "concept:light",
@@ -1707,6 +1824,22 @@
         "conceptId": "concept:light",
         "lang": "oj",
         "form": "waaseyaa",
+        "primary": true
+      }
+    ],
+    "adinídíín": [
+      {
+        "conceptId": "concept:light",
+        "lang": "nav",
+        "form": "adinídíín",
+        "primary": true
+      }
+    ],
+    "akanvdi": [
+      {
+        "conceptId": "concept:light",
+        "lang": "chr",
+        "form": "akanvdi",
         "primary": true
       }
     ],
@@ -1886,6 +2019,54 @@
         "primary": true
       }
     ],
+    "ikidowin": [
+      {
+        "conceptId": "concept:word",
+        "lang": "oj",
+        "form": "ikidowin",
+        "primary": true
+      },
+      {
+        "conceptId": "concept:declaration",
+        "lang": "oj",
+        "form": "ikidowin",
+        "primary": true
+      }
+    ],
+    "saad": [
+      {
+        "conceptId": "concept:word",
+        "lang": "nav",
+        "form": "saad",
+        "primary": true
+      },
+      {
+        "conceptId": "concept:language",
+        "lang": "nav",
+        "form": "saad",
+        "primary": true
+      }
+    ],
+    "gawonihisdi": [
+      {
+        "conceptId": "concept:word",
+        "lang": "chr",
+        "form": "gawonihisdi",
+        "primary": true
+      },
+      {
+        "conceptId": "concept:language",
+        "lang": "chr",
+        "form": "gawonihisdi",
+        "primary": true
+      },
+      {
+        "conceptId": "concept:speak",
+        "lang": "chr",
+        "form": "gawonihisdi",
+        "primary": true
+      }
+    ],
     "language": [
       {
         "conceptId": "concept:language",
@@ -2060,27 +2241,11 @@
         "primary": true
       }
     ],
-    "saad": [
-      {
-        "conceptId": "concept:language",
-        "lang": "nav",
-        "form": "saad",
-        "primary": true
-      }
-    ],
     "inwewin": [
       {
         "conceptId": "concept:language",
         "lang": "oj",
         "form": "inwewin",
-        "primary": true
-      }
-    ],
-    "gawonihisdi": [
-      {
-        "conceptId": "concept:language",
-        "lang": "chr",
-        "form": "gawonihisdi",
         "primary": true
       }
     ],
@@ -2247,6 +2412,36 @@
         "conceptId": "concept:book",
         "lang": "sw",
         "form": "kitabu",
+        "primary": true
+      }
+    ],
+    "mazina'igan": [
+      {
+        "conceptId": "concept:book",
+        "lang": "oj",
+        "form": "mazina'igan",
+        "primary": true
+      }
+    ],
+    "gohweli": [
+      {
+        "conceptId": "concept:book",
+        "lang": "chr",
+        "form": "gohweli",
+        "primary": true
+      },
+      {
+        "conceptId": "concept:declaration",
+        "lang": "chr",
+        "form": "gohweli",
+        "primary": true
+      }
+    ],
+    "naaltsoos": [
+      {
+        "conceptId": "concept:book",
+        "lang": "nav",
+        "form": "naaltsoos",
         "primary": true
       }
     ],
@@ -2420,6 +2615,30 @@
         "primary": true
       }
     ],
+    "izhinikaazo": [
+      {
+        "conceptId": "concept:name",
+        "lang": "oj",
+        "form": "izhinikaazo",
+        "primary": true
+      }
+    ],
+    "yoochʼííd": [
+      {
+        "conceptId": "concept:name",
+        "lang": "nav",
+        "form": "yoochʼííd",
+        "primary": true
+      }
+    ],
+    "doyalvsgi": [
+      {
+        "conceptId": "concept:name",
+        "lang": "chr",
+        "form": "doyalvsgi",
+        "primary": true
+      }
+    ],
     "person": [
       {
         "conceptId": "concept:person",
@@ -2534,14 +2753,6 @@
         "primary": true
       }
     ],
-    "άνθρωποσ": [
-      {
-        "conceptId": "concept:person",
-        "lang": "el",
-        "form": "άνθρωπος",
-        "primary": true
-      }
-    ],
     "άνθρωπος": [
       {
         "conceptId": "concept:person",
@@ -2609,6 +2820,42 @@
         "conceptId": "concept:person",
         "lang": "oj",
         "form": "inini",
+        "primary": true
+      }
+    ],
+    "bemaadizid": [
+      {
+        "conceptId": "concept:person",
+        "lang": "oj",
+        "form": "bemaadizid",
+        "primary": false
+      }
+    ],
+    "diné": [
+      {
+        "conceptId": "concept:person",
+        "lang": "nav",
+        "form": "diné",
+        "primary": true
+      },
+      {
+        "conceptId": "concept:people",
+        "lang": "nav",
+        "form": "diné",
+        "primary": true
+      }
+    ],
+    "yvwi": [
+      {
+        "conceptId": "concept:person",
+        "lang": "chr",
+        "form": "yvwi",
+        "primary": true
+      },
+      {
+        "conceptId": "concept:people",
+        "lang": "chr",
+        "form": "yvwi",
         "primary": true
       }
     ],
@@ -2787,6 +3034,30 @@
         "conceptId": "concept:life",
         "lang": "sw",
         "form": "maisha",
+        "primary": true
+      }
+    ],
+    "iiná": [
+      {
+        "conceptId": "concept:life",
+        "lang": "nav",
+        "form": "iiná",
+        "primary": true
+      }
+    ],
+    "bimaadiziwin": [
+      {
+        "conceptId": "concept:life",
+        "lang": "oj",
+        "form": "bimaadiziwin",
+        "primary": true
+      }
+    ],
+    "adonvdi": [
+      {
+        "conceptId": "concept:life",
+        "lang": "chr",
+        "form": "adonvdi",
         "primary": true
       }
     ],
@@ -2970,6 +3241,36 @@
         "primary": true
       }
     ],
+    "dibendizowin": [
+      {
+        "conceptId": "concept:liberty",
+        "lang": "oj",
+        "form": "dibendizowin",
+        "primary": true
+      }
+    ],
+    "uwenvsv": [
+      {
+        "conceptId": "concept:liberty",
+        "lang": "chr",
+        "form": "uwenvsv",
+        "primary": true
+      },
+      {
+        "conceptId": "concept:independence",
+        "lang": "chr",
+        "form": "uwenvsv",
+        "primary": true
+      }
+    ],
+    "tʼáá hoołtsʼááʼí": [
+      {
+        "conceptId": "concept:liberty",
+        "lang": "nav",
+        "form": "tʼáá hoołtsʼááʼí",
+        "primary": true
+      }
+    ],
     "peace": [
       {
         "conceptId": "concept:peace",
@@ -3139,6 +3440,30 @@
         "conceptId": "concept:peace",
         "lang": "sw",
         "form": "amani",
+        "primary": true
+      }
+    ],
+    "bizaani": [
+      {
+        "conceptId": "concept:peace",
+        "lang": "oj",
+        "form": "bizaani",
+        "primary": true
+      }
+    ],
+    "nvwatiyvda": [
+      {
+        "conceptId": "concept:peace",
+        "lang": "chr",
+        "form": "nvwatiyvda",
+        "primary": true
+      }
+    ],
+    "kʼé": [
+      {
+        "conceptId": "concept:peace",
+        "lang": "nav",
+        "form": "kʼé",
         "primary": true
       }
     ],
@@ -3314,6 +3639,30 @@
         "primary": true
       }
     ],
+    "ayóó ánííníshní": [
+      {
+        "conceptId": "concept:love",
+        "lang": "nav",
+        "form": "ayóó ánííníshní",
+        "primary": false
+      }
+    ],
+    "zaagi'": [
+      {
+        "conceptId": "concept:love",
+        "lang": "oj",
+        "form": "zaagi'",
+        "primary": true
+      }
+    ],
+    "adageyudi": [
+      {
+        "conceptId": "concept:love",
+        "lang": "chr",
+        "form": "adageyudi",
+        "primary": true
+      }
+    ],
     "truth": [
       {
         "conceptId": "concept:truth",
@@ -3479,6 +3828,36 @@
         "conceptId": "concept:truth",
         "lang": "sw",
         "form": "ukweli",
+        "primary": true
+      }
+    ],
+    "debwewin": [
+      {
+        "conceptId": "concept:truth",
+        "lang": "oj",
+        "form": "debwewin",
+        "primary": true
+      }
+    ],
+    "nvwatiyesdi": [
+      {
+        "conceptId": "concept:truth",
+        "lang": "chr",
+        "form": "nvwatiyesdi",
+        "primary": true
+      },
+      {
+        "conceptId": "concept:justice",
+        "lang": "chr",
+        "form": "nvwatiyesdi",
+        "primary": true
+      }
+    ],
+    "tʼáá aaníí": [
+      {
+        "conceptId": "concept:truth",
+        "lang": "nav",
+        "form": "tʼáá aaníí",
         "primary": true
       }
     ],
@@ -3678,6 +4057,22 @@
         "primary": true
       }
     ],
+    "bee hózin": [
+      {
+        "conceptId": "concept:knowledge",
+        "lang": "nav",
+        "form": "bee hózin",
+        "primary": true
+      }
+    ],
+    "ugalvdodi": [
+      {
+        "conceptId": "concept:knowledge",
+        "lang": "chr",
+        "form": "ugalvdodi",
+        "primary": true
+      }
+    ],
     "number": [
       {
         "conceptId": "concept:number",
@@ -3784,14 +4179,6 @@
         "primary": true
       }
     ],
-    "αριθμόσ": [
-      {
-        "conceptId": "concept:number",
-        "lang": "el",
-        "form": "αριθμός",
-        "primary": true
-      }
-    ],
     "αριθμός": [
       {
         "conceptId": "concept:number",
@@ -3851,6 +4238,36 @@
         "conceptId": "concept:number",
         "lang": "sw",
         "form": "nambari",
+        "primary": true
+      }
+    ],
+    "áníłtsoígíí": [
+      {
+        "conceptId": "concept:number",
+        "lang": "nav",
+        "form": "áníłtsoígíí",
+        "primary": true
+      }
+    ],
+    "digohweli": [
+      {
+        "conceptId": "concept:number",
+        "lang": "chr",
+        "form": "digohweli",
+        "primary": true
+      }
+    ],
+    "agindaasowin": [
+      {
+        "conceptId": "concept:number",
+        "lang": "oj",
+        "form": "agindaasowin",
+        "primary": true
+      },
+      {
+        "conceptId": "concept:mathematics",
+        "lang": "oj",
+        "form": "agindaasowin",
         "primary": true
       }
     ],
@@ -4048,6 +4465,14 @@
         "primary": true
       }
     ],
+    "tʼááłáʼí": [
+      {
+        "conceptId": "concept:one",
+        "lang": "nav",
+        "form": "tʼááłáʼí",
+        "primary": false
+      }
+    ],
     "two": [
       {
         "conceptId": "concept:two",
@@ -4230,6 +4655,14 @@
         "primary": true
       }
     ],
+    "naaki": [
+      {
+        "conceptId": "concept:two",
+        "lang": "nav",
+        "form": "naaki",
+        "primary": true
+      }
+    ],
     "three": [
       {
         "conceptId": "concept:three",
@@ -4408,6 +4841,14 @@
         "primary": true
       }
     ],
+    "tááʼ": [
+      {
+        "conceptId": "concept:three",
+        "lang": "nav",
+        "form": "tááʼ",
+        "primary": true
+      }
+    ],
     "hand": [
       {
         "conceptId": "concept:hand",
@@ -4563,6 +5004,30 @@
         "conceptId": "concept:hand",
         "lang": "sw",
         "form": "mkono",
+        "primary": true
+      }
+    ],
+    "ála": [
+      {
+        "conceptId": "concept:hand",
+        "lang": "nav",
+        "form": "ála",
+        "primary": true
+      }
+    ],
+    "oninji": [
+      {
+        "conceptId": "concept:hand",
+        "lang": "oj",
+        "form": "oninji",
+        "primary": true
+      }
+    ],
+    "uwoyeni": [
+      {
+        "conceptId": "concept:hand",
+        "lang": "chr",
+        "form": "uwoyeni",
         "primary": true
       }
     ],
@@ -4750,6 +5215,30 @@
         "primary": true
       }
     ],
+    "anááʼ": [
+      {
+        "conceptId": "concept:eye",
+        "lang": "nav",
+        "form": "anááʼ",
+        "primary": true
+      }
+    ],
+    "ishkiinzhig": [
+      {
+        "conceptId": "concept:eye",
+        "lang": "oj",
+        "form": "ishkiinzhig",
+        "primary": true
+      }
+    ],
+    "akta": [
+      {
+        "conceptId": "concept:eye",
+        "lang": "chr",
+        "form": "akta",
+        "primary": true
+      }
+    ],
     "heart": [
       {
         "conceptId": "concept:heart",
@@ -4919,6 +5408,30 @@
         "conceptId": "concept:heart",
         "lang": "sw",
         "form": "moyo",
+        "primary": true
+      }
+    ],
+    "jéí": [
+      {
+        "conceptId": "concept:heart",
+        "lang": "nav",
+        "form": "jéí",
+        "primary": true
+      }
+    ],
+    "ode'": [
+      {
+        "conceptId": "concept:heart",
+        "lang": "oj",
+        "form": "ode'",
+        "primary": true
+      }
+    ],
+    "adageyv": [
+      {
+        "conceptId": "concept:heart",
+        "lang": "chr",
+        "form": "adageyv",
         "primary": true
       }
     ],
@@ -5100,6 +5613,30 @@
         "primary": true
       }
     ],
+    "hooghan": [
+      {
+        "conceptId": "concept:house",
+        "lang": "nav",
+        "form": "hooghan",
+        "primary": true
+      }
+    ],
+    "waakaa'igan": [
+      {
+        "conceptId": "concept:house",
+        "lang": "oj",
+        "form": "waakaa'igan",
+        "primary": true
+      }
+    ],
+    "adlanvdo": [
+      {
+        "conceptId": "concept:house",
+        "lang": "chr",
+        "form": "adlanvdo",
+        "primary": true
+      }
+    ],
     "food": [
       {
         "conceptId": "concept:food",
@@ -5274,6 +5811,30 @@
         "primary": true
       }
     ],
+    "miijim": [
+      {
+        "conceptId": "concept:food",
+        "lang": "oj",
+        "form": "miijim",
+        "primary": true
+      }
+    ],
+    "chʼiyáán": [
+      {
+        "conceptId": "concept:food",
+        "lang": "nav",
+        "form": "chʼiyáán",
+        "primary": true
+      }
+    ],
+    "alisdayvdi": [
+      {
+        "conceptId": "concept:food",
+        "lang": "chr",
+        "form": "alisdayvdi",
+        "primary": true
+      }
+    ],
     "time": [
       {
         "conceptId": "concept:time",
@@ -5376,20 +5937,6 @@
         "primary": true
       }
     ],
-    "χρόνοσ": [
-      {
-        "conceptId": "concept:time",
-        "lang": "el",
-        "form": "χρόνος",
-        "primary": true
-      },
-      {
-        "conceptId": "concept:year",
-        "lang": "el",
-        "form": "χρόνος",
-        "primary": true
-      }
-    ],
     "χρόνος": [
       {
         "conceptId": "concept:time",
@@ -5457,6 +6004,36 @@
         "conceptId": "concept:time",
         "lang": "sw",
         "form": "wakati",
+        "primary": true
+      }
+    ],
+    "diba'igan": [
+      {
+        "conceptId": "concept:time",
+        "lang": "oj",
+        "form": "diba'igan",
+        "primary": true
+      }
+    ],
+    "ahoolzhíísh": [
+      {
+        "conceptId": "concept:time",
+        "lang": "nav",
+        "form": "ahoolzhíísh",
+        "primary": true
+      }
+    ],
+    "iyvhi": [
+      {
+        "conceptId": "concept:time",
+        "lang": "chr",
+        "form": "iyvhi",
+        "primary": true
+      },
+      {
+        "conceptId": "concept:hour",
+        "lang": "chr",
+        "form": "iyvhi",
         "primary": true
       }
     ],
@@ -5613,6 +6190,30 @@
         "conceptId": "concept:day",
         "lang": "sw",
         "form": "siku",
+        "primary": true
+      }
+    ],
+    "giizhigad": [
+      {
+        "conceptId": "concept:day",
+        "lang": "oj",
+        "form": "giizhigad",
+        "primary": true
+      }
+    ],
+    "jı̨́": [
+      {
+        "conceptId": "concept:day",
+        "lang": "nav",
+        "form": "jı̨́",
+        "primary": true
+      }
+    ],
+    "iga": [
+      {
+        "conceptId": "concept:day",
+        "lang": "chr",
+        "form": "iga",
         "primary": true
       }
     ],
@@ -5780,6 +6381,30 @@
         "primary": true
       }
     ],
+    "dibik": [
+      {
+        "conceptId": "concept:night",
+        "lang": "oj",
+        "form": "dibik",
+        "primary": true
+      }
+    ],
+    "tłʼééʼ": [
+      {
+        "conceptId": "concept:night",
+        "lang": "nav",
+        "form": "tłʼééʼ",
+        "primary": true
+      }
+    ],
+    "svnoyi": [
+      {
+        "conceptId": "concept:night",
+        "lang": "chr",
+        "form": "svnoyi",
+        "primary": true
+      }
+    ],
     "good": [
       {
         "conceptId": "concept:good",
@@ -5884,14 +6509,6 @@
         "primary": true
       }
     ],
-    "καλόσ": [
-      {
-        "conceptId": "concept:good",
-        "lang": "el",
-        "form": "καλός",
-        "primary": true
-      }
-    ],
     "καλός": [
       {
         "conceptId": "concept:good",
@@ -5964,25 +6581,39 @@
         "primary": true
       }
     ],
+    "yá'át'ééh": [
+      {
+        "conceptId": "concept:good",
+        "lang": "nav",
+        "form": "yá'át'ééh",
+        "primary": true
+      },
+      {
+        "conceptId": "concept:hello",
+        "lang": "nav",
+        "form": "yá'át'ééh",
+        "primary": true
+      }
+    ],
+    "osiyo": [
+      {
+        "conceptId": "concept:good",
+        "lang": "chr",
+        "form": "osiyo",
+        "primary": true
+      },
+      {
+        "conceptId": "concept:hello",
+        "lang": "chr",
+        "form": "osiyo",
+        "primary": true
+      }
+    ],
     "great": [
       {
         "conceptId": "concept:great",
         "lang": "en",
         "form": "great",
-        "primary": true
-      }
-    ],
-    "gross": [
-      {
-        "conceptId": "concept:great",
-        "lang": "de",
-        "form": "groß",
-        "primary": true
-      },
-      {
-        "conceptId": "concept:big",
-        "lang": "de",
-        "form": "groß",
         "primary": true
       }
     ],
@@ -6132,20 +6763,6 @@
         "primary": true
       }
     ],
-    "μεγάλοσ": [
-      {
-        "conceptId": "concept:great",
-        "lang": "el",
-        "form": "μεγάλος",
-        "primary": true
-      },
-      {
-        "conceptId": "concept:big",
-        "lang": "el",
-        "form": "μεγάλος",
-        "primary": true
-      }
-    ],
     "μεγάλος": [
       {
         "conceptId": "concept:great",
@@ -6219,6 +6836,42 @@
         "conceptId": "concept:great",
         "lang": "sw",
         "form": "kubwa",
+        "primary": true
+      }
+    ],
+    "nítsaa": [
+      {
+        "conceptId": "concept:great",
+        "lang": "nav",
+        "form": "nítsaa",
+        "primary": true
+      }
+    ],
+    "utana": [
+      {
+        "conceptId": "concept:great",
+        "lang": "chr",
+        "form": "utana",
+        "primary": true
+      },
+      {
+        "conceptId": "concept:big",
+        "lang": "chr",
+        "form": "utana",
+        "primary": true
+      }
+    ],
+    "gichi": [
+      {
+        "conceptId": "concept:great",
+        "lang": "oj",
+        "form": "gichi",
+        "primary": true
+      },
+      {
+        "conceptId": "concept:big",
+        "lang": "oj",
+        "form": "gichi",
         "primary": true
       }
     ],
@@ -6326,14 +6979,6 @@
         "primary": true
       }
     ],
-    "νέοσ": [
-      {
-        "conceptId": "concept:new",
-        "lang": "el",
-        "form": "νέος",
-        "primary": true
-      }
-    ],
     "νέος": [
       {
         "conceptId": "concept:new",
@@ -6395,6 +7040,36 @@
         "conceptId": "concept:new",
         "lang": "sw",
         "form": "mpya",
+        "primary": true
+      }
+    ],
+    "oshki": [
+      {
+        "conceptId": "concept:new",
+        "lang": "oj",
+        "form": "oshki",
+        "primary": true
+      }
+    ],
+    "ániidí": [
+      {
+        "conceptId": "concept:new",
+        "lang": "nav",
+        "form": "ániidí",
+        "primary": true
+      }
+    ],
+    "igvyi": [
+      {
+        "conceptId": "concept:new",
+        "lang": "chr",
+        "form": "igvyi",
+        "primary": true
+      },
+      {
+        "conceptId": "concept:begin",
+        "lang": "chr",
+        "form": "igvyi",
         "primary": true
       }
     ],
@@ -6518,14 +7193,6 @@
         "primary": true
       }
     ],
-    "παλιόσ": [
-      {
-        "conceptId": "concept:old",
-        "lang": "el",
-        "form": "παλιός",
-        "primary": true
-      }
-    ],
     "παλιός": [
       {
         "conceptId": "concept:old",
@@ -6595,6 +7262,30 @@
         "conceptId": "concept:old",
         "lang": "sw",
         "form": "ya zamani",
+        "primary": true
+      }
+    ],
+    "geté": [
+      {
+        "conceptId": "concept:old",
+        "lang": "oj",
+        "form": "geté",
+        "primary": true
+      }
+    ],
+    "sání": [
+      {
+        "conceptId": "concept:old",
+        "lang": "nav",
+        "form": "sání",
+        "primary": true
+      }
+    ],
+    "agayvli": [
+      {
+        "conceptId": "concept:old",
+        "lang": "chr",
+        "form": "agayvli",
         "primary": true
       }
     ],
@@ -6771,6 +7462,22 @@
         "conceptId": "concept:write",
         "lang": "oj",
         "form": "ozhibii'ige",
+        "primary": true
+      }
+    ],
+    "ʼííshłaa": [
+      {
+        "conceptId": "concept:write",
+        "lang": "nav",
+        "form": "ʼííshłaa",
+        "primary": true
+      }
+    ],
+    "gohwelodi": [
+      {
+        "conceptId": "concept:write",
+        "lang": "chr",
+        "form": "gohwelodi",
         "primary": true
       }
     ],
@@ -6956,6 +7663,22 @@
         "primary": true
       }
     ],
+    "agowatisdi": [
+      {
+        "conceptId": "concept:read",
+        "lang": "chr",
+        "form": "agowatisdi",
+        "primary": true
+      }
+    ],
+    "ííłtaʼ": [
+      {
+        "conceptId": "concept:read",
+        "lang": "nav",
+        "form": "ííłtaʼ",
+        "primary": true
+      }
+    ],
     "speak": [
       {
         "conceptId": "concept:speak",
@@ -7124,6 +7847,14 @@
         "primary": true
       }
     ],
+    "yáłtiʼ": [
+      {
+        "conceptId": "concept:speak",
+        "lang": "nav",
+        "form": "yáłtiʼ",
+        "primary": true
+      }
+    ],
     "see": [
       {
         "conceptId": "concept:see",
@@ -7287,6 +8018,30 @@
         "conceptId": "concept:see",
         "lang": "sw",
         "form": "kuona",
+        "primary": true
+      }
+    ],
+    "yooʼí": [
+      {
+        "conceptId": "concept:see",
+        "lang": "nav",
+        "form": "yooʼí",
+        "primary": true
+      }
+    ],
+    "waabam": [
+      {
+        "conceptId": "concept:see",
+        "lang": "oj",
+        "form": "waabam",
+        "primary": true
+      }
+    ],
+    "gowatiha": [
+      {
+        "conceptId": "concept:see",
+        "lang": "chr",
+        "form": "gowatiha",
         "primary": true
       }
     ],
@@ -7458,6 +8213,30 @@
         "primary": true
       }
     ],
+    "yidiitsʼaʼ": [
+      {
+        "conceptId": "concept:hear",
+        "lang": "nav",
+        "form": "yidiitsʼaʼ",
+        "primary": true
+      }
+    ],
+    "noondaw": [
+      {
+        "conceptId": "concept:hear",
+        "lang": "oj",
+        "form": "noondaw",
+        "primary": true
+      }
+    ],
+    "aktaha": [
+      {
+        "conceptId": "concept:hear",
+        "lang": "chr",
+        "form": "aktaha",
+        "primary": true
+      }
+    ],
     "know": [
       {
         "conceptId": "concept:know",
@@ -7621,6 +8400,36 @@
         "conceptId": "concept:know",
         "lang": "sw",
         "form": "kujua",
+        "primary": true
+      }
+    ],
+    "gikendaan": [
+      {
+        "conceptId": "concept:know",
+        "lang": "oj",
+        "form": "gikendaan",
+        "primary": true
+      }
+    ],
+    "agalvdodi": [
+      {
+        "conceptId": "concept:know",
+        "lang": "chr",
+        "form": "agalvdodi",
+        "primary": true
+      },
+      {
+        "conceptId": "concept:wisdom",
+        "lang": "chr",
+        "form": "agalvdodi",
+        "primary": true
+      }
+    ],
+    "bééhózin": [
+      {
+        "conceptId": "concept:know",
+        "lang": "nav",
+        "form": "bééhózin",
         "primary": true
       }
     ],
@@ -7788,6 +8597,30 @@
         "primary": true
       }
     ],
+    "inendam": [
+      {
+        "conceptId": "concept:think",
+        "lang": "oj",
+        "form": "inendam",
+        "primary": true
+      }
+    ],
+    "nitsáhákees": [
+      {
+        "conceptId": "concept:think",
+        "lang": "nav",
+        "form": "nitsáhákees",
+        "primary": true
+      }
+    ],
+    "adadvdodi": [
+      {
+        "conceptId": "concept:think",
+        "lang": "chr",
+        "form": "adadvdodi",
+        "primary": true
+      }
+    ],
     "give": [
       {
         "conceptId": "concept:give",
@@ -7949,6 +8782,30 @@
         "conceptId": "concept:give",
         "lang": "sw",
         "form": "kutoa",
+        "primary": true
+      }
+    ],
+    "miizh": [
+      {
+        "conceptId": "concept:give",
+        "lang": "oj",
+        "form": "miizh",
+        "primary": true
+      }
+    ],
+    "yeidoołtsos": [
+      {
+        "conceptId": "concept:give",
+        "lang": "nav",
+        "form": "yeidoołtsos",
+        "primary": true
+      }
+    ],
+    "ahnewadvdi": [
+      {
+        "conceptId": "concept:give",
+        "lang": "chr",
+        "form": "ahnewadvdi",
         "primary": true
       }
     ],
@@ -8119,6 +8976,30 @@
         "conceptId": "concept:come",
         "lang": "sw",
         "form": "kuja",
+        "primary": true
+      }
+    ],
+    "biizhaa": [
+      {
+        "conceptId": "concept:come",
+        "lang": "oj",
+        "form": "biizhaa",
+        "primary": true
+      }
+    ],
+    "yíghááh": [
+      {
+        "conceptId": "concept:come",
+        "lang": "nav",
+        "form": "yíghááh",
+        "primary": true
+      }
+    ],
+    "digalenvhi": [
+      {
+        "conceptId": "concept:come",
+        "lang": "chr",
+        "form": "digalenvhi",
         "primary": true
       }
     ],
@@ -8294,6 +9175,30 @@
         "primary": true
       }
     ],
+    "maajaa": [
+      {
+        "conceptId": "concept:go",
+        "lang": "oj",
+        "form": "maajaa",
+        "primary": true
+      }
+    ],
+    "yigáál": [
+      {
+        "conceptId": "concept:go",
+        "lang": "nav",
+        "form": "yigáál",
+        "primary": true
+      }
+    ],
+    "galenvhi": [
+      {
+        "conceptId": "concept:go",
+        "lang": "chr",
+        "form": "galenvhi",
+        "primary": true
+      }
+    ],
     "make": [
       {
         "conceptId": "concept:make",
@@ -8459,6 +9364,30 @@
         "conceptId": "concept:make",
         "lang": "sw",
         "form": "kufanya",
+        "primary": true
+      }
+    ],
+    "ozhitoon": [
+      {
+        "conceptId": "concept:make",
+        "lang": "oj",
+        "form": "ozhitoon",
+        "primary": true
+      }
+    ],
+    "áyiilaa": [
+      {
+        "conceptId": "concept:make",
+        "lang": "nav",
+        "form": "áyiilaa",
+        "primary": true
+      }
+    ],
+    "asgoli": [
+      {
+        "conceptId": "concept:make",
+        "lang": "chr",
+        "form": "asgoli",
         "primary": true
       }
     ],
@@ -8650,22 +9579,6 @@
         "lang": "oj",
         "form": "aanii",
         "primary": false
-      }
-    ],
-    "yá'át'ééh": [
-      {
-        "conceptId": "concept:hello",
-        "lang": "nav",
-        "form": "yá'át'ééh",
-        "primary": true
-      }
-    ],
-    "osiyo": [
-      {
-        "conceptId": "concept:hello",
-        "lang": "chr",
-        "form": "osiyo",
-        "primary": true
       }
     ],
     "thank you": [
@@ -9062,6 +9975,22 @@
         "primary": true
       }
     ],
+    "v": [
+      {
+        "conceptId": "concept:yes",
+        "lang": "chr",
+        "form": "v",
+        "primary": true
+      }
+    ],
+    "aooʼ": [
+      {
+        "conceptId": "concept:yes",
+        "lang": "nav",
+        "form": "aooʼ",
+        "primary": true
+      }
+    ],
     "no": [
       {
         "conceptId": "concept:no",
@@ -9277,6 +10206,34 @@
         "conceptId": "concept:no",
         "lang": "oj",
         "form": "gaawiin",
+        "primary": true
+      },
+      {
+        "conceptId": "concept:not",
+        "lang": "oj",
+        "form": "gaawiin",
+        "primary": true
+      }
+    ],
+    "tla": [
+      {
+        "conceptId": "concept:no",
+        "lang": "chr",
+        "form": "tla",
+        "primary": true
+      },
+      {
+        "conceptId": "concept:not",
+        "lang": "chr",
+        "form": "tla",
+        "primary": true
+      }
+    ],
+    "dooda": [
+      {
+        "conceptId": "concept:no",
+        "lang": "nav",
+        "form": "dooda",
         "primary": true
       }
     ],
@@ -9528,6 +10485,22 @@
         "primary": true
       }
     ],
+    "tʼáá bíniʼdílyé": [
+      {
+        "conceptId": "concept:independence",
+        "lang": "nav",
+        "form": "tʼáá bíniʼdílyé",
+        "primary": true
+      }
+    ],
+    "dibenjigewin": [
+      {
+        "conceptId": "concept:independence",
+        "lang": "oj",
+        "form": "dibenjigewin",
+        "primary": true
+      }
+    ],
     "happiness": [
       {
         "conceptId": "concept:happiness",
@@ -9656,6 +10629,30 @@
         "primary": true
       }
     ],
+    "minawaanigwendam": [
+      {
+        "conceptId": "concept:happiness",
+        "lang": "oj",
+        "form": "minawaanigwendam",
+        "primary": true
+      }
+    ],
+    "ił hózhǫ́": [
+      {
+        "conceptId": "concept:happiness",
+        "lang": "nav",
+        "form": "ił hózhǫ́",
+        "primary": true
+      }
+    ],
+    "alihelisdi": [
+      {
+        "conceptId": "concept:happiness",
+        "lang": "chr",
+        "form": "alihelisdi",
+        "primary": true
+      }
+    ],
     "justice": [
       {
         "conceptId": "concept:justice",
@@ -9779,6 +10776,22 @@
         "conceptId": "concept:justice",
         "lang": "ru",
         "form": "справедливость",
+        "primary": true
+      }
+    ],
+    "dibaakonigewin": [
+      {
+        "conceptId": "concept:justice",
+        "lang": "oj",
+        "form": "dibaakonigewin",
+        "primary": true
+      }
+    ],
+    "beehazʼáanii bikʼehgo": [
+      {
+        "conceptId": "concept:justice",
+        "lang": "nav",
+        "form": "beehazʼáanii bikʼehgo",
         "primary": true
       }
     ],
@@ -9928,14 +10941,6 @@
         "primary": true
       }
     ],
-    "λαόσ": [
-      {
-        "conceptId": "concept:people",
-        "lang": "el",
-        "form": "λαός",
-        "primary": true
-      }
-    ],
     "λαός": [
       {
         "conceptId": "concept:people",
@@ -9957,6 +10962,14 @@
         "conceptId": "concept:people",
         "lang": "ru",
         "form": "народ",
+        "primary": true
+      }
+    ],
+    "anishinaabeg": [
+      {
+        "conceptId": "concept:people",
+        "lang": "oj",
+        "form": "anishinaabeg",
         "primary": true
       }
     ],
@@ -10084,6 +11097,30 @@
         "primary": true
       }
     ],
+    "ogimaawiwin": [
+      {
+        "conceptId": "concept:government",
+        "lang": "oj",
+        "form": "ogimaawiwin",
+        "primary": true
+      }
+    ],
+    "wááshindoon": [
+      {
+        "conceptId": "concept:government",
+        "lang": "nav",
+        "form": "wááshindoon",
+        "primary": true
+      }
+    ],
+    "gaduhv digohwelodi": [
+      {
+        "conceptId": "concept:government",
+        "lang": "chr",
+        "form": "gaduhv digohwelodi",
+        "primary": true
+      }
+    ],
     "geometry": [
       {
         "conceptId": "concept:geometry",
@@ -10203,6 +11240,20 @@
         "conceptId": "concept:geometry",
         "lang": "ru",
         "form": "геометрия",
+        "primary": true
+      }
+    ],
+    "waawiyeyaa": [
+      {
+        "conceptId": "concept:geometry",
+        "lang": "oj",
+        "form": "waawiyeyaa",
+        "primary": true
+      },
+      {
+        "conceptId": "concept:circle",
+        "lang": "oj",
+        "form": "waawiyeyaa",
         "primary": true
       }
     ],
@@ -10442,14 +11493,6 @@
         "primary": true
       }
     ],
-    "κύκλοσ": [
-      {
-        "conceptId": "concept:circle",
-        "lang": "el",
-        "form": "κύκλος",
-        "primary": true
-      }
-    ],
     "κύκλος": [
       {
         "conceptId": "concept:circle",
@@ -10471,6 +11514,22 @@
         "conceptId": "concept:circle",
         "lang": "ru",
         "form": "круг",
+        "primary": true
+      }
+    ],
+    "náhookǫs": [
+      {
+        "conceptId": "concept:circle",
+        "lang": "nav",
+        "form": "náhookǫs",
+        "primary": true
+      }
+    ],
+    "digalenvdi": [
+      {
+        "conceptId": "concept:circle",
+        "lang": "chr",
+        "form": "digalenvdi",
         "primary": true
       }
     ],
@@ -10606,6 +11665,30 @@
         "primary": true
       }
     ],
+    "biimiskonigan": [
+      {
+        "conceptId": "concept:line",
+        "lang": "oj",
+        "form": "biimiskonigan",
+        "primary": true
+      }
+    ],
+    "bee niʼnitin": [
+      {
+        "conceptId": "concept:line",
+        "lang": "nav",
+        "form": "bee niʼnitin",
+        "primary": true
+      }
+    ],
+    "kanvsdi": [
+      {
+        "conceptId": "concept:line",
+        "lang": "chr",
+        "form": "kanvsdi",
+        "primary": true
+      }
+    ],
     "code": [
       {
         "conceptId": "concept:code",
@@ -10736,20 +11819,6 @@
         "primary": true
       }
     ],
-    "κώδικασ": [
-      {
-        "conceptId": "concept:code",
-        "lang": "el",
-        "form": "κώδικας",
-        "primary": true
-      },
-      {
-        "conceptId": "concept:codex",
-        "lang": "el",
-        "form": "κώδικας",
-        "primary": true
-      }
-    ],
     "κώδικας": [
       {
         "conceptId": "concept:code",
@@ -10777,6 +11846,26 @@
         "conceptId": "concept:code",
         "lang": "ru",
         "form": "код",
+        "primary": true
+      }
+    ],
+    "mazinaʼigan": [
+      {
+        "conceptId": "concept:code",
+        "lang": "oj",
+        "form": "mazinaʼigan",
+        "primary": true
+      },
+      {
+        "conceptId": "concept:parchment",
+        "lang": "oj",
+        "form": "mazinaʼigan",
+        "primary": true
+      },
+      {
+        "conceptId": "concept:codex",
+        "lang": "oj",
+        "form": "mazinaʼigan",
         "primary": true
       }
     ],
@@ -10902,6 +11991,14 @@
         "primary": true
       }
     ],
+    "ozhibii'igan": [
+      {
+        "conceptId": "concept:script",
+        "lang": "oj",
+        "form": "ozhibii'igan",
+        "primary": true
+      }
+    ],
     "calendar": [
       {
         "conceptId": "concept:calendar",
@@ -11024,6 +12121,38 @@
         "primary": true
       }
     ],
+    "पंचांग": [
+      {
+        "conceptId": "concept:calendar",
+        "lang": "hi",
+        "form": "पंचांग",
+        "primary": false
+      }
+    ],
+    "giizisoo-mazina'igan": [
+      {
+        "conceptId": "concept:calendar",
+        "lang": "oj",
+        "form": "giizisoo-mazina'igan",
+        "primary": true
+      }
+    ],
+    "nááhai bikááʼ": [
+      {
+        "conceptId": "concept:calendar",
+        "lang": "nav",
+        "form": "nááhai bikááʼ",
+        "primary": true
+      }
+    ],
+    "nvda digohweli": [
+      {
+        "conceptId": "concept:calendar",
+        "lang": "chr",
+        "form": "nvda digohweli",
+        "primary": true
+      }
+    ],
     "star map": [
       {
         "conceptId": "concept:star_map",
@@ -11109,6 +12238,102 @@
         "conceptId": "concept:star_map",
         "lang": "la",
         "form": "astronomia",
+        "primary": true
+      },
+      {
+        "conceptId": "concept:star_map",
+        "lang": "it",
+        "form": "astronomia",
+        "primary": false
+      },
+      {
+        "conceptId": "concept:star_map",
+        "lang": "pt",
+        "form": "astronomia",
+        "primary": true
+      },
+      {
+        "conceptId": "concept:star_map",
+        "lang": "pl",
+        "form": "astronomia",
+        "primary": true
+      }
+    ],
+    "astronomie": [
+      {
+        "conceptId": "concept:star_map",
+        "lang": "de",
+        "form": "Astronomie",
+        "primary": false
+      },
+      {
+        "conceptId": "concept:star_map",
+        "lang": "fr",
+        "form": "astronomie",
+        "primary": false
+      }
+    ],
+    "astronomía": [
+      {
+        "conceptId": "concept:star_map",
+        "lang": "es",
+        "form": "astronomía",
+        "primary": false
+      }
+    ],
+    "stjörnufræði": [
+      {
+        "conceptId": "concept:star_map",
+        "lang": "is",
+        "form": "stjörnufræði",
+        "primary": true
+      }
+    ],
+    "sterrenkunde": [
+      {
+        "conceptId": "concept:star_map",
+        "lang": "nl",
+        "form": "sterrenkunde",
+        "primary": true
+      }
+    ],
+    "فلك": [
+      {
+        "conceptId": "concept:star_map",
+        "lang": "ar",
+        "form": "فلك",
+        "primary": false
+      }
+    ],
+    "खगोल": [
+      {
+        "conceptId": "concept:star_map",
+        "lang": "hi",
+        "form": "खगोल",
+        "primary": false
+      }
+    ],
+    "天文": [
+      {
+        "conceptId": "concept:star_map",
+        "lang": "zh",
+        "form": "天文",
+        "primary": false
+      }
+    ],
+    "астрономия": [
+      {
+        "conceptId": "concept:star_map",
+        "lang": "ru",
+        "form": "астрономия",
+        "primary": true
+      }
+    ],
+    "anang mazinaʼigan": [
+      {
+        "conceptId": "concept:star_map",
+        "lang": "oj",
+        "form": "anang mazinaʼigan",
         "primary": true
       }
     ],
@@ -11272,6 +12497,30 @@
         "primary": true
       }
     ],
+    "mąʼii": [
+      {
+        "conceptId": "concept:fox",
+        "lang": "nav",
+        "form": "mąʼii",
+        "primary": true
+      }
+    ],
+    "tsula": [
+      {
+        "conceptId": "concept:fox",
+        "lang": "chr",
+        "form": "tsula",
+        "primary": true
+      }
+    ],
+    "waagosh": [
+      {
+        "conceptId": "concept:fox",
+        "lang": "oj",
+        "form": "waagosh",
+        "primary": true
+      }
+    ],
     "scribe": [
       {
         "conceptId": "concept:scribe",
@@ -11370,14 +12619,6 @@
         "primary": true
       }
     ],
-    "γραμματέασ": [
-      {
-        "conceptId": "concept:scribe",
-        "lang": "el",
-        "form": "γραμματέας",
-        "primary": true
-      }
-    ],
     "γραμματέας": [
       {
         "conceptId": "concept:scribe",
@@ -11399,6 +12640,14 @@
         "conceptId": "concept:scribe",
         "lang": "ru",
         "form": "писец",
+        "primary": true
+      }
+    ],
+    "ozhibiiʼigewinini": [
+      {
+        "conceptId": "concept:scribe",
+        "lang": "oj",
+        "form": "ozhibiiʼigewinini",
         "primary": true
       }
     ],
@@ -11740,6 +12989,30 @@
         "primary": true
       }
     ],
+    "tooh": [
+      {
+        "conceptId": "concept:river",
+        "lang": "nav",
+        "form": "tooh",
+        "primary": true
+      }
+    ],
+    "ziibi": [
+      {
+        "conceptId": "concept:river",
+        "lang": "oj",
+        "form": "ziibi",
+        "primary": true
+      }
+    ],
+    "uweyv": [
+      {
+        "conceptId": "concept:river",
+        "lang": "chr",
+        "form": "uweyv",
+        "primary": true
+      }
+    ],
     "mountain": [
       {
         "conceptId": "concept:mountain",
@@ -11861,6 +13134,30 @@
         "conceptId": "concept:mountain",
         "lang": "ru",
         "form": "гора",
+        "primary": true
+      }
+    ],
+    "dził": [
+      {
+        "conceptId": "concept:mountain",
+        "lang": "nav",
+        "form": "dził",
+        "primary": true
+      }
+    ],
+    "wajiw": [
+      {
+        "conceptId": "concept:mountain",
+        "lang": "oj",
+        "form": "wajiw",
+        "primary": true
+      }
+    ],
+    "odalv": [
+      {
+        "conceptId": "concept:mountain",
+        "lang": "chr",
+        "form": "odalv",
         "primary": true
       }
     ],
@@ -11997,6 +13294,22 @@
         "conceptId": "concept:tree",
         "lang": "oj",
         "form": "mitig",
+        "primary": true
+      }
+    ],
+    "tsin": [
+      {
+        "conceptId": "concept:tree",
+        "lang": "nav",
+        "form": "tsin",
+        "primary": true
+      }
+    ],
+    "adatlisdi": [
+      {
+        "conceptId": "concept:tree",
+        "lang": "chr",
+        "form": "adatlisdi",
         "primary": true
       }
     ],
@@ -12142,6 +13455,22 @@
         "primary": true
       }
     ],
+    "tsídii": [
+      {
+        "conceptId": "concept:bird",
+        "lang": "nav",
+        "form": "tsídii",
+        "primary": true
+      }
+    ],
+    "tsisqua": [
+      {
+        "conceptId": "concept:bird",
+        "lang": "chr",
+        "form": "tsisqua",
+        "primary": true
+      }
+    ],
     "fish": [
       {
         "conceptId": "concept:fish",
@@ -12281,6 +13610,30 @@
         "conceptId": "concept:fish",
         "lang": "ru",
         "form": "рыба",
+        "primary": true
+      }
+    ],
+    "łóóʼ": [
+      {
+        "conceptId": "concept:fish",
+        "lang": "nav",
+        "form": "łóóʼ",
+        "primary": true
+      }
+    ],
+    "giigoonh": [
+      {
+        "conceptId": "concept:fish",
+        "lang": "oj",
+        "form": "giigoonh",
+        "primary": true
+      }
+    ],
+    "atsadi": [
+      {
+        "conceptId": "concept:fish",
+        "lang": "chr",
+        "form": "atsadi",
         "primary": true
       }
     ],
@@ -12426,6 +13779,22 @@
         "primary": true
       }
     ],
+    "amá": [
+      {
+        "conceptId": "concept:mother",
+        "lang": "nav",
+        "form": "amá",
+        "primary": true
+      }
+    ],
+    "agitsi": [
+      {
+        "conceptId": "concept:mother",
+        "lang": "chr",
+        "form": "agitsi",
+        "primary": true
+      }
+    ],
     "father": [
       {
         "conceptId": "concept:father",
@@ -12528,14 +13897,6 @@
         "primary": true
       }
     ],
-    "πατέρασ": [
-      {
-        "conceptId": "concept:father",
-        "lang": "el",
-        "form": "πατέρας",
-        "primary": true
-      }
-    ],
     "πατέρας": [
       {
         "conceptId": "concept:father",
@@ -12573,6 +13934,22 @@
         "conceptId": "concept:father",
         "lang": "oj",
         "form": "noos",
+        "primary": true
+      }
+    ],
+    "azhéʼé": [
+      {
+        "conceptId": "concept:father",
+        "lang": "nav",
+        "form": "azhéʼé",
+        "primary": true
+      }
+    ],
+    "edoda": [
+      {
+        "conceptId": "concept:father",
+        "lang": "chr",
+        "form": "edoda",
         "primary": true
       }
     ],
@@ -12716,6 +14093,22 @@
         "primary": true
       }
     ],
+    "awééʼ": [
+      {
+        "conceptId": "concept:child",
+        "lang": "nav",
+        "form": "awééʼ",
+        "primary": true
+      }
+    ],
+    "ayetli": [
+      {
+        "conceptId": "concept:child",
+        "lang": "chr",
+        "form": "ayetli",
+        "primary": true
+      }
+    ],
     "friend": [
       {
         "conceptId": "concept:friend",
@@ -12818,14 +14211,6 @@
         "primary": true
       }
     ],
-    "φίλοσ": [
-      {
-        "conceptId": "concept:friend",
-        "lang": "el",
-        "form": "φίλος",
-        "primary": true
-      }
-    ],
     "φίλος": [
       {
         "conceptId": "concept:friend",
@@ -12847,6 +14232,30 @@
         "conceptId": "concept:friend",
         "lang": "ru",
         "form": "друг",
+        "primary": true
+      }
+    ],
+    "niijikiwenh": [
+      {
+        "conceptId": "concept:friend",
+        "lang": "oj",
+        "form": "niijikiwenh",
+        "primary": true
+      }
+    ],
+    "unaliyi": [
+      {
+        "conceptId": "concept:friend",
+        "lang": "chr",
+        "form": "unaliyi",
+        "primary": true
+      }
+    ],
+    "akʼis": [
+      {
+        "conceptId": "concept:friend",
+        "lang": "nav",
+        "form": "akʼis",
         "primary": true
       }
     ],
@@ -12944,14 +14353,6 @@
         "primary": true
       }
     ],
-    "κόσμοσ": [
-      {
-        "conceptId": "concept:world",
-        "lang": "el",
-        "form": "κόσμος",
-        "primary": true
-      }
-    ],
     "κόσμος": [
       {
         "conceptId": "concept:world",
@@ -12965,6 +14366,14 @@
         "conceptId": "concept:world",
         "lang": "zh",
         "form": "世界",
+        "primary": true
+      }
+    ],
+    "nahasdzáán": [
+      {
+        "conceptId": "concept:world",
+        "lang": "nav",
+        "form": "nahasdzáán",
         "primary": true
       }
     ],
@@ -13068,14 +14477,6 @@
         "primary": true
       }
     ],
-    "θεόσ": [
-      {
-        "conceptId": "concept:god",
-        "lang": "el",
-        "form": "θεός",
-        "primary": true
-      }
-    ],
     "θεός": [
       {
         "conceptId": "concept:god",
@@ -13097,6 +14498,30 @@
         "conceptId": "concept:god",
         "lang": "ru",
         "form": "бог",
+        "primary": true
+      }
+    ],
+    "gichi-manidoo": [
+      {
+        "conceptId": "concept:god",
+        "lang": "oj",
+        "form": "gichi-manidoo",
+        "primary": true
+      }
+    ],
+    "unequa": [
+      {
+        "conceptId": "concept:god",
+        "lang": "chr",
+        "form": "unequa",
+        "primary": true
+      }
+    ],
+    "diyin": [
+      {
+        "conceptId": "concept:god",
+        "lang": "nav",
+        "form": "Diyin",
         "primary": true
       }
     ],
@@ -13225,6 +14650,36 @@
         "conceptId": "concept:spirit",
         "lang": "ru",
         "form": "дух",
+        "primary": true
+      }
+    ],
+    "manidoo": [
+      {
+        "conceptId": "concept:spirit",
+        "lang": "oj",
+        "form": "manidoo",
+        "primary": true
+      }
+    ],
+    "adanvdo": [
+      {
+        "conceptId": "concept:spirit",
+        "lang": "chr",
+        "form": "adanvdo",
+        "primary": true
+      }
+    ],
+    "níłchʼi": [
+      {
+        "conceptId": "concept:spirit",
+        "lang": "nav",
+        "form": "níłchʼi",
+        "primary": true
+      },
+      {
+        "conceptId": "concept:wind",
+        "lang": "nav",
+        "form": "níłchʼi",
         "primary": true
       }
     ],
@@ -13374,6 +14829,30 @@
         "primary": true
       }
     ],
+    "inaabandam": [
+      {
+        "conceptId": "concept:dream",
+        "lang": "oj",
+        "form": "inaabandam",
+        "primary": true
+      }
+    ],
+    "adadolisgv": [
+      {
+        "conceptId": "concept:dream",
+        "lang": "chr",
+        "form": "adadolisgv",
+        "primary": true
+      }
+    ],
+    "naʼiidzííʼ": [
+      {
+        "conceptId": "concept:dream",
+        "lang": "nav",
+        "form": "naʼiidzííʼ",
+        "primary": true
+      }
+    ],
     "story": [
       {
         "conceptId": "concept:story",
@@ -13508,6 +14987,30 @@
         "primary": true
       }
     ],
+    "aadizookaan": [
+      {
+        "conceptId": "concept:story",
+        "lang": "oj",
+        "form": "aadizookaan",
+        "primary": true
+      }
+    ],
+    "kanoheda": [
+      {
+        "conceptId": "concept:story",
+        "lang": "chr",
+        "form": "kanoheda",
+        "primary": true
+      }
+    ],
+    "haneʼ": [
+      {
+        "conceptId": "concept:story",
+        "lang": "nav",
+        "form": "haneʼ",
+        "primary": true
+      }
+    ],
     "music": [
       {
         "conceptId": "concept:music",
@@ -13627,6 +15130,30 @@
         "conceptId": "concept:music",
         "lang": "ru",
         "form": "музыка",
+        "primary": true
+      }
+    ],
+    "nagamon": [
+      {
+        "conceptId": "concept:music",
+        "lang": "oj",
+        "form": "nagamon",
+        "primary": true
+      }
+    ],
+    "dikanogisdi": [
+      {
+        "conceptId": "concept:music",
+        "lang": "chr",
+        "form": "dikanogisdi",
+        "primary": true
+      }
+    ],
+    "sin": [
+      {
+        "conceptId": "concept:music",
+        "lang": "nav",
+        "form": "sin",
         "primary": true
       }
     ],
@@ -13751,6 +15278,42 @@
         "conceptId": "concept:color",
         "lang": "ru",
         "form": "цвет",
+        "primary": true
+      }
+    ],
+    "níłchʼi beeʼádiłnííł": [
+      {
+        "conceptId": "concept:color",
+        "lang": "nav",
+        "form": "níłchʼi beeʼádiłnííł",
+        "primary": true
+      }
+    ],
+    "adigalenvdi": [
+      {
+        "conceptId": "concept:color",
+        "lang": "chr",
+        "form": "adigalenvdi",
+        "primary": true
+      },
+      {
+        "conceptId": "concept:open",
+        "lang": "chr",
+        "form": "adigalenvdi",
+        "primary": true
+      },
+      {
+        "conceptId": "concept:close",
+        "lang": "chr",
+        "form": "adigalenvdi",
+        "primary": true
+      }
+    ],
+    "inaande": [
+      {
+        "conceptId": "concept:color",
+        "lang": "oj",
+        "form": "inaande",
         "primary": true
       }
     ],
@@ -13882,19 +15445,41 @@
         "primary": true
       }
     ],
+    "miskwaa": [
+      {
+        "conceptId": "concept:red",
+        "lang": "oj",
+        "form": "miskwaa",
+        "primary": true
+      }
+    ],
+    "gigage": [
+      {
+        "conceptId": "concept:red",
+        "lang": "chr",
+        "form": "gigage",
+        "primary": true
+      },
+      {
+        "conceptId": "concept:blood",
+        "lang": "chr",
+        "form": "gigage",
+        "primary": true
+      }
+    ],
+    "łichííʼ": [
+      {
+        "conceptId": "concept:red",
+        "lang": "nav",
+        "form": "łichííʼ",
+        "primary": true
+      }
+    ],
     "white": [
       {
         "conceptId": "concept:white",
         "lang": "en",
         "form": "white",
-        "primary": true
-      }
-    ],
-    "weiss": [
-      {
-        "conceptId": "concept:white",
-        "lang": "de",
-        "form": "weiß",
         "primary": true
       }
     ],
@@ -14015,6 +15600,30 @@
         "conceptId": "concept:white",
         "lang": "ru",
         "form": "белый",
+        "primary": true
+      }
+    ],
+    "waabishkaa": [
+      {
+        "conceptId": "concept:white",
+        "lang": "oj",
+        "form": "waabishkaa",
+        "primary": true
+      }
+    ],
+    "uneqa": [
+      {
+        "conceptId": "concept:white",
+        "lang": "chr",
+        "form": "uneqa",
+        "primary": true
+      }
+    ],
+    "łigai": [
+      {
+        "conceptId": "concept:white",
+        "lang": "nav",
+        "form": "łigai",
         "primary": true
       }
     ],
@@ -14143,6 +15752,30 @@
         "conceptId": "concept:black",
         "lang": "ru",
         "form": "чёрный",
+        "primary": true
+      }
+    ],
+    "makadewaa": [
+      {
+        "conceptId": "concept:black",
+        "lang": "oj",
+        "form": "makadewaa",
+        "primary": true
+      }
+    ],
+    "gvhnage": [
+      {
+        "conceptId": "concept:black",
+        "lang": "chr",
+        "form": "gvhnage",
+        "primary": true
+      }
+    ],
+    "łizhin": [
+      {
+        "conceptId": "concept:black",
+        "lang": "nav",
+        "form": "łizhin",
         "primary": true
       }
     ],
@@ -14282,6 +15915,42 @@
         "primary": true
       }
     ],
+    "mashkawiziiwin": [
+      {
+        "conceptId": "concept:strength",
+        "lang": "oj",
+        "form": "mashkawiziiwin",
+        "primary": true
+      }
+    ],
+    "bidziil": [
+      {
+        "conceptId": "concept:strength",
+        "lang": "nav",
+        "form": "bidziil",
+        "primary": true
+      }
+    ],
+    "ulsgeda": [
+      {
+        "conceptId": "concept:strength",
+        "lang": "chr",
+        "form": "ulsgeda",
+        "primary": true
+      },
+      {
+        "conceptId": "concept:work",
+        "lang": "chr",
+        "form": "ulsgeda",
+        "primary": true
+      },
+      {
+        "conceptId": "concept:end",
+        "lang": "chr",
+        "form": "ulsgeda",
+        "primary": true
+      }
+    ],
     "wisdom": [
       {
         "conceptId": "concept:wisdom",
@@ -14407,6 +16076,22 @@
         "conceptId": "concept:wisdom",
         "lang": "ru",
         "form": "мудрость",
+        "primary": true
+      }
+    ],
+    "nibwaakaawin": [
+      {
+        "conceptId": "concept:wisdom",
+        "lang": "oj",
+        "form": "nibwaakaawin",
+        "primary": true
+      }
+    ],
+    "hódzą́": [
+      {
+        "conceptId": "concept:wisdom",
+        "lang": "nav",
+        "form": "hódzą́",
         "primary": true
       }
     ],
@@ -14538,6 +16223,30 @@
         "primary": true
       }
     ],
+    "bagosendam": [
+      {
+        "conceptId": "concept:hope",
+        "lang": "oj",
+        "form": "bagosendam",
+        "primary": true
+      }
+    ],
+    "bee hózhǫ́": [
+      {
+        "conceptId": "concept:hope",
+        "lang": "nav",
+        "form": "bee hózhǫ́",
+        "primary": true
+      }
+    ],
+    "adadolisdi": [
+      {
+        "conceptId": "concept:hope",
+        "lang": "chr",
+        "form": "adadolisdi",
+        "primary": true
+      }
+    ],
     "fear": [
       {
         "conceptId": "concept:fear",
@@ -14648,14 +16357,6 @@
         "primary": true
       }
     ],
-    "φόβοσ": [
-      {
-        "conceptId": "concept:fear",
-        "lang": "el",
-        "form": "φόβος",
-        "primary": true
-      }
-    ],
     "φόβος": [
       {
         "conceptId": "concept:fear",
@@ -14677,6 +16378,30 @@
         "conceptId": "concept:fear",
         "lang": "ru",
         "form": "страх",
+        "primary": true
+      }
+    ],
+    "zegizi": [
+      {
+        "conceptId": "concept:fear",
+        "lang": "oj",
+        "form": "zegizi",
+        "primary": true
+      }
+    ],
+    "nánitłʼah": [
+      {
+        "conceptId": "concept:fear",
+        "lang": "nav",
+        "form": "nánitłʼah",
+        "primary": true
+      }
+    ],
+    "udetiyvsdi": [
+      {
+        "conceptId": "concept:fear",
+        "lang": "chr",
+        "form": "udetiyvsdi",
         "primary": true
       }
     ],
@@ -14805,6 +16530,30 @@
         "conceptId": "concept:beauty",
         "lang": "ru",
         "form": "красота",
+        "primary": true
+      }
+    ],
+    "bzhinaagozi": [
+      {
+        "conceptId": "concept:beauty",
+        "lang": "oj",
+        "form": "bzhinaagozi",
+        "primary": true
+      }
+    ],
+    "nizhóní": [
+      {
+        "conceptId": "concept:beauty",
+        "lang": "nav",
+        "form": "nizhóní",
+        "primary": true
+      }
+    ],
+    "uwohli": [
+      {
+        "conceptId": "concept:beauty",
+        "lang": "chr",
+        "form": "uwohli",
         "primary": true
       }
     ],
@@ -14940,6 +16689,30 @@
         "primary": true
       }
     ],
+    "mannaaji'idiwin": [
+      {
+        "conceptId": "concept:honor",
+        "lang": "oj",
+        "form": "mannaaji'idiwin",
+        "primary": true
+      }
+    ],
+    "ił ílí": [
+      {
+        "conceptId": "concept:honor",
+        "lang": "nav",
+        "form": "ił ílí",
+        "primary": true
+      }
+    ],
+    "udohiyu": [
+      {
+        "conceptId": "concept:honor",
+        "lang": "chr",
+        "form": "udohiyu",
+        "primary": true
+      }
+    ],
     "shadow": [
       {
         "conceptId": "concept:shadow",
@@ -15066,6 +16839,30 @@
         "primary": true
       }
     ],
+    "agawaatese": [
+      {
+        "conceptId": "concept:shadow",
+        "lang": "oj",
+        "form": "agawaatese",
+        "primary": true
+      }
+    ],
+    "osdv": [
+      {
+        "conceptId": "concept:shadow",
+        "lang": "chr",
+        "form": "osdv",
+        "primary": true
+      }
+    ],
+    "chahałheeł": [
+      {
+        "conceptId": "concept:shadow",
+        "lang": "nav",
+        "form": "chahałheeł",
+        "primary": true
+      }
+    ],
     "keyboard": [
       {
         "conceptId": "concept:keyboard",
@@ -15184,6 +16981,22 @@
         "primary": true
       }
     ],
+    "キーボード": [
+      {
+        "conceptId": "concept:keyboard",
+        "lang": "ja",
+        "form": "キーボード",
+        "primary": true
+      }
+    ],
+    "키보드": [
+      {
+        "conceptId": "concept:keyboard",
+        "lang": "ko",
+        "form": "키보드",
+        "primary": true
+      }
+    ],
     "computer": [
       {
         "conceptId": "concept:computer",
@@ -15290,14 +17103,6 @@
         "primary": true
       }
     ],
-    "υπολογιστήσ": [
-      {
-        "conceptId": "concept:computer",
-        "lang": "el",
-        "form": "υπολογιστής",
-        "primary": true
-      }
-    ],
     "υπολογιστής": [
       {
         "conceptId": "concept:computer",
@@ -15319,6 +17124,14 @@
         "conceptId": "concept:computer",
         "lang": "ru",
         "form": "компьютер",
+        "primary": true
+      }
+    ],
+    "mazinaabikiwebinigan": [
+      {
+        "conceptId": "concept:computer",
+        "lang": "oj",
+        "form": "mazinaabikiwebinigan",
         "primary": true
       }
     ],
@@ -15550,6 +17363,30 @@
         "primary": true
       }
     ],
+    "gikinoo'amaadiiwigamig": [
+      {
+        "conceptId": "concept:school",
+        "lang": "oj",
+        "form": "gikinoo'amaadiiwigamig",
+        "primary": true
+      }
+    ],
+    "óltaʼ": [
+      {
+        "conceptId": "concept:school",
+        "lang": "nav",
+        "form": "óltaʼ",
+        "primary": true
+      }
+    ],
+    "tsunelogasdi": [
+      {
+        "conceptId": "concept:school",
+        "lang": "chr",
+        "form": "tsunelogasdi",
+        "primary": true
+      }
+    ],
     "teacher": [
       {
         "conceptId": "concept:teacher",
@@ -15670,14 +17507,6 @@
         "primary": true
       }
     ],
-    "δάσκαλοσ": [
-      {
-        "conceptId": "concept:teacher",
-        "lang": "el",
-        "form": "δάσκαλος",
-        "primary": true
-      }
-    ],
     "δάσκαλος": [
       {
         "conceptId": "concept:teacher",
@@ -15699,6 +17528,30 @@
         "conceptId": "concept:teacher",
         "lang": "ru",
         "form": "учитель",
+        "primary": true
+      }
+    ],
+    "gikinoo'amaage": [
+      {
+        "conceptId": "concept:teacher",
+        "lang": "oj",
+        "form": "gikinoo'amaage",
+        "primary": true
+      }
+    ],
+    "dideyohvsgi": [
+      {
+        "conceptId": "concept:teacher",
+        "lang": "chr",
+        "form": "dideyohvsgi",
+        "primary": true
+      }
+    ],
+    "óltaʼí": [
+      {
+        "conceptId": "concept:teacher",
+        "lang": "nav",
+        "form": "óltaʼí",
         "primary": true
       }
     ],
@@ -15816,14 +17669,6 @@
         "primary": true
       }
     ],
-    "μαθητήσ": [
-      {
-        "conceptId": "concept:student",
-        "lang": "el",
-        "form": "μαθητής",
-        "primary": true
-      }
-    ],
     "μαθητής": [
       {
         "conceptId": "concept:student",
@@ -15845,6 +17690,30 @@
         "conceptId": "concept:student",
         "lang": "ru",
         "form": "студент",
+        "primary": true
+      }
+    ],
+    "gikinoo'amaagan": [
+      {
+        "conceptId": "concept:student",
+        "lang": "oj",
+        "form": "gikinoo'amaagan",
+        "primary": true
+      }
+    ],
+    "ółtaʼí": [
+      {
+        "conceptId": "concept:student",
+        "lang": "nav",
+        "form": "ółtaʼí",
+        "primary": true
+      }
+    ],
+    "disgohwelodi": [
+      {
+        "conceptId": "concept:student",
+        "lang": "chr",
+        "form": "disgohwelodi",
         "primary": true
       }
     ],
@@ -15976,6 +17845,22 @@
         "primary": true
       }
     ],
+    "anokii": [
+      {
+        "conceptId": "concept:work",
+        "lang": "oj",
+        "form": "anokii",
+        "primary": true
+      }
+    ],
+    "naanish": [
+      {
+        "conceptId": "concept:work",
+        "lang": "nav",
+        "form": "naanish",
+        "primary": true
+      }
+    ],
     "money": [
       {
         "conceptId": "concept:money",
@@ -16102,6 +17987,30 @@
         "primary": true
       }
     ],
+    "zhooniyaa": [
+      {
+        "conceptId": "concept:money",
+        "lang": "oj",
+        "form": "zhooniyaa",
+        "primary": true
+      }
+    ],
+    "béeso": [
+      {
+        "conceptId": "concept:money",
+        "lang": "nav",
+        "form": "béeso",
+        "primary": true
+      }
+    ],
+    "adela": [
+      {
+        "conceptId": "concept:money",
+        "lang": "chr",
+        "form": "adela",
+        "primary": true
+      }
+    ],
     "city": [
       {
         "conceptId": "concept:city",
@@ -16225,6 +18134,36 @@
         "conceptId": "concept:city",
         "lang": "ru",
         "form": "город",
+        "primary": true
+      }
+    ],
+    "odena": [
+      {
+        "conceptId": "concept:city",
+        "lang": "oj",
+        "form": "odena",
+        "primary": true
+      }
+    ],
+    "kin łání": [
+      {
+        "conceptId": "concept:city",
+        "lang": "nav",
+        "form": "kin łání",
+        "primary": true
+      }
+    ],
+    "gaduhv": [
+      {
+        "conceptId": "concept:city",
+        "lang": "chr",
+        "form": "gaduhv",
+        "primary": true
+      },
+      {
+        "conceptId": "concept:country",
+        "lang": "chr",
+        "form": "gaduhv",
         "primary": true
       }
     ],
@@ -16359,6 +18298,14 @@
         "conceptId": "concept:country",
         "lang": "ru",
         "form": "страна",
+        "primary": true
+      }
+    ],
+    "kéyah": [
+      {
+        "conceptId": "concept:country",
+        "lang": "nav",
+        "form": "kéyah",
         "primary": true
       }
     ],
@@ -16510,6 +18457,22 @@
         "primary": true
       }
     ],
+    "tónteel": [
+      {
+        "conceptId": "concept:sea",
+        "lang": "nav",
+        "form": "tónteel",
+        "primary": true
+      }
+    ],
+    "amayehi": [
+      {
+        "conceptId": "concept:sea",
+        "lang": "chr",
+        "form": "amayehi",
+        "primary": true
+      }
+    ],
     "wind": [
       {
         "conceptId": "concept:wind",
@@ -16608,14 +18571,6 @@
         "primary": true
       }
     ],
-    "άνεμοσ": [
-      {
-        "conceptId": "concept:wind",
-        "lang": "el",
-        "form": "άνεμος",
-        "primary": true
-      }
-    ],
     "άνεμος": [
       {
         "conceptId": "concept:wind",
@@ -16645,6 +18600,14 @@
         "conceptId": "concept:wind",
         "lang": "oj",
         "form": "noodink",
+        "primary": true
+      }
+    ],
+    "unole": [
+      {
+        "conceptId": "concept:wind",
+        "lang": "chr",
+        "form": "unole",
         "primary": true
       }
     ],
@@ -16772,6 +18735,30 @@
         "primary": true
       }
     ],
+    "níłtsą́": [
+      {
+        "conceptId": "concept:rain",
+        "lang": "nav",
+        "form": "níłtsą́",
+        "primary": true
+      }
+    ],
+    "gimiwan": [
+      {
+        "conceptId": "concept:rain",
+        "lang": "oj",
+        "form": "gimiwan",
+        "primary": true
+      }
+    ],
+    "agaasgv": [
+      {
+        "conceptId": "concept:rain",
+        "lang": "chr",
+        "form": "agaasgv",
+        "primary": true
+      }
+    ],
     "snow": [
       {
         "conceptId": "concept:snow",
@@ -16895,6 +18882,30 @@
         "conceptId": "concept:snow",
         "lang": "ru",
         "form": "снег",
+        "primary": true
+      }
+    ],
+    "yéigo": [
+      {
+        "conceptId": "concept:snow",
+        "lang": "nav",
+        "form": "yéigo",
+        "primary": true
+      }
+    ],
+    "goon": [
+      {
+        "conceptId": "concept:snow",
+        "lang": "oj",
+        "form": "goon",
+        "primary": true
+      }
+    ],
+    "unatsi": [
+      {
+        "conceptId": "concept:snow",
+        "lang": "chr",
+        "form": "unatsi",
         "primary": true
       }
     ],
@@ -17034,6 +19045,30 @@
         "primary": true
       }
     ],
+    "tsé": [
+      {
+        "conceptId": "concept:stone",
+        "lang": "nav",
+        "form": "tsé",
+        "primary": true
+      }
+    ],
+    "asin": [
+      {
+        "conceptId": "concept:stone",
+        "lang": "oj",
+        "form": "asin",
+        "primary": true
+      }
+    ],
+    "nvya": [
+      {
+        "conceptId": "concept:stone",
+        "lang": "chr",
+        "form": "nvya",
+        "primary": true
+      }
+    ],
     "gold": [
       {
         "conceptId": "concept:gold",
@@ -17132,14 +19167,6 @@
         "primary": true
       }
     ],
-    "χρυσόσ": [
-      {
-        "conceptId": "concept:gold",
-        "lang": "el",
-        "form": "χρυσός",
-        "primary": true
-      }
-    ],
     "χρυσός": [
       {
         "conceptId": "concept:gold",
@@ -17161,6 +19188,30 @@
         "conceptId": "concept:gold",
         "lang": "ru",
         "form": "золото",
+        "primary": true
+      }
+    ],
+    "oozaawaabik": [
+      {
+        "conceptId": "concept:gold",
+        "lang": "oj",
+        "form": "oozaawaabik",
+        "primary": true
+      }
+    ],
+    "óola": [
+      {
+        "conceptId": "concept:gold",
+        "lang": "nav",
+        "form": "óola",
+        "primary": true
+      }
+    ],
+    "adela digalenvdi": [
+      {
+        "conceptId": "concept:gold",
+        "lang": "chr",
+        "form": "adela digalenvdi",
         "primary": true
       }
     ],
@@ -17287,6 +19338,22 @@
         "conceptId": "concept:blood",
         "lang": "ru",
         "form": "кровь",
+        "primary": true
+      }
+    ],
+    "dił": [
+      {
+        "conceptId": "concept:blood",
+        "lang": "nav",
+        "form": "dił",
+        "primary": true
+      }
+    ],
+    "miskwi": [
+      {
+        "conceptId": "concept:blood",
+        "lang": "oj",
+        "form": "miskwi",
         "primary": true
       }
     ],
@@ -17420,6 +19487,30 @@
         "primary": true
       }
     ],
+    "okun": [
+      {
+        "conceptId": "concept:bone",
+        "lang": "oj",
+        "form": "okun",
+        "primary": true
+      }
+    ],
+    "tsʼin": [
+      {
+        "conceptId": "concept:bone",
+        "lang": "nav",
+        "form": "tsʼin",
+        "primary": true
+      }
+    ],
+    "ukano": [
+      {
+        "conceptId": "concept:bone",
+        "lang": "chr",
+        "form": "ukano",
+        "primary": true
+      }
+    ],
     "skin": [
       {
         "conceptId": "concept:skin",
@@ -17548,6 +19639,30 @@
         "primary": true
       }
     ],
+    "wayaan": [
+      {
+        "conceptId": "concept:skin",
+        "lang": "oj",
+        "form": "wayaan",
+        "primary": true
+      }
+    ],
+    "akágí": [
+      {
+        "conceptId": "concept:skin",
+        "lang": "nav",
+        "form": "akágí",
+        "primary": true
+      }
+    ],
+    "ugano": [
+      {
+        "conceptId": "concept:skin",
+        "lang": "chr",
+        "form": "ugano",
+        "primary": true
+      }
+    ],
     "mouth": [
       {
         "conceptId": "concept:mouth",
@@ -17655,6 +19770,30 @@
         "conceptId": "concept:mouth",
         "lang": "ru",
         "form": "рот",
+        "primary": true
+      }
+    ],
+    "odoon": [
+      {
+        "conceptId": "concept:mouth",
+        "lang": "oj",
+        "form": "odoon",
+        "primary": true
+      }
+    ],
+    "azééʼ": [
+      {
+        "conceptId": "concept:mouth",
+        "lang": "nav",
+        "form": "azééʼ",
+        "primary": true
+      }
+    ],
+    "uhyvdla": [
+      {
+        "conceptId": "concept:mouth",
+        "lang": "chr",
+        "form": "uhyvdla",
         "primary": true
       }
     ],
@@ -17786,19 +19925,35 @@
         "primary": true
       }
     ],
+    "otawag": [
+      {
+        "conceptId": "concept:ear",
+        "lang": "oj",
+        "form": "otawag",
+        "primary": true
+      }
+    ],
+    "ajááʼ": [
+      {
+        "conceptId": "concept:ear",
+        "lang": "nav",
+        "form": "ajááʼ",
+        "primary": true
+      }
+    ],
+    "gahli": [
+      {
+        "conceptId": "concept:ear",
+        "lang": "chr",
+        "form": "gahli",
+        "primary": true
+      }
+    ],
     "foot": [
       {
         "conceptId": "concept:foot",
         "lang": "en",
         "form": "foot",
-        "primary": true
-      }
-    ],
-    "fuss": [
-      {
-        "conceptId": "concept:foot",
-        "lang": "de",
-        "form": "Fuß",
         "primary": true
       }
     ],
@@ -17919,6 +20074,30 @@
         "conceptId": "concept:foot",
         "lang": "ru",
         "form": "нога",
+        "primary": true
+      }
+    ],
+    "akeeʼ": [
+      {
+        "conceptId": "concept:foot",
+        "lang": "nav",
+        "form": "akeeʼ",
+        "primary": true
+      }
+    ],
+    "ozid": [
+      {
+        "conceptId": "concept:foot",
+        "lang": "oj",
+        "form": "ozid",
+        "primary": true
+      }
+    ],
+    "inage": [
+      {
+        "conceptId": "concept:foot",
+        "lang": "chr",
+        "form": "inage",
         "primary": true
       }
     ],
@@ -18050,6 +20229,30 @@
         "primary": true
       }
     ],
+    "atsiitʼááh": [
+      {
+        "conceptId": "concept:head",
+        "lang": "nav",
+        "form": "atsiitʼááh",
+        "primary": true
+      }
+    ],
+    "oshtigwaan": [
+      {
+        "conceptId": "concept:head",
+        "lang": "oj",
+        "form": "oshtigwaan",
+        "primary": true
+      }
+    ],
+    "askoli": [
+      {
+        "conceptId": "concept:head",
+        "lang": "chr",
+        "form": "askoli",
+        "primary": true
+      }
+    ],
     "sleep": [
       {
         "conceptId": "concept:sleep",
@@ -18138,14 +20341,6 @@
         "primary": true
       }
     ],
-    "ύπνοσ": [
-      {
-        "conceptId": "concept:sleep",
-        "lang": "el",
-        "form": "ύπνος",
-        "primary": true
-      }
-    ],
     "ύπνος": [
       {
         "conceptId": "concept:sleep",
@@ -18159,6 +20354,30 @@
         "conceptId": "concept:sleep",
         "lang": "zh",
         "form": "睡眠",
+        "primary": true
+      }
+    ],
+    "niba": [
+      {
+        "conceptId": "concept:sleep",
+        "lang": "oj",
+        "form": "niba",
+        "primary": true
+      }
+    ],
+    "aaliha": [
+      {
+        "conceptId": "concept:sleep",
+        "lang": "chr",
+        "form": "aaliha",
+        "primary": true
+      }
+    ],
+    "ałhosh": [
+      {
+        "conceptId": "concept:sleep",
+        "lang": "nav",
+        "form": "ałhosh",
         "primary": true
       }
     ],
@@ -18264,14 +20483,6 @@
         "primary": true
       }
     ],
-    "θάνατοσ": [
-      {
-        "conceptId": "concept:death",
-        "lang": "el",
-        "form": "θάνατος",
-        "primary": true
-      }
-    ],
     "θάνατος": [
       {
         "conceptId": "concept:death",
@@ -18293,6 +20504,30 @@
         "conceptId": "concept:death",
         "lang": "ru",
         "form": "смерть",
+        "primary": true
+      }
+    ],
+    "nibo": [
+      {
+        "conceptId": "concept:death",
+        "lang": "oj",
+        "form": "nibo",
+        "primary": true
+      }
+    ],
+    "uyohusv": [
+      {
+        "conceptId": "concept:death",
+        "lang": "chr",
+        "form": "uyohusv",
+        "primary": true
+      }
+    ],
+    "anoonééł": [
+      {
+        "conceptId": "concept:death",
+        "lang": "nav",
+        "form": "anoonééł",
         "primary": true
       }
     ],
@@ -18396,14 +20631,6 @@
         "primary": true
       }
     ],
-    "πόλεμοσ": [
-      {
-        "conceptId": "concept:war",
-        "lang": "el",
-        "form": "πόλεμος",
-        "primary": true
-      }
-    ],
     "πόλεμος": [
       {
         "conceptId": "concept:war",
@@ -18425,6 +20652,30 @@
         "conceptId": "concept:war",
         "lang": "ru",
         "form": "война",
+        "primary": true
+      }
+    ],
+    "miigaadiwin": [
+      {
+        "conceptId": "concept:war",
+        "lang": "oj",
+        "form": "miigaadiwin",
+        "primary": true
+      }
+    ],
+    "anaaʼ": [
+      {
+        "conceptId": "concept:war",
+        "lang": "nav",
+        "form": "anaaʼ",
+        "primary": true
+      }
+    ],
+    "digalenvdo": [
+      {
+        "conceptId": "concept:war",
+        "lang": "chr",
+        "form": "digalenvdo",
         "primary": true
       }
     ],
@@ -18572,14 +20823,6 @@
         "primary": true
       }
     ],
-    "νόμοσ": [
-      {
-        "conceptId": "concept:law",
-        "lang": "el",
-        "form": "νόμος",
-        "primary": true
-      }
-    ],
     "νόμος": [
       {
         "conceptId": "concept:law",
@@ -18601,6 +20844,30 @@
         "conceptId": "concept:law",
         "lang": "ru",
         "form": "закон",
+        "primary": true
+      }
+    ],
+    "inaakonigewin": [
+      {
+        "conceptId": "concept:law",
+        "lang": "oj",
+        "form": "inaakonigewin",
+        "primary": true
+      }
+    ],
+    "beehazʼáanii": [
+      {
+        "conceptId": "concept:law",
+        "lang": "nav",
+        "form": "beehazʼáanii",
+        "primary": true
+      }
+    ],
+    "digohwelodi": [
+      {
+        "conceptId": "concept:law",
+        "lang": "chr",
+        "form": "digohwelodi",
         "primary": true
       }
     ],
@@ -18697,6 +20964,22 @@
         "conceptId": "concept:right",
         "lang": "ru",
         "form": "право",
+        "primary": true
+      }
+    ],
+    "nishtłʼah": [
+      {
+        "conceptId": "concept:right",
+        "lang": "nav",
+        "form": "nishtłʼah",
+        "primary": true
+      }
+    ],
+    "gwayak": [
+      {
+        "conceptId": "concept:right",
+        "lang": "oj",
+        "form": "gwayak",
         "primary": true
       }
     ],
@@ -18826,6 +21109,22 @@
         "primary": true
       }
     ],
+    "nishtłʼajigo": [
+      {
+        "conceptId": "concept:left",
+        "lang": "nav",
+        "form": "nishtłʼajigo",
+        "primary": true
+      }
+    ],
+    "namanj": [
+      {
+        "conceptId": "concept:left",
+        "lang": "oj",
+        "form": "namanj",
+        "primary": true
+      }
+    ],
     "big": [
       {
         "conceptId": "concept:big",
@@ -18871,6 +21170,14 @@
         "conceptId": "concept:big",
         "lang": "ru",
         "form": "большой",
+        "primary": true
+      }
+    ],
+    "nitsaa": [
+      {
+        "conceptId": "concept:big",
+        "lang": "nav",
+        "form": "nitsaa",
         "primary": true
       }
     ],
@@ -18984,14 +21291,6 @@
         "primary": true
       }
     ],
-    "μικρόσ": [
-      {
-        "conceptId": "concept:small",
-        "lang": "el",
-        "form": "μικρός",
-        "primary": true
-      }
-    ],
     "μικρός": [
       {
         "conceptId": "concept:small",
@@ -19016,19 +21315,41 @@
         "primary": true
       }
     ],
+    "agaashiinyi": [
+      {
+        "conceptId": "concept:small",
+        "lang": "oj",
+        "form": "agaashiinyi",
+        "primary": true
+      }
+    ],
+    "yázhí": [
+      {
+        "conceptId": "concept:small",
+        "lang": "nav",
+        "form": "yázhí",
+        "primary": true
+      }
+    ],
+    "usdi": [
+      {
+        "conceptId": "concept:small",
+        "lang": "chr",
+        "form": "usdi",
+        "primary": true
+      },
+      {
+        "conceptId": "concept:few",
+        "lang": "chr",
+        "form": "usdi",
+        "primary": true
+      }
+    ],
     "hot": [
       {
         "conceptId": "concept:hot",
         "lang": "en",
         "form": "hot",
-        "primary": true
-      }
-    ],
-    "heiss": [
-      {
-        "conceptId": "concept:hot",
-        "lang": "de",
-        "form": "heiß",
         "primary": true
       }
     ],
@@ -19128,14 +21449,6 @@
         "primary": true
       }
     ],
-    "ζεστόσ": [
-      {
-        "conceptId": "concept:hot",
-        "lang": "el",
-        "form": "ζεστός",
-        "primary": true
-      }
-    ],
     "ζεστός": [
       {
         "conceptId": "concept:hot",
@@ -19157,6 +21470,30 @@
         "conceptId": "concept:hot",
         "lang": "ru",
         "form": "горячий",
+        "primary": true
+      }
+    ],
+    "gizhaate": [
+      {
+        "conceptId": "concept:hot",
+        "lang": "oj",
+        "form": "gizhaate",
+        "primary": true
+      }
+    ],
+    "sido": [
+      {
+        "conceptId": "concept:hot",
+        "lang": "nav",
+        "form": "sido",
+        "primary": true
+      }
+    ],
+    "udalenv": [
+      {
+        "conceptId": "concept:hot",
+        "lang": "chr",
+        "form": "udalenv",
         "primary": true
       }
     ],
@@ -19264,14 +21601,6 @@
         "primary": true
       }
     ],
-    "κρύοσ": [
-      {
-        "conceptId": "concept:cold",
-        "lang": "el",
-        "form": "κρύος",
-        "primary": true
-      }
-    ],
     "κρύος": [
       {
         "conceptId": "concept:cold",
@@ -19293,6 +21622,30 @@
         "conceptId": "concept:cold",
         "lang": "ru",
         "form": "холодный",
+        "primary": true
+      }
+    ],
+    "gisinaa": [
+      {
+        "conceptId": "concept:cold",
+        "lang": "oj",
+        "form": "gisinaa",
+        "primary": true
+      }
+    ],
+    "sikʼaz": [
+      {
+        "conceptId": "concept:cold",
+        "lang": "nav",
+        "form": "sikʼaz",
+        "primary": true
+      }
+    ],
+    "uyosv": [
+      {
+        "conceptId": "concept:cold",
+        "lang": "chr",
+        "form": "uyosv",
         "primary": true
       }
     ],
@@ -19398,14 +21751,6 @@
         "primary": true
       }
     ],
-    "γεμάτοσ": [
-      {
-        "conceptId": "concept:full",
-        "lang": "el",
-        "form": "γεμάτος",
-        "primary": true
-      }
-    ],
     "γεμάτος": [
       {
         "conceptId": "concept:full",
@@ -19427,6 +21772,30 @@
         "conceptId": "concept:full",
         "lang": "ru",
         "form": "полный",
+        "primary": true
+      }
+    ],
+    "haaʼí": [
+      {
+        "conceptId": "concept:full",
+        "lang": "nav",
+        "form": "haaʼí",
+        "primary": true
+      }
+    ],
+    "uweti": [
+      {
+        "conceptId": "concept:full",
+        "lang": "chr",
+        "form": "uweti",
+        "primary": true
+      }
+    ],
+    "mooshkine": [
+      {
+        "conceptId": "concept:full",
+        "lang": "oj",
+        "form": "mooshkine",
         "primary": true
       }
     ],
@@ -19526,14 +21895,6 @@
         "primary": true
       }
     ],
-    "άδειοσ": [
-      {
-        "conceptId": "concept:empty",
-        "lang": "el",
-        "form": "άδειος",
-        "primary": true
-      }
-    ],
     "άδειος": [
       {
         "conceptId": "concept:empty",
@@ -19547,6 +21908,30 @@
         "conceptId": "concept:empty",
         "lang": "ru",
         "form": "пустой",
+        "primary": true
+      }
+    ],
+    "tʼáadoo leʼé": [
+      {
+        "conceptId": "concept:empty",
+        "lang": "nav",
+        "form": "tʼáadoo leʼé",
+        "primary": true
+      }
+    ],
+    "uweti tla": [
+      {
+        "conceptId": "concept:empty",
+        "lang": "chr",
+        "form": "uweti tla",
+        "primary": true
+      }
+    ],
+    "biinaakwaa": [
+      {
+        "conceptId": "concept:empty",
+        "lang": "oj",
+        "form": "biinaakwaa",
         "primary": true
       }
     ],
@@ -19652,14 +22037,6 @@
         "primary": true
       }
     ],
-    "ανοιχτόσ": [
-      {
-        "conceptId": "concept:open",
-        "lang": "el",
-        "form": "ανοιχτός",
-        "primary": true
-      }
-    ],
     "ανοιχτός": [
       {
         "conceptId": "concept:open",
@@ -19684,19 +22061,27 @@
         "primary": true
       }
     ],
+    "ádingo": [
+      {
+        "conceptId": "concept:open",
+        "lang": "nav",
+        "form": "ádingo",
+        "primary": true
+      }
+    ],
+    "baakin": [
+      {
+        "conceptId": "concept:open",
+        "lang": "oj",
+        "form": "baakin",
+        "primary": true
+      }
+    ],
     "close": [
       {
         "conceptId": "concept:close",
         "lang": "en",
         "form": "close",
-        "primary": true
-      }
-    ],
-    "schliessen": [
-      {
-        "conceptId": "concept:close",
-        "lang": "de",
-        "form": "schließen",
         "primary": true
       }
     ],
@@ -19817,6 +22202,22 @@
         "conceptId": "concept:close",
         "lang": "ru",
         "form": "закрывать",
+        "primary": true
+      }
+    ],
+    "niʼííłtsooz": [
+      {
+        "conceptId": "concept:close",
+        "lang": "nav",
+        "form": "niʼííłtsooz",
+        "primary": true
+      }
+    ],
+    "gibaakwaʼan": [
+      {
+        "conceptId": "concept:close",
+        "lang": "oj",
+        "form": "gibaakwaʼan",
         "primary": true
       }
     ],
@@ -19954,6 +22355,22 @@
         "primary": true
       }
     ],
+    "maajitaa": [
+      {
+        "conceptId": "concept:begin",
+        "lang": "oj",
+        "form": "maajitaa",
+        "primary": true
+      }
+    ],
+    "áłtsé": [
+      {
+        "conceptId": "concept:begin",
+        "lang": "nav",
+        "form": "áłtsé",
+        "primary": true
+      }
+    ],
     "end": [
       {
         "conceptId": "concept:end",
@@ -20056,14 +22473,6 @@
         "primary": true
       }
     ],
-    "τέλοσ": [
-      {
-        "conceptId": "concept:end",
-        "lang": "el",
-        "form": "τέλος",
-        "primary": true
-      }
-    ],
     "τέλος": [
       {
         "conceptId": "concept:end",
@@ -20085,6 +22494,22 @@
         "conceptId": "concept:end",
         "lang": "ru",
         "form": "конец",
+        "primary": true
+      }
+    ],
+    "ishkwaa": [
+      {
+        "conceptId": "concept:end",
+        "lang": "oj",
+        "form": "ishkwaa",
+        "primary": true
+      }
+    ],
+    "ałtso": [
+      {
+        "conceptId": "concept:end",
+        "lang": "nav",
+        "form": "ałtso",
         "primary": true
       }
     ],
@@ -20208,6 +22633,30 @@
         "primary": true
       }
     ],
+    "biboon": [
+      {
+        "conceptId": "concept:year",
+        "lang": "oj",
+        "form": "biboon",
+        "primary": true
+      }
+    ],
+    "nááhai": [
+      {
+        "conceptId": "concept:year",
+        "lang": "nav",
+        "form": "nááhai",
+        "primary": true
+      }
+    ],
+    "iyu": [
+      {
+        "conceptId": "concept:year",
+        "lang": "chr",
+        "form": "iyu",
+        "primary": true
+      }
+    ],
     "month": [
       {
         "conceptId": "concept:month",
@@ -20312,14 +22761,6 @@
         "primary": true
       }
     ],
-    "μήνασ": [
-      {
-        "conceptId": "concept:month",
-        "lang": "el",
-        "form": "μήνας",
-        "primary": true
-      }
-    ],
     "μήνας": [
       {
         "conceptId": "concept:month",
@@ -20333,6 +22774,14 @@
         "conceptId": "concept:month",
         "lang": "ru",
         "form": "месяц",
+        "primary": true
+      }
+    ],
+    "nídíílid": [
+      {
+        "conceptId": "concept:month",
+        "lang": "nav",
+        "form": "nídíílid",
         "primary": true
       }
     ],
@@ -20457,6 +22906,30 @@
         "conceptId": "concept:week",
         "lang": "ru",
         "form": "неделя",
+        "primary": true
+      }
+    ],
+    "damóo": [
+      {
+        "conceptId": "concept:week",
+        "lang": "nav",
+        "form": "damóo",
+        "primary": true
+      }
+    ],
+    "igohidoda": [
+      {
+        "conceptId": "concept:week",
+        "lang": "chr",
+        "form": "igohidoda",
+        "primary": true
+      }
+    ],
+    "anamiʼe-giizhigad": [
+      {
+        "conceptId": "concept:week",
+        "lang": "oj",
+        "form": "anamiʼe-giizhigad",
         "primary": true
       }
     ],
@@ -20590,6 +23063,22 @@
         "primary": true
       }
     ],
+    "ahééʼílkid": [
+      {
+        "conceptId": "concept:hour",
+        "lang": "nav",
+        "form": "ahééʼílkid",
+        "primary": true
+      }
+    ],
+    "dibaʼigan": [
+      {
+        "conceptId": "concept:hour",
+        "lang": "oj",
+        "form": "dibaʼigan",
+        "primary": true
+      }
+    ],
     "now": [
       {
         "conceptId": "concept:now",
@@ -20705,6 +23194,30 @@
         "conceptId": "concept:now",
         "lang": "ru",
         "form": "сейчас",
+        "primary": true
+      }
+    ],
+    "noongom": [
+      {
+        "conceptId": "concept:now",
+        "lang": "oj",
+        "form": "noongom",
+        "primary": true
+      }
+    ],
+    "kʼad": [
+      {
+        "conceptId": "concept:now",
+        "lang": "nav",
+        "form": "kʼad",
+        "primary": true
+      }
+    ],
+    "higeyv": [
+      {
+        "conceptId": "concept:now",
+        "lang": "chr",
+        "form": "higeyv",
         "primary": true
       }
     ],
@@ -20846,6 +23359,36 @@
         "primary": true
       }
     ],
+    "omaa": [
+      {
+        "conceptId": "concept:here",
+        "lang": "oj",
+        "form": "omaa",
+        "primary": true
+      }
+    ],
+    "kweʼé": [
+      {
+        "conceptId": "concept:here",
+        "lang": "nav",
+        "form": "kweʼé",
+        "primary": true
+      }
+    ],
+    "hia": [
+      {
+        "conceptId": "concept:here",
+        "lang": "chr",
+        "form": "hia",
+        "primary": true
+      },
+      {
+        "conceptId": "concept:this",
+        "lang": "chr",
+        "form": "hia",
+        "primary": true
+      }
+    ],
     "there": [
       {
         "conceptId": "concept:there",
@@ -20974,6 +23517,36 @@
         "primary": true
       }
     ],
+    "iwidi": [
+      {
+        "conceptId": "concept:there",
+        "lang": "oj",
+        "form": "iwidi",
+        "primary": true
+      }
+    ],
+    "áadi": [
+      {
+        "conceptId": "concept:there",
+        "lang": "nav",
+        "form": "áadi",
+        "primary": true
+      }
+    ],
+    "na": [
+      {
+        "conceptId": "concept:there",
+        "lang": "chr",
+        "form": "na",
+        "primary": true
+      },
+      {
+        "conceptId": "concept:that",
+        "lang": "chr",
+        "form": "na",
+        "primary": true
+      }
+    ],
     "who": [
       {
         "conceptId": "concept:who",
@@ -21076,14 +23649,6 @@
         "primary": true
       }
     ],
-    "ποιοσ": [
-      {
-        "conceptId": "concept:who",
-        "lang": "el",
-        "form": "ποιος",
-        "primary": true
-      }
-    ],
     "ποιος": [
       {
         "conceptId": "concept:who",
@@ -21105,6 +23670,36 @@
         "conceptId": "concept:who",
         "lang": "ru",
         "form": "кто",
+        "primary": true
+      }
+    ],
+    "awenen": [
+      {
+        "conceptId": "concept:who",
+        "lang": "oj",
+        "form": "awenen",
+        "primary": true
+      }
+    ],
+    "háí": [
+      {
+        "conceptId": "concept:who",
+        "lang": "nav",
+        "form": "háí",
+        "primary": true
+      }
+    ],
+    "gado": [
+      {
+        "conceptId": "concept:who",
+        "lang": "chr",
+        "form": "gado",
+        "primary": true
+      },
+      {
+        "conceptId": "concept:what",
+        "lang": "chr",
+        "form": "gado",
         "primary": true
       }
     ],
@@ -21252,6 +23847,22 @@
         "primary": true
       }
     ],
+    "wegonen": [
+      {
+        "conceptId": "concept:what",
+        "lang": "oj",
+        "form": "wegonen",
+        "primary": true
+      }
+    ],
+    "haʼátʼíí": [
+      {
+        "conceptId": "concept:what",
+        "lang": "nav",
+        "form": "haʼátʼíí",
+        "primary": true
+      }
+    ],
     "where": [
       {
         "conceptId": "concept:where",
@@ -21380,6 +23991,30 @@
         "primary": true
       }
     ],
+    "aandi": [
+      {
+        "conceptId": "concept:where",
+        "lang": "oj",
+        "form": "aandi",
+        "primary": true
+      }
+    ],
+    "háadi": [
+      {
+        "conceptId": "concept:where",
+        "lang": "nav",
+        "form": "háadi",
+        "primary": true
+      }
+    ],
+    "haitlv": [
+      {
+        "conceptId": "concept:where",
+        "lang": "chr",
+        "form": "haitlv",
+        "primary": true
+      }
+    ],
     "when": [
       {
         "conceptId": "concept:when",
@@ -21501,6 +24136,30 @@
         "conceptId": "concept:when",
         "lang": "ru",
         "form": "когда",
+        "primary": true
+      }
+    ],
+    "aaniin apii": [
+      {
+        "conceptId": "concept:when",
+        "lang": "oj",
+        "form": "aaniin apii",
+        "primary": true
+      }
+    ],
+    "háádishąʼ": [
+      {
+        "conceptId": "concept:when",
+        "lang": "nav",
+        "form": "háádishąʼ",
+        "primary": true
+      }
+    ],
+    "hilvsgi": [
+      {
+        "conceptId": "concept:when",
+        "lang": "chr",
+        "form": "hilvsgi",
         "primary": true
       }
     ],
@@ -21632,6 +24291,30 @@
         "primary": true
       }
     ],
+    "aaniin dash": [
+      {
+        "conceptId": "concept:why",
+        "lang": "oj",
+        "form": "aaniin dash",
+        "primary": true
+      }
+    ],
+    "haʼátʼíí biniinaa": [
+      {
+        "conceptId": "concept:why",
+        "lang": "nav",
+        "form": "haʼátʼíí biniinaa",
+        "primary": true
+      }
+    ],
+    "gado usdi": [
+      {
+        "conceptId": "concept:why",
+        "lang": "chr",
+        "form": "gado usdi",
+        "primary": true
+      }
+    ],
     "how": [
       {
         "conceptId": "concept:how",
@@ -21720,14 +24403,6 @@
         "primary": true
       }
     ],
-    "πώσ": [
-      {
-        "conceptId": "concept:how",
-        "lang": "el",
-        "form": "πώς",
-        "primary": true
-      }
-    ],
     "πώς": [
       {
         "conceptId": "concept:how",
@@ -21749,6 +24424,30 @@
         "conceptId": "concept:how",
         "lang": "ru",
         "form": "как",
+        "primary": true
+      }
+    ],
+    "aaniin": [
+      {
+        "conceptId": "concept:how",
+        "lang": "oj",
+        "form": "aaniin",
+        "primary": true
+      }
+    ],
+    "haitʼéego": [
+      {
+        "conceptId": "concept:how",
+        "lang": "nav",
+        "form": "haitʼéego",
+        "primary": true
+      }
+    ],
+    "gadohi": [
+      {
+        "conceptId": "concept:how",
+        "lang": "chr",
+        "form": "gadohi",
         "primary": true
       }
     ],
@@ -21874,6 +24573,36 @@
         "primary": true
       }
     ],
+    "miinawaa": [
+      {
+        "conceptId": "concept:and",
+        "lang": "oj",
+        "form": "miinawaa",
+        "primary": true
+      }
+    ],
+    "dóó": [
+      {
+        "conceptId": "concept:and",
+        "lang": "nav",
+        "form": "dóó",
+        "primary": true
+      }
+    ],
+    "ale": [
+      {
+        "conceptId": "concept:and",
+        "lang": "chr",
+        "form": "ale",
+        "primary": true
+      },
+      {
+        "conceptId": "concept:or",
+        "lang": "chr",
+        "form": "ale",
+        "primary": true
+      }
+    ],
     "oder": [
       {
         "conceptId": "concept:or",
@@ -21987,6 +24716,22 @@
         "conceptId": "concept:or",
         "lang": "ru",
         "form": "или",
+        "primary": true
+      }
+    ],
+    "doodaiiʼ": [
+      {
+        "conceptId": "concept:or",
+        "lang": "nav",
+        "form": "doodaiiʼ",
+        "primary": true
+      }
+    ],
+    "gemaa": [
+      {
+        "conceptId": "concept:or",
+        "lang": "oj",
+        "form": "gemaa",
         "primary": true
       }
     ],
@@ -22171,6 +24916,30 @@
         "conceptId": "concept:I",
         "lang": "ru",
         "form": "я",
+        "primary": true
+      }
+    ],
+    "niin": [
+      {
+        "conceptId": "concept:I",
+        "lang": "oj",
+        "form": "niin",
+        "primary": true
+      }
+    ],
+    "shí": [
+      {
+        "conceptId": "concept:I",
+        "lang": "nav",
+        "form": "shí",
+        "primary": true
+      }
+    ],
+    "aya": [
+      {
+        "conceptId": "concept:I",
+        "lang": "chr",
+        "form": "aya",
         "primary": true
       }
     ],
@@ -22364,6 +25133,30 @@
         "primary": false
       }
     ],
+    "giin": [
+      {
+        "conceptId": "concept:you",
+        "lang": "oj",
+        "form": "giin",
+        "primary": true
+      }
+    ],
+    "ni": [
+      {
+        "conceptId": "concept:you",
+        "lang": "nav",
+        "form": "ni",
+        "primary": true
+      }
+    ],
+    "nihi": [
+      {
+        "conceptId": "concept:you",
+        "lang": "chr",
+        "form": "nihi",
+        "primary": true
+      }
+    ],
     "we": [
       {
         "conceptId": "concept:we",
@@ -22468,14 +25261,6 @@
         "primary": true
       }
     ],
-    "εμείσ": [
-      {
-        "conceptId": "concept:we",
-        "lang": "el",
-        "form": "εμείς",
-        "primary": true
-      }
-    ],
     "εμείς": [
       {
         "conceptId": "concept:we",
@@ -22497,6 +25282,30 @@
         "conceptId": "concept:we",
         "lang": "ru",
         "form": "мы",
+        "primary": true
+      }
+    ],
+    "niinawind": [
+      {
+        "conceptId": "concept:we",
+        "lang": "oj",
+        "form": "niinawind",
+        "primary": true
+      }
+    ],
+    "nihí": [
+      {
+        "conceptId": "concept:we",
+        "lang": "nav",
+        "form": "nihí",
+        "primary": true
+      }
+    ],
+    "otsi": [
+      {
+        "conceptId": "concept:we",
+        "lang": "chr",
+        "form": "otsi",
         "primary": true
       }
     ],
@@ -22625,6 +25434,30 @@
         "conceptId": "concept:they",
         "lang": "ru",
         "form": "они",
+        "primary": true
+      }
+    ],
+    "wiinawaa": [
+      {
+        "conceptId": "concept:they",
+        "lang": "oj",
+        "form": "wiinawaa",
+        "primary": true
+      }
+    ],
+    "bí": [
+      {
+        "conceptId": "concept:they",
+        "lang": "nav",
+        "form": "bí",
+        "primary": true
+      }
+    ],
+    "ani": [
+      {
+        "conceptId": "concept:they",
+        "lang": "chr",
+        "form": "ani",
         "primary": true
       }
     ],
@@ -22757,6 +25590,22 @@
         "conceptId": "concept:this",
         "lang": "ru",
         "form": "это",
+        "primary": true
+      }
+    ],
+    "o'o": [
+      {
+        "conceptId": "concept:this",
+        "lang": "oj",
+        "form": "o'o",
+        "primary": true
+      }
+    ],
+    "díí": [
+      {
+        "conceptId": "concept:this",
+        "lang": "nav",
+        "form": "díí",
         "primary": true
       }
     ],
@@ -22912,6 +25761,22 @@
         "primary": true
       }
     ],
+    "i'iw": [
+      {
+        "conceptId": "concept:that",
+        "lang": "oj",
+        "form": "i'iw",
+        "primary": true
+      }
+    ],
+    "éí": [
+      {
+        "conceptId": "concept:that",
+        "lang": "nav",
+        "form": "éí",
+        "primary": true
+      }
+    ],
     "all": [
       {
         "conceptId": "concept:all",
@@ -23044,6 +25909,30 @@
         "primary": true
       }
     ],
+    "kakoinaag": [
+      {
+        "conceptId": "concept:all",
+        "lang": "oj",
+        "form": "kakoinaag",
+        "primary": true
+      }
+    ],
+    "tʼáá ałtso": [
+      {
+        "conceptId": "concept:all",
+        "lang": "nav",
+        "form": "tʼáá ałtso",
+        "primary": true
+      }
+    ],
+    "nigada": [
+      {
+        "conceptId": "concept:all",
+        "lang": "chr",
+        "form": "nigada",
+        "primary": true
+      }
+    ],
     "many": [
       {
         "conceptId": "concept:many",
@@ -23172,6 +26061,30 @@
         "primary": true
       }
     ],
+    "niibowa": [
+      {
+        "conceptId": "concept:many",
+        "lang": "oj",
+        "form": "niibowa",
+        "primary": true
+      }
+    ],
+    "ląʼí": [
+      {
+        "conceptId": "concept:many",
+        "lang": "nav",
+        "form": "ląʼí",
+        "primary": true
+      }
+    ],
+    "igohida": [
+      {
+        "conceptId": "concept:many",
+        "lang": "chr",
+        "form": "igohida",
+        "primary": true
+      }
+    ],
     "few": [
       {
         "conceptId": "concept:few",
@@ -23297,6 +26210,22 @@
         "conceptId": "concept:few",
         "lang": "ru",
         "form": "мало",
+        "primary": true
+      }
+    ],
+    "tʼáá díkwíí": [
+      {
+        "conceptId": "concept:few",
+        "lang": "nav",
+        "form": "tʼáá díkwíí",
+        "primary": true
+      }
+    ],
+    "bakaan": [
+      {
+        "conceptId": "concept:few",
+        "lang": "oj",
+        "form": "bakaan",
         "primary": true
       }
     ],
@@ -23431,6 +26360,22 @@
         "conceptId": "concept:four",
         "lang": "oj",
         "form": "niiwin",
+        "primary": true
+      }
+    ],
+    "dį́į́ʼ": [
+      {
+        "conceptId": "concept:four",
+        "lang": "nav",
+        "form": "dį́į́ʼ",
+        "primary": true
+      }
+    ],
+    "nvgi": [
+      {
+        "conceptId": "concept:four",
+        "lang": "chr",
+        "form": "nvgi",
         "primary": true
       }
     ],
@@ -23576,6 +26521,22 @@
         "primary": true
       }
     ],
+    "ashdlaʼ": [
+      {
+        "conceptId": "concept:five",
+        "lang": "nav",
+        "form": "ashdlaʼ",
+        "primary": false
+      }
+    ],
+    "hisgi": [
+      {
+        "conceptId": "concept:five",
+        "lang": "chr",
+        "form": "hisgi",
+        "primary": true
+      }
+    ],
     "zehn": [
       {
         "conceptId": "concept:ten",
@@ -23693,6 +26654,30 @@
         "conceptId": "concept:ten",
         "lang": "ru",
         "form": "десять",
+        "primary": true
+      }
+    ],
+    "midaaswi": [
+      {
+        "conceptId": "concept:ten",
+        "lang": "oj",
+        "form": "midaaswi",
+        "primary": true
+      }
+    ],
+    "neeznáá": [
+      {
+        "conceptId": "concept:ten",
+        "lang": "nav",
+        "form": "neeznáá",
+        "primary": true
+      }
+    ],
+    "sgohi": [
+      {
+        "conceptId": "concept:ten",
+        "lang": "chr",
+        "form": "sgohi",
         "primary": true
       }
     ],
@@ -23821,6 +26806,30 @@
         "conceptId": "concept:hundred",
         "lang": "ru",
         "form": "сто",
+        "primary": true
+      }
+    ],
+    "ningodwaak": [
+      {
+        "conceptId": "concept:hundred",
+        "lang": "oj",
+        "form": "ningodwaak",
+        "primary": true
+      }
+    ],
+    "neeznádiin": [
+      {
+        "conceptId": "concept:hundred",
+        "lang": "nav",
+        "form": "neeznádiin",
+        "primary": true
+      }
+    ],
+    "sgohitsgwa": [
+      {
+        "conceptId": "concept:hundred",
+        "lang": "chr",
+        "form": "sgohitsgwa",
         "primary": true
       }
     ],
@@ -23954,6 +26963,30 @@
         "primary": true
       }
     ],
+    "ádin": [
+      {
+        "conceptId": "concept:zero",
+        "lang": "nav",
+        "form": "ádin",
+        "primary": true
+      }
+    ],
+    "tla digohweli": [
+      {
+        "conceptId": "concept:zero",
+        "lang": "chr",
+        "form": "tla digohweli",
+        "primary": true
+      }
+    ],
+    "gaawiin gegoo": [
+      {
+        "conceptId": "concept:zero",
+        "lang": "oj",
+        "form": "gaawiin gegoo",
+        "primary": true
+      }
+    ],
     "venus": [
       {
         "conceptId": "concept:venus",
@@ -23982,6 +27015,12 @@
       {
         "conceptId": "concept:venus",
         "lang": "la",
+        "form": "Venus",
+        "primary": true
+      },
+      {
+        "conceptId": "concept:venus",
+        "lang": "nl",
         "form": "Venus",
         "primary": true
       }
@@ -24032,6 +27071,12 @@
         "lang": "zh",
         "form": "金星",
         "primary": true
+      },
+      {
+        "conceptId": "concept:venus",
+        "lang": "ja",
+        "form": "金星",
+        "primary": true
       }
     ],
     "венера": [
@@ -24039,6 +27084,30 @@
         "conceptId": "concept:venus",
         "lang": "ru",
         "form": "Венера",
+        "primary": true
+      }
+    ],
+    "vênus": [
+      {
+        "conceptId": "concept:venus",
+        "lang": "pt",
+        "form": "Vênus",
+        "primary": true
+      }
+    ],
+    "wenus": [
+      {
+        "conceptId": "concept:venus",
+        "lang": "pl",
+        "form": "Wenus",
+        "primary": true
+      }
+    ],
+    "금성": [
+      {
+        "conceptId": "concept:venus",
+        "lang": "ko",
+        "form": "금성",
         "primary": true
       }
     ],
@@ -24072,6 +27141,18 @@
         "lang": "la",
         "form": "Mars",
         "primary": true
+      },
+      {
+        "conceptId": "concept:mars",
+        "lang": "nl",
+        "form": "Mars",
+        "primary": true
+      },
+      {
+        "conceptId": "concept:mars",
+        "lang": "pl",
+        "form": "Mars",
+        "primary": true
       }
     ],
     "marte": [
@@ -24084,6 +27165,12 @@
       {
         "conceptId": "concept:mars",
         "lang": "it",
+        "form": "Marte",
+        "primary": true
+      },
+      {
+        "conceptId": "concept:mars",
+        "lang": "pt",
         "form": "Marte",
         "primary": true
       }
@@ -24104,14 +27191,6 @@
         "primary": true
       }
     ],
-    "άρησ": [
-      {
-        "conceptId": "concept:mars",
-        "lang": "el",
-        "form": "Άρης",
-        "primary": true
-      }
-    ],
     "άρης": [
       {
         "conceptId": "concept:mars",
@@ -24126,6 +27205,12 @@
         "lang": "zh",
         "form": "火星",
         "primary": true
+      },
+      {
+        "conceptId": "concept:mars",
+        "lang": "ja",
+        "form": "火星",
+        "primary": true
       }
     ],
     "марс": [
@@ -24133,6 +27218,14 @@
         "conceptId": "concept:mars",
         "lang": "ru",
         "form": "Марс",
+        "primary": true
+      }
+    ],
+    "화성": [
+      {
+        "conceptId": "concept:mars",
+        "lang": "ko",
+        "form": "화성",
         "primary": true
       }
     ],
@@ -24210,14 +27303,6 @@
         "primary": true
       }
     ],
-    "γλύφοσ": [
-      {
-        "conceptId": "concept:glyph",
-        "lang": "el",
-        "form": "γλύφος",
-        "primary": true
-      }
-    ],
     "γλύφος": [
       {
         "conceptId": "concept:glyph",
@@ -24242,6 +27327,110 @@
         "primary": true
       }
     ],
+    "zeichen": [
+      {
+        "conceptId": "concept:glyph",
+        "lang": "de",
+        "form": "Zeichen",
+        "primary": false
+      }
+    ],
+    "signe": [
+      {
+        "conceptId": "concept:glyph",
+        "lang": "fr",
+        "form": "signe",
+        "primary": false
+      }
+    ],
+    "signo": [
+      {
+        "conceptId": "concept:glyph",
+        "lang": "es",
+        "form": "signo",
+        "primary": false
+      }
+    ],
+    "segno": [
+      {
+        "conceptId": "concept:glyph",
+        "lang": "it",
+        "form": "segno",
+        "primary": false
+      }
+    ],
+    "tákn": [
+      {
+        "conceptId": "concept:glyph",
+        "lang": "is",
+        "form": "tákn",
+        "primary": true
+      }
+    ],
+    "teken": [
+      {
+        "conceptId": "concept:glyph",
+        "lang": "nl",
+        "form": "teken",
+        "primary": false
+      }
+    ],
+    "znak": [
+      {
+        "conceptId": "concept:glyph",
+        "lang": "pl",
+        "form": "znak",
+        "primary": false
+      }
+    ],
+    "حرف": [
+      {
+        "conceptId": "concept:glyph",
+        "lang": "ar",
+        "form": "حرف",
+        "primary": false
+      }
+    ],
+    "चिह्न": [
+      {
+        "conceptId": "concept:glyph",
+        "lang": "hi",
+        "form": "चिह्न",
+        "primary": false
+      }
+    ],
+    "σύμβολο": [
+      {
+        "conceptId": "concept:glyph",
+        "lang": "el",
+        "form": "σύμβολο",
+        "primary": false
+      }
+    ],
+    "符号": [
+      {
+        "conceptId": "concept:glyph",
+        "lang": "zh",
+        "form": "符号",
+        "primary": false
+      }
+    ],
+    "знак": [
+      {
+        "conceptId": "concept:glyph",
+        "lang": "ru",
+        "form": "знак",
+        "primary": false
+      }
+    ],
+    "signum": [
+      {
+        "conceptId": "concept:glyph",
+        "lang": "la",
+        "form": "signum",
+        "primary": false
+      }
+    ],
     "rubik": [
       {
         "conceptId": "concept:rubik",
@@ -24254,6 +27443,12 @@
         "lang": "fr",
         "form": "Rubik",
         "primary": true
+      },
+      {
+        "conceptId": "concept:rubik",
+        "lang": "en",
+        "form": "rubik",
+        "primary": false
       }
     ],
     "cube": [
@@ -24309,6 +27504,98 @@
         "conceptId": "concept:rubik",
         "lang": "ja",
         "form": "ルービックキューブ",
+        "primary": true
+      }
+    ],
+    "cubo": [
+      {
+        "conceptId": "concept:rubik",
+        "lang": "es",
+        "form": "cubo",
+        "primary": false
+      },
+      {
+        "conceptId": "concept:rubik",
+        "lang": "it",
+        "form": "cubo",
+        "primary": false
+      },
+      {
+        "conceptId": "concept:rubik",
+        "lang": "pt",
+        "form": "cubo",
+        "primary": true
+      }
+    ],
+    "teningur": [
+      {
+        "conceptId": "concept:rubik",
+        "lang": "is",
+        "form": "teningur",
+        "primary": true
+      }
+    ],
+    "kubus": [
+      {
+        "conceptId": "concept:rubik",
+        "lang": "nl",
+        "form": "kubus",
+        "primary": true
+      }
+    ],
+    "kostka": [
+      {
+        "conceptId": "concept:rubik",
+        "lang": "pl",
+        "form": "kostka",
+        "primary": true
+      }
+    ],
+    "مكعب": [
+      {
+        "conceptId": "concept:rubik",
+        "lang": "ar",
+        "form": "مكعب",
+        "primary": true
+      }
+    ],
+    "घन": [
+      {
+        "conceptId": "concept:rubik",
+        "lang": "hi",
+        "form": "घन",
+        "primary": true
+      }
+    ],
+    "κύβος": [
+      {
+        "conceptId": "concept:rubik",
+        "lang": "el",
+        "form": "κύβος",
+        "primary": true
+      }
+    ],
+    "кубик": [
+      {
+        "conceptId": "concept:rubik",
+        "lang": "ru",
+        "form": "кубик",
+        "primary": false
+      }
+    ],
+    "ルービック": [
+      {
+        "conceptId": "concept:rubik",
+        "lang": "ja",
+        "form": "ルービック",
+        "primary": false
+      }
+    ],
+    "큐브": [
+      {
+        "conceptId": "concept:rubik",
+        "lang": "ko",
+        "form": "큐브",
         "primary": true
       }
     ],
@@ -24424,6 +27711,38 @@
         "primary": true
       }
     ],
+    "effort": [
+      {
+        "conceptId": "concept:strain",
+        "lang": "fr",
+        "form": "effort",
+        "primary": false
+      }
+    ],
+    "álag": [
+      {
+        "conceptId": "concept:strain",
+        "lang": "is",
+        "form": "álag",
+        "primary": true
+      }
+    ],
+    "压力": [
+      {
+        "conceptId": "concept:strain",
+        "lang": "zh",
+        "form": "压力",
+        "primary": false
+      }
+    ],
+    "нагрузка": [
+      {
+        "conceptId": "concept:strain",
+        "lang": "ru",
+        "form": "нагрузка",
+        "primary": false
+      }
+    ],
     "layout": [
       {
         "conceptId": "concept:layout",
@@ -24448,6 +27767,12 @@
         "lang": "pt",
         "form": "layout",
         "primary": true
+      },
+      {
+        "conceptId": "concept:layout",
+        "lang": "de",
+        "form": "Layout",
+        "primary": false
       }
     ],
     "belegung": [
@@ -24527,6 +27852,912 @@
         "conceptId": "concept:layout",
         "lang": "ru",
         "form": "раскладка",
+        "primary": true
+      }
+    ],
+    "disposizione": [
+      {
+        "conceptId": "concept:layout",
+        "lang": "it",
+        "form": "disposizione",
+        "primary": false
+      }
+    ],
+    "skipulag": [
+      {
+        "conceptId": "concept:layout",
+        "lang": "is",
+        "form": "skipulag",
+        "primary": true
+      }
+    ],
+    "transfer": [
+      {
+        "conceptId": "concept:transfer",
+        "lang": "en",
+        "form": "transfer",
+        "primary": true
+      },
+      {
+        "conceptId": "concept:transfer",
+        "lang": "de",
+        "form": "Transfer",
+        "primary": true
+      },
+      {
+        "conceptId": "concept:transfer",
+        "lang": "pl",
+        "form": "transfer",
+        "primary": true
+      }
+    ],
+    "transfert": [
+      {
+        "conceptId": "concept:transfer",
+        "lang": "fr",
+        "form": "transfert",
+        "primary": true
+      }
+    ],
+    "transferencia": [
+      {
+        "conceptId": "concept:transfer",
+        "lang": "es",
+        "form": "transferencia",
+        "primary": true
+      }
+    ],
+    "trasferimento": [
+      {
+        "conceptId": "concept:transfer",
+        "lang": "it",
+        "form": "trasferimento",
+        "primary": true
+      }
+    ],
+    "flutningur": [
+      {
+        "conceptId": "concept:transfer",
+        "lang": "is",
+        "form": "flutningur",
+        "primary": true
+      }
+    ],
+    "overdracht": [
+      {
+        "conceptId": "concept:transfer",
+        "lang": "nl",
+        "form": "overdracht",
+        "primary": true
+      }
+    ],
+    "transferência": [
+      {
+        "conceptId": "concept:transfer",
+        "lang": "pt",
+        "form": "transferência",
+        "primary": true
+      }
+    ],
+    "نقل": [
+      {
+        "conceptId": "concept:transfer",
+        "lang": "ar",
+        "form": "نقل",
+        "primary": true
+      }
+    ],
+    "स्थानांतरण": [
+      {
+        "conceptId": "concept:transfer",
+        "lang": "hi",
+        "form": "स्थानांतरण",
+        "primary": true
+      }
+    ],
+    "μεταφορά": [
+      {
+        "conceptId": "concept:transfer",
+        "lang": "el",
+        "form": "μεταφορά",
+        "primary": true
+      }
+    ],
+    "迁移": [
+      {
+        "conceptId": "concept:transfer",
+        "lang": "zh",
+        "form": "迁移",
+        "primary": true
+      }
+    ],
+    "перенос": [
+      {
+        "conceptId": "concept:transfer",
+        "lang": "ru",
+        "form": "перенос",
+        "primary": true
+      }
+    ],
+    "portal": [
+      {
+        "conceptId": "concept:portal",
+        "lang": "en",
+        "form": "portal",
+        "primary": true
+      },
+      {
+        "conceptId": "concept:portal",
+        "lang": "de",
+        "form": "Portal",
+        "primary": true
+      },
+      {
+        "conceptId": "concept:portal",
+        "lang": "es",
+        "form": "portal",
+        "primary": true
+      },
+      {
+        "conceptId": "concept:portal",
+        "lang": "pt",
+        "form": "portal",
+        "primary": true
+      },
+      {
+        "conceptId": "concept:portal",
+        "lang": "pl",
+        "form": "portal",
+        "primary": true
+      }
+    ],
+    "portail": [
+      {
+        "conceptId": "concept:portal",
+        "lang": "fr",
+        "form": "portail",
+        "primary": true
+      }
+    ],
+    "portale": [
+      {
+        "conceptId": "concept:portal",
+        "lang": "it",
+        "form": "portale",
+        "primary": true
+      }
+    ],
+    "gátt": [
+      {
+        "conceptId": "concept:portal",
+        "lang": "is",
+        "form": "gátt",
+        "primary": true
+      }
+    ],
+    "portaal": [
+      {
+        "conceptId": "concept:portal",
+        "lang": "nl",
+        "form": "portaal",
+        "primary": true
+      }
+    ],
+    "بوابة": [
+      {
+        "conceptId": "concept:portal",
+        "lang": "ar",
+        "form": "بوابة",
+        "primary": true
+      }
+    ],
+    "पोर्टल": [
+      {
+        "conceptId": "concept:portal",
+        "lang": "hi",
+        "form": "पोर्टल",
+        "primary": true
+      }
+    ],
+    "πύλη": [
+      {
+        "conceptId": "concept:portal",
+        "lang": "el",
+        "form": "πύλη",
+        "primary": true
+      }
+    ],
+    "门户": [
+      {
+        "conceptId": "concept:portal",
+        "lang": "zh",
+        "form": "门户",
+        "primary": true
+      }
+    ],
+    "портал": [
+      {
+        "conceptId": "concept:portal",
+        "lang": "ru",
+        "form": "портал",
+        "primary": true
+      }
+    ],
+    "stair": [
+      {
+        "conceptId": "concept:stair",
+        "lang": "en",
+        "form": "stair",
+        "primary": true
+      }
+    ],
+    "ladder": [
+      {
+        "conceptId": "concept:stair",
+        "lang": "en",
+        "form": "ladder",
+        "primary": false
+      }
+    ],
+    "treppe": [
+      {
+        "conceptId": "concept:stair",
+        "lang": "de",
+        "form": "Treppe",
+        "primary": true
+      }
+    ],
+    "escalier": [
+      {
+        "conceptId": "concept:stair",
+        "lang": "fr",
+        "form": "escalier",
+        "primary": true
+      }
+    ],
+    "escalera": [
+      {
+        "conceptId": "concept:stair",
+        "lang": "es",
+        "form": "escalera",
+        "primary": true
+      }
+    ],
+    "scala": [
+      {
+        "conceptId": "concept:stair",
+        "lang": "it",
+        "form": "scala",
+        "primary": true
+      }
+    ],
+    "stigi": [
+      {
+        "conceptId": "concept:stair",
+        "lang": "is",
+        "form": "stigi",
+        "primary": true
+      }
+    ],
+    "trap": [
+      {
+        "conceptId": "concept:stair",
+        "lang": "nl",
+        "form": "trap",
+        "primary": true
+      }
+    ],
+    "escada": [
+      {
+        "conceptId": "concept:stair",
+        "lang": "pt",
+        "form": "escada",
+        "primary": true
+      }
+    ],
+    "schody": [
+      {
+        "conceptId": "concept:stair",
+        "lang": "pl",
+        "form": "schody",
+        "primary": true
+      }
+    ],
+    "درج": [
+      {
+        "conceptId": "concept:stair",
+        "lang": "ar",
+        "form": "درج",
+        "primary": true
+      }
+    ],
+    "सीढ़ी": [
+      {
+        "conceptId": "concept:stair",
+        "lang": "hi",
+        "form": "सीढ़ी",
+        "primary": true
+      }
+    ],
+    "σκάλα": [
+      {
+        "conceptId": "concept:stair",
+        "lang": "el",
+        "form": "σκάλα",
+        "primary": true
+      }
+    ],
+    "阶梯": [
+      {
+        "conceptId": "concept:stair",
+        "lang": "zh",
+        "form": "阶梯",
+        "primary": true
+      }
+    ],
+    "лестница": [
+      {
+        "conceptId": "concept:stair",
+        "lang": "ru",
+        "form": "лестница",
+        "primary": true
+      }
+    ],
+    "mesh": [
+      {
+        "conceptId": "concept:mesh",
+        "lang": "en",
+        "form": "mesh",
+        "primary": true
+      }
+    ],
+    "netz": [
+      {
+        "conceptId": "concept:mesh",
+        "lang": "de",
+        "form": "Netz",
+        "primary": true
+      }
+    ],
+    "maillage": [
+      {
+        "conceptId": "concept:mesh",
+        "lang": "fr",
+        "form": "maillage",
+        "primary": true
+      }
+    ],
+    "malla": [
+      {
+        "conceptId": "concept:mesh",
+        "lang": "es",
+        "form": "malla",
+        "primary": true
+      }
+    ],
+    "rete": [
+      {
+        "conceptId": "concept:mesh",
+        "lang": "it",
+        "form": "rete",
+        "primary": true
+      }
+    ],
+    "net": [
+      {
+        "conceptId": "concept:mesh",
+        "lang": "is",
+        "form": "net",
+        "primary": true
+      },
+      {
+        "conceptId": "concept:mesh",
+        "lang": "nl",
+        "form": "net",
+        "primary": true
+      }
+    ],
+    "malha": [
+      {
+        "conceptId": "concept:mesh",
+        "lang": "pt",
+        "form": "malha",
+        "primary": true
+      }
+    ],
+    "siatka": [
+      {
+        "conceptId": "concept:mesh",
+        "lang": "pl",
+        "form": "siatka",
+        "primary": true
+      }
+    ],
+    "شبكة": [
+      {
+        "conceptId": "concept:mesh",
+        "lang": "ar",
+        "form": "شبكة",
+        "primary": true
+      }
+    ],
+    "जाल": [
+      {
+        "conceptId": "concept:mesh",
+        "lang": "hi",
+        "form": "जाल",
+        "primary": true
+      }
+    ],
+    "πλέγμα": [
+      {
+        "conceptId": "concept:mesh",
+        "lang": "el",
+        "form": "πλέγμα",
+        "primary": true
+      }
+    ],
+    "网格": [
+      {
+        "conceptId": "concept:mesh",
+        "lang": "zh",
+        "form": "网格",
+        "primary": true
+      }
+    ],
+    "сеть": [
+      {
+        "conceptId": "concept:mesh",
+        "lang": "ru",
+        "form": "сеть",
+        "primary": true
+      }
+    ],
+    "concept": [
+      {
+        "conceptId": "concept:concept",
+        "lang": "en",
+        "form": "concept",
+        "primary": true
+      },
+      {
+        "conceptId": "concept:concept",
+        "lang": "fr",
+        "form": "concept",
+        "primary": true
+      },
+      {
+        "conceptId": "concept:concept",
+        "lang": "nl",
+        "form": "concept",
+        "primary": true
+      }
+    ],
+    "begriff": [
+      {
+        "conceptId": "concept:concept",
+        "lang": "de",
+        "form": "Begriff",
+        "primary": true
+      }
+    ],
+    "concepto": [
+      {
+        "conceptId": "concept:concept",
+        "lang": "es",
+        "form": "concepto",
+        "primary": true
+      }
+    ],
+    "concetto": [
+      {
+        "conceptId": "concept:concept",
+        "lang": "it",
+        "form": "concetto",
+        "primary": true
+      }
+    ],
+    "hugtak": [
+      {
+        "conceptId": "concept:concept",
+        "lang": "is",
+        "form": "hugtak",
+        "primary": true
+      }
+    ],
+    "conceito": [
+      {
+        "conceptId": "concept:concept",
+        "lang": "pt",
+        "form": "conceito",
+        "primary": true
+      }
+    ],
+    "pojęcie": [
+      {
+        "conceptId": "concept:concept",
+        "lang": "pl",
+        "form": "pojęcie",
+        "primary": true
+      }
+    ],
+    "مفهوم": [
+      {
+        "conceptId": "concept:concept",
+        "lang": "ar",
+        "form": "مفهوم",
+        "primary": true
+      }
+    ],
+    "अवधारणा": [
+      {
+        "conceptId": "concept:concept",
+        "lang": "hi",
+        "form": "अवधारणा",
+        "primary": true
+      }
+    ],
+    "έννοια": [
+      {
+        "conceptId": "concept:concept",
+        "lang": "el",
+        "form": "έννοια",
+        "primary": true
+      }
+    ],
+    "概念": [
+      {
+        "conceptId": "concept:concept",
+        "lang": "zh",
+        "form": "概念",
+        "primary": true
+      }
+    ],
+    "понятие": [
+      {
+        "conceptId": "concept:concept",
+        "lang": "ru",
+        "form": "понятие",
+        "primary": true
+      }
+    ],
+    "form": [
+      {
+        "conceptId": "concept:form",
+        "lang": "en",
+        "form": "form",
+        "primary": true
+      },
+      {
+        "conceptId": "concept:form",
+        "lang": "de",
+        "form": "Form",
+        "primary": true
+      },
+      {
+        "conceptId": "concept:form",
+        "lang": "is",
+        "form": "form",
+        "primary": true
+      }
+    ],
+    "spelling": [
+      {
+        "conceptId": "concept:form",
+        "lang": "en",
+        "form": "spelling",
+        "primary": false
+      }
+    ],
+    "schreibung": [
+      {
+        "conceptId": "concept:form",
+        "lang": "de",
+        "form": "Schreibung",
+        "primary": false
+      }
+    ],
+    "forme": [
+      {
+        "conceptId": "concept:form",
+        "lang": "fr",
+        "form": "forme",
+        "primary": true
+      }
+    ],
+    "forma": [
+      {
+        "conceptId": "concept:form",
+        "lang": "es",
+        "form": "forma",
+        "primary": true
+      },
+      {
+        "conceptId": "concept:form",
+        "lang": "it",
+        "form": "forma",
+        "primary": true
+      },
+      {
+        "conceptId": "concept:form",
+        "lang": "pt",
+        "form": "forma",
+        "primary": true
+      },
+      {
+        "conceptId": "concept:form",
+        "lang": "pl",
+        "form": "forma",
+        "primary": true
+      }
+    ],
+    "vorm": [
+      {
+        "conceptId": "concept:form",
+        "lang": "nl",
+        "form": "vorm",
+        "primary": true
+      }
+    ],
+    "شكل": [
+      {
+        "conceptId": "concept:form",
+        "lang": "ar",
+        "form": "شكل",
+        "primary": true
+      }
+    ],
+    "रूप": [
+      {
+        "conceptId": "concept:form",
+        "lang": "hi",
+        "form": "रूप",
+        "primary": true
+      }
+    ],
+    "μορφή": [
+      {
+        "conceptId": "concept:form",
+        "lang": "el",
+        "form": "μορφή",
+        "primary": true
+      }
+    ],
+    "形式": [
+      {
+        "conceptId": "concept:form",
+        "lang": "zh",
+        "form": "形式",
+        "primary": true
+      }
+    ],
+    "форма": [
+      {
+        "conceptId": "concept:form",
+        "lang": "ru",
+        "form": "форма",
+        "primary": true
+      }
+    ],
+    "instant": [
+      {
+        "conceptId": "concept:instant",
+        "lang": "en",
+        "form": "instant",
+        "primary": true
+      }
+    ],
+    "sofort": [
+      {
+        "conceptId": "concept:instant",
+        "lang": "de",
+        "form": "sofort",
+        "primary": true
+      }
+    ],
+    "instantané": [
+      {
+        "conceptId": "concept:instant",
+        "lang": "fr",
+        "form": "instantané",
+        "primary": true
+      }
+    ],
+    "instantáneo": [
+      {
+        "conceptId": "concept:instant",
+        "lang": "es",
+        "form": "instantáneo",
+        "primary": true
+      }
+    ],
+    "istantaneo": [
+      {
+        "conceptId": "concept:instant",
+        "lang": "it",
+        "form": "istantaneo",
+        "primary": true
+      }
+    ],
+    "augnabliks": [
+      {
+        "conceptId": "concept:instant",
+        "lang": "is",
+        "form": "augnabliks",
+        "primary": true
+      }
+    ],
+    "direct": [
+      {
+        "conceptId": "concept:instant",
+        "lang": "nl",
+        "form": "direct",
+        "primary": true
+      }
+    ],
+    "instantâneo": [
+      {
+        "conceptId": "concept:instant",
+        "lang": "pt",
+        "form": "instantâneo",
+        "primary": true
+      }
+    ],
+    "natychmiastowy": [
+      {
+        "conceptId": "concept:instant",
+        "lang": "pl",
+        "form": "natychmiastowy",
+        "primary": true
+      }
+    ],
+    "فوري": [
+      {
+        "conceptId": "concept:instant",
+        "lang": "ar",
+        "form": "فوري",
+        "primary": true
+      }
+    ],
+    "तत्काल": [
+      {
+        "conceptId": "concept:instant",
+        "lang": "hi",
+        "form": "तत्काल",
+        "primary": true
+      }
+    ],
+    "άμεσος": [
+      {
+        "conceptId": "concept:instant",
+        "lang": "el",
+        "form": "άμεσος",
+        "primary": true
+      }
+    ],
+    "即时": [
+      {
+        "conceptId": "concept:instant",
+        "lang": "zh",
+        "form": "即时",
+        "primary": true
+      }
+    ],
+    "мгновенный": [
+      {
+        "conceptId": "concept:instant",
+        "lang": "ru",
+        "form": "мгновенный",
+        "primary": true
+      }
+    ],
+    "ready": [
+      {
+        "conceptId": "concept:ready",
+        "lang": "en",
+        "form": "ready",
+        "primary": true
+      }
+    ],
+    "bereit": [
+      {
+        "conceptId": "concept:ready",
+        "lang": "de",
+        "form": "bereit",
+        "primary": true
+      }
+    ],
+    "prêt": [
+      {
+        "conceptId": "concept:ready",
+        "lang": "fr",
+        "form": "prêt",
+        "primary": true
+      }
+    ],
+    "listo": [
+      {
+        "conceptId": "concept:ready",
+        "lang": "es",
+        "form": "listo",
+        "primary": true
+      }
+    ],
+    "pronto": [
+      {
+        "conceptId": "concept:ready",
+        "lang": "it",
+        "form": "pronto",
+        "primary": true
+      },
+      {
+        "conceptId": "concept:ready",
+        "lang": "pt",
+        "form": "pronto",
+        "primary": true
+      }
+    ],
+    "tilbúinn": [
+      {
+        "conceptId": "concept:ready",
+        "lang": "is",
+        "form": "tilbúinn",
+        "primary": true
+      }
+    ],
+    "klaar": [
+      {
+        "conceptId": "concept:ready",
+        "lang": "nl",
+        "form": "klaar",
+        "primary": true
+      }
+    ],
+    "gotowy": [
+      {
+        "conceptId": "concept:ready",
+        "lang": "pl",
+        "form": "gotowy",
+        "primary": true
+      }
+    ],
+    "جاهز": [
+      {
+        "conceptId": "concept:ready",
+        "lang": "ar",
+        "form": "جاهز",
+        "primary": true
+      }
+    ],
+    "तैयार": [
+      {
+        "conceptId": "concept:ready",
+        "lang": "hi",
+        "form": "तैयार",
+        "primary": true
+      }
+    ],
+    "έτοιμος": [
+      {
+        "conceptId": "concept:ready",
+        "lang": "el",
+        "form": "έτοιμος",
+        "primary": true
+      }
+    ],
+    "就绪": [
+      {
+        "conceptId": "concept:ready",
+        "lang": "zh",
+        "form": "就绪",
+        "primary": true
+      }
+    ],
+    "готов": [
+      {
+        "conceptId": "concept:ready",
+        "lang": "ru",
+        "form": "готов",
         "primary": true
       }
     ]

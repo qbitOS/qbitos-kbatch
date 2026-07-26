@@ -414,7 +414,7 @@ export const MCP_TOOLS = [
   {
     name: "kbatch_concept_solve",
     description:
-      "Instant multilingual meaning solve: one concept/word → all mesh language forms with pure C transfer rank + path geometry. Geometry≠gloss. Honor opt-in.",
+      "Instant multilingual meaning solve: one concept/word → mesh language forms with pure C transfer rank + path geometry. mode=stair = full Rubik 13-lang order (en→…→chr) with missing gaps. Geometry≠gloss. Honor opt-in (always on for stair).",
     inputSchema: {
       type: "object",
       properties: {
@@ -423,11 +423,30 @@ export const MCP_TOOLS = [
         from: { type: "string", description: "Source lang for C ranking (default en)" },
         mode: {
           type: "string",
-          enum: ["ready", "all", "honor"],
-          description: "ready = default; honor/all include FN educational seeds",
+          enum: ["ready", "all", "honor", "stair"],
+          description: "ready=default; honor/all=FN seeds; stair=all-13 Rubik order + missing gaps",
         },
         includeHonor: { type: "boolean" },
         includePaths: { type: "boolean", description: "Path geometry per form (default true)" },
+        limit: { type: "number" },
+      },
+    },
+  },
+  {
+    name: "kbatch_concept_stair_walk",
+    description:
+      "Walk several concepts along Rubik stair (en→is→de→fr→it→es→nav→oj→ar→hi→el→zh→chr). Instant multi-lang pack; missing steps = educational gaps.",
+    inputSchema: {
+      type: "object",
+      properties: {
+        concepts: {
+          type: "array",
+          items: { type: "string" },
+          description: "Concept slugs or forms (default liberty,water,path,language,sun,earth)",
+        },
+        q: { type: "string", description: "Comma/space-separated concepts (alt to concepts[])" },
+        from: { type: "string", description: "Source lang for C (default en)" },
+        includePaths: { type: "boolean" },
         limit: { type: "number" },
       },
     },

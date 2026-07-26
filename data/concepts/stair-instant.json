@@ -1,0 +1,1921 @@
+{
+  "schema": "kbatch-concept-stair-instant-v1",
+  "generated": "2026-07-26T02:39:50Z",
+  "claim": "Instant multi-lang forms along Rubik stair order (pure C tour). Missing = gap to fill, not error.",
+  "stairOrder": [
+    "en",
+    "is",
+    "de",
+    "fr",
+    "it",
+    "es",
+    "nav",
+    "oj",
+    "ar",
+    "hi",
+    "el",
+    "zh",
+    "chr"
+  ],
+  "stairFill": {
+    "en": {
+      "conceptsWithForm": 178,
+      "totalConcepts": 178,
+      "pct": 100.0,
+      "formTokens": 202
+    },
+    "is": {
+      "conceptsWithForm": 178,
+      "totalConcepts": 178,
+      "pct": 100.0,
+      "formTokens": 178
+    },
+    "de": {
+      "conceptsWithForm": 178,
+      "totalConcepts": 178,
+      "pct": 100.0,
+      "formTokens": 197
+    },
+    "fr": {
+      "conceptsWithForm": 178,
+      "totalConcepts": 178,
+      "pct": 100.0,
+      "formTokens": 197
+    },
+    "it": {
+      "conceptsWithForm": 178,
+      "totalConcepts": 178,
+      "pct": 100.0,
+      "formTokens": 186
+    },
+    "es": {
+      "conceptsWithForm": 178,
+      "totalConcepts": 178,
+      "pct": 100.0,
+      "formTokens": 193
+    },
+    "nav": {
+      "conceptsWithForm": 151,
+      "totalConcepts": 178,
+      "pct": 84.8,
+      "formTokens": 154
+    },
+    "oj": {
+      "conceptsWithForm": 162,
+      "totalConcepts": 178,
+      "pct": 91.0,
+      "formTokens": 164
+    },
+    "ar": {
+      "conceptsWithForm": 178,
+      "totalConcepts": 178,
+      "pct": 100.0,
+      "formTokens": 180
+    },
+    "hi": {
+      "conceptsWithForm": 178,
+      "totalConcepts": 178,
+      "pct": 100.0,
+      "formTokens": 183
+    },
+    "el": {
+      "conceptsWithForm": 178,
+      "totalConcepts": 178,
+      "pct": 100.0,
+      "formTokens": 179
+    },
+    "zh": {
+      "conceptsWithForm": 178,
+      "totalConcepts": 178,
+      "pct": 100.0,
+      "formTokens": 195
+    },
+    "chr": {
+      "conceptsWithForm": 151,
+      "totalConcepts": 178,
+      "pct": 84.8,
+      "formTokens": 151
+    }
+  },
+  "demos": [
+    {
+      "conceptId": "concept:liberty",
+      "slug": "liberty",
+      "gloss_en": "freedom from restraint",
+      "stair": [
+        {
+          "n": 1,
+          "lang": "en",
+          "form": "liberty",
+          "layout": "qwerty",
+          "status": "open",
+          "missing": false
+        },
+        {
+          "n": 2,
+          "lang": "is",
+          "form": "frelsi",
+          "layout": "qwerty",
+          "status": "open",
+          "missing": false
+        },
+        {
+          "n": 3,
+          "lang": "de",
+          "form": "Freiheit",
+          "layout": "qwertz",
+          "status": "open",
+          "missing": false
+        },
+        {
+          "n": 4,
+          "lang": "fr",
+          "form": "liberté",
+          "layout": "azerty",
+          "status": "open",
+          "missing": false
+        },
+        {
+          "n": 5,
+          "lang": "it",
+          "form": "libertà",
+          "layout": "qwerty",
+          "status": "open",
+          "missing": false
+        },
+        {
+          "n": 6,
+          "lang": "es",
+          "form": "libertad",
+          "layout": "qwerty",
+          "status": "open",
+          "missing": false
+        },
+        {
+          "n": 7,
+          "lang": "nav",
+          "form": "tʼáá hoołtsʼááʼí",
+          "layout": "qwerty",
+          "status": "honor-seed",
+          "missing": false
+        },
+        {
+          "n": 8,
+          "lang": "oj",
+          "form": "dibendizowin",
+          "layout": "qwerty",
+          "status": "honor-seed",
+          "missing": false
+        },
+        {
+          "n": 9,
+          "lang": "ar",
+          "form": "حرية",
+          "layout": "arabic",
+          "status": "open",
+          "missing": false
+        },
+        {
+          "n": 10,
+          "lang": "hi",
+          "form": "स्वतंत्रता",
+          "layout": "hindi",
+          "status": "open",
+          "missing": false
+        },
+        {
+          "n": 11,
+          "lang": "el",
+          "form": "ελευθερία",
+          "layout": "greek",
+          "status": "open",
+          "missing": false
+        },
+        {
+          "n": 12,
+          "lang": "zh",
+          "form": "自由",
+          "layout": "qwerty",
+          "status": "open",
+          "missing": false
+        },
+        {
+          "n": 13,
+          "lang": "chr",
+          "form": "uwenvsv",
+          "layout": "qwerty",
+          "status": "honor-seed",
+          "missing": false
+        }
+      ],
+      "filled": 13,
+      "of": 13
+    },
+    {
+      "conceptId": "concept:water",
+      "slug": "water",
+      "gloss_en": "liquid H2O; body of water",
+      "stair": [
+        {
+          "n": 1,
+          "lang": "en",
+          "form": "water",
+          "layout": "qwerty",
+          "status": "open",
+          "missing": false
+        },
+        {
+          "n": 2,
+          "lang": "is",
+          "form": "vatn",
+          "layout": "qwerty",
+          "status": "open",
+          "missing": false
+        },
+        {
+          "n": 3,
+          "lang": "de",
+          "form": "Wasser",
+          "layout": "qwertz",
+          "status": "open",
+          "missing": false
+        },
+        {
+          "n": 4,
+          "lang": "fr",
+          "form": "eau",
+          "layout": "azerty",
+          "status": "open",
+          "missing": false
+        },
+        {
+          "n": 5,
+          "lang": "it",
+          "form": "acqua",
+          "layout": "qwerty",
+          "status": "open",
+          "missing": false
+        },
+        {
+          "n": 6,
+          "lang": "es",
+          "form": "agua",
+          "layout": "qwerty",
+          "status": "open",
+          "missing": false
+        },
+        {
+          "n": 7,
+          "lang": "nav",
+          "form": "tó",
+          "layout": "qwerty",
+          "status": "honor-seed",
+          "missing": false
+        },
+        {
+          "n": 8,
+          "lang": "oj",
+          "form": "nibi",
+          "layout": "qwerty",
+          "status": "honor-seed",
+          "missing": false
+        },
+        {
+          "n": 9,
+          "lang": "ar",
+          "form": "ماء",
+          "layout": "arabic",
+          "status": "open",
+          "missing": false
+        },
+        {
+          "n": 10,
+          "lang": "hi",
+          "form": "पानी",
+          "layout": "hindi",
+          "status": "open",
+          "missing": false
+        },
+        {
+          "n": 11,
+          "lang": "el",
+          "form": "νερό",
+          "layout": "greek",
+          "status": "open",
+          "missing": false
+        },
+        {
+          "n": 12,
+          "lang": "zh",
+          "form": "水",
+          "layout": "qwerty",
+          "status": "open",
+          "missing": false
+        },
+        {
+          "n": 13,
+          "lang": "chr",
+          "form": "ama",
+          "layout": "qwerty",
+          "status": "honor-seed",
+          "missing": false
+        }
+      ],
+      "filled": 13,
+      "of": 13
+    },
+    {
+      "conceptId": "concept:path",
+      "slug": "path",
+      "gloss_en": "way; route; course",
+      "stair": [
+        {
+          "n": 1,
+          "lang": "en",
+          "form": "path",
+          "layout": "qwerty",
+          "status": "open",
+          "missing": false
+        },
+        {
+          "n": 2,
+          "lang": "is",
+          "form": "stígur",
+          "layout": "qwerty",
+          "status": "open",
+          "missing": false
+        },
+        {
+          "n": 3,
+          "lang": "de",
+          "form": "Pfad",
+          "layout": "qwertz",
+          "status": "open",
+          "missing": false
+        },
+        {
+          "n": 4,
+          "lang": "fr",
+          "form": "chemin",
+          "layout": "azerty",
+          "status": "open",
+          "missing": false
+        },
+        {
+          "n": 5,
+          "lang": "it",
+          "form": "sentiero",
+          "layout": "qwerty",
+          "status": "open",
+          "missing": false
+        },
+        {
+          "n": 6,
+          "lang": "es",
+          "form": "camino",
+          "layout": "qwerty",
+          "status": "open",
+          "missing": false
+        },
+        {
+          "n": 7,
+          "lang": "nav",
+          "form": "atiin",
+          "layout": "qwerty",
+          "status": "honor-seed",
+          "missing": false
+        },
+        {
+          "n": 8,
+          "lang": "oj",
+          "form": "miikana",
+          "layout": "qwerty",
+          "status": "honor-seed",
+          "missing": false
+        },
+        {
+          "n": 9,
+          "lang": "ar",
+          "form": "طريق",
+          "layout": "arabic",
+          "status": "open",
+          "missing": false
+        },
+        {
+          "n": 10,
+          "lang": "hi",
+          "form": "मार्ग",
+          "layout": "hindi",
+          "status": "open",
+          "missing": false
+        },
+        {
+          "n": 11,
+          "lang": "el",
+          "form": "μονοπάτι",
+          "layout": "greek",
+          "status": "open",
+          "missing": false
+        },
+        {
+          "n": 12,
+          "lang": "zh",
+          "form": "路径",
+          "layout": "qwerty",
+          "status": "open",
+          "missing": false
+        },
+        {
+          "n": 13,
+          "lang": "chr",
+          "form": "nvnohi",
+          "layout": "qwerty",
+          "status": "honor-seed",
+          "missing": false
+        }
+      ],
+      "filled": 13,
+      "of": 13
+    },
+    {
+      "conceptId": "concept:language",
+      "slug": "language",
+      "gloss_en": "system of communication",
+      "stair": [
+        {
+          "n": 1,
+          "lang": "en",
+          "form": "language",
+          "layout": "qwerty",
+          "status": "open",
+          "missing": false
+        },
+        {
+          "n": 2,
+          "lang": "is",
+          "form": "tungumál",
+          "layout": "qwerty",
+          "status": "open",
+          "missing": false
+        },
+        {
+          "n": 3,
+          "lang": "de",
+          "form": "Sprache",
+          "layout": "qwertz",
+          "status": "open",
+          "missing": false
+        },
+        {
+          "n": 4,
+          "lang": "fr",
+          "form": "langue",
+          "layout": "azerty",
+          "status": "open",
+          "missing": false
+        },
+        {
+          "n": 5,
+          "lang": "it",
+          "form": "lingua",
+          "layout": "qwerty",
+          "status": "open",
+          "missing": false
+        },
+        {
+          "n": 6,
+          "lang": "es",
+          "form": "idioma",
+          "layout": "qwerty",
+          "status": "open",
+          "missing": false
+        },
+        {
+          "n": 7,
+          "lang": "nav",
+          "form": "saad",
+          "layout": "qwerty",
+          "status": "honor-seed",
+          "missing": false
+        },
+        {
+          "n": 8,
+          "lang": "oj",
+          "form": "inwewin",
+          "layout": "qwerty",
+          "status": "honor-seed",
+          "missing": false
+        },
+        {
+          "n": 9,
+          "lang": "ar",
+          "form": "لغة",
+          "layout": "arabic",
+          "status": "open",
+          "missing": false
+        },
+        {
+          "n": 10,
+          "lang": "hi",
+          "form": "भाषा",
+          "layout": "hindi",
+          "status": "open",
+          "missing": false
+        },
+        {
+          "n": 11,
+          "lang": "el",
+          "form": "γλώσσα",
+          "layout": "greek",
+          "status": "open",
+          "missing": false
+        },
+        {
+          "n": 12,
+          "lang": "zh",
+          "form": "语言",
+          "layout": "qwerty",
+          "status": "open",
+          "missing": false
+        },
+        {
+          "n": 13,
+          "lang": "chr",
+          "form": "gawonihisdi",
+          "layout": "qwerty",
+          "status": "honor-seed",
+          "missing": false
+        }
+      ],
+      "filled": 13,
+      "of": 13
+    },
+    {
+      "conceptId": "concept:sun",
+      "slug": "sun",
+      "gloss_en": "the star of the solar system",
+      "stair": [
+        {
+          "n": 1,
+          "lang": "en",
+          "form": "sun",
+          "layout": "qwerty",
+          "status": "open",
+          "missing": false
+        },
+        {
+          "n": 2,
+          "lang": "is",
+          "form": "sól",
+          "layout": "qwerty",
+          "status": "open",
+          "missing": false
+        },
+        {
+          "n": 3,
+          "lang": "de",
+          "form": "Sonne",
+          "layout": "qwertz",
+          "status": "open",
+          "missing": false
+        },
+        {
+          "n": 4,
+          "lang": "fr",
+          "form": "soleil",
+          "layout": "azerty",
+          "status": "open",
+          "missing": false
+        },
+        {
+          "n": 5,
+          "lang": "it",
+          "form": "sole",
+          "layout": "qwerty",
+          "status": "open",
+          "missing": false
+        },
+        {
+          "n": 6,
+          "lang": "es",
+          "form": "sol",
+          "layout": "qwerty",
+          "status": "open",
+          "missing": false
+        },
+        {
+          "n": 7,
+          "lang": "nav",
+          "form": "jǫ'onaa'éí",
+          "layout": "qwerty",
+          "status": "honor-seed",
+          "missing": false
+        },
+        {
+          "n": 8,
+          "lang": "oj",
+          "form": "giizis",
+          "layout": "qwerty",
+          "status": "honor-seed",
+          "missing": false
+        },
+        {
+          "n": 9,
+          "lang": "ar",
+          "form": "شمس",
+          "layout": "arabic",
+          "status": "open",
+          "missing": false
+        },
+        {
+          "n": 10,
+          "lang": "hi",
+          "form": "सूरज",
+          "layout": "hindi",
+          "status": "open",
+          "missing": false
+        },
+        {
+          "n": 11,
+          "lang": "el",
+          "form": "ήλιος",
+          "layout": "greek",
+          "status": "open",
+          "missing": false
+        },
+        {
+          "n": 12,
+          "lang": "zh",
+          "form": "太阳",
+          "layout": "qwerty",
+          "status": "open",
+          "missing": false
+        },
+        {
+          "n": 13,
+          "lang": "chr",
+          "form": "nvda",
+          "layout": "qwerty",
+          "status": "honor-seed",
+          "missing": false
+        }
+      ],
+      "filled": 13,
+      "of": 13
+    },
+    {
+      "conceptId": "concept:earth",
+      "slug": "earth",
+      "gloss_en": "ground; planet; soil",
+      "stair": [
+        {
+          "n": 1,
+          "lang": "en",
+          "form": "earth",
+          "layout": "qwerty",
+          "status": "open",
+          "missing": false
+        },
+        {
+          "n": 2,
+          "lang": "is",
+          "form": "jörð",
+          "layout": "qwerty",
+          "status": "open",
+          "missing": false
+        },
+        {
+          "n": 3,
+          "lang": "de",
+          "form": "Erde",
+          "layout": "qwertz",
+          "status": "open",
+          "missing": false
+        },
+        {
+          "n": 4,
+          "lang": "fr",
+          "form": "terre",
+          "layout": "azerty",
+          "status": "open",
+          "missing": false
+        },
+        {
+          "n": 5,
+          "lang": "it",
+          "form": "terra",
+          "layout": "qwerty",
+          "status": "open",
+          "missing": false
+        },
+        {
+          "n": 6,
+          "lang": "es",
+          "form": "tierra",
+          "layout": "qwerty",
+          "status": "open",
+          "missing": false
+        },
+        {
+          "n": 7,
+          "lang": "nav",
+          "form": "niʼ",
+          "layout": "qwerty",
+          "status": "honor-seed",
+          "missing": false
+        },
+        {
+          "n": 8,
+          "lang": "oj",
+          "form": "aki",
+          "layout": "qwerty",
+          "status": "honor-seed",
+          "missing": false
+        },
+        {
+          "n": 9,
+          "lang": "ar",
+          "form": "أرض",
+          "layout": "arabic",
+          "status": "open",
+          "missing": false
+        },
+        {
+          "n": 10,
+          "lang": "hi",
+          "form": "पृथ्वी",
+          "layout": "hindi",
+          "status": "open",
+          "missing": false
+        },
+        {
+          "n": 11,
+          "lang": "el",
+          "form": "γη",
+          "layout": "greek",
+          "status": "open",
+          "missing": false
+        },
+        {
+          "n": 12,
+          "lang": "zh",
+          "form": "地",
+          "layout": "qwerty",
+          "status": "open",
+          "missing": false
+        },
+        {
+          "n": 13,
+          "lang": "chr",
+          "form": "elohi",
+          "layout": "qwerty",
+          "status": "honor-seed",
+          "missing": false
+        }
+      ],
+      "filled": 13,
+      "of": 13
+    },
+    {
+      "conceptId": "concept:peace",
+      "slug": "peace",
+      "gloss_en": "absence of war; calm",
+      "stair": [
+        {
+          "n": 1,
+          "lang": "en",
+          "form": "peace",
+          "layout": "qwerty",
+          "status": "open",
+          "missing": false
+        },
+        {
+          "n": 2,
+          "lang": "is",
+          "form": "friður",
+          "layout": "qwerty",
+          "status": "open",
+          "missing": false
+        },
+        {
+          "n": 3,
+          "lang": "de",
+          "form": "Frieden",
+          "layout": "qwertz",
+          "status": "open",
+          "missing": false
+        },
+        {
+          "n": 4,
+          "lang": "fr",
+          "form": "paix",
+          "layout": "azerty",
+          "status": "open",
+          "missing": false
+        },
+        {
+          "n": 5,
+          "lang": "it",
+          "form": "pace",
+          "layout": "qwerty",
+          "status": "open",
+          "missing": false
+        },
+        {
+          "n": 6,
+          "lang": "es",
+          "form": "paz",
+          "layout": "qwerty",
+          "status": "open",
+          "missing": false
+        },
+        {
+          "n": 7,
+          "lang": "nav",
+          "form": "kʼé",
+          "layout": "qwerty",
+          "status": "honor-seed",
+          "missing": false
+        },
+        {
+          "n": 8,
+          "lang": "oj",
+          "form": "bizaani",
+          "layout": "qwerty",
+          "status": "honor-seed",
+          "missing": false
+        },
+        {
+          "n": 9,
+          "lang": "ar",
+          "form": "سلام",
+          "layout": "arabic",
+          "status": "open",
+          "missing": false
+        },
+        {
+          "n": 10,
+          "lang": "hi",
+          "form": "शांति",
+          "layout": "hindi",
+          "status": "open",
+          "missing": false
+        },
+        {
+          "n": 11,
+          "lang": "el",
+          "form": "ειρήνη",
+          "layout": "greek",
+          "status": "open",
+          "missing": false
+        },
+        {
+          "n": 12,
+          "lang": "zh",
+          "form": "和平",
+          "layout": "qwerty",
+          "status": "open",
+          "missing": false
+        },
+        {
+          "n": 13,
+          "lang": "chr",
+          "form": "nvwatiyvda",
+          "layout": "qwerty",
+          "status": "honor-seed",
+          "missing": false
+        }
+      ],
+      "filled": 13,
+      "of": 13
+    },
+    {
+      "conceptId": "concept:truth",
+      "slug": "truth",
+      "gloss_en": "that which is true; reality",
+      "stair": [
+        {
+          "n": 1,
+          "lang": "en",
+          "form": "truth",
+          "layout": "qwerty",
+          "status": "open",
+          "missing": false
+        },
+        {
+          "n": 2,
+          "lang": "is",
+          "form": "sannleikur",
+          "layout": "qwerty",
+          "status": "open",
+          "missing": false
+        },
+        {
+          "n": 3,
+          "lang": "de",
+          "form": "Wahrheit",
+          "layout": "qwertz",
+          "status": "open",
+          "missing": false
+        },
+        {
+          "n": 4,
+          "lang": "fr",
+          "form": "vérité",
+          "layout": "azerty",
+          "status": "open",
+          "missing": false
+        },
+        {
+          "n": 5,
+          "lang": "it",
+          "form": "verità",
+          "layout": "qwerty",
+          "status": "open",
+          "missing": false
+        },
+        {
+          "n": 6,
+          "lang": "es",
+          "form": "verdad",
+          "layout": "qwerty",
+          "status": "open",
+          "missing": false
+        },
+        {
+          "n": 7,
+          "lang": "nav",
+          "form": "tʼáá aaníí",
+          "layout": "qwerty",
+          "status": "honor-seed",
+          "missing": false
+        },
+        {
+          "n": 8,
+          "lang": "oj",
+          "form": "debwewin",
+          "layout": "qwerty",
+          "status": "honor-seed",
+          "missing": false
+        },
+        {
+          "n": 9,
+          "lang": "ar",
+          "form": "حقيقة",
+          "layout": "arabic",
+          "status": "open",
+          "missing": false
+        },
+        {
+          "n": 10,
+          "lang": "hi",
+          "form": "सत्य",
+          "layout": "hindi",
+          "status": "open",
+          "missing": false
+        },
+        {
+          "n": 11,
+          "lang": "el",
+          "form": "αλήθεια",
+          "layout": "greek",
+          "status": "open",
+          "missing": false
+        },
+        {
+          "n": 12,
+          "lang": "zh",
+          "form": "真理",
+          "layout": "qwerty",
+          "status": "open",
+          "missing": false
+        },
+        {
+          "n": 13,
+          "lang": "chr",
+          "form": "nvwatiyesdi",
+          "layout": "qwerty",
+          "status": "honor-seed",
+          "missing": false
+        }
+      ],
+      "filled": 13,
+      "of": 13
+    },
+    {
+      "conceptId": "concept:life",
+      "slug": "life",
+      "gloss_en": "state of living; existence",
+      "stair": [
+        {
+          "n": 1,
+          "lang": "en",
+          "form": "life",
+          "layout": "qwerty",
+          "status": "open",
+          "missing": false
+        },
+        {
+          "n": 2,
+          "lang": "is",
+          "form": "líf",
+          "layout": "qwerty",
+          "status": "open",
+          "missing": false
+        },
+        {
+          "n": 3,
+          "lang": "de",
+          "form": "Leben",
+          "layout": "qwertz",
+          "status": "open",
+          "missing": false
+        },
+        {
+          "n": 4,
+          "lang": "fr",
+          "form": "vie",
+          "layout": "azerty",
+          "status": "open",
+          "missing": false
+        },
+        {
+          "n": 5,
+          "lang": "it",
+          "form": "vita",
+          "layout": "qwerty",
+          "status": "open",
+          "missing": false
+        },
+        {
+          "n": 6,
+          "lang": "es",
+          "form": "vida",
+          "layout": "qwerty",
+          "status": "open",
+          "missing": false
+        },
+        {
+          "n": 7,
+          "lang": "nav",
+          "form": "iiná",
+          "layout": "qwerty",
+          "status": "honor-seed",
+          "missing": false
+        },
+        {
+          "n": 8,
+          "lang": "oj",
+          "form": "bimaadiziwin",
+          "layout": "qwerty",
+          "status": "honor-seed",
+          "missing": false
+        },
+        {
+          "n": 9,
+          "lang": "ar",
+          "form": "حياة",
+          "layout": "arabic",
+          "status": "open",
+          "missing": false
+        },
+        {
+          "n": 10,
+          "lang": "hi",
+          "form": "जीवन",
+          "layout": "hindi",
+          "status": "open",
+          "missing": false
+        },
+        {
+          "n": 11,
+          "lang": "el",
+          "form": "ζωή",
+          "layout": "greek",
+          "status": "open",
+          "missing": false
+        },
+        {
+          "n": 12,
+          "lang": "zh",
+          "form": "生命",
+          "layout": "qwerty",
+          "status": "open",
+          "missing": false
+        },
+        {
+          "n": 13,
+          "lang": "chr",
+          "form": "adonvdi",
+          "layout": "qwerty",
+          "status": "honor-seed",
+          "missing": false
+        }
+      ],
+      "filled": 13,
+      "of": 13
+    },
+    {
+      "conceptId": "concept:word",
+      "slug": "word",
+      "gloss_en": "unit of language; speech unit",
+      "stair": [
+        {
+          "n": 1,
+          "lang": "en",
+          "form": "word",
+          "layout": "qwerty",
+          "status": "open",
+          "missing": false
+        },
+        {
+          "n": 2,
+          "lang": "is",
+          "form": "orð",
+          "layout": "qwerty",
+          "status": "open",
+          "missing": false
+        },
+        {
+          "n": 3,
+          "lang": "de",
+          "form": "Wort",
+          "layout": "qwertz",
+          "status": "open",
+          "missing": false
+        },
+        {
+          "n": 4,
+          "lang": "fr",
+          "form": "mot",
+          "layout": "azerty",
+          "status": "open",
+          "missing": false
+        },
+        {
+          "n": 5,
+          "lang": "it",
+          "form": "parola",
+          "layout": "qwerty",
+          "status": "open",
+          "missing": false
+        },
+        {
+          "n": 6,
+          "lang": "es",
+          "form": "palabra",
+          "layout": "qwerty",
+          "status": "open",
+          "missing": false
+        },
+        {
+          "n": 7,
+          "lang": "nav",
+          "form": "saad",
+          "layout": "qwerty",
+          "status": "honor-seed",
+          "missing": false
+        },
+        {
+          "n": 8,
+          "lang": "oj",
+          "form": "ikidowin",
+          "layout": "qwerty",
+          "status": "honor-seed",
+          "missing": false
+        },
+        {
+          "n": 9,
+          "lang": "ar",
+          "form": "كلمة",
+          "layout": "arabic",
+          "status": "open",
+          "missing": false
+        },
+        {
+          "n": 10,
+          "lang": "hi",
+          "form": "शब्द",
+          "layout": "hindi",
+          "status": "open",
+          "missing": false
+        },
+        {
+          "n": 11,
+          "lang": "el",
+          "form": "λέξη",
+          "layout": "greek",
+          "status": "open",
+          "missing": false
+        },
+        {
+          "n": 12,
+          "lang": "zh",
+          "form": "词",
+          "layout": "qwerty",
+          "status": "open",
+          "missing": false
+        },
+        {
+          "n": 13,
+          "lang": "chr",
+          "form": "gawonihisdi",
+          "layout": "qwerty",
+          "status": "honor-seed",
+          "missing": false
+        }
+      ],
+      "filled": 13,
+      "of": 13
+    },
+    {
+      "conceptId": "concept:moon",
+      "slug": "moon",
+      "gloss_en": "Earth's natural satellite",
+      "stair": [
+        {
+          "n": 1,
+          "lang": "en",
+          "form": "moon",
+          "layout": "qwerty",
+          "status": "open",
+          "missing": false
+        },
+        {
+          "n": 2,
+          "lang": "is",
+          "form": "tungl",
+          "layout": "qwerty",
+          "status": "open",
+          "missing": false
+        },
+        {
+          "n": 3,
+          "lang": "de",
+          "form": "Mond",
+          "layout": "qwertz",
+          "status": "open",
+          "missing": false
+        },
+        {
+          "n": 4,
+          "lang": "fr",
+          "form": "lune",
+          "layout": "azerty",
+          "status": "open",
+          "missing": false
+        },
+        {
+          "n": 5,
+          "lang": "it",
+          "form": "luna",
+          "layout": "qwerty",
+          "status": "open",
+          "missing": false
+        },
+        {
+          "n": 6,
+          "lang": "es",
+          "form": "luna",
+          "layout": "qwerty",
+          "status": "open",
+          "missing": false
+        },
+        {
+          "n": 7,
+          "lang": "nav",
+          "form": "ooljééʼ",
+          "layout": "qwerty",
+          "status": "honor-seed",
+          "missing": false
+        },
+        {
+          "n": 8,
+          "lang": "oj",
+          "form": "dibik-giizis",
+          "layout": "qwerty",
+          "status": "honor-seed",
+          "missing": false
+        },
+        {
+          "n": 9,
+          "lang": "ar",
+          "form": "قمر",
+          "layout": "arabic",
+          "status": "open",
+          "missing": false
+        },
+        {
+          "n": 10,
+          "lang": "hi",
+          "form": "चाँद",
+          "layout": "hindi",
+          "status": "open",
+          "missing": false
+        },
+        {
+          "n": 11,
+          "lang": "el",
+          "form": "φεγγάρι",
+          "layout": "greek",
+          "status": "open",
+          "missing": false
+        },
+        {
+          "n": 12,
+          "lang": "zh",
+          "form": "月亮",
+          "layout": "qwerty",
+          "status": "open",
+          "missing": false
+        },
+        {
+          "n": 13,
+          "lang": "chr",
+          "form": "nvdagv",
+          "layout": "qwerty",
+          "status": "honor-seed",
+          "missing": false
+        }
+      ],
+      "filled": 13,
+      "of": 13
+    },
+    {
+      "conceptId": "concept:star",
+      "slug": "star",
+      "gloss_en": "luminous celestial body",
+      "stair": [
+        {
+          "n": 1,
+          "lang": "en",
+          "form": "star",
+          "layout": "qwerty",
+          "status": "open",
+          "missing": false
+        },
+        {
+          "n": 2,
+          "lang": "is",
+          "form": "stjarna",
+          "layout": "qwerty",
+          "status": "open",
+          "missing": false
+        },
+        {
+          "n": 3,
+          "lang": "de",
+          "form": "Stern",
+          "layout": "qwertz",
+          "status": "open",
+          "missing": false
+        },
+        {
+          "n": 4,
+          "lang": "fr",
+          "form": "étoile",
+          "layout": "azerty",
+          "status": "open",
+          "missing": false
+        },
+        {
+          "n": 5,
+          "lang": "it",
+          "form": "stella",
+          "layout": "qwerty",
+          "status": "open",
+          "missing": false
+        },
+        {
+          "n": 6,
+          "lang": "es",
+          "form": "estrella",
+          "layout": "qwerty",
+          "status": "open",
+          "missing": false
+        },
+        {
+          "n": 7,
+          "lang": "nav",
+          "form": "sǫʼ",
+          "layout": "qwerty",
+          "status": "honor-seed",
+          "missing": false
+        },
+        {
+          "n": 8,
+          "lang": "oj",
+          "form": "anang",
+          "layout": "qwerty",
+          "status": "honor-seed",
+          "missing": false
+        },
+        {
+          "n": 9,
+          "lang": "ar",
+          "form": "نجم",
+          "layout": "arabic",
+          "status": "open",
+          "missing": false
+        },
+        {
+          "n": 10,
+          "lang": "hi",
+          "form": "तारा",
+          "layout": "hindi",
+          "status": "open",
+          "missing": false
+        },
+        {
+          "n": 11,
+          "lang": "el",
+          "form": "αστέρι",
+          "layout": "greek",
+          "status": "open",
+          "missing": false
+        },
+        {
+          "n": 12,
+          "lang": "zh",
+          "form": "星",
+          "layout": "qwerty",
+          "status": "open",
+          "missing": false
+        },
+        {
+          "n": 13,
+          "lang": "chr",
+          "form": "noquisi",
+          "layout": "qwerty",
+          "status": "honor-seed",
+          "missing": false
+        }
+      ],
+      "filled": 13,
+      "of": 13
+    },
+    {
+      "conceptId": "concept:book",
+      "slug": "book",
+      "gloss_en": "written work bound as volume",
+      "stair": [
+        {
+          "n": 1,
+          "lang": "en",
+          "form": "book",
+          "layout": "qwerty",
+          "status": "open",
+          "missing": false
+        },
+        {
+          "n": 2,
+          "lang": "is",
+          "form": "bók",
+          "layout": "qwerty",
+          "status": "open",
+          "missing": false
+        },
+        {
+          "n": 3,
+          "lang": "de",
+          "form": "Buch",
+          "layout": "qwertz",
+          "status": "open",
+          "missing": false
+        },
+        {
+          "n": 4,
+          "lang": "fr",
+          "form": "livre",
+          "layout": "azerty",
+          "status": "open",
+          "missing": false
+        },
+        {
+          "n": 5,
+          "lang": "it",
+          "form": "libro",
+          "layout": "qwerty",
+          "status": "open",
+          "missing": false
+        },
+        {
+          "n": 6,
+          "lang": "es",
+          "form": "libro",
+          "layout": "qwerty",
+          "status": "open",
+          "missing": false
+        },
+        {
+          "n": 7,
+          "lang": "nav",
+          "form": "naaltsoos",
+          "layout": "qwerty",
+          "status": "honor-seed",
+          "missing": false
+        },
+        {
+          "n": 8,
+          "lang": "oj",
+          "form": "mazina'igan",
+          "layout": "qwerty",
+          "status": "honor-seed",
+          "missing": false
+        },
+        {
+          "n": 9,
+          "lang": "ar",
+          "form": "كتاب",
+          "layout": "arabic",
+          "status": "open",
+          "missing": false
+        },
+        {
+          "n": 10,
+          "lang": "hi",
+          "form": "किताब",
+          "layout": "hindi",
+          "status": "open",
+          "missing": false
+        },
+        {
+          "n": 11,
+          "lang": "el",
+          "form": "βιβλίο",
+          "layout": "greek",
+          "status": "open",
+          "missing": false
+        },
+        {
+          "n": 12,
+          "lang": "zh",
+          "form": "书",
+          "layout": "qwerty",
+          "status": "open",
+          "missing": false
+        },
+        {
+          "n": 13,
+          "lang": "chr",
+          "form": "gohweli",
+          "layout": "qwerty",
+          "status": "honor-seed",
+          "missing": false
+        }
+      ],
+      "filled": 13,
+      "of": 13
+    },
+    {
+      "conceptId": "concept:friend",
+      "slug": "friend",
+      "gloss_en": "person one likes and trusts",
+      "stair": [
+        {
+          "n": 1,
+          "lang": "en",
+          "form": "friend",
+          "layout": "qwerty",
+          "status": "open",
+          "missing": false
+        },
+        {
+          "n": 2,
+          "lang": "is",
+          "form": "vinur",
+          "layout": "qwerty",
+          "status": "open",
+          "missing": false
+        },
+        {
+          "n": 3,
+          "lang": "de",
+          "form": "Freund",
+          "layout": "qwertz",
+          "status": "open",
+          "missing": false
+        },
+        {
+          "n": 4,
+          "lang": "fr",
+          "form": "ami",
+          "layout": "azerty",
+          "status": "open",
+          "missing": false
+        },
+        {
+          "n": 5,
+          "lang": "it",
+          "form": "amico",
+          "layout": "qwerty",
+          "status": "open",
+          "missing": false
+        },
+        {
+          "n": 6,
+          "lang": "es",
+          "form": "amigo",
+          "layout": "qwerty",
+          "status": "open",
+          "missing": false
+        },
+        {
+          "n": 7,
+          "lang": "nav",
+          "form": "akʼis",
+          "layout": "qwerty",
+          "status": "honor-seed",
+          "missing": false
+        },
+        {
+          "n": 8,
+          "lang": "oj",
+          "form": "niijikiwenh",
+          "layout": "qwerty",
+          "status": "honor-seed",
+          "missing": false
+        },
+        {
+          "n": 9,
+          "lang": "ar",
+          "form": "صديق",
+          "layout": "arabic",
+          "status": "open",
+          "missing": false
+        },
+        {
+          "n": 10,
+          "lang": "hi",
+          "form": "मित्र",
+          "layout": "hindi",
+          "status": "open",
+          "missing": false
+        },
+        {
+          "n": 11,
+          "lang": "el",
+          "form": "φίλος",
+          "layout": "greek",
+          "status": "open",
+          "missing": false
+        },
+        {
+          "n": 12,
+          "lang": "zh",
+          "form": "朋友",
+          "layout": "qwerty",
+          "status": "open",
+          "missing": false
+        },
+        {
+          "n": 13,
+          "lang": "chr",
+          "form": "unaliyi",
+          "layout": "qwerty",
+          "status": "honor-seed",
+          "missing": false
+        }
+      ],
+      "filled": 13,
+      "of": 13
+    },
+    {
+      "conceptId": "concept:fox",
+      "slug": "fox",
+      "gloss_en": "canid animal; cunning figure",
+      "stair": [
+        {
+          "n": 1,
+          "lang": "en",
+          "form": "fox",
+          "layout": "qwerty",
+          "status": "open",
+          "missing": false
+        },
+        {
+          "n": 2,
+          "lang": "is",
+          "form": "refur",
+          "layout": "qwerty",
+          "status": "open",
+          "missing": false
+        },
+        {
+          "n": 3,
+          "lang": "de",
+          "form": "Fuchs",
+          "layout": "qwertz",
+          "status": "open",
+          "missing": false
+        },
+        {
+          "n": 4,
+          "lang": "fr",
+          "form": "renard",
+          "layout": "azerty",
+          "status": "open",
+          "missing": false
+        },
+        {
+          "n": 5,
+          "lang": "it",
+          "form": "volpe",
+          "layout": "qwerty",
+          "status": "open",
+          "missing": false
+        },
+        {
+          "n": 6,
+          "lang": "es",
+          "form": "zorro",
+          "layout": "qwerty",
+          "status": "open",
+          "missing": false
+        },
+        {
+          "n": 7,
+          "lang": "nav",
+          "form": "mąʼii",
+          "layout": "qwerty",
+          "status": "honor-seed",
+          "missing": false
+        },
+        {
+          "n": 8,
+          "lang": "oj",
+          "form": "waagosh",
+          "layout": "qwerty",
+          "status": "honor-seed",
+          "missing": false
+        },
+        {
+          "n": 9,
+          "lang": "ar",
+          "form": "ثعلب",
+          "layout": "arabic",
+          "status": "open",
+          "missing": false
+        },
+        {
+          "n": 10,
+          "lang": "hi",
+          "form": "लोमड़ी",
+          "layout": "hindi",
+          "status": "open",
+          "missing": false
+        },
+        {
+          "n": 11,
+          "lang": "el",
+          "form": "αλεπού",
+          "layout": "greek",
+          "status": "open",
+          "missing": false
+        },
+        {
+          "n": 12,
+          "lang": "zh",
+          "form": "狐狸",
+          "layout": "qwerty",
+          "status": "open",
+          "missing": false
+        },
+        {
+          "n": 13,
+          "lang": "chr",
+          "form": "tsula",
+          "layout": "qwerty",
+          "status": "honor-seed",
+          "missing": false
+        }
+      ],
+      "filled": 13,
+      "of": 13
+    },
+    {
+      "conceptId": "concept:concept",
+      "slug": "concept",
+      "gloss_en": "unit of meaning",
+      "stair": [
+        {
+          "n": 1,
+          "lang": "en",
+          "form": "concept",
+          "layout": "qwerty",
+          "status": "open",
+          "missing": false
+        },
+        {
+          "n": 2,
+          "lang": "is",
+          "form": "hugtak",
+          "layout": "qwerty",
+          "status": "open",
+          "missing": false
+        },
+        {
+          "n": 3,
+          "lang": "de",
+          "form": "Begriff",
+          "layout": "qwertz",
+          "status": "open",
+          "missing": false
+        },
+        {
+          "n": 4,
+          "lang": "fr",
+          "form": "concept",
+          "layout": "azerty",
+          "status": "open",
+          "missing": false
+        },
+        {
+          "n": 5,
+          "lang": "it",
+          "form": "concetto",
+          "layout": "qwerty",
+          "status": "open",
+          "missing": false
+        },
+        {
+          "n": 6,
+          "lang": "es",
+          "form": "concepto",
+          "layout": "qwerty",
+          "status": "open",
+          "missing": false
+        },
+        {
+          "n": 7,
+          "lang": "nav",
+          "form": null,
+          "layout": "qwerty",
+          "status": "honor-seed",
+          "missing": true
+        },
+        {
+          "n": 8,
+          "lang": "oj",
+          "form": null,
+          "layout": "qwerty",
+          "status": "honor-seed",
+          "missing": true
+        },
+        {
+          "n": 9,
+          "lang": "ar",
+          "form": "مفهوم",
+          "layout": "arabic",
+          "status": "open",
+          "missing": false
+        },
+        {
+          "n": 10,
+          "lang": "hi",
+          "form": "अवधारणा",
+          "layout": "hindi",
+          "status": "open",
+          "missing": false
+        },
+        {
+          "n": 11,
+          "lang": "el",
+          "form": "έννοια",
+          "layout": "greek",
+          "status": "open",
+          "missing": false
+        },
+        {
+          "n": 12,
+          "lang": "zh",
+          "form": "概念",
+          "layout": "qwerty",
+          "status": "open",
+          "missing": false
+        },
+        {
+          "n": 13,
+          "lang": "chr",
+          "form": null,
+          "layout": "qwerty",
+          "status": "honor-seed",
+          "missing": true
+        }
+      ],
+      "filled": 10,
+      "of": 13
+    }
+  ],
+  "urls": {
+    "mesh": "/data/concepts/mesh.json",
+    "solve": "kbatch_concept_solve",
+    "walk": "kbatch_concept_stair_walk",
+    "tour": "/data/declaration/rubik-all-language-path.json",
+    "stair": "/data/world-path/rubik-stair-next.json"
+  },
+  "agent": {
+    "solveStair": "await kbatchDict.mcp(\"kbatch_concept_solve\", { q: \"liberty\", mode: \"stair\", from: \"en\" })",
+    "walk": "await kbatchDict.mcp(\"kbatch_concept_stair_walk\", { concepts: [\"liberty\",\"water\",\"path\"] })"
+  }
+}

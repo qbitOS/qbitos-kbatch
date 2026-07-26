@@ -59,10 +59,15 @@ Honor seeds refreshed: `npm run` / `node scripts/grow-multilang.mjs --lang=nav,o
 
 ```js
 const stair = await fetch("/data/world-path/rubik-stair-next.json").then(r => r.json())
-// stair.steps[i].samplePhrases · nextCuts · wordPackTotal · dictionary.pathUrl
+// stair.steps[i].samplePhrases · nextCuts · wordPackTotal · dictionary.pathUrl · conceptFill
 
 await kbatchDict.mcp("kbatch_lettergrid_rubik")  // pathways + tour (+ stair urls)
 await kbatchDict.mcp("kbatch_world_path", { from: "en", mode: "ready" })
+
+// Instant all-language meaning on the stair
+await kbatchDict.mcp("kbatch_concept_solve", { q: "liberty", mode: "stair", from: "en" })
+await kbatchDict.mcp("kbatch_concept_stair_walk", { concepts: ["liberty","water","path","language"] })
+// densify: python3 scripts/densify-stair-concepts.py
 
 // MG: for each phase → path samples → exportStoryBeats → living-books paste
 ```

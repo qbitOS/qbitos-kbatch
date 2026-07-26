@@ -1,6 +1,6 @@
 {
   "schema": "kbatch-rubik-stair-next-v1",
-  "generated": "2026-07-26T01:45:01Z",
+  "generated": "2026-07-26T02:39:50Z",
   "claim": "Iterate the dictionary forward along the all-13 Rubik mathematical path (pure C). Each step = cube Focus + word pack + path samples + next cuts. Honor stays opt-in.",
   "doctrine": {
     "cost": "Pure C[88×88] langTransferCost — DOJO-true; no SO/phon tilde_c on this stair",
@@ -49,13 +49,20 @@
       "nextCuts": [
         "Letter-Grid stream live",
         "Cage RAW+STONE",
-        "Tour start Focus pie-germanic-en"
+        "Tour start Focus pie-germanic-en",
+        "Stair concept fill 100.0% — use mode=stair solve for instant multi-lang"
       ],
       "hooks": [
         "/labs/declaration-digital-edition/",
         "/data/declaration/master-glyphs.json"
       ],
-      "doctrine": "Ready pack · full geometry"
+      "doctrine": "Ready pack · full geometry",
+      "conceptFill": {
+        "conceptsWithForm": 178,
+        "totalConcepts": 178,
+        "pct": 100.0,
+        "formTokens": 202
+      }
     },
     {
       "n": 2,
@@ -86,13 +93,20 @@
       "nextCuts": [
         "Promote C status placeholder→ready if pack quality OK",
         "Norse cube norse-en path samples",
-        "Link Codex Regius living-books"
+        "Link Codex Regius living-books",
+        "Stair concept fill 100.0% — use mode=stair solve for instant multi-lang"
       ],
       "hooks": [
         "/data/living-books/visual-projects.json#codex-regius-gks2365",
         "https://fornevercollective.github.io/codex-regius-digital/"
       ],
-      "doctrine": "Placeholder catalog status · pack may still exist on disk"
+      "doctrine": "Placeholder catalog status · pack may still exist on disk",
+      "conceptFill": {
+        "conceptsWithForm": 178,
+        "totalConcepts": 178,
+        "pct": 100.0,
+        "formTokens": 178
+      }
     },
     {
       "n": 3,
@@ -121,10 +135,17 @@
       },
       "nextCuts": [
         "Qwertz layout rank via JAX bank",
-        "Latin-de-contact cube Focus practice"
+        "Latin-de-contact cube Focus practice",
+        "Stair concept fill 100.0% — use mode=stair solve for instant multi-lang"
       ],
       "hooks": [],
-      "doctrine": "Ready pack · full geometry"
+      "doctrine": "Ready pack · full geometry",
+      "conceptFill": {
+        "conceptsWithForm": 178,
+        "totalConcepts": 178,
+        "pct": 100.0,
+        "formTokens": 197
+      }
     },
     {
       "n": 4,
@@ -153,10 +174,17 @@
       },
       "nextCuts": [
         "Azerty layout rank",
-        "Declaration multilingual FR lines when verified"
+        "Declaration multilingual FR lines when verified",
+        "Stair concept fill 100.0% — use mode=stair solve for instant multi-lang"
       ],
       "hooks": [],
-      "doctrine": "Ready pack · full geometry"
+      "doctrine": "Ready pack · full geometry",
+      "conceptFill": {
+        "conceptsWithForm": 178,
+        "totalConcepts": 178,
+        "pct": 100.0,
+        "formTokens": 197
+      }
     },
     {
       "n": 5,
@@ -185,10 +213,17 @@
       },
       "nextCuts": [
         "Romance cluster path drills",
-        "Latin→Italian stepping"
+        "Latin→Italian stepping",
+        "Stair concept fill 100.0% — use mode=stair solve for instant multi-lang"
       ],
       "hooks": [],
-      "doctrine": "Ready pack · full geometry"
+      "doctrine": "Ready pack · full geometry",
+      "conceptFill": {
+        "conceptsWithForm": 178,
+        "totalConcepts": 178,
+        "pct": 100.0,
+        "formTokens": 186
+      }
     },
     {
       "n": 6,
@@ -217,10 +252,17 @@
       },
       "nextCuts": [
         "Romance cheap hop close",
-        "Declaration multilingual ES"
+        "Declaration multilingual ES",
+        "Stair concept fill 100.0% — use mode=stair solve for instant multi-lang"
       ],
       "hooks": [],
-      "doctrine": "Ready pack · full geometry"
+      "doctrine": "Ready pack · full geometry",
+      "conceptFill": {
+        "conceptsWithForm": 178,
+        "totalConcepts": 178,
+        "pct": 100.0,
+        "formTokens": 193
+      }
     },
     {
       "n": 7,
@@ -251,12 +293,20 @@
       "nextCuts": [
         "Honor opt-in only",
         "Educational seed geometry",
-        "No bulk scrape — community gate"
+        "No bulk scrape — community gate",
+        "Honor educational: 53/178 concepts have forms — expand seeds carefully",
+        "Stair concept fill 84.8% — use mode=stair solve for instant multi-lang"
       ],
       "hooks": [
         "/data/lexicons/first-nations-seeds.json"
       ],
-      "doctrine": "Honor educational seed only · geometry practice · community gate for bulk"
+      "doctrine": "Honor educational seed only · geometry practice · community gate for bulk",
+      "conceptFill": {
+        "conceptsWithForm": 151,
+        "totalConcepts": 178,
+        "pct": 84.8,
+        "formTokens": 154
+      }
     },
     {
       "n": 8,
@@ -287,12 +337,19 @@
       "nextCuts": [
         "Honor opt-in only",
         "Double-vowel orthography path",
-        "Community gate for bulk"
+        "Community gate for bulk",
+        "Stair concept fill 91.0% — use mode=stair solve for instant multi-lang"
       ],
       "hooks": [
         "/data/lexicons/first-nations-seeds.json"
       ],
-      "doctrine": "Honor educational seed only · geometry practice · community gate for bulk"
+      "doctrine": "Honor educational seed only · geometry practice · community gate for bulk",
+      "conceptFill": {
+        "conceptsWithForm": 162,
+        "totalConcepts": 178,
+        "pct": 91.0,
+        "formTokens": 164
+      }
     },
     {
       "n": 9,
@@ -322,12 +379,19 @@
       "nextCuts": [
         "RTL board path practice",
         "Script portal cost dominates",
-        "Arabic layout kit museum"
+        "Arabic layout kit museum",
+        "Stair concept fill 100.0% — use mode=stair solve for instant multi-lang"
       ],
       "hooks": [
         "/data/museum-resource/index.json"
       ],
-      "doctrine": "Ready pack · full geometry"
+      "doctrine": "Ready pack · full geometry",
+      "conceptFill": {
+        "conceptsWithForm": 178,
+        "totalConcepts": 178,
+        "pct": 100.0,
+        "formTokens": 180
+      }
     },
     {
       "n": 10,
@@ -357,12 +421,19 @@
       "nextCuts": [
         "Devanagari path",
         "Sanskrit-ia cube",
-        "Hindi layout"
+        "Hindi layout",
+        "Stair concept fill 100.0% — use mode=stair solve for instant multi-lang"
       ],
       "hooks": [
         "/data/antiquity/discovery-projects.json"
       ],
-      "doctrine": "Ready pack · full geometry"
+      "doctrine": "Ready pack · full geometry",
+      "conceptFill": {
+        "conceptsWithForm": 178,
+        "totalConcepts": 178,
+        "pct": 100.0,
+        "formTokens": 183
+      }
     },
     {
       "n": 11,
@@ -392,13 +463,20 @@
       "nextCuts": [
         "Greek layout",
         "Classical grc sibling optional",
-        "Rosetta / Hellenic cube"
+        "Rosetta / Hellenic cube",
+        "Stair concept fill 100.0% — use mode=stair solve for instant multi-lang"
       ],
       "hooks": [
         "/labs/rosetta.html",
         "/data/living-books/unsolved-manuscripts.json#ms-linear-b"
       ],
-      "doctrine": "Ready pack · full geometry"
+      "doctrine": "Ready pack · full geometry",
+      "conceptFill": {
+        "conceptsWithForm": 178,
+        "totalConcepts": 178,
+        "pct": 100.0,
+        "formTokens": 179
+      }
     },
     {
       "n": 12,
@@ -428,12 +506,19 @@
       "nextCuts": [
         "Han buckets geometry",
         "Sinitic cube",
-        "High-byte pack browse"
+        "High-byte pack browse",
+        "Stair concept fill 100.0% — use mode=stair solve for instant multi-lang"
       ],
       "hooks": [
         "/data/museum-resource/index.json"
       ],
-      "doctrine": "Ready pack · full geometry"
+      "doctrine": "Ready pack · full geometry",
+      "conceptFill": {
+        "conceptsWithForm": 178,
+        "totalConcepts": 178,
+        "pct": 100.0,
+        "formTokens": 195
+      }
     },
     {
       "n": 13,
@@ -464,12 +549,20 @@
       "nextCuts": [
         "Cherokee script path",
         "Honor seed only",
-        "Iroquoian cube Focus"
+        "Iroquoian cube Focus",
+        "Honor educational: 75/178 concepts have forms — expand seeds carefully",
+        "Stair concept fill 84.8% — use mode=stair solve for instant multi-lang"
       ],
       "hooks": [
         "/data/lexicons/first-nations-seeds.json"
       ],
-      "doctrine": "Honor educational seed only · geometry practice · community gate for bulk"
+      "doctrine": "Honor educational seed only · geometry practice · community gate for bulk",
+      "conceptFill": {
+        "conceptsWithForm": 151,
+        "totalConcepts": 178,
+        "pct": 84.8,
+        "formTokens": 151
+      }
     }
   ],
   "phases": [
@@ -585,5 +678,6 @@
     "doc": "/docs/RUBIK-STAIR-NEXT.md",
     "tourDoc": "/docs/RUBIK-ALL-LANGUAGE-PATH.md",
     "dojo": "/dojo/"
-  }
+  },
+  "conceptStairInstant": "/data/concepts/stair-instant.json"
 }
