@@ -4,12 +4,12 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
   <title>KBatch · World Documentation · Theme Matrix &amp; Lineage</title>
-  <meta name="description" content="Multilingual Declaration plane, world instruments, theme matrix, gitgraph lineage (Bible branches · founding charters · layered-line substrates), concept divergence research backbone." />
+  <meta name="description" content="Multilingual Declaration plane, world instruments, theme matrix, gitgraph lineage across major civilization-shaping documents · books · songs · law · sacred transmission · substrates." />
   <meta name="theme-color" content="#0f0f0f" />
   <link rel="stylesheet" href="/css/app.css" />
   <link rel="stylesheet" href="/css/history-sliderule.css" />
   <link rel="stylesheet" href="/css/labs.css" />
-  <link rel="stylesheet" href="/css/declaration-edition.css" />
+  <link rel="stylesheet" href="/css/declaration-edition.css?v=nav-v4" />
   <script>
     (function () {
       try {
@@ -33,37 +33,30 @@
             <span class="theme-icon theme-icon--moon" aria-hidden="true">☾</span>
           </button>
           <h1><span>KBatch</span> World Documentation</h1>
-          <span class="brand-sub">theme matrix · lineage gitgraph · concept divergence</span>
+          <span class="brand-sub">world lineages · theme matrix · gitgraph · books · songs · charters</span>
         </div>
         <nav class="site-nav" aria-label="Site"></nav>
       </div>
       <div class="meta-row">
-        <span class="status-line">Political instruments · sacred-text branches · layered-line substrates · open educational</span>
+        <span class="status-line">Political · sacred · literature · song · law · philosophy · substrates · open educational</span>
       </div>
     </div>
   </header>
 
-  <nav class="dec-version-nav" aria-label="Edition">
-    <a href="index.html">Archive workspace</a>
-    <a href="letter-grid.html">Letter-Grid</a>
-    <a href="cage-litmus.html">Cage litmus</a>
-    <a href="world.html" class="active-link">World · matrix</a>
-    <a href="paleography-hub.html">Paleography</a>
-    <a href="versions.html">All layers</a>
-    <a href="scribe-glyphs.html">Scribe glyphs</a>
-    <a href="keyboard.html">Path metrics</a>
-  </nav>
+  <nav class="dec-version-nav" data-dec-nav data-active="world" aria-label="Declaration edition toolbox"></nav>
 
-  <main class="labs-main dec-main" style="max-width: min(1280px, 100%)">
+<main class="labs-main dec-main" style="max-width: min(1280px, 100%)">
     <section class="labs-card">
       <p class="docs-kicker">Research backbone · not a substitute for national archives or confessional authority</p>
       <p>
         The US engrossed Declaration is the archival core.
         This hub is a <strong>documentation research backbone</strong>:
         line-aligned translations, a <strong>theme matrix</strong> of major world instruments,
-        and <strong>gitgraph / ancestry-style lineage</strong> for concept overlap and divergence —
-        political charters, religious translation circles (e.g. Tyndale → Matthew Bible / Rogers → Great / Geneva → KJV),
-        and early layered-line substrates (stone carvings, scrolls, engrossed bands).
+        and <strong>gitgraph / ancestry-style lineage</strong> with clear titles at every node —
+        covering major civilization-shaping <strong>documents, books, songs, law codices, philosophy,
+        sacred transmission circles</strong>, and layered-line substrates (stone · clay · parchment · print · staff).
+        Trees include English Bible branches, Atlantic &amp; global rights waves, classical Mediterranean,
+        East / South Asian classics, comparative Abrahamic transmission, epic→print literature, and song/chant/anthem lines.
       </p>
       <p class="docs-kicker">
         Data:
@@ -87,6 +80,8 @@
     import { mountDeclarationWorld } from "/js/declaration-world.js";
     mountDeclarationWorld(document.getElementById("dw-root"));
   </script>
+    <script src="/js/declaration-edition-nav.js?v=nav-v4" defer></script>
   <script src="/js/site-nav.js" defer></script>
+  <script src="/js/lab-agent-footer.js" defer></script>
 </body>
 </html>

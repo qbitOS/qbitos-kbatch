@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+<title>KBatch site crawl · status · MG</title>
+<style>
+  body { font-family: ui-sans-serif, system-ui, sans-serif; max-width: 52rem; margin: 1.5rem auto; padding: 0 1rem 3rem;
+    background: #0d1117; color: #e6edf3; line-height: 1.45; }
+  h1,h2 { color: #58a6ff; }
+  table { border-collapse: collapse; width: 100%; font-size: 0.88rem; margin: 0.75rem 0 1.25rem; }
+  th, td { border: 1px solid #30363d; padding: 0.4rem 0.55rem; text-align: left; vertical-align: top; }
+  th { background: #161b22; }
+  code { color: #79c0ff; }
+  .ok { color: #3fb950; font-weight: 600; }
+  .open { color: #d29922; }
+  a { color: #58a6ff; }
+  .kicker { color: #8b949e; font-size: 0.85rem; }
+</style>
+</head>
+<body>
+<p class="kicker">MG Site Atlas · status vs crawl · 2026-07-26T02:16Z</p>
+<h1>KBatch site · crawl status</h1>
+<p>Original crawl metrics (177 nodes / 3305 edges) still describe the pre-fix graph.
+<strong class="ok">P0 is live on kbatch.ugrad.ai.</strong> Re-crawl before treating SPA-shell counts as current.</p>
+
+<h2>Fixed now</h2>
+<table>
+<tr><th>Defect</th><th>Status</th></tr>
+<tr><td>SPA home on unknown paths</td><td class="ok">FIXED · real 404</td></tr>
+<tr><td><code>/dojo.html</code></td><td class="ok">FIXED · 301 → <code>/dojo/</code></td></tr>
+<tr><td>Mesh fakes</td><td class="ok">FIXED · <code>/mesh/</code></td></tr>
+<tr><td>Home first-run</td><td class="ok">PARTIAL · door-beats + MCP badge</td></tr>
+<tr><td>Declaration hub</td><td class="ok">PARTIAL · cards + section ids</td></tr>
+<tr><td>Collab / nav slim</td><td class="open">OPEN</td></tr>
+</table>
+
+<h2>MG prefer</h2>
+<ul>
+<li><a href="https://kbatch.ugrad.ai/for-ai#declaration-lab">/for-ai#declaration-lab</a></li>
+<li><a href="https://kbatch.ugrad.ai/">/</a> · <code>#search-input</code> · <code>#door-beats</code></li>
+<li><a href="https://kbatch.ugrad.ai/dojo/">/dojo/</a></li>
+<li><a href="https://kbatch.ugrad.ai/labs/declaration-digital-edition/">Declaration hub</a></li>
+</ul>
+
+<h2>Thesis</h2>
+<p>Competitors win as one simple tool. KBatch wins as glue:
+<strong>type → path → language → archive → agent</strong> — without 20 half-apps.</p>
+
+<p class="kicker">Full markdown: docs/SITE-CRAWL-RECOMMENDATIONS.md · re-run scripts/mg-site-crawl.py</p>
+</body>
+</html>

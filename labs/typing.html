@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+    <meta name="mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+    <title>KBatch · Typing practice lab</title>
+    <meta name="theme-color" content="#0d1117" />
+    <meta name="kbatch-version" content="1.2.0" />
+    <link rel="manifest" href="/manifest.webmanifest" />
+  <meta name="kbatch-build" content="1.2.0+local+20260726021531" />
+    <link rel="stylesheet" href="/css/app.css?v=1.2.0+local+20260726021531" />
+    <link rel="stylesheet" href="/css/labs.css?v=1.2.0+local+20260726021531" />
+    <script>
+      (function () {
+        try {
+          var t = localStorage.getItem("kbatch-dict-theme");
+          if (t !== "light" && t !== "dark") {
+            t = window.matchMedia("(prefers-color-scheme: light)").matches ? "light" : "dark";
+          }
+          document.documentElement.setAttribute("data-theme", t);
+        } catch (e) {
+          document.documentElement.setAttribute("data-theme", "dark");
+        }
+      })();
+    </script>
+  </head>
+  <body class="labs-page">
+    <header class="app-header">
+      <div class="header-inner">
+        <div class="brand-row">
+          <div class="brand">
+            <button type="button" class="theme-toggle" id="theme-toggle" title="Toggle theme" aria-label="Toggle theme">
+              <span class="theme-icon theme-icon--sun" aria-hidden="true">☀</span>
+              <span class="theme-icon theme-icon--moon" aria-hidden="true">☾</span>
+            </button>
+            <h1><span>KBatch</span> Typing</h1>
+            <span class="brand-sub">arena · layout race · strain cap · axis 4</span>
+          </div>
+          <nav class="site-nav" aria-label="Site"></nav>
+        </div>
+        <div class="meta-row">
+          <span class="status-line">T4 mobile · T3 board · 15/30/60s · world packs · layout race · strain cap · inline path</span>
+        </div>
+      </div>
+    </header>
+    <main class="labs-main">
+      <div id="typing-mount"></div>
+      <section class="labs-card">
+        <h2>Modes</h2>
+        <ul class="labs-links">
+          <li><strong>Timed</strong> — 15 / 30 / 60s auto-finish (Monkeytype-class bar)</li>
+          <li><strong>World pack</strong> — es/de/fr/ru/zh/ar/ja/ko or honor oj/nav</li>
+          <li><strong>Layout race</strong> — same text, finish → Shadow Live ranks boards</li>
+          <li><strong>Strain cap</strong> — flag when RSI risk exceeds threshold</li>
+          <li><strong>T3 local board</strong> — opt-in handle · personal best · top 10 · export JSON (device-only)</li>
+          <li><strong>T4 mobile</strong> — touch targets · safe-area · sticky modes/actions · PWA install · inline path on finish</li>
+          <li>Query: <code>?letter=t</code> · <code>?prefix=the</code> · <code>?q=word</code> · <code>?lang=es</code> · <code>?mode=time-60</code></li>
+          <li><a href="collab.html">Collab lab</a> · <a href="../learn.html">Learn SRS</a> · <a href="music-staff.html">Staff</a> · <a href="../world-ranking.html">Axes</a></li>
+        </ul>
+      </section>
+    </main>
+    <footer class="app-footer">
+      Typing arena · axis 4 ·
+      <a href="music-staff.html">Staff</a> ·
+      <a href="../lyrics.html">Lyrics</a> ·
+      <a href="../learn.html">Learn</a> ·
+      <a href="../">Dictionary</a> ·
+      <a href="../dojo/">DOJO</a>
+    </footer>
+    <script type="importmap">
+{"imports":{"/js/analyze.js":"/js/analyze.js?v=1.2.0+local+20260726021531","js/analyze.js":"js/analyze.js?v=1.2.0+local+20260726021531","/js/ancestory-lab.js":"/js/ancestory-lab.js?v=1.2.0+local+20260726021531","js/ancestory-lab.js":"js/ancestory-lab.js?v=1.2.0+local+20260726021531","/js/app.js":"/js/app.js?v=1.2.0+local+20260726021531","js/app.js":"js/app.js?v=1.2.0+local+20260726021531","/js/archive-restoration-viewer.js":"/js/archive-restoration-viewer.js?v=1.2.0+local+20260726021531","js/archive-restoration-viewer.js":"js/archive-restoration-viewer.js?v=1.2.0+local+20260726021531","/js/billboard-2026.js":"/js/billboard-2026.js?v=1.2.0+local+20260726021531","js/billboard-2026.js":"js/billboard-2026.js?v=1.2.0+local+20260726021531","/js/blank-bridge.js":"/js/blank-bridge.js?v=1.2.0+local+20260726021531","js/blank-bridge.js":"js/blank-bridge.js?v=1.2.0+local+20260726021531","/js/cache-bust.js":"/js/cache-bust.js?v=1.2.0+local+20260726021531","js/cache-bust.js":"js/cache-bust.js?v=1.2.0+local+20260726021531","/js/cage-litmus-mcp.js":"/js/cage-litmus-mcp.js?v=1.2.0+local+20260726021531","js/cage-litmus-mcp.js":"js/cage-litmus-mcp.js?v=1.2.0+local+20260726021531","/js/capsule-analyzer.js":"/js/capsule-analyzer.js?v=1.2.0+local+20260726021531","js/capsule-analyzer.js":"js/capsule-analyzer.js?v=1.2.0+local+20260726021531","/js/capsules-canon.js":"/js/capsules-canon.js?v=1.2.0+local+20260726021531","js/capsules-canon.js":"js/capsules-canon.js?v=1.2.0+local+20260726021531","/js/collab-lab.js":"/js/collab-lab.js?v=1.2.0+local+20260726021531","js/collab-lab.js":"js/collab-lab.js?v=1.2.0+local+20260726021531","/js/concept-solve.js":"/js/concept-solve.js?v=1.2.0+local+20260726021531","js/concept-solve.js":"js/concept-solve.js?v=1.2.0+local+20260726021531","/js/contrails-viz.js":"/js/contrails-viz.js?v=1.2.0+local+20260726021531","js/contrails-viz.js":"js/contrails-viz.js?v=1.2.0+local+20260726021531","/js/corpus-sources.js":"/js/corpus-sources.js?v=1.2.0+local+20260726021531","js/corpus-sources.js":"js/corpus-sources.js?v=1.2.0+local+20260726021531","/js/corpus.js":"/js/corpus.js?v=1.2.0+local+20260726021531","js/corpus.js":"js/corpus.js?v=1.2.0+local+20260726021531","/js/cortical-loop.js":"/js/cortical-loop.js?v=1.2.0+local+20260726021531","js/cortical-loop.js":"js/cortical-loop.js?v=1.2.0+local+20260726021531","/js/declaration-cadence.js":"/js/declaration-cadence.js?v=1.2.0+local+20260726021531","js/declaration-cadence.js":"js/declaration-cadence.js?v=1.2.0+local+20260726021531","/js/declaration-cage-litmus.js":"/js/declaration-cage-litmus.js?v=1.2.0+local+20260726021531","js/declaration-cage-litmus.js":"js/declaration-cage-litmus.js?v=1.2.0+local+20260726021531","/js/declaration-edition-nav.js":"/js/declaration-edition-nav.js?v=1.2.0+local+20260726021531","js/declaration-edition-nav.js":"js/declaration-edition-nav.js?v=1.2.0+local+20260726021531","/js/declaration-letter-grid.js":"/js/declaration-letter-grid.js?v=1.2.0+local+20260726021531","js/declaration-letter-grid.js":"js/declaration-letter-grid.js?v=1.2.0+local+20260726021531","/js/declaration-symbology.js":"/js/declaration-symbology.js?v=1.2.0+local+20260726021531","js/declaration-symbology.js":"js/declaration-symbology.js?v=1.2.0+local+20260726021531","/js/declaration-world.js":"/js/declaration-world.js?v=1.2.0+local+20260726021531","js/declaration-world.js":"js/declaration-world.js?v=1.2.0+local+20260726021531","/js/deep-zoom-viewer.js":"/js/deep-zoom-viewer.js?v=1.2.0+local+20260726021531","js/deep-zoom-viewer.js":"js/deep-zoom-viewer.js?v=1.2.0+local+20260726021531","/js/dojo-app.js":"/js/dojo-app.js?v=1.2.0+local+20260726021531","js/dojo-app.js":"js/dojo-app.js?v=1.2.0+local+20260726021531","/js/education.js":"/js/education.js?v=1.2.0+local+20260726021531","js/education.js":"js/education.js?v=1.2.0+local+20260726021531","/js/encoder.js":"/js/encoder.js?v=1.2.0+local+20260726021531","js/encoder.js":"js/encoder.js?v=1.2.0+local+20260726021531","/js/export.js":"/js/export.js?v=1.2.0+local+20260726021531","js/export.js":"js/export.js?v=1.2.0+local+20260726021531","/js/freya-math.js":"/js/freya-math.js?v=1.2.0+local+20260726021531","js/freya-math.js":"js/freya-math.js?v=1.2.0+local+20260726021531","/js/gluelam-consumer.js":"/js/gluelam-consumer.js?v=1.2.0+local+20260726021531","js/gluelam-consumer.js":"js/gluelam-consumer.js?v=1.2.0+local+20260726021531","/js/glyph-steno.js":"/js/glyph-steno.js?v=1.2.0+local+20260726021531","js/glyph-steno.js":"js/glyph-steno.js?v=1.2.0+local+20260726021531","/js/historical.js":"/js/historical.js?v=1.2.0+local+20260726021531","js/historical.js":"js/historical.js?v=1.2.0+local+20260726021531","/js/history-harness.js":"/js/history-harness.js?v=1.2.0+local+20260726021531","js/history-harness.js":"js/history-harness.js?v=1.2.0+local+20260726021531","/js/history-sliderule.js":"/js/history-sliderule.js?v=1.2.0+local+20260726021531","js/history-sliderule.js":"js/history-sliderule.js?v=1.2.0+local+20260726021531","/js/i18n-desc.js":"/js/i18n-desc.js?v=1.2.0+local+20260726021531","js/i18n-desc.js":"js/i18n-desc.js?v=1.2.0+local+20260726021531","/js/inclusive-identity.js":"/js/inclusive-identity.js?v=1.2.0+local+20260726021531","js/inclusive-identity.js":"js/inclusive-identity.js?v=1.2.0+local+20260726021531","/js/ironline-bus.js":"/js/ironline-bus.js?v=1.2.0+local+20260726021531","js/ironline-bus.js":"js/ironline-bus.js?v=1.2.0+local+20260726021531","/js/keyboard-pattern-lab.js":"/js/keyboard-pattern-lab.js?v=1.2.0+local+20260726021531","js/keyboard-pattern-lab.js":"js/keyboard-pattern-lab.js?v=1.2.0+local+20260726021531","/js/language-alphabet-matrix.js":"/js/language-alphabet-matrix.js?v=1.2.0+local+20260726021531","js/language-alphabet-matrix.js":"js/language-alphabet-matrix.js?v=1.2.0+local+20260726021531","/js/language-catalog.js":"/js/language-catalog.js?v=1.2.0+local+20260726021531","js/language-catalog.js":"js/language-catalog.js?v=1.2.0+local+20260726021531","/js/language-stepping.js":"/js/language-stepping.js?v=1.2.0+local+20260726021531","js/language-stepping.js":"js/language-stepping.js?v=1.2.0+local+20260726021531","/js/layout-ring-lattice.js":"/js/layout-ring-lattice.js?v=1.2.0+local+20260726021531","js/layout-ring-lattice.js":"js/layout-ring-lattice.js?v=1.2.0+local+20260726021531","/js/layouts.js":"/js/layouts.js?v=1.2.0+local+20260726021531","js/layouts.js":"js/layouts.js?v=1.2.0+local+20260726021531","/js/lazy-loader.js":"/js/lazy-loader.js?v=1.2.0+local+20260726021531","js/lazy-loader.js":"js/lazy-loader.js?v=1.2.0+local+20260726021531","/js/learn-app.js":"/js/learn-app.js?v=1.2.0+local+20260726021531","js/learn-app.js":"js/learn-app.js?v=1.2.0+local+20260726021531","/js/letter-atom.js":"/js/letter-atom.js?v=1.2.0+local+20260726021531","js/letter-atom.js":"js/letter-atom.js?v=1.2.0+local+20260726021531","/js/letter-grid-lab.js":"/js/letter-grid-lab.js?v=1.2.0+local+20260726021531","js/letter-grid-lab.js":"js/letter-grid-lab.js?v=1.2.0+local+20260726021531","/js/letter-grid-mcp.js":"/js/letter-grid-mcp.js?v=1.2.0+local+20260726021531","js/letter-grid-mcp.js":"js/letter-grid-mcp.js?v=1.2.0+local+20260726021531","/js/live-dict.js":"/js/live-dict.js?v=1.2.0+local+20260726021531","js/live-dict.js":"js/live-dict.js?v=1.2.0+local+20260726021531","/js/living-book-reader.js":"/js/living-book-reader.js?v=1.2.0+local+20260726021531","js/living-book-reader.js":"js/living-book-reader.js?v=1.2.0+local+20260726021531","/js/living-books.js":"/js/living-books.js?v=1.2.0+local+20260726021531","js/living-books.js":"js/living-books.js?v=1.2.0+local+20260726021531","/js/llm-tool-calibrate.js":"/js/llm-tool-calibrate.js?v=1.2.0+local+20260726021531","js/llm-tool-calibrate.js":"js/llm-tool-calibrate.js?v=1.2.0+local+20260726021531","/js/local-identity.js":"/js/local-identity.js?v=1.2.0+local+20260726021531","js/local-identity.js":"js/local-identity.js?v=1.2.0+local+20260726021531","/js/lyrics-analyze.js":"/js/lyrics-analyze.js?v=1.2.0+local+20260726021531","js/lyrics-analyze.js":"js/lyrics-analyze.js?v=1.2.0+local+20260726021531","/js/lyrics-app.js":"/js/lyrics-app.js?v=1.2.0+local+20260726021531","js/lyrics-app.js":"js/lyrics-app.js?v=1.2.0+local+20260726021531","/js/mesh-bus.js":"/js/mesh-bus.js?v=1.2.0+local+20260726021531","js/mesh-bus.js":"js/mesh-bus.js?v=1.2.0+local+20260726021531","/js/mythology-open.js":"/js/mythology-open.js?v=1.2.0+local+20260726021531","js/mythology-open.js":"js/mythology-open.js?v=1.2.0+local+20260726021531","/js/names-glance.js":"/js/names-glance.js?v=1.2.0+local+20260726021531","js/names-glance.js":"js/names-glance.js?v=1.2.0+local+20260726021531","/js/open-reader-search.js":"/js/open-reader-search.js?v=1.2.0+local+20260726021531","js/open-reader-search.js":"js/open-reader-search.js?v=1.2.0+local+20260726021531","/js/open-senses.js":"/js/open-senses.js?v=1.2.0+local+20260726021531","js/open-senses.js":"js/open-senses.js?v=1.2.0+local+20260726021531","/js/order-analysis.js":"/js/order-analysis.js?v=1.2.0+local+20260726021531","js/order-analysis.js":"js/order-analysis.js?v=1.2.0+local+20260726021531","/js/overview-pipe.js":"/js/overview-pipe.js?v=1.2.0+local+20260726021531","js/overview-pipe.js":"js/overview-pipe.js?v=1.2.0+local+20260726021531","/js/paleography.js":"/js/paleography.js?v=1.2.0+local+20260726021531","js/paleography.js":"js/paleography.js?v=1.2.0+local+20260726021531","/js/path-geometry-panel.js":"/js/path-geometry-panel.js?v=1.2.0+local+20260726021531","js/path-geometry-panel.js":"js/path-geometry-panel.js?v=1.2.0+local+20260726021531","/js/pcap-image-bridge.js":"/js/pcap-image-bridge.js?v=1.2.0+local+20260726021531","js/pcap-image-bridge.js":"js/pcap-image-bridge.js?v=1.2.0+local+20260726021531","/js/persona-suggest.js":"/js/persona-suggest.js?v=1.2.0+local+20260726021531","js/persona-suggest.js":"js/persona-suggest.js?v=1.2.0+local+20260726021531","/js/phonation.js":"/js/phonation.js?v=1.2.0+local+20260726021531","js/phonation.js":"js/phonation.js?v=1.2.0+local+20260726021531","/js/phonetic-pattern.js":"/js/phonetic-pattern.js?v=1.2.0+local+20260726021531","js/phonetic-pattern.js":"js/phonetic-pattern.js?v=1.2.0+local+20260726021531","/js/pipeline.js":"/js/pipeline.js?v=1.2.0+local+20260726021531","js/pipeline.js":"js/pipeline.js?v=1.2.0+local+20260726021531","/js/pos.js":"/js/pos.js?v=1.2.0+local+20260726021531","js/pos.js":"js/pos.js?v=1.2.0+local+20260726021531","/js/probe-generator.js":"/js/probe-generator.js?v=1.2.0+local+20260726021531","js/probe-generator.js":"js/probe-generator.js?v=1.2.0+local+20260726021531","/js/qbpm-music.js":"/js/qbpm-music.js?v=1.2.0+local+20260726021531","js/qbpm-music.js":"js/qbpm-music.js?v=1.2.0+local+20260726021531","/js/quantum-bridge.js":"/js/quantum-bridge.js?v=1.2.0+local+20260726021531","js/quantum-bridge.js":"js/quantum-bridge.js?v=1.2.0+local+20260726021531","/js/quantum-gutter.js":"/js/quantum-gutter.js?v=1.2.0+local+20260726021531","js/quantum-gutter.js":"js/quantum-gutter.js?v=1.2.0+local+20260726021531","/js/registers.js":"/js/registers.js?v=1.2.0+local+20260726021531","js/registers.js":"js/registers.js?v=1.2.0+local+20260726021531","/js/research-app.js":"/js/research-app.js?v=1.2.0+local+20260726021531","js/research-app.js":"js/research-app.js?v=1.2.0+local+20260726021531","/js/research-corpus.js":"/js/research-corpus.js?v=1.2.0+local+20260726021531","js/research-corpus.js":"js/research-corpus.js?v=1.2.0+local+20260726021531","/js/rosetta-alphabets.js":"/js/rosetta-alphabets.js?v=1.2.0+local+20260726021531","js/rosetta-alphabets.js":"js/rosetta-alphabets.js?v=1.2.0+local+20260726021531","/js/rosetta-lab.js":"/js/rosetta-lab.js?v=1.2.0+local+20260726021531","js/rosetta-lab.js":"js/rosetta-lab.js?v=1.2.0+local+20260726021531","/js/rubik-language-map.js":"/js/rubik-language-map.js?v=1.2.0+local+20260726021531","js/rubik-language-map.js":"js/rubik-language-map.js?v=1.2.0+local+20260726021531","/js/saint-crypto-tumble.js":"/js/saint-crypto-tumble.js?v=1.2.0+local+20260726021531","js/saint-crypto-tumble.js":"js/saint-crypto-tumble.js?v=1.2.0+local+20260726021531","/js/schema.js":"/js/schema.js?v=1.2.0+local+20260726021531","js/schema.js":"js/schema.js?v=1.2.0+local+20260726021531","/js/scholar-linguistics.js":"/js/scholar-linguistics.js?v=1.2.0+local+20260726021531","js/scholar-linguistics.js":"js/scholar-linguistics.js?v=1.2.0+local+20260726021531","/js/scribe-forensics.js":"/js/scribe-forensics.js?v=1.2.0+local+20260726021531","js/scribe-forensics.js":"js/scribe-forensics.js?v=1.2.0+local+20260726021531","/js/scribe-live.js":"/js/scribe-live.js?v=1.2.0+local+20260726021531","js/scribe-live.js":"js/scribe-live.js?v=1.2.0+local+20260726021531","/js/shadow-live.js":"/js/shadow-live.js?v=1.2.0+local+20260726021531","js/shadow-live.js":"js/shadow-live.js?v=1.2.0+local+20260726021531","/js/shadow-search.js":"/js/shadow-search.js?v=1.2.0+local+20260726021531","js/shadow-search.js":"js/shadow-search.js?v=1.2.0+local+20260726021531","/js/site-nav.js":"/js/site-nav.js?v=1.2.0+local+20260726021531","js/site-nav.js":"js/site-nav.js?v=1.2.0+local+20260726021531","/js/spatial-hooks.js":"/js/spatial-hooks.js?v=1.2.0+local+20260726021531","js/spatial-hooks.js":"js/spatial-hooks.js?v=1.2.0+local+20260726021531","/js/staff-catalogue.js":"/js/staff-catalogue.js?v=1.2.0+local+20260726021531","js/staff-catalogue.js":"js/staff-catalogue.js?v=1.2.0+local+20260726021531","/js/steno-space-letter-grid.js":"/js/steno-space-letter-grid.js?v=1.2.0+local+20260726021531","js/steno-space-letter-grid.js":"js/steno-space-letter-grid.js?v=1.2.0+local+20260726021531","/js/steno-strip.js":"/js/steno-strip.js?v=1.2.0+local+20260726021531","js/steno-strip.js":"js/steno-strip.js?v=1.2.0+local+20260726021531","/js/terminal-lane.js":"/js/terminal-lane.js?v=1.2.0+local+20260726021531","js/terminal-lane.js":"js/terminal-lane.js?v=1.2.0+local+20260726021531","/js/tool-stack.js":"/js/tool-stack.js?v=1.2.0+local+20260726021531","js/tool-stack.js":"js/tool-stack.js?v=1.2.0+local+20260726021531","/js/typing-practice.js":"/js/typing-practice.js?v=1.2.0+local+20260726021531","js/typing-practice.js":"js/typing-practice.js?v=1.2.0+local+20260726021531","/js/ugrad-live-bus.js":"/js/ugrad-live-bus.js?v=1.2.0+local+20260726021531","js/ugrad-live-bus.js":"js/ugrad-live-bus.js?v=1.2.0+local+20260726021531","/js/ui-i18n.js":"/js/ui-i18n.js?v=1.2.0+local+20260726021531","js/ui-i18n.js":"js/ui-i18n.js?v=1.2.0+local+20260726021531","/js/version.js":"/js/version.js?v=1.2.0+local+20260726021531","js/version.js":"js/version.js?v=1.2.0+local+20260726021531","/js/waveform-letters.js":"/js/waveform-letters.js?v=1.2.0+local+20260726021531","js/waveform-letters.js":"js/waveform-letters.js?v=1.2.0+local+20260726021531","/js/words-seed.js":"/js/words-seed.js?v=1.2.0+local+20260726021531","js/words-seed.js":"js/words-seed.js?v=1.2.0+local+20260726021531","/js/world-path.js":"/js/world-path.js?v=1.2.0+local+20260726021531","js/world-path.js":"js/world-path.js?v=1.2.0+local+20260726021531","/js/writing-systems-catalog.js":"/js/writing-systems-catalog.js?v=1.2.0+local+20260726021531","js/writing-systems-catalog.js":"js/writing-systems-catalog.js?v=1.2.0+local+20260726021531","/js/x-article.js":"/js/x-article.js?v=1.2.0+local+20260726021531","js/x-article.js":"js/x-article.js?v=1.2.0+local+20260726021531"}}
+</script>
+  <script type="module">
+      import { mountTypingPractice } from "/js/typing-practice.js";
+      import {
+        loadWordIndex,
+        loadSliverIndex,
+        loadLetter,
+        loadSliver,
+        loadLangWordIndex,
+        setWordLang,
+        wordsForLetter,
+        wordsForPrefix,
+        prefixesForLetter,
+      } from "/js/corpus.js";
+
+      /* shared theme toggle (same key as Dictionary / Learn / Lyrics) */
+      document.getElementById("theme-toggle")?.addEventListener("click", () => {
+        const cur = document.documentElement.getAttribute("data-theme") || "dark";
+        const next = cur === "light" ? "dark" : "light";
+        document.documentElement.setAttribute("data-theme", next);
+        try {
+          localStorage.setItem("kbatch-dict-theme", next);
+        } catch {
+          /* */
+        }
+      });
+
+      const params = new URLSearchParams(location.search);
+      const letter = (params.get("letter") || params.get("q") || "a").toLowerCase().slice(0, 1);
+      const prefix = (params.get("prefix") || params.get("q") || "").toLowerCase();
+      const startMode = params.get("mode") || "time-30";
+      const startLang = (params.get("lang") || "en").toLowerCase();
+
+      async function enPool() {
+        await loadWordIndex().catch(() => {});
+        await loadSliverIndex().catch(() => {});
+        if (prefix) {
+          await loadSliver(prefix);
+          const w = wordsForPrefix(prefix);
+          if (w.length) return w;
+        }
+        await loadLetter(letter);
+        return wordsForLetter(letter) || [];
+      }
+
+      async function langPool(lang) {
+        const L = String(lang || "es").toLowerCase();
+        if (L === "en") return enPool();
+        setWordLang(L);
+        await loadLangWordIndex(L).catch(() => {});
+        for (const url of [
+          `../data/words/${L}/a.json`,
+          `https://data.ugrad.ai/kbatch/words/${L}/a.json`,
+          `../data/words/${L}/b.json`,
+        ]) {
+          try {
+            const r = await fetch(url, { cache: "force-cache" });
+            if (!r.ok) continue;
+            const doc = await r.json();
+            if (Array.isArray(doc) && doc.length) {
+              return doc.map(String).filter((w) => w.length >= 2 && w.length <= 14).slice(0, 80);
+            }
+          } catch { /* */ }
+        }
+        return enPool();
+      }
+
+      mountTypingPractice(document.getElementById("typing-mount"), {
+        mode: startMode,
+        getPool: enPool,
+        getPoolForMode: async (mode, lang) => {
+          if (mode === "world-lang" || mode === "layout-race" || mode === "strain-cap") {
+            return langPool(lang || startLang);
+          }
+          return enPool();
+        },
+        measureStrain: (text) => {
+          // lightweight heuristic until full analyzer on page
+          const n = String(text || "").length;
+          return { strain: Math.min(100, Math.round(n * 1.2)), rsi: Math.min(100, Math.round(n * 0.9)) };
+        },
+        analyzePhrase: (text) => {
+          location.href = `/?shadow=${encodeURIComponent(text.slice(0, 200))}`;
+        },
+        onFinish: (r) => console.info("typing result", r),
+      });
+
+      const langSel = document.querySelector("[data-role=lang]");
+      if (langSel && startLang) langSel.value = startLang;
+
+      window.kbatchTypingLab = { letter, prefix, prefixesForLetter, startMode, startLang };
+    </script>
+  <script src="/js/site-nav.js?v=1.2.0+local+20260726021531" defer></script>
+  <script src="/js/lab-agent-footer.js" defer></script>
+</body>
+</html>

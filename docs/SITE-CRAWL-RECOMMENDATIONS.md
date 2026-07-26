@@ -1,11 +1,41 @@
-# KBatch site crawl · structure · same-lane collabs · improvement plan
+# KBatch site crawl · structure · same-lane · **status update**
 
-**When:** 2026-07-26 · **Crawler:** MG-SiteAtlas / offline BFS  
-**Origins:** `https://kbatch.ugrad.ai` + `http://127.0.0.1:8899`  
-**P0 status (2026-07-26):** shipped — real `404.html`, `/dojo.html`→`/dojo/`, `/mesh/` hub, absolute nav v12, declaration footers.
-**P1 status:** front-door 3 beats + MCP badge + Declaration hub cards + letter-grid section ids.
+**Original crawl:** 2026-07-26T01:45Z · MG-SiteAtlas BFS  
+**This status:** 2026-07-26T02:16Z  
+**Live verify:** kbatch.ugrad.ai  
 
-**Raw data:** `crawl.json` (177 unique URL nodes, 3305 edges, 85 filesystem HTML files)
+## Status vs original findings
+
+| Original defect | Status | Evidence |
+|-----------------|--------|----------|
+| SPA home on unknown paths | **FIXED** | HTTP **404** + real `404.html` (title “404 · not found”) |
+| `/dojo.html` is Shadow shell | **FIXED** | **301 → `/dojo/`** |
+| Relative nav explosions | **FIXED** (nav) | `site-nav` v12 root-absolute; DOJO product links absolute |
+| Mesh fakes as internal IA | **FIXED** | `/mesh/` hub; `/quantum-gutter.html` → `/mesh/` |
+| Dual `/foo` + `/foo.html` | **MITIGATED** | Redirects to extensionless canons |
+| Letter-grid few anchors | **PARTIAL** | Agent strip + hub cards + `data-section` |
+| Home weak first-run | **PARTIAL** | `#door-beats` type · rank · agents + MCP badge |
+| Collab thin | **OPEN** | Scaffold; honesty banner next |
+| Primary nav overloaded | **OPEN** | Still full rail (P3) |
+
+### Shipped commits (this thread)
+- `7733799` P0 404 / dojo / mesh / absolute nav  
+- `4a0e053` P1 door beats / MCP badge / Declaration hub  
+
+### Live smoke (2026-07-26T02:16Z)
+- miss path → 404 real page  
+- `/dojo.html` → 301 `/dojo/`  
+- `/mesh/` → 200  
+- `/` contains `#door-beats` + `#mcp-ping-badge`  
+- Declaration hub `#declaration-hub`  
+
+### MG operating model (updated)
+| Mode | Action |
+|------|--------|
+| Crawl | **site-nav.js routes only** · flag 200-but-wrong-title |
+| Prefer | `/for-ai#declaration-lab` · `/` `#search-input` · `/dojo/` · Declaration hub |
+| Never | Relative thrash · treat 404 as Shadow |
+| Re-crawl | `python3 scripts/mg-site-crawl.py` then diff this status table |
 
 ---
 
@@ -237,20 +267,23 @@ kbatch.ugrad.ai
 
 ---
 
-## 7. Quick wins checklist
 
-- [x] 404 page + `/dojo.html` → `/dojo/` · **shipped 2026-07-26 P0**  
-- [x] Absolute nav links site-wide (site-nav v12 + DOJO root-absolute)  
-- [x] Home hero 3-beat + MCP ping badge  
-- [x] for-ai#declaration-lab links from letter-grid / cage footers  
-- [x] Section ids on letter-grid shell + Declaration hub cards  
-- [x] External mesh hub `/mesh/` + redirects for fake internal mesh paths  
-- [ ] Collab lab: ship or hide  
-- [ ] Manifest JSON real URL (not SPA HTML)  
-- [ ] Weekly crawl job → `~/.panda/mg-session/site-crawl-*/`
+## 7. Quick wins checklist (updated)
+
+- [x] 404 page + `/dojo.html` → `/dojo/`  
+- [x] Absolute nav links (site-nav + DOJO)  
+- [x] Home 3-beat + MCP ping badge  
+- [x] for-ai#declaration-lab on letter-grid / cage / hub  
+- [x] Declaration hub cards + section ids  
+- [x] External mesh hub `/mesh/`  
+- [x] Letter-grid agent strip anchors  
+- [ ] Whitespace codec naming on hero (not buried “steno”)  
+- [ ] MCP one-click config footer on labs  
+- [ ] Collab: real session or hide/honesty  
+- [ ] Primary nav 6-item slim  
+- [ ] Weekly crawl automation  
 
 ---
-
 ## 8. Bottom line
 
 KBatch is **ahead** on agent geometry (MCP + letter-grid + multi-layout shadows) and **behind** on product focus and link hygiene. Same-lane tools win by being simple; you win by being the **only system that connects type → path → language → archive → agent**.
