@@ -1364,6 +1364,10 @@ export function installGlobalAPI() {
     rubikLanguageSolve: (opts = {}) => fetchRubikLanguageSolveBundle(opts),
     conceptSolve: (args = {}) => mcpCall("kbatch_concept_solve", args),
     conceptStairWalk: (args = {}) => mcpCall("kbatch_concept_stair_walk", args),
+    pushKbatchStairToUgrad: (pack) =>
+      import("./stair-glyph-stream.js").then(({ pushKbatchStairToUgrad }) =>
+        pushKbatchStairToUgrad(pack)
+      ),
     stairGlyphStream: (solve, opts = {}) =>
       import("./stair-glyph-stream.js").then(async ({ buildStairGlyphStream }) => {
         const pack =

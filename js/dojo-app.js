@@ -1230,6 +1230,26 @@ function bind() {
       if (st) st.textContent = `Stair stream fail · ${e?.message || e}`;
     });
   });
+  $("#btn-push-ugrad-stair")?.addEventListener("click", async () => {
+    const st = $("#axes-status") || $("#glyph-status");
+    try {
+      const { pushKbatchStairToUgrad } = await import("./stair-glyph-stream.js");
+      const r = await pushKbatchStairToUgrad();
+      if (st) {
+        st.textContent = r.ok
+          ? `Pushed KBatch stair → ugrad buses (${r.demos} demos) · open :8765`
+          : `Push fail · ${r.error}`;
+      }
+      // also open ugrad live if possible
+      try {
+        window.open("http://127.0.0.1:8765/ugrad.html?live=1", "ugrad-live");
+      } catch {
+        /* */
+      }
+    } catch (e) {
+      if (st) st.textContent = `Push fail · ${e?.message || e}`;
+    }
+  });
   // live carrier → glyph preview (debounce-ish via input)
   $("#glyph-carrier")?.addEventListener("input", () => {
     const carrier = $("#glyph-carrier")?.value?.trim();

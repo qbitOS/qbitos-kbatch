@@ -124,6 +124,73 @@ function steno() {
 /**
  * Load vendor engines + probe each subsystem with real calls.
  */
+/**
+ * Push KBatch stair-instant / languageSolve pack into μgrad Live (:8765)
+ * via quantum-loopback (UgradSpatial.ingest listens for type kbatch-stair).
+ * @param {object} [pack] stair-instant doc or languageSolve demos
+ */
+export async function pushKbatchStairToUgrad(pack) {
+  let doc = pack;
+  if (!doc || !doc.demos) {
+    // fetch live instant
+    const urls = [
+      "/data/concepts/stair-instant.json",
+      "http://127.0.0.1:8899/data/concepts/stair-instant.json",
+      "https://kbatch.ugrad.ai/data/concepts/stair-instant.json",
+    ];
+    for (const u of urls) {
+      try {
+        const r = await fetch(u, { cache: "no-store" });
+        if (r.ok) {
+          doc = await r.json();
+          break;
+        }
+      } catch {
+        /* next */
+      }
+    }
+  }
+  if (!doc) return { ok: false, error: "no stair-instant pack" };
+  const msg = {
+    type: "kbatch-stair",
+    source: "kbatch-dojo",
+    url: "stair-instant",
+    pack: doc,
+    ts: Date.now(),
+  };
+  try {
+    if (typeof BroadcastChannel !== "undefined") {
+      new BroadcastChannel("quantum-loopback").postMessage(msg);
+      new BroadcastChannel("quantum-prefixes").postMessage({
+        type: "kbatch-stair",
+        source: "kbatch-dojo",
+        pack: doc,
+      });
+    }
+  } catch (e) {
+    return { ok: false, error: String(e?.message || e) };
+  }
+  try {
+    publish("iron-line", {
+      type: "kbatch-stair-push",
+      stage: "classify",
+      demos: (doc.demos || []).length,
+      source: "kbatch-dojo",
+      ts: Date.now(),
+    });
+  } catch {
+    /* */
+  }
+  if (typeof window !== "undefined") {
+    window.__KBATCH_LAST_STAIR_PUSH__ = msg;
+  }
+  return {
+    ok: true,
+    demos: (doc.demos || []).length,
+    note: "Open http://127.0.0.1:8765/ugrad.html?live=1 · stair will ingest if spatial engine listening",
+  };
+}
+
 export async function ensureStreamStack() {
   if (typeof document !== "undefined") {
     await ensureGluelam({ base: "/vendor/gluelam/", force: false });
