@@ -1,0 +1,1179 @@
+{
+  "schema": "kbatch-rubik-all-language-path-v1",
+  "at": "2026-07-26T01:20:24.798Z",
+  "formula": "cost(a→b)=1 + layout{0|1.2|3.5} + script{0|1.5|4} + family{0|0.8|2.2} + statusBias(b) − parentBonus; ≥0.1",
+  "costMatrix": {
+    "n": 88,
+    "schema": "kbatch-world-path-cost-matrix-v1",
+    "generated": "2026-07-24T07:21:20.018Z"
+  },
+  "cubes": {
+    "count": 13,
+    "allAvailable": true,
+    "detail": [
+      {
+        "n": 1,
+        "pathId": "pie-germanic-en",
+        "label": "PIE → Germanic → English",
+        "family": "Germanic",
+        "repLang": "en",
+        "repMeta": {
+          "id": "en",
+          "label": "English",
+          "script": "Latin",
+          "layout": "qwerty",
+          "status": "ready",
+          "family": "Germanic"
+        },
+        "available": true
+      },
+      {
+        "n": 2,
+        "pathId": "latin-romance-es",
+        "label": "Latin → Spanish",
+        "family": "Romance",
+        "repLang": "es",
+        "repMeta": {
+          "id": "es",
+          "label": "Spanish",
+          "script": "Latin",
+          "layout": "qwerty",
+          "status": "ready",
+          "family": "Romance"
+        },
+        "available": true
+      },
+      {
+        "n": 3,
+        "pathId": "latin-romance-fr",
+        "label": "Latin → French → English loans",
+        "family": "Romance",
+        "repLang": "fr",
+        "repMeta": {
+          "id": "fr",
+          "label": "French",
+          "script": "Latin",
+          "layout": "azerty",
+          "status": "ready",
+          "family": "Romance"
+        },
+        "available": true
+      },
+      {
+        "n": 4,
+        "pathId": "latin-romance-it",
+        "label": "Latin → Italian",
+        "family": "Romance",
+        "repLang": "it",
+        "repMeta": {
+          "id": "it",
+          "label": "Italian",
+          "script": "Latin",
+          "layout": "qwerty",
+          "status": "ready",
+          "family": "Romance"
+        },
+        "available": true
+      },
+      {
+        "n": 5,
+        "pathId": "latin-de-contact",
+        "label": "Latin / Greek → German → English",
+        "family": "Germanic",
+        "repLang": "de",
+        "repMeta": {
+          "id": "de",
+          "label": "German",
+          "script": "Latin",
+          "layout": "qwertz",
+          "status": "ready",
+          "family": "Germanic"
+        },
+        "available": true
+      },
+      {
+        "n": 6,
+        "pathId": "norse-en",
+        "label": "Old Norse → English",
+        "family": "Germanic",
+        "repLang": "is",
+        "repMeta": {
+          "id": "is",
+          "label": "Icelandic",
+          "script": "Latin",
+          "layout": "qwerty",
+          "status": "placeholder",
+          "family": "Germanic"
+        },
+        "available": true
+      },
+      {
+        "n": 7,
+        "pathId": "greek-learned",
+        "label": "Greek → learned European",
+        "family": "Hellenic",
+        "repLang": "el",
+        "repMeta": {
+          "id": "el",
+          "label": "Greek",
+          "script": "Greek",
+          "layout": "greek",
+          "status": "ready",
+          "family": "Hellenic"
+        },
+        "available": true
+      },
+      {
+        "n": 8,
+        "pathId": "arabic-loans",
+        "label": "Arabic → European science words",
+        "family": "Semitic",
+        "repLang": "ar",
+        "repMeta": {
+          "id": "ar",
+          "label": "Arabic",
+          "script": "Arabic",
+          "layout": "arabic",
+          "status": "ready",
+          "family": "Semitic"
+        },
+        "available": true
+      },
+      {
+        "n": 9,
+        "pathId": "sanskrit-ia",
+        "label": "Sanskrit → Indo-Aryan",
+        "family": "Indo-Aryan",
+        "repLang": "hi",
+        "repMeta": {
+          "id": "hi",
+          "label": "Hindi",
+          "script": "Devanagari",
+          "layout": "hindi",
+          "status": "ready",
+          "family": "Indo-Aryan"
+        },
+        "available": true
+      },
+      {
+        "n": 10,
+        "pathId": "sinitic",
+        "label": "Old Chinese → modern Sinitic",
+        "family": "Sinitic",
+        "repLang": "zh",
+        "repMeta": {
+          "id": "zh",
+          "label": "Chinese",
+          "script": "Han",
+          "layout": "qwerty",
+          "status": "ready",
+          "family": "Sinitic"
+        },
+        "available": true
+      },
+      {
+        "n": 11,
+        "pathId": "algic-anishinaabe",
+        "label": "Algic → Anishinaabemowin / nêhiyawêwin",
+        "family": "Algic",
+        "repLang": "oj",
+        "repMeta": {
+          "id": "oj",
+          "label": "Ojibwe",
+          "script": "Latin",
+          "layout": "qwerty",
+          "status": "honor",
+          "family": "Algic"
+        },
+        "available": true
+      },
+      {
+        "n": 12,
+        "pathId": "iroquoian-tsalagi",
+        "label": "Iroquoian → Tsalagi / Kanienʼkéha",
+        "family": "Iroquoian",
+        "repLang": "chr",
+        "repMeta": {
+          "id": "chr",
+          "label": "Cherokee",
+          "script": "Cherokee",
+          "layout": "qwerty",
+          "status": "honor",
+          "family": "Iroquoian"
+        },
+        "available": true
+      },
+      {
+        "n": 13,
+        "pathId": "nadene-dine",
+        "label": "Na-Dené → Diné bizaad",
+        "family": "Na-Dené",
+        "repLang": "nav",
+        "repMeta": {
+          "id": "nav",
+          "label": "Navajo",
+          "script": "Latin",
+          "layout": "qwerty",
+          "status": "honor",
+          "family": "Na-Dené"
+        },
+        "available": true
+      }
+    ]
+  },
+  "tours": {
+    "rubikCubeCover": {
+      "method": "nearest-neighbor + 2-opt on direct c(a,b), then Dijkstra expand",
+      "start": "en",
+      "cubeRepOrder": [
+        "en",
+        "is",
+        "de",
+        "fr",
+        "it",
+        "es",
+        "nav",
+        "oj",
+        "ar",
+        "hi",
+        "el",
+        "zh",
+        "chr"
+      ],
+      "directHopCost": 83.5,
+      "expandedPath": [
+        "en",
+        "is",
+        "de",
+        "fr",
+        "it",
+        "es",
+        "nav",
+        "oj",
+        "ar",
+        "hi",
+        "el",
+        "zh",
+        "chr"
+      ],
+      "expandedTotalCost": 83.5,
+      "mstLowerBoundOnReps": 76,
+      "hops": [
+        {
+          "from": "en",
+          "to": "is",
+          "path": [
+            "en",
+            "is"
+          ],
+          "cost": 3.5
+        },
+        {
+          "from": "is",
+          "to": "de",
+          "path": [
+            "is",
+            "de"
+          ],
+          "cost": 2.2
+        },
+        {
+          "from": "de",
+          "to": "fr",
+          "path": [
+            "de",
+            "fr"
+          ],
+          "cost": 3
+        },
+        {
+          "from": "fr",
+          "to": "it",
+          "path": [
+            "fr",
+            "it"
+          ],
+          "cost": 2.2
+        },
+        {
+          "from": "it",
+          "to": "es",
+          "path": [
+            "it",
+            "es"
+          ],
+          "cost": 1
+        },
+        {
+          "from": "es",
+          "to": "nav",
+          "path": [
+            "es",
+            "nav"
+          ],
+          "cost": 9.2
+        },
+        {
+          "from": "nav",
+          "to": "oj",
+          "path": [
+            "nav",
+            "oj"
+          ],
+          "cost": 7.8
+        },
+        {
+          "from": "oj",
+          "to": "ar",
+          "path": [
+            "oj",
+            "ar"
+          ],
+          "cost": 10.7
+        },
+        {
+          "from": "ar",
+          "to": "hi",
+          "path": [
+            "ar",
+            "hi"
+          ],
+          "cost": 10.7
+        },
+        {
+          "from": "hi",
+          "to": "el",
+          "path": [
+            "hi",
+            "el"
+          ],
+          "cost": 9.3
+        },
+        {
+          "from": "el",
+          "to": "zh",
+          "path": [
+            "el",
+            "zh"
+          ],
+          "cost": 10.7
+        },
+        {
+          "from": "zh",
+          "to": "chr",
+          "path": [
+            "zh",
+            "chr"
+          ],
+          "cost": 13.2
+        }
+      ],
+      "coverage": [
+        {
+          "step": 1,
+          "lang": "en",
+          "meta": {
+            "label": "English",
+            "script": "Latin",
+            "family": "Germanic",
+            "layout": "qwerty",
+            "status": "ready"
+          },
+          "cubes": [
+            "pie-germanic-en"
+          ]
+        },
+        {
+          "step": 2,
+          "lang": "is",
+          "meta": {
+            "label": "Icelandic",
+            "script": "Latin",
+            "family": "Germanic",
+            "layout": "qwerty",
+            "status": "placeholder"
+          },
+          "cubes": [
+            "norse-en"
+          ]
+        },
+        {
+          "step": 3,
+          "lang": "de",
+          "meta": {
+            "label": "German",
+            "script": "Latin",
+            "family": "Germanic",
+            "layout": "qwertz",
+            "status": "ready"
+          },
+          "cubes": [
+            "latin-de-contact"
+          ]
+        },
+        {
+          "step": 4,
+          "lang": "fr",
+          "meta": {
+            "label": "French",
+            "script": "Latin",
+            "family": "Romance",
+            "layout": "azerty",
+            "status": "ready"
+          },
+          "cubes": [
+            "latin-romance-fr"
+          ]
+        },
+        {
+          "step": 5,
+          "lang": "it",
+          "meta": {
+            "label": "Italian",
+            "script": "Latin",
+            "family": "Romance",
+            "layout": "qwerty",
+            "status": "ready"
+          },
+          "cubes": [
+            "latin-romance-it"
+          ]
+        },
+        {
+          "step": 6,
+          "lang": "es",
+          "meta": {
+            "label": "Spanish",
+            "script": "Latin",
+            "family": "Romance",
+            "layout": "qwerty",
+            "status": "ready"
+          },
+          "cubes": [
+            "latin-romance-es"
+          ]
+        },
+        {
+          "step": 7,
+          "lang": "nav",
+          "meta": {
+            "label": "Navajo",
+            "script": "Latin",
+            "family": "Na-Dené",
+            "layout": "qwerty",
+            "status": "honor"
+          },
+          "cubes": [
+            "nadene-dine"
+          ]
+        },
+        {
+          "step": 8,
+          "lang": "oj",
+          "meta": {
+            "label": "Ojibwe",
+            "script": "Latin",
+            "family": "Algic",
+            "layout": "qwerty",
+            "status": "honor"
+          },
+          "cubes": [
+            "algic-anishinaabe"
+          ]
+        },
+        {
+          "step": 9,
+          "lang": "ar",
+          "meta": {
+            "label": "Arabic",
+            "script": "Arabic",
+            "family": "Semitic",
+            "layout": "arabic",
+            "status": "ready"
+          },
+          "cubes": [
+            "arabic-loans"
+          ]
+        },
+        {
+          "step": 10,
+          "lang": "hi",
+          "meta": {
+            "label": "Hindi",
+            "script": "Devanagari",
+            "family": "Indo-Aryan",
+            "layout": "hindi",
+            "status": "ready"
+          },
+          "cubes": [
+            "sanskrit-ia"
+          ]
+        },
+        {
+          "step": 11,
+          "lang": "el",
+          "meta": {
+            "label": "Greek",
+            "script": "Greek",
+            "family": "Hellenic",
+            "layout": "greek",
+            "status": "ready"
+          },
+          "cubes": [
+            "greek-learned"
+          ]
+        },
+        {
+          "step": 12,
+          "lang": "zh",
+          "meta": {
+            "label": "Chinese",
+            "script": "Han",
+            "family": "Sinitic",
+            "layout": "qwerty",
+            "status": "ready"
+          },
+          "cubes": [
+            "sinitic"
+          ]
+        },
+        {
+          "step": 13,
+          "lang": "chr",
+          "meta": {
+            "label": "Cherokee",
+            "script": "Cherokee",
+            "family": "Iroquoian",
+            "layout": "qwerty",
+            "status": "honor"
+          },
+          "cubes": [
+            "iroquoian-tsalagi"
+          ]
+        }
+      ],
+      "cubesCovered": 13
+    },
+    "familyCover": {
+      "method": "NN over one rep per family in matrix",
+      "familyCount": 34,
+      "order": [
+        "en",
+        "nl",
+        "la",
+        "pl",
+        "fr",
+        "sw",
+        "ha",
+        "ga",
+        "ku",
+        "tr",
+        "vi",
+        "zh",
+        "ko",
+        "ar",
+        "el",
+        "hi",
+        "ja",
+        "th",
+        "my",
+        "hy",
+        "ka",
+        "ta",
+        "eus",
+        "chy",
+        "lkt",
+        "lut",
+        "mus",
+        "nav",
+        "mri",
+        "sme",
+        "zul",
+        "chr",
+        "iku",
+        "mn",
+        "ain"
+      ],
+      "directHopCost": 286.6,
+      "expandedTotalCost": 286.6,
+      "expandedPath": [
+        "en",
+        "nl",
+        "la",
+        "pl",
+        "fr",
+        "sw",
+        "ha",
+        "ga",
+        "ku",
+        "tr",
+        "vi",
+        "zh",
+        "ko",
+        "ar",
+        "el",
+        "hi",
+        "ja",
+        "th",
+        "my",
+        "hy",
+        "ka",
+        "ta",
+        "eus",
+        "chy",
+        "lkt",
+        "lut",
+        "mus",
+        "nav",
+        "mri",
+        "sme",
+        "zul",
+        "chr",
+        "iku",
+        "mn",
+        "ain"
+      ]
+    },
+    "allReadyGreedy": {
+      "method": "NN over all status=ready packs",
+      "readyCount": 24,
+      "order": [
+        "en",
+        "nl",
+        "sv",
+        "it",
+        "pt",
+        "ro",
+        "es",
+        "la",
+        "pl",
+        "fr",
+        "de",
+        "sw",
+        "tr",
+        "vi",
+        "zh",
+        "ko",
+        "ar",
+        "he",
+        "el",
+        "hi",
+        "sa",
+        "ru",
+        "ja",
+        "th"
+      ],
+      "directHopCost": 121.6,
+      "expandedTotalCost": 121.6,
+      "stepCount": 24,
+      "orderHead": [
+        "en",
+        "nl",
+        "sv",
+        "it",
+        "pt",
+        "ro",
+        "es",
+        "la",
+        "pl",
+        "fr",
+        "de",
+        "sw"
+      ],
+      "orderTail": [
+        "ar",
+        "he",
+        "el",
+        "hi",
+        "sa",
+        "ru",
+        "ja",
+        "th"
+      ]
+    },
+    "precomputed": {
+      "readyFromEn": {
+        "stepCount": 23,
+        "totalTransferCost": 121.6,
+        "steps": [
+          {
+            "n": 1,
+            "id": "nl",
+            "cost": 1,
+            "role": "transfer",
+            "script": "Latin",
+            "layout": "qwerty"
+          },
+          {
+            "n": 2,
+            "id": "sv",
+            "cost": 1,
+            "role": "transfer",
+            "script": "Latin",
+            "layout": "qwerty"
+          },
+          {
+            "n": 3,
+            "id": "it",
+            "cost": 1.8,
+            "role": "transfer",
+            "script": "Latin",
+            "layout": "qwerty"
+          },
+          {
+            "n": 4,
+            "id": "pt",
+            "cost": 1,
+            "role": "transfer",
+            "script": "Latin",
+            "layout": "qwerty"
+          },
+          {
+            "n": 5,
+            "id": "ro",
+            "cost": 1,
+            "role": "transfer",
+            "script": "Latin",
+            "layout": "qwerty"
+          },
+          {
+            "n": 6,
+            "id": "es",
+            "cost": 1,
+            "role": "transfer",
+            "script": "Latin",
+            "layout": "qwerty"
+          },
+          {
+            "n": 7,
+            "id": "la",
+            "cost": 1.3,
+            "role": "transfer",
+            "script": "Latin",
+            "layout": "qwerty"
+          },
+          {
+            "n": 8,
+            "id": "pl",
+            "cost": 1.8,
+            "role": "transfer",
+            "script": "Latin",
+            "layout": "qwerty"
+          },
+          {
+            "n": 9,
+            "id": "fr",
+            "cost": 3,
+            "role": "transfer",
+            "script": "Latin",
+            "layout": "azerty"
+          },
+          {
+            "n": 10,
+            "id": "de",
+            "cost": 3,
+            "role": "transfer",
+            "script": "Latin",
+            "layout": "qwertz"
+          },
+          {
+            "n": 11,
+            "id": "sw",
+            "cost": 4.4,
+            "role": "transfer",
+            "script": "Latin",
+            "layout": "qwerty"
+          },
+          {
+            "n": 12,
+            "id": "tr",
+            "cost": 6.7,
+            "role": "transfer",
+            "script": "Latin",
+            "layout": "turkish_f"
+          },
+          {
+            "n": 13,
+            "id": "vi",
+            "cost": 6.7,
+            "role": "transfer",
+            "script": "Latin",
+            "layout": "vietnamese"
+          },
+          {
+            "n": 14,
+            "id": "zh",
+            "cost": 9.3,
+            "role": "portal",
+            "script": "Han",
+            "layout": "qwerty"
+          },
+          {
+            "n": 15,
+            "id": "ko",
+            "cost": 8.2,
+            "role": "portal",
+            "script": "Hangul",
+            "layout": "korean"
+          },
+          {
+            "n": 16,
+            "id": "ar",
+            "cost": 10.7,
+            "role": "portal",
+            "script": "Arabic",
+            "layout": "arabic"
+          },
+          {
+            "n": 17,
+            "id": "he",
+            "cost": 8.5,
+            "role": "portal",
+            "script": "Hebrew",
+            "layout": "hebrew"
+          },
+          {
+            "n": 18,
+            "id": "el",
+            "cost": 10.7,
+            "role": "portal",
+            "script": "Greek",
+            "layout": "greek"
+          },
+          {
+            "n": 19,
+            "id": "hi",
+            "cost": 9.3,
+            "role": "portal",
+            "script": "Devanagari",
+            "layout": "hindi"
+          },
+          {
+            "n": 20,
+            "id": "sa",
+            "cost": 0.5,
+            "role": "transfer",
+            "script": "Devanagari",
+            "layout": "hindi"
+          },
+          {
+            "n": 21,
+            "id": "ru",
+            "cost": 9.3,
+            "role": "portal",
+            "script": "Cyrillic",
+            "layout": "jcuken"
+          },
+          {
+            "n": 22,
+            "id": "ja",
+            "cost": 10.7,
+            "role": "portal",
+            "script": "Kana/Kanji",
+            "layout": "japanese"
+          },
+          {
+            "n": 23,
+            "id": "th",
+            "cost": 10.7,
+            "role": "portal",
+            "script": "Thai",
+            "layout": "thai"
+          }
+        ]
+      },
+      "portalsFromEn": {
+        "stepCount": 14,
+        "steps": [
+          {
+            "n": 1,
+            "id": "ru",
+            "cost": 9.3,
+            "script": "Cyrillic"
+          },
+          {
+            "n": 2,
+            "id": "ar",
+            "cost": 10.7,
+            "script": "Arabic"
+          },
+          {
+            "n": 3,
+            "id": "zh",
+            "cost": 7.2,
+            "script": "Han"
+          },
+          {
+            "n": 4,
+            "id": "ko",
+            "cost": 10.7,
+            "script": "Hangul"
+          },
+          {
+            "n": 5,
+            "id": "ja",
+            "cost": 10.7,
+            "script": "Kana/Kanji"
+          },
+          {
+            "n": 6,
+            "id": "el",
+            "cost": 9.3,
+            "script": "Greek"
+          },
+          {
+            "n": 7,
+            "id": "he",
+            "cost": 10.7,
+            "script": "Hebrew"
+          },
+          {
+            "n": 8,
+            "id": "hi",
+            "cost": 9.3,
+            "script": "Devanagari"
+          },
+          {
+            "n": 9,
+            "id": "th",
+            "cost": 10.7,
+            "script": "Thai"
+          },
+          {
+            "n": 10,
+            "id": "ka",
+            "cost": 9.7,
+            "script": "Georgian"
+          },
+          {
+            "n": 11,
+            "id": "hy",
+            "cost": 9.7,
+            "script": "Armenian"
+          },
+          {
+            "n": 12,
+            "id": "chr",
+            "cost": 13.2,
+            "script": "Cherokee"
+          },
+          {
+            "n": 13,
+            "id": "bn",
+            "cost": 8.3,
+            "script": "Bengali"
+          },
+          {
+            "n": 14,
+            "id": "ta",
+            "cost": 9.7,
+            "script": "Tamil"
+          }
+        ]
+      }
+    }
+  },
+  "math": {
+    "edgeCost": "c(a,b)=1+L+S+F+B−0.5·parent; floor 0.1 (same as DOJO world-path)",
+    "tourObjective": "min Σ c(π_i, π_{i+1}) over order visiting all Rubik cube representatives",
+    "lowerBound": "MST on rep complete graph ≤ OPT TSP",
+    "note": "tilde_c (SO/phon) not applied — pure geometric/genealogical c(a,b)"
+  },
+  "urls": {
+    "costMatrix": "/data/world-path/cost-matrix.json",
+    "rubikBind": "/data/declaration/letter-grid-rubik.json",
+    "dojo": "https://kbatch.ugrad.ai/dojo/",
+    "tour": "/data/declaration/rubik-all-language-path.json",
+    "doc": "/docs/RUBIK-ALL-LANGUAGE-PATH.md",
+    "shadowRubik": "/docs/SHADOW-RUBIK-LETTER-GRID.md",
+    "worldPathModel": "/docs/WORLD-PATH-COST-MODEL.md",
+    "mcpRubik": "kbatch_lettergrid_rubik",
+    "mcpWorldPath": "kbatch_world_path",
+    "mgSession": "~/.panda/mg-session/rubik-all-path-2026-07-26T0120/"
+  },
+  "summary": {
+    "primaryTour": "rubikCubeCover",
+    "doctrine": "Pure C[88×88] langTransferCost — same as DOJO Fastest path. No SO/phon tilde_c.",
+    "formula": "cost(a→b)=1 + layout{0|1.2|3.5} + script{0|1.5|4} + family{0|0.8|2.2} + statusBias(b) − parentBonus; ≥0.1",
+    "visitOrder": [
+      "en",
+      "is",
+      "de",
+      "fr",
+      "it",
+      "es",
+      "nav",
+      "oj",
+      "ar",
+      "hi",
+      "el",
+      "zh",
+      "chr"
+    ],
+    "visitOrderStr": "en → is → de → fr → it → es → nav → oj → ar → hi → el → zh → chr",
+    "metrics": {
+      "cubesCovered": 13,
+      "directHopSumC": 83.5,
+      "expandedSumC": 83.5,
+      "mstLowerBound": 76,
+      "expandedSteps": 13,
+      "note": "Tour within ~10% of MST on 13 stand-ins"
+    },
+    "broader": {
+      "rubikCover": {
+        "scope": "13 cubes",
+        "sumC": 83.5,
+        "steps": 13
+      },
+      "allReady": {
+        "scope": "24 ready packs",
+        "sumC": 121.6,
+        "steps": 24
+      },
+      "familyCover": {
+        "scope": "34 families",
+        "sumC": 286.6,
+        "steps": 34
+      }
+    },
+    "hops": [
+      {
+        "from": "en",
+        "to": "is",
+        "cube": "norse-en",
+        "cost": 3.5,
+        "path": [
+          "en",
+          "is"
+        ]
+      },
+      {
+        "from": "is",
+        "to": "de",
+        "cube": "latin-de-contact",
+        "cost": 2.2,
+        "path": [
+          "is",
+          "de"
+        ]
+      },
+      {
+        "from": "de",
+        "to": "fr",
+        "cube": "latin-romance-fr",
+        "cost": 3,
+        "path": [
+          "de",
+          "fr"
+        ]
+      },
+      {
+        "from": "fr",
+        "to": "it",
+        "cube": "latin-romance-it",
+        "cost": 2.2,
+        "path": [
+          "fr",
+          "it"
+        ]
+      },
+      {
+        "from": "it",
+        "to": "es",
+        "cube": "latin-romance-es",
+        "cost": 1,
+        "path": [
+          "it",
+          "es"
+        ]
+      },
+      {
+        "from": "es",
+        "to": "nav",
+        "cube": "nadene-dine",
+        "cost": 9.2,
+        "path": [
+          "es",
+          "nav"
+        ]
+      },
+      {
+        "from": "nav",
+        "to": "oj",
+        "cube": "algic-anishinaabe",
+        "cost": 7.8,
+        "path": [
+          "nav",
+          "oj"
+        ]
+      },
+      {
+        "from": "oj",
+        "to": "ar",
+        "cube": "arabic-loans",
+        "cost": 10.7,
+        "path": [
+          "oj",
+          "ar"
+        ]
+      },
+      {
+        "from": "ar",
+        "to": "hi",
+        "cube": "sanskrit-ia",
+        "cost": 10.7,
+        "path": [
+          "ar",
+          "hi"
+        ]
+      },
+      {
+        "from": "hi",
+        "to": "el",
+        "cube": "greek-learned",
+        "cost": 9.3,
+        "path": [
+          "hi",
+          "el"
+        ]
+      },
+      {
+        "from": "el",
+        "to": "zh",
+        "cube": "sinitic",
+        "cost": 10.7,
+        "path": [
+          "el",
+          "zh"
+        ]
+      },
+      {
+        "from": "zh",
+        "to": "chr",
+        "cube": "iroquoian-tsalagi",
+        "cost": 13.2,
+        "path": [
+          "zh",
+          "chr"
+        ]
+      }
+    ],
+    "latinClusterCheap": true,
+    "scriptJumpsDominate": [
+      "ar",
+      "hi",
+      "el",
+      "zh",
+      "chr",
+      "nav",
+      "oj"
+    ]
+  },
+  "agent": {
+    "ping": "await kbatchDict.mcp(\"kbatch_lettergrid_rubik\")",
+    "tour": "fetch(\"/data/declaration/rubik-all-language-path.json\")",
+    "ready": "await kbatchDict.mcp(\"kbatch_world_path\", { from: \"en\", mode: \"ready\" })",
+    "includeTour": "await kbatchDict.mcp(\"kbatch_lettergrid_rubik\", { include: [\"pathways\",\"tour\"] })"
+  },
+  "shipped": "2026-07-26T01:28:12Z"
+}

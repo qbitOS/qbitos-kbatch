@@ -1566,6 +1566,7 @@ async function toolLettergrid(request, name, args) {
       "calibration",
       "patterns",
       "compose",
+      "tour",
     ];
     const pathId =
       args.pathId || rubik.letterGrid?.defaultFocus || "pie-germanic-en";
@@ -1591,8 +1592,51 @@ async function toolLettergrid(request, name, args) {
     if (include.includes("calibration")) out.calibration = rubik.calibration;
     if (include.includes("patterns")) out.patterns = rubik.patterns;
     if (include.includes("compose")) out.compose = rubik.compose;
+    const TOUR_PATH = "declaration/rubik-all-language-path.json";
+    if (include.includes("tour") || args.tour) {
+      let tour = await fetchJson(request, TOUR_PATH);
+      if (!tour) {
+        try {
+          const u = new URL("/data/" + TOUR_PATH, request.url);
+          const r = await fetch(u.toString());
+          if (r.ok) tour = await r.json();
+        } catch {
+          /* */
+        }
+      }
+      if (tour) {
+        out.tour = {
+          schema: tour.schema,
+          at: tour.at,
+          summary: tour.summary || null,
+          primary: tour.tours?.rubikCubeCover
+            ? {
+                method: tour.tours.rubikCubeCover.method,
+                order: tour.summary?.visitOrder,
+                orderStr: tour.summary?.visitOrderStr,
+                directHopSumC: tour.tours.rubikCubeCover.directHopCost,
+                mstLowerBound: tour.tours.rubikCubeCover.mstLowerBoundOnReps,
+                cubesCovered: tour.tours.rubikCubeCover.cubesCovered,
+                hops: tour.summary?.hops || tour.tours.rubikCubeCover.hops,
+              }
+            : null,
+          broader: tour.summary?.broader || null,
+          doctrine:
+            tour.summary?.doctrine ||
+            "Pure C[88×88] — same as DOJO; no SO/phon tilde_c",
+          urls: tour.urls,
+        };
+      } else {
+        out.tour = {
+          error: "rubik-all-language-path.json not deployed",
+          url: "/data/" + TOUR_PATH,
+        };
+      }
+    }
     out.urls = {
       bind: "/data/declaration/letter-grid-rubik.json",
+      allLanguagePath: "/data/declaration/rubik-all-language-path.json",
+      allLanguagePathDoc: "/docs/RUBIK-ALL-LANGUAGE-PATH.md",
       costMatrix: rubik.patterns?.worldPath?.costMatrix,
       jaxBank: rubik.calibration?.jaxFeatureBank,
       probeSet: rubik.calibration?.probeSet,

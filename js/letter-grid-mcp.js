@@ -540,6 +540,7 @@ export async function lettergridMcpCall(name, args = {}, opts = {}) {
           master: MASTER_URL,
           paleography: PALEO_URL,
           rubik: RUBIK_URL,
+          rubikAllPath: "/data/declaration/rubik-all-language-path.json",
           mcp: "/api/mcp",
           costMatrix: "/data/world-path/cost-matrix.json",
           jaxBank: "/data/calibration/jax-feature-bank.json",
@@ -556,6 +557,7 @@ export async function lettergridMcpCall(name, args = {}, opts = {}) {
         "calibration",
         "patterns",
         "compose",
+        "tour",
       ];
       const pathId =
         args.pathId ||
@@ -583,9 +585,50 @@ export async function lettergridMcpCall(name, args = {}, opts = {}) {
       if (include.includes("calibration")) out.calibration = pack.calibration;
       if (include.includes("patterns")) out.patterns = pack.patterns;
       if (include.includes("compose")) out.compose = pack.compose;
+      // All-13 Rubik mathematical tour (pure C, DOJO-true — no tilde_c)
+      const TOUR_URL = "/data/declaration/rubik-all-language-path.json";
+      if (include.includes("tour") || args.tour) {
+        try {
+          const base =
+            typeof location !== "undefined" && location.origin
+              ? location.origin
+              : "https://kbatch.ugrad.ai";
+          const tr = await (fetchImpl || fetch)(base + TOUR_URL, {
+            cache: "default",
+          });
+          if (tr.ok) {
+            const tour = await tr.json();
+            out.tour = {
+              schema: tour.schema,
+              at: tour.at,
+              summary: tour.summary || null,
+              primary: tour.tours?.rubikCubeCover
+                ? {
+                    method: tour.tours.rubikCubeCover.method,
+                    order: tour.summary?.visitOrder,
+                    orderStr: tour.summary?.visitOrderStr,
+                    directHopSumC: tour.tours.rubikCubeCover.directHopCost,
+                    mstLowerBound: tour.tours.rubikCubeCover.mstLowerBoundOnReps,
+                    cubesCovered: tour.tours.rubikCubeCover.cubesCovered,
+                    hops: tour.summary?.hops || tour.tours.rubikCubeCover.hops,
+                  }
+                : null,
+              broader: tour.summary?.broader || null,
+              doctrine:
+                tour.summary?.doctrine ||
+                "Pure C[88×88] — same as DOJO; no SO/phon tilde_c",
+              urls: tour.urls,
+            };
+          }
+        } catch {
+          out.tour = { error: "tour pack load failed", url: TOUR_URL };
+        }
+      }
       out.urls = {
         bind: RUBIK_URL,
         doc: "/docs/SHADOW-RUBIK-LETTER-GRID.md",
+        allLanguagePath: TOUR_URL,
+        allLanguagePathDoc: "/docs/RUBIK-ALL-LANGUAGE-PATH.md",
         costMatrix: pack.patterns?.worldPath?.costMatrix,
         jaxBank: pack.calibration?.jaxFeatureBank,
         probeSet: pack.calibration?.probeSet,

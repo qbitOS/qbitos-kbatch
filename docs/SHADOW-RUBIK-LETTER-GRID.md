@@ -84,14 +84,34 @@ $$\tilde c(a,b)=c(a,b)\bigl(1+\mu\,\mathbb{E}_t[d_{\mathrm{SO}}]\bigr)$$
 ```
 
 ```js
-await kbatchDict.mcp("kbatch_lettergrid_rubik")
+await kbatchDict.mcp("kbatch_lettergrid_rubik")  // pathways + all-13 tour (pure C)
 await kbatchDict.mcp("kbatch_lettergrid_ping")
-await kbatchDict.mcp("kbatch_world_path", { from: "en", mode: "ready" })
+await kbatchDict.mcp("kbatch_world_path", { from: "en", mode: "ready" })  // Σc=121.6
 await kbatchDict.mcp("kbatch_export_jax", { text: "IN CONGRESS", layout: "qwerty" })
 // banks:
 // GET /data/calibration/jax-feature-bank.json
 // GET /data/world-path/cost-matrix.json
+// GET /data/declaration/rubik-all-language-path.json  // 13-cube tour Σc=83.5
+// docs: /docs/RUBIK-ALL-LANGUAGE-PATH.md
 ```
+
+### All-13 Rubik mathematical path (DOJO-true C)
+
+Primary cover (nearest-neighbor + 2-opt · Dijkstra hops · no tilde_c):
+
+```
+en → is → de → fr → it → es → nav → oj → ar → hi → el → zh → chr
+```
+
+| Metric | Value |
+|--------|------:|
+| Cubes | 13 / 13 |
+| Direct hop Σ c | **83.5** |
+| MST lower bound | 76 (~10% gap) |
+| All ready | 121.6 (matches `readyFromEn`) |
+| Family cover | 286.6 (34 families) |
+
+Latin cluster is cheap; script/honor jumps dominate. See [RUBIK-ALL-LANGUAGE-PATH.md](./RUBIK-ALL-LANGUAGE-PATH.md).
 
 ---
 
